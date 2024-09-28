@@ -278,7 +278,7 @@
                         </div>
 
 
-                        <jsp:setProperty name="dashDAO" property="service" value="0"/>
+                        <%-- <jsp:setProperty name="dashDAO" property="service" value="0"/>--%>
                         <%
                             String services = dashDAO.getServices();
                             String revenues = dashDAO.getRevenues();

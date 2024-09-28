@@ -1,6 +1,5 @@
 package bean;
 
-import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
@@ -16,7 +15,6 @@ import lombok.Data;
  * 사실상 똑같은 이름의 메서드를 중복 정의하는 것이기에 에러가 발생할 수 있으니 주의해야 합니다. 
  * 그게 아니라면 비즈니스 로직을 구현하는 메서드를 얼마든지 추가해도 문제는 발생하지 않을 것입니다. 
  */
-
 public class DashboardDTO {
 	private String product_name;
 	private int product_ea;
@@ -26,7 +24,7 @@ public class DashboardDTO {
 	private int service_price;
 	private int service_cnt;
     private String notice_title;
-	
+
 	/* 월별 서비스 매출 */
 	public int getChart_revenue() {
 		return service_price * service_cnt;

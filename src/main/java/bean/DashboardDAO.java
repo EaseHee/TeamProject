@@ -74,7 +74,7 @@ public class DashboardDAO {
 	}    
     
 	public List<DashboardDTO> getProduct() {
-		String sql = "SELECT product_name, product_ea FROM pd WHERE product_ea < 4 ORDER BY product_ea";
+		String sql = "SELECT product_name, product_ea FROM product WHERE product_ea < 4 ORDER BY product_ea";
 		ArrayList<DashboardDTO> list = new ArrayList<>();
 		try {
 			connection = dataSource.getConnection();			
@@ -107,7 +107,7 @@ public class DashboardDAO {
 			
 			while(resultSet.next()){
 				DashboardDTO board = new DashboardDTO();
-				board.setReservation_time(resultSet.getTimestamp("reservation_time"));
+				board.setReservation_time(resultSet.getString("reservation_time"));
 				board.setService_name(resultSet.getString("service_name"));
 				
 				list.add(board);
