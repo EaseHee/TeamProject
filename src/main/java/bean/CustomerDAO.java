@@ -54,10 +54,10 @@ public class CustomerDAO {
  		String sql = null;
  		
  		if(keyWord == null || keyWord.isEmpty()) {
- 			sql = "SELECT * FROM cus";
+ 			sql = "SELECT * FROM customer";
  		}
  		else {
- 			sql = "SELECT * FROM cus WHERE " + keyField + " LIKE '%" + keyWord + "%'";
+ 			sql = "SELECT * FROM customer WHERE " + keyField + " LIKE '%" + keyWord + "%'";
  		}
  		
  		//전달할 쿼리 준비(어떤 명령어를 db에 전달할지)
@@ -72,14 +72,14 @@ public class CustomerDAO {
  		
  			while(resultSet.next()) {
  				CustomerDTO customer = new CustomerDTO();
- 				customer.setCus_id(resultSet.getInt("cus_id"));
- 				customer.setCus_name(resultSet.getString("cus_name"));
- 				customer.setCus_gender(resultSet.getString("cus_gender"));
- 				customer.setCus_ph(resultSet.getString("cus_ph"));
- 				customer.setCus_mail(resultSet.getString("cus_mail"));
- 				customer.setCus_reg(resultSet.getString("cus_reg"));
- 				customer.setCus_rank(resultSet.getString("cus_rank"));
- 				customer.setCus_note(resultSet.getString("cus_note"));
+ 				customer.setCustomer_id(resultSet.getInt("customer_id"));
+ 				customer.setCustomer_name(resultSet.getString("customer_name"));
+ 				customer.setCustomer_gender(resultSet.getString("customer_gender"));
+ 				customer.setCustomer_tel(resultSet.getString("customer_tel"));
+ 				customer.setCustomer_mail(resultSet.getString("customer_mail"));
+ 				customer.setCustomer_reg(resultSet.getString("customer_reg"));
+ 				customer.setCustomer_rank(resultSet.getString("customer_rank"));
+ 				customer.setCustomer_note(resultSet.getString("customer_note"));
  				
  				list.add(customer);
  			}
@@ -98,9 +98,9 @@ public class CustomerDAO {
         String sql = null;
 
         if (keyWord == null || keyWord.isEmpty()) {
-            sql = "SELECT * FROM cus";
+            sql = "SELECT * FROM customer";
         } else {
-            sql = "SELECT * FROM cus WHERE " + keyField + " LIKE ?";
+            sql = "SELECT * FROM customer WHERE " + keyField + " LIKE ?";
         }
 
         ArrayList<CustomerDTO> customerList = new ArrayList<>();
@@ -117,14 +117,14 @@ public class CustomerDAO {
 
             while (resultSet.next()) {
                 CustomerDTO customer = new CustomerDTO();
-                customer.setCus_id(resultSet.getInt("cus_id"));
-                customer.setCus_name(resultSet.getString("cus_name"));
-                customer.setCus_gender(resultSet.getString("cus_gender"));
-                customer.setCus_ph(resultSet.getString("cus_ph"));
-                customer.setCus_mail(resultSet.getString("cus_mail"));
-                customer.setCus_reg(resultSet.getString("cus_reg"));
-                customer.setCus_rank(resultSet.getString("cus_rank"));
-                customer.setCus_note(resultSet.getString("cus_note"));
+                customer.setCustomer_id(resultSet.getInt("customer_id"));
+                customer.setCustomer_name(resultSet.getString("customer_name"));
+                customer.setCustomer_gender(resultSet.getString("customer_gender"));
+                customer.setCustomer_tel(resultSet.getString("customer_tel"));
+                customer.setCustomer_mail(resultSet.getString("customer_mail"));
+                customer.setCustomer_reg(resultSet.getString("customer_reg"));
+                customer.setCustomer_rank(resultSet.getString("customer_rank"));
+                customer.setCustomer_note(resultSet.getString("customer_note"));
 
                 customerList.add(customer);
             }
@@ -139,7 +139,7 @@ public class CustomerDAO {
     
 // 등록 기간별 회원 조회
     public List<CustomerDTO> getCustomerByregdate(String startDate, String endDate) {
-    	String sql = "SELECT * FROM cus WHERE cus_reg BETWEEN ? AND ?";
+    	String sql = "SELECT * FROM customer WHERE customer_reg BETWEEN ? AND ?";
     	ArrayList<CustomerDTO> customerList = new ArrayList<>();
         
         try {
@@ -153,14 +153,14 @@ public class CustomerDAO {
 
             while (resultSet.next()) {
                 CustomerDTO customer = new CustomerDTO();
-                customer.setCus_id(resultSet.getInt("cus_id"));
-                customer.setCus_name(resultSet.getString("cus_name"));
-                customer.setCus_gender(resultSet.getString("cus_gender"));
-                customer.setCus_ph(resultSet.getString("cus_ph"));
-                customer.setCus_mail(resultSet.getString("cus_mail"));
-                customer.setCus_reg(resultSet.getString("cus_reg"));
-                customer.setCus_rank(resultSet.getString("cus_rank"));
-                customer.setCus_note(resultSet.getString("cus_note"));
+                customer.setCustomer_id(resultSet.getInt("customer_id"));
+                customer.setCustomer_name(resultSet.getString("customer_name"));
+                customer.setCustomer_gender(resultSet.getString("customer_gender"));
+                customer.setCustomer_tel(resultSet.getString("customer_tel"));
+                customer.setCustomer_mail(resultSet.getString("customer_mail"));
+                customer.setCustomer_reg(resultSet.getString("customer_reg"));
+                customer.setCustomer_rank(resultSet.getString("customer_rank"));
+                customer.setCustomer_note(resultSet.getString("customer_note"));
 
                 customerList.add(customer);
             }

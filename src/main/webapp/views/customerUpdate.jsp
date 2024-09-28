@@ -42,14 +42,15 @@
 <body>
 
 <%
-    String cus_id = request.getParameter("cus_id");
+    String customer_id = request.getParameter("customer_id");
     
-    String cus_name = null;
-    String cus_gender = null;
-    String cus_ph = null;
-    String cus_mail = null;
-    String cus_rank = null;
-    String cus_note = null;
+    String customer_name = null;
+    String customer_gender = null;
+    String customer_tel = null;
+    String customer_mail = null;
+    String customer_reg = null;
+    String customer_rank = null;
+    String customer_note = null;
     
     Context context = null;
     DataSource dataSource = null;
@@ -64,24 +65,25 @@
         connection = dataSource.getConnection();
 
         // DB에서 정보를 가져오기 위한 SQL 쿼리
-        String sql = "SELECT * FROM cus WHERE cus_id=?";
+        String sql = "SELECT * FROM customer WHERE customer_id=?";
         
         statement = connection.prepareStatement(sql);
-        statement.setString(1, cus_id); 
+        statement.setString(1, customer_id); 
         
         resultSet = statement.executeQuery();
         
         if (resultSet.next()) {
-            cus_name = resultSet.getString("cus_name");
-            cus_gender = resultSet.getString("cus_gender");
-            cus_ph = resultSet.getString("cus_ph");
-            cus_mail = resultSet.getString("cus_mail");
-            cus_rank = resultSet.getString("cus_rank");
-            cus_note = resultSet.getString("cus_note");
+            customer_name = resultSet.getString("customer_name");
+            customer_gender = resultSet.getString("customer_gender");
+            customer_tel = resultSet.getString("customer_tel");
+            customer_mail = resultSet.getString("customer_mail");
+            customer_reg = resultSet.getString("customer_reg");
+            customer_rank = resultSet.getString("customer_rank");
+            customer_note = resultSet.getString("customer_note");
         }
     } 
     catch(Exception err) {
-        System.out.println("cusUpdate.jsp : " + err);
+        System.out.println("customerUpdate.jsp : " + err);
     } 
     finally {
         if(resultSet != null) resultSet.close();
@@ -92,47 +94,52 @@
 
 <div class="div">
     <h2>회원 정보 수정</h2>
-    <form method="post" action="cusUpdateProc.jsp" accept-charset="UTF-8">
-    <input type="hidden" name="cus_id" value="<%=cus_id%>" /> 
+    <form method="post" action="customerUpdateProc.jsp" accept-charset="UTF-8">
+    <input type="hidden" name="customer_id" value="<%=customer_id%>" /> 
         <div>
             <label>이름</label>
-            <br><input type="text" class="form" name="cus_name" value="<%=cus_name%>" placeholder="이름을 입력해 주세요.">
+            <br><input type="text" class="form" name="customer_name" value="<%=customer_name%>" placeholder="이름을 입력해 주세요.">
         </div>
         <br>
         <div>
             <label>성별</label>
             <div class="search-filter">
-                <select class="form" name="cus_gender">
-                    <option value="남자" <%= "남자".equals(cus_gender) ? "selected" : "" %>>남자</option>
-                    <option value="여자" <%= "여자".equals(cus_gender) ? "selected" : "" %>>여자</option>
+                <select class="form" name="customer_gender">
+                    <option value="남자" <%= "남자".equals(customer_gender) ? "selected" : "" %>>남자</option>
+                    <option value="여자" <%= "여자".equals(customer_gender) ? "selected" : "" %>>여자</option>
                 </select>
             </div>
         </div>
         <br>
         <div>
             <label>연락처</label>
-            <br><input type="text" class="form" name="cus_ph" value="<%=cus_ph%>" placeholder="연락처를 입력해 주세요.">
+            <br><input type="text" class="form" name="customer_tel" value="<%=customer_tel%>" placeholder="연락처를 입력해 주세요.">
         </div>
         <br>
         <div>
             <label>이메일</label>
-            <br><input type="text" class="form" name="cus_mail" value="<%=cus_mail%>" placeholder="이메일을 입력해 주세요.">
+            <br><input type="text" class="form" name="customer_mail" value="<%=customer_mail%>" placeholder="이메일을 입력해 주세요.">
+        </div>
+        <br>
+        <div>
+            <label>회원 등록일</label>
+            <br><input type="date" class="form" name="customer_reg" value="<%=customer_reg%>" readonly>
         </div>
         <br>
         <div>
             <label>회원 등급</label>
             <div class="search-filter">
-                <select class="form" name="cus_rank">
-                    <option value="GOLD" <%= "GOLD".equals(cus_rank) ? "selected" : "" %>>GOLD</option>
-                    <option value="SILVER" <%= "SILVER".equals(cus_rank) ? "selected" : "" %>>SILVER</option>
-                    <option value="BRONZE" <%= "BRONZE".equals(cus_rank) ? "selected" : "" %>>BRONZE</option>
+                <select class="form" name="customer_rank">
+                    <option value="GOLD" <%= "GOLD".equals(customer_rank) ? "selected" : "" %>>GOLD</option>
+                    <option value="SILVER" <%= "SILVER".equals(customer_rank) ? "selected" : "" %>>SILVER</option>
+                    <option value="BRONZE" <%= "BRONZE".equals(customer_rank) ? "selected" : "" %>>BRONZE</option>
                 </select>
             </div>
         </div>
         <br>
         <div>
             <label>특이사항</label>
-            <br><input type="text" class="form" name="cus_note" value="<%=cus_note%>" placeholder="특이사항을 입력해 주세요.">
+            <br><input type="text" class="form" name="customer_note" value="<%=customer_note%>" placeholder="특이사항을 입력해 주세요.">
         </div>
         <br>
         <div class="button-container">

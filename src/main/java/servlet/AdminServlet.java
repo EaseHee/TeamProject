@@ -25,6 +25,9 @@ public class AdminServlet extends HttpServlet {
 		// 한글 인코딩
 		req.setCharacterEncoding("UTF-8");
 		
+		String command = req.getParameter("command");
+		String url = "";
+		
 		// 입력받은 정보 추출
 		String name = req.getParameter("name");
 		String birth = req.getParameter("birth");
@@ -48,9 +51,8 @@ public class AdminServlet extends HttpServlet {
 		
 		// 페이지 이동
 		resp.sendRedirect("/TeamProject/views/login.jsp");
-//		String command = req.getParameter("command");
-//		String url = "";
-//		
+		
+		
 //		if(command.equals("LOGIN")) {
 //			url = "/views/login.jsp";
 //		}

@@ -147,140 +147,140 @@
 
         request.setAttribute("serviceSet", serviceSet);
     %>
-<div class="container">
-	<hr style="height: 5px;">
-	<div class="row form-group">
-		<!-- 왼쪽 폼 -->
-		<div class="col-4 d-flex justify-content-start align-items-center">
-			<form method="get" action="#" class="d-flex">
-				<input type="text" name="searchName" placeholder="품목명으로 조회" class="form-control" style="margin-right: 10px;">
-				<input type="submit" class="btn btn-outline-success" value="조회">
-			</form>
-		</div>
-		<!-- 나머지 두 칸은 비워둠 -->
-		<div class="col-8"></div>
-	</div>
-</div>	
-					<section class="section">
-					<div class="buttons d-flex justify-content-end align-items-end">
-						<a href="servicepost.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
+				<hr style="height: 5px;">
+				<div class="row form-group">
+					<!-- 왼쪽 폼 -->
+					<div class="col-4 d-flex justify-content-start align-items-center">
+						<form method="get" action="#" class="d-flex">
+							<input type="text" name="searchName" placeholder="품목명으로 조회"
+								class="form-control" style="margin-right: 10px;"> <input
+								type="submit" class="btn btn-outline-success" value="조회">
+						</form>
 					</div>
+					<!-- 나머지 두 칸은 비워둠 -->
+					<div class="col-8"></div>
 				</div>
-						<div class="row" id="table-hover-row">
-							<div class="col-12">
-								<div class="card">
-									<div class="card-content">
-										<div class="table-responsive">
-											<table class="table table-hover mb-0" id="salesTable">
-												<thead>
-													<tr>
-														<th>품목코드</th>
-														<th>서비스명</th>
-														<th>판매 가격</th>
-													</tr>
-												</thead>
-												<%
+				<div class="buttons d-flex justify-content-end align-items-end">
+					<a onclick="location.href='servicepost.jsp'" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
+				</div>
+				<div class="container">
+					<section class="section">
+				</div>
+				<div class="row" id="table-hover-row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-content">
+								<div class="table-responsive">
+									<table class="table table-hover mb-0" id="salesTable">
+										<thead>
+											<tr>
+												<th>품목코드</th>
+												<th>서비스명</th>
+												<th>판매 가격</th>
+											</tr>
+										</thead>
+										<%
                     if (serviceSet.isEmpty()) {
                 %>
-												<tr>
-													<td colspan="3">조회된 결과가 없습니다.</td>
-												</tr>
-												<%
+										<tr>
+											<td colspan="3">조회된 결과가 없습니다.</td>
+										</tr>
+										<%
                     } else {
-                        for (ServiceDTO ser : serviceSet) {
+                        for (ServiceDTO service : serviceSet) {
                 %>
-												<tr>
-													<td><%= ser.getSer_code() %></td>
-													<td><a
-														href="servicedetail.jsp?code=<%= ser.getSer_code() %>"><%= ser.getSer_name() %></a></td>
-													<td><%= ser.getSer_price() %></td>
-												</tr>
-												<%
+										<tr>
+											<td><%= service.getService_code() %></td>
+											<td><a
+												href="servicedetail.jsp?code=<%= service.getService_code() %>"><%= service.getService_name() %></a></td>
+											<td><%= service.getService_price() %></td>
+										</tr>
+										<%
                         }
                     }
                 %>
-											</table>
-										</div>
-									</div>
+									</table>
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
 
-						<div class="buttons d-flex justify-content-end align-items-end">
-							<button onclick=" downloadExcel();"
-								class="btn btn-outline-warning" style="margin-right: 0px;">엑셀
-								다운로드</button>
-						</div>
+				<div class="buttons d-flex justify-content-end align-items-end">
+					<button onclick=" downloadExcel();" class="btn btn-outline-warning"
+						style="margin-right: 0px;">엑셀 다운로드</button>
+				</div>
 
-						<!-- 페이징 컨트롤 -->
-				<div
-					class="col-12 d-flex justify-content-center align-items-center">
-										<nav aria-label="Page navigation example">
-							<%
+				<!-- 페이징 컨트롤 -->
+				<div class="col-12 d-flex justify-content-center align-items-center">
+					<nav aria-label="Page navigation example">
+						<%
                 if (currentPage > 1) {
             %>
-							<a href="sales.jsp?page=<%= currentPage - 1 %>"
-								class="pagination-btn">&lt;</a>
-							<%
+						<a href="sales.jsp?page=<%= currentPage - 1 %>"
+							class="pagination-btn">&lt;</a>
+						<%
                 } else {
             %>
-							<span class="pagination-btn disabled">&lt;</span>
-							<%
+						<span class="pagination-btn disabled">&lt;</span>
+						<%
                 }
 
                 for (int i = 1; i <= totalPages; i++) {
                     if (i == currentPage) {
             %>
-							<button class="pagination-btn active"><%= i %></button>
-							<%
+						<button class="pagination-btn active"><%= i %></button>
+						<%
                     } else {
             %>
-							<a href="sales.jsp?page=<%= i %>" class="pagination-btn"><%= i %></a>
-							<%
+						<a href="sales.jsp?page=<%= i %>" class="pagination-btn"><%= i %></a>
+						<%
                     }
                 }
 
                 if (currentPage < totalPages) {
             %>
-							<a href="sales.jsp?page=<%= currentPage + 1 %>"
-								class="pagination-btn">&gt;</a>
-							<%
+						<a href="sales.jsp?page=<%= currentPage + 1 %>"
+							class="pagination-btn">&gt;</a>
+						<%
                 } else {
             %>
-							<span class="pagination-btn disabled">&gt;</span>
-							<%
+						<span class="pagination-btn disabled">&gt;</span>
+						<%
                 }
             %>
-						</div>
-					</nav>
+					
 				</div>
-				</section>
-				<footer>
-					<div class="footer clearfix mb-0 text-muted">
-						<div class="float-start">
-							<p>2024 &copy; ACORN</p>
-						</div>
-						<div class="float-end">
-							<p>
-								<span class="text-danger"><i class="bi bi-heart"></i></span> by
-								<a href="#">거니네조</a>
-							</p>
-						</div>
-					</div>
-				</footer>
+				</nav>
 			</div>
+			</section>
+			<footer>
+				<div class="footer clearfix mb-0 text-muted">
+					<div class="float-start">
+						<p>2024 &copy; ACORN</p>
+					</div>
+					<div class="float-end">
+						<p>
+							<span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+								href="#">거니네조</a>
+						</p>
+					</div>
+				</div>
+			</footer>
 		</div>
-		<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-		<script src="assets/js/bootstrap.bundle.min.js"></script>
-		<script src="assets/js/main.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script>
-        function downloadExcel() {
-            var table = document.getElementById("salesTable");
-            var wb = XLSX.utils.table_to_book(table, {sheet: "판매 관리"});
-            XLSX.writeFile(wb, '판매_관리.xlsx');
-        }
-    </script>
-
+	</div>
+	<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+	<script>
+            function downloadExcel() {
+                var table = document.getElementById("salesTable");
+                var wb = XLSX.utils.table_to_book(table, { sheet: "판매_관리" });
+                XLSX.writeFile(wb, '판매_관리.xlsx');
+            }
+        </script>
+	</div>
 </body>
 </html>

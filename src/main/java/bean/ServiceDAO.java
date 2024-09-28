@@ -54,7 +54,7 @@ public class ServiceDAO {
 
     public Set<ServiceDTO> getAllServices() {
         Set<ServiceDTO> serviceSet = new HashSet<>();
-        String sql = "SELECT * FROM ser ORDER BY ser_code DESC";
+        String sql = "SELECT * FROM service ORDER BY service_code DESC";
 
         try {
             connection = dataSource.getConnection();
@@ -63,9 +63,9 @@ public class ServiceDAO {
 
             while (resultSet.next()) {
                 ServiceDTO serviceDTO = new ServiceDTO();
-                serviceDTO.setSer_code(resultSet.getString("ser_code"));
-                serviceDTO.setSer_name(resultSet.getString("ser_name"));
-                serviceDTO.setSer_price(resultSet.getInt("ser_price"));
+                serviceDTO.setService_code(resultSet.getString("service_code"));
+                serviceDTO.setService_name(resultSet.getString("service_name"));
+                serviceDTO.setService_price(resultSet.getInt("service_price"));
                 serviceSet.add(serviceDTO);
             }
         } catch (Exception e) {
@@ -78,22 +78,22 @@ public class ServiceDAO {
         return serviceSet;
     }
     
-    public Set<ServiceDTO> getServicesByName(String ser_name) {
+    public Set<ServiceDTO> getServicesByName(String service_name) {
         Set<ServiceDTO> serviceSet = new HashSet<>();
-        String sql = "SELECT * FROM ser WHERE ser_name LIKE ?";
+        String sql = "SELECT * FROM service WHERE service_name LIKE ?";
 
         try {
             connection = dataSource.getConnection();
             statement = connection.prepareStatement(sql);
             // LIKE 연산자와 '%'를 사용하여 부분 문자열 검색
-            statement.setString(1, "%" + ser_name + "%");
+            statement.setString(1, "%" + service_name + "%");
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 ServiceDTO serviceDTO = new ServiceDTO();
-                serviceDTO.setSer_code(resultSet.getString("ser_code"));
-                serviceDTO.setSer_name(resultSet.getString("ser_name"));
-                serviceDTO.setSer_price(resultSet.getInt("ser_price"));
+                serviceDTO.setService_code(resultSet.getString("service_code"));
+                serviceDTO.setService_name(resultSet.getString("service_name"));
+                serviceDTO.setService_price(resultSet.getInt("service_price"));
                 serviceSet.add(serviceDTO);
             }
         } catch (Exception e) {
@@ -112,7 +112,7 @@ public class ServiceDAO {
 
         try {
             connection = dataSource.getConnection();        // ser_code를 기준으로 내림차순 정렬
-            String sql = "SELECT * FROM ser ORDER BY ser_code DESC LIMIT ?, ?";
+            String sql = "SELECT * FROM service ORDER BY service_code DESC LIMIT ?, ?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, start);
             statement.setInt(2, recordsPerPage);
@@ -120,9 +120,9 @@ public class ServiceDAO {
 
             while (resultSet.next()) {
                 ServiceDTO service = new ServiceDTO();
-                service.setSer_code(resultSet.getString("ser_code"));
-                service.setSer_name(resultSet.getString("ser_name"));
-                service.setSer_price(resultSet.getInt("ser_price"));
+                service.setService_code(resultSet.getString("service_code"));
+                service.setService_name(resultSet.getString("service_name"));
+                service.setService_price(resultSet.getInt("service_price"));
                 services.add(service);
             }
         } catch (Exception e) {
@@ -142,7 +142,7 @@ public class ServiceDAO {
 
         try {
             connection = dataSource.getConnection();
-            String sql = "SELECT COUNT(*) FROM ser";
+            String sql = "SELECT COUNT(*) FROM service";
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
 
@@ -158,29 +158,33 @@ public class ServiceDAO {
         return total;
     }
     
-    public void insertService(String ser_code, String ser_name, int ser_price) {
-        String sql = "INSERT INTO ser (ser_code, ser_name, ser_price) VALUES (?, ?, ?)";
+    public void insertService(String service_code, String service_name, int service_price) { 
+        System.out.println("Service Code: " + service_code);
+        System.out.println("Service Name: " + service_name);
+        System.out.println("Service Price: " + service_price);
+
+        String sql = "INSERT INTO service (service_code, service_name, service_price) VALUES (?, ?, ?)";
 
         try {
             connection = dataSource.getConnection();
             statement = connection.prepareStatement(sql);
 
             // 파라미터 바인딩
-            statement.setString(1, ser_code);
-            statement.setString(2, ser_name);
-            statement.setInt(3, ser_price);
+            statement.setString(1, service_code);
+            statement.setString(2, service_name);
+            statement.setInt(3, service_price);
 
             // 실행
             statement.executeUpdate();
+            System.out.println("DB에 서비스가 성공적으로 추가되었습니다.");
 
         } catch (SQLException e) {
             System.out.println("[insertService] Message : " + e.getMessage());
             System.out.println("[insertService] Class   : " + e.getClass().getSimpleName());
         } finally {
             try {
-            	freeConnection();
-                }
-             catch (Exception e) {
+                freeConnection();
+            } catch (Exception e) {
                 System.out.println("[freeConnection] Message : " + e.getMessage());
                 System.out.println("[freeConnection] Class   : " + e.getClass().getSimpleName());
             }
@@ -190,7 +194,7 @@ public class ServiceDAO {
     // 서비스 코드로 서비스 정보 조회
     public ServiceDTO getServiceDetail(String code) {
         ServiceDTO service = null;
-        String sql = "SELECT * FROM ser WHERE ser_code=?";
+        String sql = "SELECT * FROM service WHERE service_code=?";
 
         try {
             connection = dataSource.getConnection();
@@ -200,9 +204,9 @@ public class ServiceDAO {
 
             if (resultSet.next()) {
                 service = new ServiceDTO();
-                service.setSer_code(resultSet.getString("ser_code"));
-                service.setSer_name(resultSet.getString("ser_name"));
-                service.setSer_price(resultSet.getInt("ser_price"));
+                service.setService_code(resultSet.getString("service_code"));
+                service.setService_name(resultSet.getString("service_name"));
+                service.setService_price(resultSet.getInt("service_price"));
             }
         } catch (SQLException e) {
             System.out.println("[getServiceByCode] Message : " + e.getMessage());
@@ -214,17 +218,17 @@ public class ServiceDAO {
         return service;
     }
 
-    public boolean updateService(String ser_code, String ser_name, int ser_price) {
+    public boolean updateService(String service_code, String service_name, int service_price) {
         Connection connection = null;
         PreparedStatement statement = null;
         
-        String sql = "UPDATE ser SET ser_name = ?, ser_price = ? WHERE ser_code = ?";
+        String sql = "UPDATE service SET service_name = ?, service_price = ? WHERE service_code = ?";
         try {
             connection = dataSource.getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setString(1, ser_name);
-            statement.setInt(2, ser_price);
-            statement.setString(3, ser_code);
+            statement.setString(1, service_name);
+            statement.setInt(2, service_price);
+            statement.setString(3, service_code);
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0; // 업데이트 성공 여부 반환
@@ -241,13 +245,13 @@ public class ServiceDAO {
         }
     }
     
-	public void deleteService(String ser_code) {
-   		String sql = "DELETE FROM ser WHERE ser_code=?";
+	public void deleteService(String service_code) {
+   		String sql = "DELETE FROM service WHERE service_code=?";
    		
    	 try {
    		connection = dataSource.getConnection();
         statement = connection.prepareStatement(sql);
-        statement.setString(1, ser_code);
+        statement.setString(1, service_code);
         statement.executeUpdate(); // DML 문법
          
 	   	} catch (Exception e) {
