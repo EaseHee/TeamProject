@@ -321,7 +321,7 @@
 							</div>
                         </div>
 
-                        <jsp:setProperty name="dashDAO" property="service" value="0"/>
+                        <%-- <jsp:setProperty name="dashDAO" property="service" value="0"/> --%>
                         <%
                             request.setCharacterEncoding("utf-8");
                             String services = dashDAO.getServices();

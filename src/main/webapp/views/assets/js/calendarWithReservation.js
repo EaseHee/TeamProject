@@ -59,7 +59,6 @@ class CalendarAndReservation {
 		// "예약 현황" 카드를 구성하는 table 요소
 		this.reservationTable = this.currentReservation
 			.querySelector("table[class='table table-bordered mb-0'");
-		this._initReservationTableInnerHTML();
 		
 		// 사용자가 보고 있는 달에 해당하는 달력 칸 요소들.
 		this.activeCells = document.querySelectorAll(".days > li:not(.inactive)");
@@ -104,12 +103,21 @@ class CalendarAndReservation {
 		});
 	}
 	
-	_initReservationTableInnerHTML() {
+	/**
+	 * 만약 선택된 날짜에 예약현황 데이터가 없을 경우 화면에 어떻게 표시할지를 결정하는 메서드.
+	 */
+	_noReservationTableInnerHTML() {
 		this.reservationTable.innerHTML = `
 			<tr>
-				<td class="text-bold-500">-</td>
-				<td class="text-bold-500">-</td>
+				<td class="text-bold-500" colspan="2">예약현황이 없습니다.</td>
 			</tr>`;
+	}
+	
+	/**
+	 * 예약현황 데이터를 모두 없앤다. 
+	 */
+	_clearReservationTableInnerHTML() {
+		this.reservationTable.innerHTML = `<tr></tr>`;
 	}
 	
 	/**
@@ -123,10 +131,11 @@ class CalendarAndReservation {
 		fetch(`/TeamProject/dashboard?command=CALENDAR_RESERVATION&date=${dateToInput}`)
 			.then(response => response.json())
 			.then(data => {
-				this._initReservationTableInnerHTML();
+				this._clearReservationTableInnerHTML();
 				
-				console.log(`data : `);
-				console.log(this._isEmptyJsonObj(data));
+				// for Test
+				//console.log(`data : `);
+				//console.log(this._isEmptyJsonObj(data));
 				
 				// 가져온 데이터들을 토대로 목록 구성. 
 				for (let key in data) {
@@ -148,8 +157,8 @@ class CalendarAndReservation {
 				}
 				
 				// json 형태 객체 내부에 데이터가 없을 경우 처리 로직.
-				if (Reflect.ownKeys(data).length == 0) {
-					console.log('no data');
+				if (this._isEmptyJsonObj(data)) {
+					this._noReservationTableInnerHTML();
 				}
 			});
 	}
@@ -163,7 +172,7 @@ class CalendarAndReservation {
 	}
 	
 }
-console.log('hi'); // For test
+//console.log('hi'); // For test
 
 new CalendarAndReservation();
 
