@@ -137,8 +137,7 @@
                         <input type="date" class="form-control" id="endDate" name="endDate">
                         <input type="button" class="btn btn-outline-success" value="조회">
                     </form>
-                    <form class="col-4 d-flex"></form>
-                    <form method="post" action="reservation.jsp" class="col-4 d-flex">
+                    <form method="post" action="reservation.jsp" class="col-4 d-flex justify-content-end align-items-end">
                         <input type="hidden" name="keyField" value="cus_name">
                         <input type="text" name="keyWord" placeholder="검색" class="form-control">
                         <input type="submit" class="btn btn-outline-success" value="조회">
