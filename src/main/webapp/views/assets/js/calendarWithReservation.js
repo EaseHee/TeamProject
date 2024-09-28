@@ -59,6 +59,7 @@ class CalendarAndReservation {
 		// "예약 현황" 카드를 구성하는 table 요소
 		this.reservationTable = this.currentReservation
 			.querySelector("table[class='table table-bordered mb-0'");
+		this._initReservationTableInnerHTML();
 		
 		// 사용자가 보고 있는 달에 해당하는 달력 칸 요소들.
 		this.activeCells = document.querySelectorAll(".days > li:not(.inactive)");
@@ -103,6 +104,14 @@ class CalendarAndReservation {
 		});
 	}
 	
+	_initReservationTableInnerHTML() {
+		this.reservationTable.innerHTML = `
+			<tr>
+				<td class="text-bold-500">-</td>
+				<td class="text-bold-500">-</td>
+			</tr>`;
+	}
+	
 	/**
 	 * 사용자가 달력에서 선택한 칸에 해당하는 yyyy-mm-dd 형태의 날짜를 DB에 전송 후, 
 	 * 그 날짜에 해당하는 예약 시간 및 예약 서비스명 데이터를 가져와 "예약현황" 카드 테이블에 
@@ -114,33 +123,47 @@ class CalendarAndReservation {
 		fetch(`/TeamProject/dashboard?command=CALENDAR_RESERVATION&date=${dateToInput}`)
 			.then(response => response.json())
 			.then(data => {
-				// for test === 
-				/*
-				console.log('hi from fetch response');
-				console.log("response data: ");
-				console.log(data);
-				console.log(data.length);
-				*/
-				// for test code end ===
+				this._initReservationTableInnerHTML();
+				
+				console.log(`data : `);
+				console.log(this._isEmptyJsonObj(data));
 				
 				// 가져온 데이터들을 토대로 목록 구성. 
 				for (let key in data) {
-					console.log(key + " : " + data);
+					console.log(
+						key + " : " + data[key] + " : " + data[key][0] + " : " + data[key][1]
+					);
 					let tr = document.createElement("tr");
-					let td = document.createElement("td");
-					td.setAttribute("class", "text-bold-500");
 					for (let i = 0; i < 2; i++) {
+						let td = document.createElement("td");
+						td.setAttribute("class", "text-bold-500");
+						
 						let textNode = document.createTextNode(data[key][i]);
+						
 						td.appendChild(textNode);
+						tr.appendChild(td);
 					}
 					
-					tr.appendChild(td);
+					this.reservationTable.appendChild(tr);
+				}
+				
+				// json 형태 객체 내부에 데이터가 없을 경우 처리 로직.
+				if (Reflect.ownKeys(data).length == 0) {
+					console.log('no data');
 				}
 			});
 	}
 	
+	/**
+	 * json 형태 객체({}) 내부에 프로퍼티가 하나도 없는지 확인하는 메서드. 
+	 * @returns - boolean.  객체 내 프로퍼티가 하나도 없으면 true, 하나라도 있으면 false
+	 */
+	_isEmptyJsonObj(obj) {
+		return (Reflect.ownKeys(obj).length == 0) ? true : false;
+	}
+	
 }
-//console.log('hi'); // For test
+console.log('hi'); // For test
 
 new CalendarAndReservation();
 
