@@ -8,17 +8,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>예약 등록</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/bootstrap.css">
-<link rel="stylesheet"
-	href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-<link rel="stylesheet"
-	href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
+<link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
 <link rel="stylesheet" href="assets/css/app.css">
-<link rel="shortcut icon" href="assets/images/favicon.svg"
-	type="image/x-icon">
+<link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 	
 	<style>
 		button {
@@ -31,6 +26,8 @@
             cursor: pointer;
         }
 	</style>
+
+
 </head>
 
 <body>
@@ -169,7 +166,7 @@
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">예약자 명</span>
-                                    <select name="cus_name" class="form-control">
+                                    <select name="customer_name" class="form-control">
                                     <% 
                 						List<String> customerNames = cusDao.getAllCustomerNames();
 
@@ -186,7 +183,7 @@
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
 									<span class="input-group-text" id="basic-addon1">서비스 명</span> 
-									<select name="ser_name" class="form-control">
+									<select name="service_name" class="form-control">
 										<%
 											List<String> serviceNames = serDao.getAllServiceNames();
 	
@@ -202,22 +199,32 @@
 							<br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">예약 날짜</span>
-                                    <input type="date" class="form-control" name="res_date">
-                                </div>
+    								<span class="input-group-text" id="basic-addon1">예약 날짜</span>
+    								<input type="date" id="reservation_date" class="form-control" name="reservation_date">
+								</div>
+							<script>
+							
+   								window.onload = function() {
+        						var now_utc = Date.now(); // 현재 시간을 UTC로
+        						var timeOff = new Date().getTimezoneOffset() * 60000; // UTC와의 차이를 밀리초로
+        						var today = new Date(now_utc - timeOff).toISOString().split("T")[0]; // ISO 형식에서 날짜 부분만 추출
+        						document.getElementById('reservation_date').setAttribute('min', today); // min 속성에 오늘 날짜 설정
+    							}
+							
+							</script>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">예약 시간</span>
-                                    <input type="time" class="form-control" name="res_time">
+                                    <input type="time" class="form-control" name="reservation_time" >
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">특이 사항</span>
-                                    <input type="text" class="form-control" name="res_comm" placeholder="  특이 사항을 입력해 주세요">
+                                    <input type="text" class="form-control" name="reservation_comm" placeholder="  특이 사항을 입력해 주세요">
                                 </div>
                             </div>
                             <br><br><br>

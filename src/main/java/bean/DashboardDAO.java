@@ -74,7 +74,7 @@ public class DashboardDAO {
 	}    
     
 	public List<DashboardDTO> getProduct() {
-		String sql = "SELECT product_name, product_ea FROM pd WHERE product_ea < 4 ORDER BY product_ea";
+		String sql = "SELECT product_name, product_ea FROM product WHERE product_ea < 4 ORDER BY product_ea";
 		ArrayList<DashboardDTO> list = new ArrayList<>();
 		try {
 			connection = dataSource.getConnection();			
@@ -107,7 +107,7 @@ public class DashboardDAO {
 			
 			while(resultSet.next()){
 				DashboardDTO board = new DashboardDTO();
-				board.setReservation_time(resultSet.getTimestamp("reservation_time"));
+				board.setReservation_time(resultSet.getString("reservation_time"));
 				board.setService_name(resultSet.getString("service_name"));
 				
 				list.add(board);
@@ -136,18 +136,17 @@ public class DashboardDAO {
     // 이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
     public JSONArray setService (int indexMonth) {
         // 서비스별 월매출액 저장용
-        List<DashboardDTO> list = new LinkedList<>();
-        DashboardDTO service;
+        List<DashboardDTO> list = new LinkedList<>();        
         JSONArray jsonArray = null;
 		try{
 			connection = dataSource.getConnection();
             // 단일 서비스 조회
             String sql = "SELECT service_code, service_name, service_price FROM service " +
-                    "WHERE service_code LIKE 'S0__'";  
+                    "WHERE service_code LIKE 'S0%'";  
 			statement = connection.prepareStatement(sql);			
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                service = new DashboardDTO();
+            	DashboardDTO service = new DashboardDTO();
                 service.setService_code(resultSet.getString("service_code"));
                 service.setService_name(resultSet.getString("service_name"));   // 통계 자료에 출력하기 위한 service_name
                 service.setService_price(resultSet.getInt("service_price"));    // 서비스별 이용 요금

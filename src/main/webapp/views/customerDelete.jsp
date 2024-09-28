@@ -13,7 +13,7 @@
 </head>
 <body>
 <%
-    String cus_id = request.getParameter("cus_id");
+    String cus_id = request.getParameter("customer_id");
     
     if (cus_id != null) {
         Context context = null;
@@ -28,7 +28,7 @@
             connection = dataSource.getConnection();
             
             // 삭제 쿼리 실행
-            String sql = "DELETE FROM cus WHERE cus_id=?";
+            String sql = "DELETE FROM customer WHERE customer_id=?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(cus_id));
             statement.executeUpdate();
@@ -36,7 +36,7 @@
             response.sendRedirect("customer.jsp");
         } 
         catch(Exception err) {
-            System.out.println("cusDeleteProc.jsp : " + err);
+            System.out.println("customerDelete.jsp : " + err);
         } 
         finally {
             if(statement != null) statement.close();

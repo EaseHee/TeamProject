@@ -4,85 +4,101 @@ import java.util.Objects;
 
 
 public class ReservationDTO {
-    private int res_no;
-    private String res_date;
-    private String res_time;
-    private String res_comm;
-    private int cus_id;
-    private String cus_name;
-    private String ser_name;
-    private int ser_cnt;
+    private int reservation_no;
+    private String reservation_date;
+    private String reservation_time;
+    private String reservation_comm;
+    private int customer_id;
+    private String service_code;
+    private String customer_name;
+    private String service_name;
+    private int service_cnt;
 
-    public int getSer_cnt() {
-		return ser_cnt;
-	}
-	public void setSer_cnt(int ser_cnt) {
-		this.ser_cnt = ser_cnt;
-	}
-
-	private String ser_code;
-
-	public String getCus_name() {
-		return cus_name;
-	}
-	public void setCus_name(String cus_name) {
-		this.cus_name = cus_name;
-	}
-	public String getSer_name() {
-		return ser_name;
-	}
-	public void setSer_name(String ser_name) {
-		this.ser_name = ser_name;
-	}
-	public int getRes_no() {
-		return res_no;
-	}
-	public void setRes_no(int res_no) {
-		this.res_no = res_no;
-	}
-	public String getRes_date() {
-		return res_date;
-	}
-	public void setRes_date(String res_date) {
-		this.res_date = res_date;
-	}
-	public String getRes_time() {
-		return res_time;
-	}
-	public void setRes_time(String res_time) {
-		this.res_time = res_time;
-	}
-	public String getRes_comm() {
-		return res_comm;
-	}
-	public void setRes_comm(String res_comm) {
-		this.res_comm = res_comm;
-	}
-	public int getCus_id() {
-		return cus_id;
-	}
-	public void setCus_id(int cus_id) {
-		this.cus_id = cus_id;
-	}
-
-	public String getSer_code() {
-		return ser_code;
-	}
-	public void setSer_code(String ser_code) {
-		this.ser_code = ser_code;
-	}
+    
 	
+	public int getReservation_no() {
+		return reservation_no;
+	}
+
+	public void setReservation_no(int reservation_no) {
+		this.reservation_no = reservation_no;
+	}
+
+	public String getReservation_date() {
+		return reservation_date;
+	}
+
+	public void setReservation_date(String reservation_date) {
+		this.reservation_date = reservation_date;
+	}
+
+	public String getReservation_time() {
+		return reservation_time;
+	}
+
+	public void setReservation_time(String reservation_time) {
+		this.reservation_time = reservation_time;
+	}
+
+	public String getReservation_comm() {
+		return reservation_comm;
+	}
+
+	public void setReservation_comm(String reservation_comm) {
+		this.reservation_comm = reservation_comm;
+	}
+
+	public int getCustomer_id() {
+		return customer_id;
+	}
+
+	public void setCustomer_id(int customer_id) {
+		this.customer_id = customer_id;
+	}
+
+	public String getService_code() {
+		return service_code;
+	}
+
+	public void setService_code(String service_code) {
+		this.service_code = service_code;
+	}
+
+	public String getCustomer_name() {
+		return customer_name;
+	}
+
+	public void setCustomer_name(String customer_name) {
+		this.customer_name = customer_name;
+	}
+
+	public String getService_name() {
+		return service_name;
+	}
+
+	public void setService_name(String service_name) {
+		this.service_name = service_name;
+	}
+
+	public int getService_cnt() {
+		return service_cnt;
+	}
+
+	public void setService_cnt(int service_cnt) {
+		this.service_cnt = service_cnt;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ReservationDTO reservation = (ReservationDTO) o;
-        return Objects.equals(res_no, reservation.res_no);
+        return Objects.equals(reservation_no, reservation.reservation_no);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(res_no);
+        return Objects.hashCode(reservation_no);
     }
 
 }
