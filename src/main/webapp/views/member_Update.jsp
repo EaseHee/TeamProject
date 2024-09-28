@@ -34,7 +34,7 @@
 </head>
 
 <body>
-    <%--jsp:useBean id="branachDao" class="bean.CustomerDAO" /--%> 
+    <%--jsp:useBean id="branachDao" class="bean.BranchDAO" /--%> 
     <!-- 지점 테이블 만들면 불러와야해 -->
 	<jsp:useBean id="memberDao" class="bean.MemberDAO"/>
     <jsp:useBean id="memberDto" class="bean.MemberDTO"/>
@@ -133,7 +133,7 @@
                         </a>
                         <ul class="submenu ">
                             <li class="submenu-item ">
-                                <a href="memeber.jsp">직원 관리</a>
+                                <a href="member.jsp">직원 관리</a>
                             </li>
                             <li class="submenu-item ">
                                 <a href="member.jsp">기타</a>
@@ -197,50 +197,60 @@
                                 </div>
                             </div>
                             <br><br><br>
+                            <div class="col-lg-12 mb-12">
+                                <div class="input-group mb-12">
+                                    <span class="input-group-text" id="basic-addon1">직원 사번</span>
+                                    <input type="text" class="form-control" name="member_id" value="<%= memberDto.getMember_id()%>" />
+                                </div>
+                            </div>
+                            <br><br><br>
+                            <div class="col-lg-12 mb-12">
+                                <div class="input-group mb-12">
+                                    <span class="input-group-text" id="basic-addon1">직원 명</span>
+                                    <input type="text" class="form-control" name="member_name" value="<%= memberDto.getMember_name()%>" />
+                                </div>
+                            </div>
+                            <br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">서비스 명</span> 
-									<select name="ser_name" class="form-control">
-										<%
-											List<String> serviceNames = serDao.getAllServiceNames();
-											String selectedServiceName = resDto.getSer_name();
-	
-											for (String serviceName : serviceNames) {
-										%>
-											<option value="<%=serviceName%>" <%= serviceName.equals(selectedServiceName) ? "selected" : "" %>>
-											<%=serviceName%>
-											</option>
-										<%
-											}
-										%>
-									</select>
+									<span class="input-group-text" id="basic-addon1">직원 직책</span>
+									
+										<select name="member_job" class="form-control">
+											<option value="원장"
+												<%="원장".equals(memberDto.getMember_job()) ? "selected" : ""%>>원장</option>
+											<option value="부원장"
+												<%="부원장".equals(memberDto.getMember_job()) ? "selected" : " "%>>부원장</option>
+											<option value="실장"
+												<%="실장".equals(memberDto.getMember_job()) ? "selected" : ""%>>실장</option>
+											<option value="디자이너"
+												<%="디자이너".equals(memberDto.getMember_job()) ? "selected" : ""%>>디자이너</option>
+											<option value="인턴"
+												<%="인턴".equals(memberDto.getMember_job()) ? "selected" : ""%>>인턴</option>
+											<option value="파트 타임"
+												<%="파트 타임".equals(memberDto.getMember_job()) ? "selected" : ""%>>파트 타임</option>
+										</select>
+								
+								</div>
+							</div>
+							<br> <br> <br>
+							<div class="col-lg-12 mb-12">
+								<div class="input-group mb-12">
+									<span class="input-group-text" id="basic-addon1">입사일</span> 
+									<input type="date" class="form-control" name="member_date" value="<%=memberDto.getMember_date()%>">
 								</div>
 							</div>
 							<br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">예약 날짜</span>
-                                    <input type="date" class="form-control" name="res_date" value="<%= resDto.getRes_date() %>">
+                                    <span class="input-group-text" id="basic-addon1">전화 번호</span>
+                                    <input type="text" class="form-control" name="member_tel" value="<%= memberDto.getMember_tel()%>">
                                 </div>
                             </div>
                             <br><br><br>
-                            <div class="col-lg-12 mb-12">
-                                <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">예약 시간</span>
-                                    <input type="time" class="form-control" name="res_time" value="<%= resDto.getRes_time() %>">
-                                </div>
-                            </div>
-                            <br><br><br>
-                            <div class="col-lg-12 mb-12">
-                                <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">특이 사항</span>
-                                    <input type="text" class="form-control" name="res_comm" value="<%= resDto.getRes_comm()%>">
-                                </div>
-                            </div>
-                            <br><br><br>
+                            
                             <div class="button-container">
                                 <button type="submit" onclick="수정되었습니다.">등록</button>
-                                <button type="button" onclick="location.href='reservation.jsp'">목록</button>
+                                <button type="button" onclick="location.href='member.jsp'">목록</button>
                             </div>
                         </div>
                     </form>

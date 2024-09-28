@@ -181,28 +181,28 @@
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">상품명</span>
-                                    <input type="text" class="form-control" name="pd_name" value="<%=board.getPd_name() %>">
+                                    <input type="text" class="form-control" name="pd_name" value="<%=board.getPd_name() %>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">가격</span>
-                                    <input type="text" class="form-control" name="pd_price" value="<%=board.getPd_price() %>">
+                                    <input type="text" class="form-control" name="pd_price" value="<%=board.getPd_price() %>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">수량</span>
-                                    <input type="text" class="form-control" name="pd_ea" value="<%=board.getPd_ea() %>">
+                                    <input type="text" class="form-control" name="pd_ea" value="<%=board.getPd_ea() %>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="button-container">
                                 <button type="submit" name="action" value="update" onclick="수정되었습니다.">수정</button>
                                 <button type="submit" name="action" value="delete" onclick="삭제되었습니다.">삭제</button>
-                                <button type="button" onclick="location.href='product_detail.jsp'">목록</button>
+                                <button type="button" onclick="location.href='product_detail.jsp?pd_B_code=<%=board.getPd_B_code()%>'">목록</button>
                             </div>
                         </div>
                     </form>

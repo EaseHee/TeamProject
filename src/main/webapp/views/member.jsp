@@ -229,10 +229,10 @@
 	                                        <table class="table table-hover mb-0">
 	                                            <thead>
 	                                                <tr>
-	                                                    <th>사번</th>
-	                                                    <th>이름</th>
-	                                                    <th>직책</th>
-	                                                    <th>전화번호</th>
+	                                                    <th>직원 사번</th>
+	                                                    <th>직원 명</th>
+	                                                    <th>직원 직책</th>
+	                                                    <th>전화 번호</th>
 	                                                </tr>
 	                                            </thead>
 	                                            <tbody>

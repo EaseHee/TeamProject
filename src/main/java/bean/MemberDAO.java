@@ -131,7 +131,7 @@ public class MemberDAO {
 		}
 		
 		
-		//read.jsp
+		//read.jsp, update.jsp
 		public MemberDTO getMemberDTO(String member_id) {
 			String sql = "SELECT * FROM member WHERE member_id=?"; 
 			MemberDTO memberDto = new MemberDTO();
@@ -150,15 +150,58 @@ public class MemberDAO {
 					memberDto.setMember_date(rs.getString("member_id"));
 					memberDto.setMember_tel(rs.getString("member_tel"));
 				}
-			} 
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("getMemberDTO" + e);
-			}
-			finally {
+			} finally {
 				freeConn();
 			}
 			return memberDto;
 		}
-	}
 
+		// updateProc.jsp
+		public void updateMemberDTO(MemberDTO MemberDto) {
+			String sql = "UPDATE member SET member_id=?, member_name=?, member_job=?, member_date=?, member_tel=?";
+
+			try {
+				conn = ds.getConnection();
+
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, MemberDto.getMember_id());
+				stmt.setString(2, MemberDto.getMember_name());
+				stmt.setString(3, MemberDto.getMember_job());
+				stmt.setString(4, MemberDto.getMember_date());
+				stmt.setString(5, MemberDto.getMember_tel());
+
+				stmt.executeUpdate();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("updateMemberDTO : " + e);
+			} finally {
+				freeConn();
+			}
+
+		}
+		
+		// delete.jsp
+		public void deleteMemberDTO(String member_id) {
+			String sql = "DELETE FROM member WHERE member_id=?";
+			
+			try {
+				conn = ds.getConnection();
+		        stmt = conn.prepareStatement(sql);
+				
+		        stmt.setString(1, member_id);
+		        
+		        stmt.executeUpdate();
+			} 
+			catch(Exception e) {
+				System.out.println("[delelteBProduct] Message : " + e.getMessage());
+				System.out.println("[delelteBProduct] Class   : " + e.getClass().getSimpleName());
+			} finally {
+				freeConn();
+			}
+		}
+
+	}
