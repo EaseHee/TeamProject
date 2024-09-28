@@ -8,17 +8,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>예약 수정</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/bootstrap.css">
-<link rel="stylesheet"
-	href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-<link rel="stylesheet"
-	href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
+<link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
 <link rel="stylesheet" href="assets/css/app.css">
-<link rel="shortcut icon" href="assets/images/favicon.svg"
-	type="image/x-icon">
+<link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 	
 	<style>
 		button {
@@ -40,8 +35,8 @@
     <jsp:useBean id="resDto" class="bean.ReservationDTO"/>
     
     <%
-    	int res_no = Integer.parseInt(request.getParameter("res_no"));
-    	resDto = resDao.getReservationDTO(res_no);   	
+    	int reservation_no = Integer.parseInt(request.getParameter("reservation_no"));
+    	resDto = resDao.getReservationDTO(reservation_no);   	
     %>
 	<div id="sidebar" class="active">
         <div class="sidebar-wrapper active">
@@ -172,15 +167,15 @@
                 <hr style="height: 5px;">
                 <section class="section">
                     <form method="post" id="" accept-charset="UTF-8" action="reservationUpdateProc.jsp">
-                    <input type="hidden" name="res_no" value="<%=resDto.getRes_no() %>" />
+                    <input type="hidden" name="reservation_no" value="<%=resDto.getReservation_no() %>" />
                         <div class="row" id="table-hover-row">
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">예약자 명</span>
-                                    <select name="cus_name" class="form-control">
+                                    <select name="customer_name" class="form-control">
                                     <% 
                 						List<String> customerNames = cusDao.getAllCustomerNames();
-                                    	String selectedCustomerName = resDto.getCus_name();
+                                    	String selectedCustomerName = resDto.getCustomer_name();
 
                							for (String customerName : customerNames) {
             						%>
@@ -197,10 +192,10 @@
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
 									<span class="input-group-text" id="basic-addon1">서비스 명</span> 
-									<select name="ser_name" class="form-control">
+									<select name="service_name" class="form-control">
 										<%
 											List<String> serviceNames = serDao.getAllServiceNames();
-											String selectedServiceName = resDto.getSer_name();
+											String selectedServiceName = resDto.getService_name();
 	
 											for (String serviceName : serviceNames) {
 										%>
@@ -216,22 +211,32 @@
 							<br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">예약 날짜</span>
-                                    <input type="date" class="form-control" name="res_date" value="<%= resDto.getRes_date() %>">
-                                </div>
+    								<span class="input-group-text" id="basic-addon1">예약 날짜</span>
+    								<input type="date" id="reservation_date" class="form-control" name="reservation_date" value="<%= resDto.getReservation_date() %>">
+								</div>
+							<script>
+							
+   								window.onload = function() {
+        						var now_utc = Date.now(); // 현재 시간을 UTC로
+        						var timeOff = new Date().getTimezoneOffset() * 60000; // UTC와의 차이를 밀리초로
+        						var today = new Date(now_utc - timeOff).toISOString().split("T")[0]; // ISO 형식에서 날짜 부분만 추출
+        						document.getElementById('reservation_date').setAttribute('min', today); // min 속성에 오늘 날짜 설정
+    							}
+							
+							</script>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">예약 시간</span>
-                                    <input type="time" class="form-control" name="res_time" value="<%= resDto.getRes_time() %>">
+                                    <input type="time" class="form-control" name="reservation_time" value="<%= resDto.getReservation_time() %>">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">특이 사항</span>
-                                    <input type="text" class="form-control" name="res_comm" value="<%= resDto.getRes_comm()%>">
+                                    <input type="text" class="form-control" name="reservation_comm" value="<%=resDto.getReservation_comm() != null ? resDto.getReservation_comm() : ""%>">
                                 </div>
                             </div>
                             <br><br><br>

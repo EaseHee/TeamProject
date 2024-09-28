@@ -40,8 +40,8 @@
     <jsp:useBean id="resDto" class="bean.ReservationDTO"/>
     
     <%
-    	int res_no = Integer.parseInt(request.getParameter("res_no"));
-    	resDto = resDao.getReservationDTO(res_no);   	
+    	int reservation_no = Integer.parseInt(request.getParameter("reservation_no"));
+    	resDto = resDao.getReservationDTO(reservation_no);   	
     %>
 	<div id="sidebar" class="active">
         <div class="sidebar-wrapper active">
@@ -176,41 +176,41 @@
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">예약자 명</span>
-									<input type="text" class="form-control" value="<%= resDto.getCus_name()%>" readonly="readonly">
+									<input type="text" class="form-control" value="<%= resDto.getCustomer_name()%>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
 									<span class="input-group-text" id="basic-addon1">서비스 명</span> 
-									<input type="text" class="form-control" value="<%= resDto.getSer_name()%>" readonly="readonly">
+									<input type="text" class="form-control" value="<%= resDto.getService_name()%>" readonly="readonly">
 								</div>
 							</div>
 							<br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">예약 날짜</span>
-                                    <input type="text" class="form-control" value="<%= resDto.getRes_date()%>" readonly="readonly">
+                                    <input type="text" class="form-control" value="<%= resDto.getReservation_date()%>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">예약 시간</span>
-                                    <input type="text" class="form-control" value="<%= resDto.getRes_time()%>" readonly="readonly">
+                                    <input type="text" class="form-control" value="<%= resDto.getReservation_time()%>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">특이 사항</span>
-                                    <input type="text" class="form-control" value="<%= resDto.getRes_comm()%>" readonly="readonly">
+                                    <input type="text" class="form-control" value="<%=resDto.getReservation_comm() != null ? resDto.getReservation_comm() : ""%>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="button-container">
-                                <button type="button" onclick="location.href='reservationUpdate.jsp?res_no=<%= resDto.getRes_no() %>'">수정</button>
-                                <button type="button" onclick="location.href='reservationDelete.jsp?res_no=<%= resDto.getRes_no() %>'">삭제</button>
+                                <button type="button" onclick="location.href='reservationUpdate.jsp?reservation_no=<%= resDto.getReservation_no() %>'">수정</button>
+                                <button type="button" onclick="location.href='reservationDelete.jsp?reservation_no=<%= resDto.getReservation_no() %>'">삭제</button>
                                 <button type="button" onclick="location.href='reservation.jsp'">목록</button>
                             </div>
                         </div>

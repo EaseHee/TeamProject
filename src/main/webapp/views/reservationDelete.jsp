@@ -3,9 +3,9 @@
 <jsp:useBean id="resDao" class="bean.ReservationDAO" />
 <jsp:useBean id="resDto" class="bean.ReservationDTO" />
 <%
-	int res_no = Integer.parseInt(request.getParameter("res_no"));
+	int reservation_no = Integer.parseInt(request.getParameter("reservation_no"));
 	//String ser_code = request.getParameter("ser_code");
 
-	resDao.deleteReservationDTO(res_no);
+	resDao.deleteReservationDTO(reservation_no);
 	response.sendRedirect("reservation.jsp");
 %>

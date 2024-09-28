@@ -47,10 +47,10 @@
     <table>
         <tr>
             <th>회원 ID</th>
-            <td><%= request.getParameter("cus_id") %></td>
+            <td><%= request.getParameter("customer_id") %></td>
         </tr>
         <%
-            String cus_id = request.getParameter("cus_id");
+            String customer_id = request.getParameter("customer_id");
             
         Context context = null;
         DataSource dataSource = null;
@@ -64,9 +64,9 @@
             dataSource = (DataSource) context.lookup("java:comp/env/jdbc/acorn");
             connection = dataSource.getConnection();
                 
-                String sql = "SELECT * FROM cus WHERE cus_id = ?";
+                String sql = "SELECT * FROM customer WHERE customer_id = ?";
                 statement = connection.prepareStatement(sql);
-                statement.setInt(1, Integer.parseInt(cus_id));
+                statement.setInt(1, Integer.parseInt(customer_id));
                 
                 resultSet = statement.executeQuery();
                 
@@ -74,27 +74,31 @@
         %>
         <tr>
             <th>이름</th>
-            <td><%= resultSet.getString("cus_name") %></td>
+            <td><%= resultSet.getString("customer_name") %></td>
         </tr>
         <tr>
             <th>성별</th>
-            <td><%= resultSet.getString("cus_gender") %></td>
+            <td><%= resultSet.getString("customer_gender") %></td>
         </tr>
         <tr>
             <th>연락처</th>
-            <td><%= resultSet.getString("cus_ph") %></td>
+            <td><%= resultSet.getString("customer_tel") %></td>
         </tr>
         <tr>
             <th>이메일</th>
-            <td><%= resultSet.getString("cus_mail") %></td>
+            <td><%= resultSet.getString("customer_mail") %></td>
+        </tr>
+        <tr>
+            <th>회원 등록일</th>
+            <td><%= resultSet.getString("customer_reg") %></td>
         </tr>
         <tr>
             <th>회원 등급</th>
-            <td><%= resultSet.getString("cus_rank") %></td>
+            <td><%= resultSet.getString("customer_rank") %></td>
         </tr>
         <tr>
             <th>특이사항</th>
-            <td><%= resultSet.getString("cus_note") %></td>
+            <td><%= resultSet.getString("customer_note") %></td>
         </tr>
         <%
                 } 
@@ -118,8 +122,8 @@
     <br>
     <div class="button-container">
 		<button type="button" onclick="location.href='customer.jsp'">목록</button>
-		<button type="button" onclick="location.href='cusUpdate.jsp?cus_id=<%= cus_id %>'">수정</button>
-		<button type="button" onclick="location.href='cusDelete.jsp?cus_id=<%=cus_id%>'">삭제</button>
+		<button type="button" onclick="location.href='customerUpdate.jsp?customer_id=<%= customer_id %>'">수정</button>
+		<button type="button" onclick="location.href='customerDelete.jsp?customer_id=<%=customer_id%>'">삭제</button>
     </div>
 </div>
 

@@ -1,3 +1,5 @@
+<%@page import="bean.ReservationDAO"%>
+<%@page import="java.util.List"%>
 <%@page import="bean.ReservationDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -35,25 +37,41 @@
 		int nowBlock = 0; //현재 블럭
 		
     
-    	//검색 후 페이지로 돌아갔을때 가지고갈 요소들
-        String keyField = request.getParameter("keyField");
-        String keyWord = request.getParameter("keyWord");
-        ArrayList<ReservationDTO> list = (ArrayList)dao.getReservationDTOList(keyField, keyWord);
+		// 검색 후 페이지로 돌아갔을 때 가지고갈 요소들
+		String keyField = request.getParameter("keyField");
+		String keyWord = request.getParameter("keyWord");
+		ArrayList<ReservationDTO> list = new ArrayList<>();
+		       
+        System.out.println("keyField: " + keyField);
+        System.out.println("keyWord: " + keyWord);
         
-        totalRecord = list.size();
-        totalPage = (int)Math.ceil((double)totalRecord / numPerPage); 
-        //나머지도 한페이지로 해줘야하기때문에 무조건 올림 해준다
+     	// 날짜 조회 설정
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+
+        // 날짜 조회 결과
+        ArrayList<ReservationDTO> dateList = (ArrayList)dao.getReservationDateSearch(startDate, endDate);
         
-        if(request.getParameter("nowPage") != null)
-           nowPage = Integer.parseInt(request.getParameter("nowPage"));
-        //nowPage가 있을때에만 이것을 실행해라
-        
+        // 날짜 조회 결과에 따른 총 예약 수
+        totalRecord = dateList.size();
+        totalPage = (int)Math.ceil((double)totalRecord / numPerPage);
+
+        if (request.getParameter("nowPage") != null)
+            nowPage = Integer.parseInt(request.getParameter("nowPage"));
+
         beginPerPage = nowPage * numPerPage;
-        
+
+        // 페이지 수 및 블럭 수 계산
         totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);
-        
-        if(request.getParameter("nowBlock") != null)
-           nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
+
+        if (request.getParameter("nowBlock") != null)
+            nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
+		
+     	// 현재 페이지에 해당하는 데이터만 담는 리스트 생성
+        ArrayList<ReservationDTO> currentPageList = new ArrayList<>();
+        for (int i = beginPerPage; i < beginPerPage + numPerPage && i < totalRecord; i++) {
+            currentPageList.add(dateList.get(i));
+        }
      	
     %>
     <div id="app">
@@ -119,7 +137,7 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>예약 관리</h3>
+                            <h3><a href="reservation.jsp">예약 관리</a></h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -131,21 +149,23 @@
                     </div>
                 </div>
                 <hr style="height: 5px;">
-                <div class="row form-group">
-                    <form method="post" action="#" class="col-4 d-flex">
-                        <input type="date" class="form-control" id="startDate" name="startDate">&nbsp;&nbsp;~&nbsp;&nbsp;
-                        <input type="date" class="form-control" id="endDate" name="endDate">
-                        <input type="button" class="btn btn-outline-success" value="조회">
-                    </form>
-                    <form method="post" action="reservation.jsp" class="col-4 d-flex justify-content-end align-items-end">
-                        <input type="hidden" name="keyField" value="cus_name">
-                        <input type="text" name="keyWord" placeholder="검색" class="form-control">
-                        <input type="submit" class="btn btn-outline-success" value="조회">
-                    </form>
-                </div>
-                <section class="section">
+				<div class="row form-group">
+					<form method="get" action="reservation.jsp" class="col-4 d-flex">
+  	  					<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate != null ? startDate : "" %>">&nbsp;&nbsp;~&nbsp;&nbsp;
+   						<input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate != null ? endDate : "" %>">
+   						<input type="submit" class="btn btn-outline-success" value="조회">
+					</form>
+					<form class="col-4 d-flex"></form>
+					<form method="get" action="reservation.jsp" class="col-4 d-flex justify-content-end align-items-end">
+    <input type="hidden" name="keyField" value="<%= (keyField != null) ? keyField : "customer_name" %>"> 
+    <input type="text" name="keyWord" placeholder="검색" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
+    <input type="submit" class="btn btn-outline-success" value="조회">
+</form>
+
+				</div>
+				<section class="section">
                     <div class="buttons d-flex justify-content-end align-items-end">
-                        <a href="reservationPost.jsp" class="btn btn-outline-success">등록</a>
+                        <a href="reservationPost.jsp" class="btn btn-outline-success" style="margin-right:0px">등록</a>
                     </div>
                     <div class="row" id="table-hover-row">
                         <div class="col-12">
@@ -163,26 +183,24 @@
                                                     <th>특이사항</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <%
-                                                for (int i = beginPerPage; i<beginPerPage + numPerPage; i++) {
-                                                	if(i==totalRecord)
-                                                		break;
-                                                	ReservationDTO reservationDTO = list.get(i);
-                                                %>
-                                                <tr>
-                                                    <td><%= reservationDTO.getRes_no() %></td>
-                                                    <td><%= reservationDTO.getSer_name() != null ? reservationDTO.getSer_name() : "" %></td>
-                                                    <td><%= reservationDTO.getRes_date() != null ? reservationDTO.getRes_date() : "" %></td>
-                                                    <td><%= reservationDTO.getRes_time() != null ? reservationDTO.getRes_time() : "" %></td>
-                                                    <td><a href="reservationRead.jsp?res_no=<%= reservationDTO.getRes_no() %>"><%= reservationDTO.getCus_name() != null ? reservationDTO.getCus_name() : "" %></a></td>
-                                                    <td><%= reservationDTO.getRes_comm() != null ? reservationDTO.getRes_comm() : "" %></td>
-                                                </tr>
-                                                <%
-                                                }
-                                                %>
-                                            </tbody>
-                                        </table>
+											<tbody>
+												<%
+													// currentPageList를 기반으로 예약 목록 출력
+													for (ReservationDTO reservationDTO : currentPageList) {
+												%>
+												<tr>
+													<td><%=reservationDTO.getReservation_no()%></td>
+													<td><%=reservationDTO.getService_name() != null ? reservationDTO.getService_name() : ""%></td>
+													<td><%=reservationDTO.getReservation_date() != null ? reservationDTO.getReservation_date() : ""%></td>
+													<td><%=reservationDTO.getReservation_time() != null ? reservationDTO.getReservation_time() : ""%></td>
+													<td><a href="reservationRead.jsp?reservation_no=<%=reservationDTO.getReservation_no()%>"><%=reservationDTO.getCustomer_name() != null ? reservationDTO.getCustomer_name() : ""%></a></td>
+													<td><%=reservationDTO.getReservation_comm() != null ? reservationDTO.getReservation_comm() : ""%></td>
+												</tr>
+												<%
+    												}
+    											%>
+											</tbody>
+										</table>
                                     </div>
                                 </div>
                             </div>
@@ -190,19 +208,26 @@
                     </div>
 
                     <div class="buttons d-flex justify-content-end align-items-end">
-                        <button onclick="downloadExcel();" class="btn btn-outline-warning">엑셀 다운로드</button>
+                        <button onclick="downloadExcel();" class="btn btn-outline-warning" style="margin-right:0px">엑셀 다운로드</button>
                     </div>
-                    <div class="col-12 d-flex justify-content-center align-items-center">
-                        <nav aria-label="Page navigation example">
+					<div class="col-12 d-flex justify-content-center align-items-center">
+						<nav aria-label="Page navigation example">
 							<ul class="pagination pagination-primary">
-							<!-- 왼쪽 화살표 이동 기능 -->
-								<% if(nowPage == 0) { %>
-									<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+								<!-- 왼쪽 화살표 이동 기능 -->
+								<%
+									if (nowBlock == 0) {
+								%>
+										<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"> 
 										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a></li>
-								<% } else {%>
-									<li class="page-item"><a class="page-link" href="reservation.jsp?nowPage=<%=((nowBlock - 1) * pagePerBlock)%>&nowBlock=<%=nowBlock - 1%>">
-										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a></li>
-								<% } %>
+								<%
+									} else {
+								%>
+										<li class="page-item"><a class="page-link" href="reservation.jsp?nowPage=<%=((nowBlock - 1) * pagePerBlock)%>&nowBlock=<%=nowBlock - 1%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>">
+										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+										</a></li>
+								<%
+									}
+								%>
 
 								<!-- 페이지 반복 -->
 								<%
@@ -212,26 +237,29 @@
 											break;
 								%>
 										<li class="page-item <%=currentPage == nowPage ? "active" : ""%>">
-										<a class="page-link" href="reservation.jsp?nowPage=<%=currentPage%>&nowBlock=<%=nowBlock%>">
-											<%=currentPage + 1%></a>
-										</li>
+										<a class="page-link" href="reservation.jsp?nowPage=<%=currentPage%>&nowBlock=<%=nowBlock%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>">
+											<%=currentPage + 1%></a></li>
 								<%
 									}
 								%>
 
 								<!-- 오른쪽 화살표 이동 기능 -->
-								<% if(nowBlock >= totalBlock-1) { %>
-									<li class="page-item disabled"><a class="page-link" href="#">
-										<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span></a></li>
-								<% } else {%>
-								
-								<li class="page-item"><a class="page-link" href="reservation.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>">
-										<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span></a></li>
+								<%
+									if (nowBlock >= totalBlock - 1) {
+								%>
+										<li class="page-item disabled"><a class="page-link" href="#"> <span aria-hidden="true">
+										<i class="bi bi-chevron-right"></i></span></a></li>
+								<%
+									} else {
+								%>
+										<li class="page-item"><a class="page-link" href="reservation.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>">
+										<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+										</a></li>
 								<% } %>
 							</ul>
 						</nav>
-                    </div>
-                </section>
+					</div>
+				</section>
                 <footer>
                     <div class="footer clearfix mb-0 text-muted">
                         <div class="float-start">
