@@ -30,7 +30,6 @@ public class MypageDAO {
         }
     }
 
-    /* DB 연결 해제 */
     public void freeConnection() {
         try {
             if (connection != null) {
@@ -47,8 +46,7 @@ public class MypageDAO {
             System.out.println("[freeConnection] Class   : " + e.getClass().getSimpleName());
         }
     }
-    
-    // 회원 수정
+
     public void updateManager(MypageDTO dto) {
     	try {
     		Class.forName("org.mariadb.jdbc.Driver");
