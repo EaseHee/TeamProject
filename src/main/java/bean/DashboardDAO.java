@@ -13,7 +13,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.json.simple.JSONArray;
+import org.json.*;
 
 public class DashboardDAO {
     private Context context = null;
@@ -110,7 +110,7 @@ public class DashboardDAO {
     String services;
     String revenues;
     // 이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
-    public void setService (int indexMonth) {
+    public JSONArray setService (int indexMonth) {
         // 서비스별 월매출액 저장용
         List<DashboardDTO> list = new LinkedList<>();
         DashboardDTO service;
@@ -137,6 +137,7 @@ public class DashboardDAO {
 
 			statement = connection.prepareStatement(sql);			
             resultSet = statement.executeQuery();
+            JSONArray jsonArray;
             while(resultSet.next()) {
             	// 복수 선택 서비스 분리 : 서비스명으로 조회 후 카운트 증가
                 String[] ser_nameArr = resultSet.getString("ser_name").split(",");
@@ -146,15 +147,12 @@ public class DashboardDAO {
                             dto.setSer_cnt(dto.getSer_cnt()+1);
                         }
                     }
-                    // if (i>0 && i == list.size()-1) {
-                    //     for (DashboardDTO dto : list) {
-                    //         if (dto.getSer_name().equals("커트")) {
-                    //             dto.setSer_cnt(dto.getSer_cnt()+1);
-                    //         }
-                    //     }
-                    // }
                 }
             }
+            
+            /* JSON 라이브러리 객체 활용 */
+            jsonArray = new JSONArray(list);
+            jsonArray.put(list);
             
             // 배열에 저장
             String[] servicesArr = new String[list.size()];
