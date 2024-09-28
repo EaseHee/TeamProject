@@ -3,62 +3,62 @@ package bean;
 import java.util.Objects;
 
 public class CustomerDTO {
-    private int cus_id;
-    private String cus_name;
-    private String cus_ph;
-    private String cus_mail;
-    private String cus_reg;
-    private String cus_rank;
-	private String cus_gender;
-	private String cus_note;
+    private int customer_id;
+    private String customer_name;
+    private String customer_gender;
+    private String customer_tel;
+    private String customer_mail;
+    private String customer_reg;
+    private String customer_rank;
+	private String customer_note;
     
-	public int getCus_id() {
-		return cus_id;
+	public int getCustomer_id() {
+		return customer_id;
 	}
-	public void setCus_id(int cus_id) {
-		this.cus_id = cus_id;
+	public void setCustomer_id(int customer_id) {
+		this.customer_id = customer_id;
 	}
-	public String getCus_gender() {
-		return cus_gender;
+	public String getCustomer_gender() {
+		return customer_gender;
 	}
-	public void setCus_gender(String cus_gender) {
-		this.cus_gender = cus_gender;
+	public void setCustomer_gender(String customer_gender) {
+		this.customer_gender = customer_gender;
 	}
-	public String getCus_note() {
-		return cus_note;
+	public String getCustomer_note() {
+		return customer_note;
 	}
-	public void setCus_note(String cus_note) {
-		this.cus_note = cus_note;
+	public void setCustomer_note(String customer_note) {
+		this.customer_note = customer_note;
 	}
-	public String getCus_name() {
-		return cus_name;
+	public String getCustomer_name() {
+		return customer_name;
 	}
-	public void setCus_name(String cus_name) {
-		this.cus_name = cus_name;
+	public void setCustomer_name(String customer_name) {
+		this.customer_name = customer_name;
 	}
-	public String getCus_ph() {
-		return cus_ph;
+	public String getCustomer_tel() {
+		return customer_tel;
 	}
-	public void setCus_ph(String cus_ph) {
-		this.cus_ph = cus_ph;
+	public void setCustomer_tel(String customer_tel) {
+		this.customer_tel = customer_tel;
 	}
-	public String getCus_mail() {
-		return cus_mail;
+	public String getCustomer_mail() {
+		return customer_mail;
 	}
-	public void setCus_mail(String cus_mail) {
-		this.cus_mail = cus_mail;
+	public void setCustomer_mail(String customer_mail) {
+		this.customer_mail = customer_mail;
 	}
-	public String getCus_reg() {
-		return cus_reg;
+	public String getCustomer_reg() {
+		return customer_reg;
 	}
-	public void setCus_reg(String cus_reg) {
-		this.cus_reg = cus_reg;
+	public void setCustomer_reg(String customer_reg) {
+		this.customer_reg = customer_reg;
 	}
-	public String getCus_rank() {
-		return cus_rank;
+	public String getCustomer_rank() {
+		return customer_rank;
 	}
-	public void setCus_rank(String cus_rank) {
-		this.cus_rank = cus_rank;
+	public void setCustomer_rank(String customer_rank) {
+		this.customer_rank = customer_rank;
 	}
 	
      @Override
@@ -66,11 +66,11 @@ public class CustomerDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CustomerDTO customer = (CustomerDTO) o;
-        return Objects.equals(cus_id, customer.cus_id);
+        return Objects.equals(customer_id, customer.customer_id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(cus_id);
+        return Objects.hashCode(customer_id);
     }
 }

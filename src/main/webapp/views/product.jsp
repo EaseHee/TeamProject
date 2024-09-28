@@ -195,9 +195,9 @@
 	                    </div>
 	                </div>
 	                <hr style="height: 5px;">
-	                <div class="row form-group justify-content-end">
+	                <div class="row form-group">
 					    <form method="post" action="product.jsp" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
-					        <input type="text" name="keyWord" placeholder="검색" class="form-control me-2">
+					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control me-2">
 					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
 					    </form>
 					</div>

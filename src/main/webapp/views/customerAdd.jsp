@@ -43,21 +43,21 @@
 <body>
 <div class="div">
     <h2>회원 등록</h2>
-    <form method="post" action="cus_add_proc.jsp" accept-charset="UTF-8">
+    <form method="post" action="customerAddProc.jsp" accept-charset="UTF-8">
         <div>
             <label>회원 ID</label>
-            <br><input type="text" class="form" name="cus_id" placeholder="아이디를 입력해 주세요.">
+            <br><input type="text" class="form" name="customer_id" placeholder="아이디를 입력해 주세요.">
         </div>
         <br>
         <div>
             <label>회원 이름</label>
-            <br><input type="text" class="form" name="cus_name" placeholder="이름을 입력해 주세요.">
+            <br><input type="text" class="form" name="customer_name" placeholder="이름을 입력해 주세요.">
         </div>
         <br>
         <div>
             <label>성별</label>
             <div class="search-filter">
-                <select class="form" name="cus_gender">
+                <select class="form" name="customer_gender">
                     <option value="남자">남자</option>
                     <option value="여자">여자</option>
                 </select>
@@ -66,18 +66,18 @@
         <br>
         <div>
             <label>회원 연락처</label>
-            <br><input type="text" class="form" name="cus_ph" placeholder="연락처를 입력해 주세요.">
+            <br><input type="text" class="form" name="customer_tel" placeholder="연락처를 입력해 주세요.">
         </div>
         <br>
         <div>
             <label>회원 이메일</label>
-            <br><input type="text" class="form" name="cus_mail" placeholder="이메일을 입력해 주세요.">
+            <br><input type="text" class="form" name="customer_mail" placeholder="이메일을 입력해 주세요.">
         </div>
         <br>
         <div>
             <label>회원 등록일</label>
             <br>
-            <input type="date" class="form" name="cus_regdate" id="regdate">
+            <input type="date" class="form" name="customer_reg" id="regdate">
             <script>
                 document.getElementById('regdate').valueAsDate = new Date();
             </script>
@@ -86,7 +86,7 @@
         <div>
             <label>회원 등급</label>
             <br>
-            <select class="form" name="cus_rank">
+            <select class="form" name="customer_rank">
                 <option value="GOLD">GOLD</option>
                 <option value="SILVER">SILVER</option>
                 <option value="BRONZE">BRONZE</option>
@@ -95,7 +95,7 @@
         <br>
         <div>
             <label>회원 특이사항</label>
-            <br><input type="text" class="form" name="cus_note" placeholder="특이사항을 입력해 주세요.">
+            <br><input type="text" class="form" name="customer_note" placeholder="특이사항을 입력해 주세요.">
         </div>
         <br>
         <div class="button-container">

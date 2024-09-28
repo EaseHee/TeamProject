@@ -8,12 +8,12 @@
 // 데이터베이스 연결 설정
 ServiceDAO dao = new ServiceDAO();
 
-String ser_code = request.getParameter("ser_code");
-out.println("ser_code: " + ser_code);
+String service_code = request.getParameter("service_code");
+out.println("service_code: " + service_code);
 
-if (ser_code != null && !ser_code.isEmpty()) {
+if (service_code != null && !service_code.isEmpty()) {
 	try {
-		dao.deleteService(ser_code);
+		dao.deleteService(service_code);
 		response.sendRedirect("service.jsp");
 	} catch (Exception e) {
 		out.println("삭제 중 오류가 발생했습니다: " + e.getMessage());
