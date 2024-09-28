@@ -11,19 +11,32 @@
     <title>DashBoard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="assets/css/calendar.css">
+    <link rel="stylesheet" href="/TeamProject/views/assets/css/calendar.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">    
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
-    <link rel="stylesheet" href="assets/vendors/iconly/bold.css">
-    <link rel="stylesheet" href="assets/vendors/apexcharts/apexcharts.css">
-    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/TeamProject/views/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/TeamProject/views/assets/vendors/iconly/bold.css">
+    <link rel="stylesheet" href="/TeamProject/views/assets/vendors/apexcharts/apexcharts.css">
+    <link rel="stylesheet" href="/TeamProject/views/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/TeamProject/views/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="/TeamProject/views/assets/css/app.css">
+    <link rel="shortcut icon" href="/TeamProject/views/assets/images/favicon.svg" type="image/x-icon">
 
 	<style>
+		a {
+		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
+		    text-decoration: none;  /* 밑줄 없애기 */
+		}		
+		a:visited {
+		    color: inherit;
+		}		
+		a:hover {
+		    color: inherit;
+		}		
+		a:active {
+		    color: inherit;
+		}
 		td {
 			white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 			overflow: hidden; /* 넘치는 텍스트 숨기기 */
@@ -48,6 +61,12 @@
 		.bi-box-arrow-right{
 			display: inline-block;
 			transform: translateY(3px);
+		}
+		.list-group-item.detail{
+			font-size: small;
+			white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+			overflow: hidden; /* 넘치는 텍스트 숨기기 */
+			text-overflow: ellipsis; /* 넘치는 부분 '...'으로 표시 */
 		}
 	</style>
     <!-- 통계 그래프 출력용 스크립트(type="text/javascript") -->
@@ -262,13 +281,14 @@
 	                        <div class="card">
 	                            <ul class="list-group">
 	                                <li class="list-group-item active text-center">공지&nbsp;<a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); color:white;"
-										href="notice_list.jsp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" /><path	d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" /></svg></a></li>
+										href="notice_list.jsp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" /><path	d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" /></svg></a>
+									</li>
 	                               	<%
 										for(int i=0; i<list0.size(); i++){											
 											DashboardDTO board0 = list0.get(i);
 									%>
-										<li class="text-bold-500">
-											<%=board0.getNotice_title()%>
+										<li class="list-group-item text-bold-500 detail">
+											<a  href="notice_view.jsp"> <%=board0.getNotice_title()%></a>
 										</li>
 									<%
 										}
@@ -277,13 +297,13 @@
 	                        </div>
                         </div>
 
-
-                        <%-- <jsp:setProperty name="dashDAO" property="service" value="0"/>--%>
+<%--
+                        <jsp:setProperty name="dashDAO" property="service" value="0"/>
                         <%
                             String services = dashDAO.getServices();
                             String revenues = dashDAO.getRevenues();
                         %>
-                        <!-- 외부 JS 파일에 데이터 전달 -->
+                        <!-- 외부 JS 파일에 데이터 전달  -->
                         <script src="assets/js/pages/ui-apexchart.js"></script>
                         <script>
                         		console.log('<%= services %>');
@@ -294,12 +314,29 @@
                             console.log(revenues);
                             getServiceRevenueChart(services, revenues);
                         </script> 
-                        
+  --%>                       
                         <div class="col-lg-9 col-md-12">
                             <div class="card">
                                 <div id="bar"></div>
 							</div>
                         </div>
+
+                        <jsp:setProperty name="dashDAO" property="service" value="0"/>
+                        <%
+                            request.setCharacterEncoding("utf-8");
+                            String services = dashDAO.getServices();
+                            String revenues = dashDAO.getRevenues();
+                        %>
+                        <!-- 외부 JS 파일에 데이터 전달  -->
+                        <script src="assets/js/pages/ui-apexchart.js"></script>
+                        <script>
+                            console.log('<%= services %>');
+                            console.log('<%= revenues %>');
+                            let services = JSON.parse('<%= services %>');
+                            let revenues = JSON.parse('<%= revenues %>');
+                            console.log(services + revenues);
+                            getServiceRevenueChart(services, revenues);
+                        </script> 
 
                         
                     </div>
