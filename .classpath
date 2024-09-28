@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/mariadb-java-client-3.4.1.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/tomcat-dbcp.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/lombok.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

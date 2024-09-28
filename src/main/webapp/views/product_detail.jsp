@@ -39,6 +39,7 @@
 	
 	<%
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("UTF-8");
 		
 		String pd_B_code = request.getParameter("pd_B_code");
 		
@@ -60,7 +61,7 @@
         }
 		
 		if (pd_B_code != null && !pd_B_code.isEmpty()) {
-			ArrayList<ProductDTO> list = (ArrayList)prodDAO.getProductList(pd_B_code, keyWord);
+			ArrayList<ProductDTO> list = (ArrayList<ProductDTO>) prodDAO.getProductList(pd_B_code, keyWord);
 			
 			prodDAO.getProductList(pd_B_code, keyWord);
 			
@@ -208,9 +209,10 @@
 	                    </div>
 	                </div>
 	                <hr style="height: 5px;">
-	                <div class="row form-group justify-content-end">
-					    <form method="post" action="product_detail.jsp?pd_B_code=<%= pd_B_code %>" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
-					        <input type="text" name="keyWord" placeholder="검색" class="form-control me-2">
+	                <div class="row form-group">
+					    <form method="get" action="product_detail.jsp?pd_B_code=<%=pd_B_code%>" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
+				        	<input type="hidden" name="pd_B_code" value="<%=request.getParameter("pd_B_code") %>"/>
+					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control me-2">
 					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
 					    </form>
 					</div>
@@ -246,6 +248,7 @@
 	                                                </tr>
 	                                                <%
 	                                            		}
+	                                          
 	                                                %>
 	                                            </tbody>
 	                                        </table>

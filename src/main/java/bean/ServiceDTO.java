@@ -3,38 +3,38 @@ package bean;
 import java.util.Objects;
 
 public class ServiceDTO {
-    private String ser_code;
-    private String ser_name;
-    private int ser_price;
+    private String service_code;
+    private String service_name;
+    private int service_price;
     
-	public String getSer_code() {
-		return ser_code;
+	public String getService_code() {
+		return service_code;
 	}
-	public void setSer_code(String ser_code) {
-		this.ser_code = ser_code;
+	public void setService_code(String service_code) {
+		this.service_code = service_code;
 	}
-	public String getSer_name() {
-		return ser_name;
+	public String getService_name() {
+		return service_name;
 	}
-	public void setSer_name(String ser_name) {
-		this.ser_name = ser_name;
+	public void setService_name(String service_name) {
+		this.service_name = service_name;
 	}
-	public int getSer_price() {
-		return ser_price;
+	public int getService_price() {
+		return service_price;
 	}
-	public void setSer_price(int ser_price) {
-		this.ser_price = ser_price;
+	public void setService_price(int service_price) {
+		this.service_price = service_price;
 	}
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ServiceDTO service = (ServiceDTO) o;
-        return Objects.equals(ser_code, service.ser_code);
+        return Objects.equals(service_code, service.service_code);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(ser_code);
+        return Objects.hashCode(service_code);
     }
 }

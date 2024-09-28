@@ -1,39 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="bean.*" %>
 <!DOCTYPE html>
 <html lang="ko">
+
+<%@ page import="bean.*" %>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>서비스 수정</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
+    
     <style>
-        .div {
-            padding-left: 55px;
-        }
-        .form, textarea, select {
-            width: 80%;
-            border-radius: 5px;
-            border: solid rgb(228, 228, 228) 2px;
-            font-family: "맑은고딕", Malgun Gothic;
-            margin-top: 8px;
-        }
-        .form {
-            height: 25px;      
-        }
-        textarea {
-            height: 150px;
-        }
         button {
             background-color: rgb(42, 105, 241);
             color: white;
             border: none;
             border-radius: 5px;
-            height: 25px;
-            width: 50px;
+            height: 35px; /* 버튼 높이 조정 */
+            width: 70px; /* 버튼 너비 조정 */
             cursor: pointer;
         }
     </style>
 </head>
+
 <body>
 <%
     String code = request.getParameter("code");
@@ -45,31 +39,130 @@
         return;
     }
 %>
+<div id="sidebar" class="active">
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header">
+            <div class="d-flex justify-content-between">
+                <div class="logo">
+                    <a href="#"><img src="assets/images/logo/logo.png" alt="Logo" srcset="">LOGO</a>
+                </div>
+                <div class="toggler">
+                    <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-menu">
+            <ul class="menu">
+                <li class="sidebar-title">Menu</li>
+                <li class="sidebar-item"><a href="dashboard.jsp" class='sidebar-link'> <i class="bi bi-grid-fill"></i> <span>HOME</span></a></li>
+                <li class="sidebar-item has-sub"><a href="#" class='sidebar-link'> <i class="bi bi-stack"></i> <span>CUSTOMER</span></a>
+                    <ul class="submenu ">
+                        <li class="submenu-item"><a href="customer.jsp">회원 관리</a></li>
+                        <li class="submenu-item"><a href="customer.jsp">기타</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub"><a href="#" class='sidebar-link'> <i class="bi bi-collection-fill"></i> <span>RESERVATION</span></a>
+                    <ul class="submenu ">
+                        <li class="submenu-item"><a href="reservation.jsp">예약 관리</a></li>
+                        <li class="submenu-item"><a href="reservation.jsp">기타</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar-item active has-sub"><a href="#" class='sidebar-link'> <i class="bi bi-grid-1x2-fill"></i> <span>SERVICE</span></a>
+                    <ul class="submenu ">
+                        <li class="submenu-item"><a href="service.jsp">서비스 관리</a></li>
+                        <li class="submenu-item"><a href="service.jsp">기타</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub"><a href="#" class='sidebar-link'> <i class="bi bi-hexagon-fill"></i> <span>PRODUCT</span></a>
+                    <ul class="submenu ">
+                        <li class="submenu-item"><a href="product.jsp">상품 관리</a></li>
+                        <li class="submenu-item"><a href="product.jsp">기타</a></li>
+                    </ul>
+                </li>
+                <li class="sidebar-item has-sub"><a href="#" class='sidebar-link'> <i class="bi bi-pen-fill"></i> <span>NOTICE</span></a>
+                    <ul class="submenu ">
+                        <li class="submenu-item"><a href="notice_list.jsp">공지 사항</a></li>
+                        <li class="submenu-item"><a href="notice_list.jsp">기타</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <button class="sidebar-toggler btn x">
+            <i data-feather="x"></i>
+        </button>
+    </div>
+</div>
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none"> <i class="bi bi-justify fs-3"></i></a>
+    </header>
 
-<div class="div">
-    <h2>서비스 수정</h2>
-    <form method="post" action="serviceupdateproc.jsp" accept-charset="UTF-8"> <!-- 수정 후 요청을 처리할 페이지로 설정 -->
-        <div>
-            <label>품목 코드</label><br>
-            <input class="form" name="ser_code" value="<%= service.getSer_code() %>" readonly>
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3>서비스 수정</h3>
+                </div>
+                <div class="col-12 col-md-6 order-md-2 order-first">
+                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="login.jsp">로그아웃</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
         </div>
-        <br>
-        <div>
-            <label>서비스 명</label><br>
-            <input class="form" name="ser_name" value="<%= service.getSer_name() %>">
-        </div>
-        <br>
-        <div>
-            <label>판매 가격</label><br>
-            <input class="form" name="ser_price" value="<%= service.getSer_price() %>">
-        </div>
-        <br>
-        <div class="button-container">
-            <button type="button" onclick="history.back()">이전</button>
-            <button type="submit">수정</button>
-        </div>
-    </form>
+        <hr style="height: 5px;">
+        <section class="section">
+            <form method="post" action="serviceupdateproc.jsp" accept-charset="UTF-8">
+                <div class="row" id="table-hover-row">
+                    <div class="col-lg-12 mb-12">
+                        <div class="input-group mb-12">
+                            <span class="input-group-text" id="basic-addon1">품목 코드</span>
+                            <input type="text" class="form-control" name="service_code" value="<%= service.getService_code() %>" readonly>
+                        </div>
+                    </div>
+                    <br><br><br>
+                    <div class="col-lg-12 mb-12">
+                        <div class="input-group mb-12">
+                            <span class="input-group-text" id="basic-addon1">서비스 명</span>
+                            <input type="text" class="form-control" name="service_name" value="<%= service.getService_name() %>" required>
+                        </div>
+                    </div>
+                    <br><br><br>
+                    <div class="col-lg-12 mb-12">
+                        <div class="input-group mb-12">
+                            <span class="input-group-text" id="basic-addon1">판매 가격</span>
+                            <input type="number" class="form-control" name="service_price" value="<%= service.getService_price() %>" required>
+                        </div>
+                    </div>
+                    <br><br><br>
+                    <div class="button-container">
+                        <button type="button" onclick="location.href='service.jsp'">목록</button>
+                        <button type="submit">수정</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+        <br><br><br>
+        <footer>
+            <div class="footer clearfix mb-0 text-muted">
+                <div class="float-start">
+                    <p>2024 &copy; ACORN</p>
+                </div>
+                <div class="float-end">
+                    <p>
+                        <span class="text-danger"><i class="bi bi-heart"></i></span>
+                        by <a href="#">거니네조</a>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
 </div>
 
+<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
