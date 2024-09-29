@@ -43,42 +43,54 @@ public class MemberDAO {
 	//List.jsp
 	public List<MemberDTO> getMemberList(String keyField, String keyWord) {
 		String sql = null;
-		
-		if(keyWord == null || keyWord.isEmpty() ) {
+
+		if (keyWord == null || keyWord.isEmpty()) {
 			sql = "SELECT member_id, member_name, member_job, member_tel FROM member";
-		}
+		} 
 		else {
-			sql = "SELECT member_id, member_name, member_job, member_tel FROM member "
-					+ "WHERE " + keyField + "Like % "+ keyWord + "%";
+			sql = "SELECT member_id, member_name, member_job, member_tel FROM member " + "WHERE " + keyField + "Like ?";
 		}
+
+		ArrayList<MemberDTO> list = new ArrayList<>();
 			
-			ArrayList list = new ArrayList();
+		try {
+			conn = ds.getConnection();
 			
 			
-			try {
-				conn = ds.getConnection();
+			//keyWord가 null이 아닐 경우에만 파라미터 설정
+			//preparedstatement and set parameters
+			if(keyWord !=null && !keyWord.isEmpty()) {
 				stmt = conn.prepareStatement(sql);
-				rs = stmt.executeQuery();
-				
-				while(rs.next()) {
-					MemberDTO member = new MemberDTO();
-					member.setMember_id(rs.getString("member_id"));
-					member.setMember_name(rs.getString("member_name"));
-					member.setMember_job(rs.getString("member_job"));
-					member.setMember_tel(rs.getString("member_tel"));
-					
-					list.add(member);
-					}
-				}
-			 catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("getMemberList : " + e);
 			}
-			finally {
-				freeConn();
+			else {
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(2,"%" + keyWord + "%");
+				//like 구문 파라미터 설정 
 			}
-			return list;
+			
+			rs = stmt.executeQuery();//sql 쿼리 실행 및 결과 가져오기
+			//그 결과를 rs 객체로 받아옴 -> while(rs.next()) 루프를 사용하여 순회하며 데이터 추출
+			//->memberDTO 객체 설정하고 list에 추가 
+
+			while (rs.next()) {
+				MemberDTO member = new MemberDTO();
+				member.setMember_id(rs.getString("member_id"));
+				member.setMember_name(rs.getString("member_name"));
+				member.setMember_job(rs.getString("member_job"));
+				member.setMember_tel(rs.getString("member_tel"));
+
+				list.add(member);
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getMemberList : " + e);
+		} 
+		finally {
+			freeConn();//자원 해제
 		}
+		return list;
+	}
 
 		// Post.jsp
 		public List<String> getAllMemberJobsNames() {
