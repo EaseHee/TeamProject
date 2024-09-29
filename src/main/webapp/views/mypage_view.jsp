@@ -150,7 +150,7 @@
                 <hr style="height: 5px;">
 				<br><br><br>
 				<!-- MYPAGE 시작 -->
-				<form>
+				<form action="mypage_update.jsp" method="get">
 					<section class="" background-color='#607080'>
 				        <div class="container">
 				            <div class="row">
@@ -165,26 +165,29 @@
 				                                    <ul class="list-unstyled mb-1-9">
 				                                        <li class="mb-2 mb-xl-3 display-28">
 				                                        	<span class="display-26 text-secondary me-2 font-weight-600">지점코드 :</span>
-				                                        	<input type="text" name="branchcode" value="A01" readonly="readonly">
+				                                        	<input type="text" name="branchcode" value="${manager.branch_code}" readonly="readonly">
 				                                        </li>
 				                                        <li class="mb-2 mb-xl-3 display-28">
 				                                        	<span class="display-26 text-secondary me-2 font-weight-600">이름 :</span>
-				                                        	<input type="text" name="name" value="홍길동" readonly="readonly">
+				                                        	<input type="text" name="name" value="${manager.manager_name}" readonly="readonly">
 				                                        </li>
 				                                        <li class="mb-2 mb-xl-3 display-28">
 				                                        	<span class="display-26 text-secondary me-2 font-weight-600">전화번호 :</span>
-				                                        	<input type="text" name="tel" value="010-1111-2222" readonly="readonly">
+				                                        	<input type="text" name="tel" value="${manager.manager_tel}" readonly="readonly">
 				                                        </li>
 				                                        <li class="mb-2 mb-xl-3 display-28">
 				                                        	<span class="display-26 text-secondary me-2 font-weight-600">이메일 :</span>
-				                                        	<input type="email" name="email" value="www.example.com" readonly="readonly">
+				                                        	<input type="email" name="mail" value="${manager.manager_mail}" readonly="readonly">
 				                                        </li>
 				                                    </ul>
 				                                </div>
 				                                <!-- 버튼 -->
-				                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-												  <a class="btn btn-primary me-md-2" href="mypage_update.jsp" role="button" aria-disabled="true">수정하기</a>
-												</div>
+				                                
+					                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+					                                	<input type="hidden" name="branchcode" value="${manager.branch_code}">
+												        <button class="btn btn-primary me-md-2" type="submit">수정하기</button>
+												    </div>
+											    
 												<!-- 종료 -->
 				                            </div>
 				                        </div>
