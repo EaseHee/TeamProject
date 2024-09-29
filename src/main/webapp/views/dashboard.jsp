@@ -251,12 +251,17 @@
 	                            </ul>
 	                        </div>
                         </div>
-
+						
+                        <div class="col-lg-9 col-md-12"></div>
+                            <div class="card">
+                                <div id="bar"></div>
+							</div>
+                        </div>
                         <!-- value :  이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
                             아이콘 및 매핑 기능 추가 -->
-                        <jsp:setProperty name="dashDAO" property="service" value="0"/>
+                        
                         <%
-                            dashDAO.getService_name();
+
                         %>
                         
                     </div>
