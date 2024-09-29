@@ -18,7 +18,7 @@ public class MypageDAO {
     private PreparedStatement statement = null;
     private ResultSet resultSet = null;
     
-    private String MANAGER_UPDATE = "UPDATE manager SET name = ?, tel = ?, email = ? WHERE branch_code = ?";
+    private String MANAGER_UPDATE = "UPDATE manager SET manager_name = ?, manager_tel = ?, manager_mail = ? WHERE branch_code = ?";
     
     public MypageDAO () {
         try {
@@ -52,10 +52,10 @@ public class MypageDAO {
     		Class.forName("org.mariadb.jdbc.Driver");
             connection = dataSource.getConnection();
             statement = connection.prepareStatement(MANAGER_UPDATE);
-            statement.setString(1, dto.getBranch_code());
-            statement.setString(2, dto.getManager_name());
-            statement.setString(3, dto.getManager_tel());
-            statement.setString(4, dto.getManager_mail());
+            statement.setString(1, dto.getManager_name());
+            statement.setString(2, dto.getManager_tel());
+            statement.setString(3, dto.getManager_mail());
+            statement.setString(4, dto.getBranch_code());
             statement.executeUpdate();
     		
         } catch (ClassNotFoundException | SQLException e) {
@@ -64,5 +64,29 @@ public class MypageDAO {
         } finally {
             freeConnection();
         }
+    }
+    
+    public MypageDTO getManagerInfo(String branchcode) {
+        MypageDTO manager = null;
+        try {
+            connection = dataSource.getConnection();
+            String sql = "SELECT manager_name, manager_tel, manager_mail FROM manager WHERE branch_code = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, branchcode);
+            resultSet = statement.executeQuery();
+            
+            if (resultSet.next()) {
+                manager = new MypageDTO();
+                manager.setManager_name(resultSet.getString("manager_name"));
+                manager.setManager_tel(resultSet.getString("manager_tel"));
+                manager.setManager_mail(resultSet.getString("manager_mail"));
+                manager.setBranch_code(branchcode);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            freeConnection();
+        }
+        return manager;
     }
 }

@@ -8,8 +8,8 @@
 
 <!-- setProperty 안의 속성인 param에는 product_B_add.jsp에서 name을 보고 가져오는데, property와 param의 이름이 동일하면 생략 가능 -->
 
-<jsp:setProperty name="product" property="pd_B_code" />
-<jsp:setProperty name="product" property="pd_name" />
+<jsp:setProperty name="product" property="product_B_code" />
+<jsp:setProperty name="product" property="product_name" />
 
 <%
 	prodDAO.setBProduct(product);
