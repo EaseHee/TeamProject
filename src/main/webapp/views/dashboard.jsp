@@ -297,32 +297,12 @@
 	                        </div>
                         </div>
 
-<%--
-                        <jsp:setProperty name="dashDAO" property="service" value="0"/>
-                        <%
-                            String services = dashDAO.getServices();
-                            String revenues = dashDAO.getRevenues();
-                        %>
-                        <!-- 외부 JS 파일에 데이터 전달  -->
-                        <script src="assets/js/pages/ui-apexchart.js"></script>
-                        <script>
-                        		console.log('<%= services %>');
-                        		console.log('<%= revenues %>');
-                            let services = JSON.parse('<%= services %>');
-                            let revenues = JSON.parse('<%= revenues %>');
-                            console.log(services);
-                            console.log(revenues);
-                            getServiceRevenueChart(services, revenues);
-                        </script> 
-  --%>                       
                         <div class="col-lg-9 col-md-12">
                             <div class="card">
                                 <div id="bar"></div>
 							</div>
                         </div>
 
-<<<<<<< HEAD
-=======
                         <jsp:setProperty name="dashDAO" property="service" value="0"/>
                         <%
                             request.setCharacterEncoding("utf-8");
@@ -340,7 +320,6 @@
                             getServiceRevenueChart(services, revenues);
                         </script> 
 
->>>>>>> origin/admin
                         
                     </div>
                 </section>
