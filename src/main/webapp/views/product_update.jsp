@@ -30,15 +30,9 @@
         }
 	</style>
 </head>
-<script>
-	function confirmDelete(product_B_code) {
-		if(confirm("정말로 삭제하시겠습니까?")) {
-            location.href = "product_B_delete.jsp?product_B_code=" + encodeURIComponent(product_B_code);
-		}
-	}
-</script>
 <body>
 	<jsp:useBean id="prodDAO" class="bean.ProductDAO"></jsp:useBean>
+	<jsp:useBean id="board" class="bean.ProductDTO"></jsp:useBean>
 
     <div id="app">
         <div id="sidebar" class="active">
@@ -154,7 +148,7 @@
 	                <div class="page-title">
 	                    <div class="row">
 	                        <div class="col-12 col-md-6 order-md-1 order-last">
-	                            <h3>대분류 조회</h3>
+	                            <h3>개별 상품 수정</h3>
 	                        </div>
 	                        <div class="col-12 col-md-6 order-md-2 order-first">
 	                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -168,39 +162,49 @@
 	                <hr style="height: 5px;">
 	                <section class="section">
 	                <%
-		            	//대분류 코드 받아오기
-		            	String product_B_code = request.getParameter("product_B_code");
+		            	//대분류, 소분류 받기
+		        		String product_B_code = request.getParameter("product_B_code");
+		        		String product_code = request.getParameter("product_code");
 	
-	                	if(product_B_code != null && !product_B_code.isEmpty()) {
-		            		ProductDTO board = prodDAO.getProductBOne(product_B_code);
+		            	board = prodDAO.getProductOne(product_B_code, product_code);
 	                %>
-                    <form method="post">
+                    <form method="post" action="product_updateProc.jsp">
+                    	<input type="hidden" name="product_B_code" value="<%=request.getParameter("product_B_code") %>"/>
                         <div class="row" id="table-hover-row">
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">상품 코드</span>
-                                    <input type="text" class="form-control" name="product_B_code" value="<%=board.getProduct_B_code() %>" readonly="readonly">
+                                    <input type="text" class="form-control" name="product_code" value="<%=board.getProduct_code() %>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">상품명</span>
-                                    <input type="text" class="form-control" name="product_name" value="<%=board.getProduct_name() %>" readonly="readonly">
+                                    <input type="text" class="form-control" name="product_name" value="<%=board.getProduct_name() %>">
+                                </div>
+                            </div>
+                            <br><br><br>
+                            <div class="col-lg-12 mb-12">
+                                <div class="input-group mb-12">
+                                    <span class="input-group-text" id="basic-addon1">가격</span>
+                                    <input type="text" class="form-control" name="product_price" value="<%=board.getProduct_price() %>">
+                                </div>
+                            </div>
+                            <br><br><br>
+                            <div class="col-lg-12 mb-12">
+                                <div class="input-group mb-12">
+                                    <span class="input-group-text" id="basic-addon1">수량</span>
+                                    <input type="text" class="form-control" name="product_ea" value="<%=board.getProduct_ea() %>">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="button-container">
-                                <button type="button" onclick="confirmDelete('<%=board.getProduct_B_code() %>')">삭제</button>
-                                <button type="button" onclick="location.href='product.jsp'">목록</button>
+                                <button type="submit" onclick="location.href='product_update.jsp?product_B_code=<%=board.getProduct_B_code()%>&product_code=<%=board.getProduct_code()%>'">수정</button>
+                                <button type="button" onclick="location.href='product_detail.jsp?product_B_code=<%=board.getProduct_B_code()%>'">목록</button>
                             </div>
                         </div>
                     </form>
-                    <%
-	                	} else {
-							response.sendRedirect("product.jsp");
-						}
-                    %>
                 </section>
 	            <footer>
 				    <div class="footer clearfix mb-0 text-muted">

@@ -93,6 +93,7 @@ public class CustomerDAO {
  		return list;
  	}
     
+ 	
  // 새로운 메소드 추가 (customerDTOList 검색)
     public List<CustomerDTO> getCustomerDTOList(String keyField, String keyWord) {
         String sql = null;
