@@ -35,7 +35,7 @@
 	<jsp:useBean id="board" class="bean.ProductDTO"></jsp:useBean>
 	
 	<%
-		String pd_B_code = request.getParameter("pd_B_code");
+		String product_B_code = request.getParameter("product_B_code");
 	%>
 
     <div id="app">
@@ -166,39 +166,39 @@
 	                <hr style="height: 5px;">
 	                <section class="section">
                     <form method="post" action="product_addProc.jsp" id="">
-                    	<input type="hidden" name="pd_B_code" value="<%=request.getParameter("pd_B_code") %>"/>
+                    	<input type="hidden" name="product_B_code" value="<%=request.getParameter("product_B_code") %>"/>
                         <div class="row" id="table-hover-row">
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">상품 코드</span>
-                                    <input type="text" class="form-control" name="pd_code" placeholder="상품 코드를 입력해 주세요">
+                                    <input type="text" class="form-control" name="product_code" placeholder="상품 코드를 입력해 주세요">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">상품명</span>
-                                    <input type="text" class="form-control" name="pd_name" placeholder="상품명을 입력해주세요">
+                                    <input type="text" class="form-control" name="product_name" placeholder="상품명을 입력해주세요">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">가격</span>
-                                    <input type="number" class="form-control" name="pd_price" placeholder="가격 입력해주세요">
+                                    <input type="number" class="form-control" name="product_price" placeholder="가격 입력해주세요">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">수량</span>
-                                    <input type="number" class="form-control" name="pd_ea" placeholder="수량을 입력해주세요">
+                                    <input type="number" class="form-control" name="product_ea" placeholder="수량을 입력해주세요">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="button-container">
                                 <button type="submit" onclick="등록되었습니다.">등록</button>
-                                <button type="button" onclick="location.href='product_detail.jsp?pd_B_code=<%=board.getPd_B_code() %>'">목록</button>
+                                <button type="button" onclick="location.href='product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>'">목록</button>
                             </div>
                         </div>
                     </form>

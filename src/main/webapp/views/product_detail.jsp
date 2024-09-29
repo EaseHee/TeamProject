@@ -29,8 +29,8 @@
 	}
 	
 	function addProduct() {
-		var pd_B_code = '<%=request.getParameter("pd_B_code")%>';
-		window.location.href = 'product_add.jsp?pd_B_code=' + pd_B_code;
+		var product_B_code = '<%=request.getParameter("product_B_code")%>';
+		window.location.href = 'product_add.jsp?product_B_code=' + product_B_code;
 	}
 </script>
 <body>
@@ -41,7 +41,7 @@
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		String pd_B_code = request.getParameter("pd_B_code");
+		String product_B_code = request.getParameter("product_B_code");
 		
 		//검색어 받기
 		String keyWord = request.getParameter("keyWord");
@@ -60,10 +60,10 @@
             nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
         }
 		
-		if (pd_B_code != null && !pd_B_code.isEmpty()) {
-			ArrayList<ProductDTO> list = (ArrayList<ProductDTO>) prodDAO.getProductList(pd_B_code, keyWord);
+		if (product_B_code != null && !product_B_code.isEmpty()) {
+			ArrayList<ProductDTO> list = (ArrayList<ProductDTO>) prodDAO.getProductList(product_B_code, keyWord);
 			
-			prodDAO.getProductList(pd_B_code, keyWord);
+			prodDAO.getProductList(product_B_code, keyWord);
 			
 			totalcnt = list.size();
 			
@@ -210,8 +210,8 @@
 	                </div>
 	                <hr style="height: 5px;">
 	                <div class="row form-group">
-					    <form method="get" action="product_detail.jsp?pd_B_code=<%=pd_B_code%>" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
-				        	<input type="hidden" name="pd_B_code" value="<%=request.getParameter("pd_B_code") %>"/>
+					    <form method="get" action="product_detail.jsp?product_B_code=<%=product_B_code%>" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
+				        	<input type="hidden" name="product_B_code" value="<%=request.getParameter("product_B_code") %>"/>
 					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control me-2">
 					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
 					    </form>
@@ -241,10 +241,10 @@
 	                                            	%>
 	                                            	
 	                                                <tr>
-	                                                    <td class="text-bold-500"><%=board.getPd_code() %></td>
-	                                                    <td class="text-bold-500"><a href="product_read.jsp?pd_B_code=<%=request.getParameter("pd_B_code") %>&pd_code=<%= board.getPd_code() %>"><%=board.getPd_name()%></a></td>
-	                                                    <td class="text-bold-500"><%=board.getPd_price() %></td>
-	                                                    <td class="text-bold-500"><%=board.getPd_ea() %></td>
+	                                                    <td class="text-bold-500"><%=board.getProduct_code() %></td>
+	                                                    <td class="text-bold-500"><a href="product_read.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&product_code=<%= board.getProduct_code() %>"><%=board.getProduct_name()%></a></td>
+	                                                    <td class="text-bold-500"><%=board.getProduct_price() %></td>
+	                                                    <td class="text-bold-500"><%=board.getProduct_ea() %></td>
 	                                                </tr>
 	                                                <%
 	                                            		}
@@ -266,7 +266,7 @@
 									<!-- nowBlock이 0보다 클 때에만 '이전'을 클릭할 수 있게 -->
 						            <% if(nowBlock > 0) { %>
 						                <li class="page-item">
-											<a class="page-link" href="product_detail.jsp?pd_B_code=<%=request.getParameter("pd_B_code") %>&nowPage=<%=(nowBlock-1) * pagePerBlock %>&nowBlock=<%=nowBlock-1%>">
+											<a class="page-link" href="product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&nowPage=<%=(nowBlock-1) * pagePerBlock %>&nowBlock=<%=nowBlock-1%>">
 											<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a>
 										</li>
 						            <% } %>
@@ -276,13 +276,13 @@
 						
 						                for(int i=startPage; i<=endPage; i++) {
 						            %>
-						                <li class="page-item active"><a class="page-link" href="product_detail.jsp?pd_B_code=<%=request.getParameter("pd_B_code") %>&nowPage=<%=i-1 %>&nowBlock=<%=nowBlock%>"><%=i%></a></li>
+						                <li class="page-item active"><a class="page-link" href="product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&nowPage=<%=i-1 %>&nowBlock=<%=nowBlock%>"><%=i%></a></li>
 						            <%
 						                }
 						            %>
 						            <% if(totalBlock > nowBlock + 1) { %>
 						                <li class="page-item">
-						                	<a class="page-link" href="product_detail.jsp?pd_B_code=<%=request.getParameter("pd_B_code") %>&nowPage=<%=(nowBlock + 1) * pagePerBlock %>&nowBlock=<%=nowBlock + 1%>">
+						                	<a class="page-link" href="product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&nowPage=<%=(nowBlock + 1) * pagePerBlock %>&nowBlock=<%=nowBlock + 1%>">
 											<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span></a>
 										</li>
 						            <% } %>

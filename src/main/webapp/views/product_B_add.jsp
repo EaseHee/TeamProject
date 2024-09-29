@@ -169,14 +169,14 @@
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">상품 코드</span>
-                                    <input type="text" class="form-control" name="pd_B_code" placeholder="상품 코드를 입력해 주세요">
+                                    <input type="text" class="form-control" name="product_B_code" placeholder="상품 코드를 입력해 주세요">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">상품명</span>
-                                    <input type="text" class="form-control" name="pd_name" placeholder="상품명을 입력해주세요">
+                                    <input type="text" class="form-control" name="product_name" placeholder="상품명을 입력해주세요">
                                 </div>
                             </div>
                             <br><br><br>

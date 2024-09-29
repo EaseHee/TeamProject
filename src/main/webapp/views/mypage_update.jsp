@@ -151,7 +151,7 @@
                 <hr style="height: 5px;">
 				<br><br><br>
 				<!-- MYPAGE 시작 -->
-				<form action="mypage_updateProc.jsp">
+				<form action="Mypage" method="post">
 					<section class="" background-color='#607080'>
 				        <div class="container">
 				            <div class="row">
@@ -166,19 +166,19 @@
 				                                    <ul class="list-unstyled mb-1-9">
 				                                        <li class="mb-2 mb-xl-3 display-28">
 				                                        	<span class="display-26 text-secondary me-2 font-weight-600">지점코드 :</span>
-				                                        	<input type="text" name="branchcode" value="A01" readonly="readonly">
+				                                        	<input type="text" name="branchcode" value="${manager.branch_code}" readonly="readonly">
 				                                        </li>
 				                                        <li class="mb-2 mb-xl-3 display-28">
 				                                        	<span class="display-26 text-secondary me-2 font-weight-600">이름 :</span>
-				                                        	<input type="text" name="name" value="홍길동">
+				                                        	<input type="text" name="name" value="${manager.manager_name}">
 				                                        </li>
 				                                        <li class="mb-2 mb-xl-3 display-28">
 				                                        	<span class="display-26 text-secondary me-2 font-weight-600">전화번호 :</span>
-				                                        	<input type="text" name="tel" value="010-1111-2222">
+				                                        	<input type="text" name="tel" value="${manager.manager_tel}">
 				                                        </li>
 				                                        <li class="mb-2 mb-xl-3 display-28">
 				                                        	<span class="display-26 text-secondary me-2 font-weight-600">이메일 :</span>
-				                                        	<input type="email" name="email" value="www.example.com">
+				                                        	<input type="email" name="mail" value="${manager.manager_mail}">
 				                                        </li>
 				                                    </ul>
 				                                </div>
