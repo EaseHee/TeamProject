@@ -12,6 +12,48 @@
  * 데이터를 가져오는 작업. 
  */
 class CalendarAndReservation {
+	
+	ManipulateReservationTable = class {
+		constructor(reservationTableElement) {
+			this.reservationTableElement = reservationTableElement;
+		}
+		
+		/**
+		 * 만약 선택된 날짜에 예약현황 데이터가 없을 경우 화면에 어떻게 표시할지를 결정하는 메서드.
+		 */
+		noReservationTableInnerHTML() {
+			this.reservationTableElement.innerHTML = `
+				<tr>
+					<td class="text-bold-500" colspan="2">예약현황이 없습니다.</td>
+				</tr>`;
+		}
+			
+		/**
+	     * 예약현황 데이터를 모두 없앤다. 
+		 */
+	    clearReservationTableInnerHTML() {
+			this.reservationTableElement.innerHTML = `<tr></tr>`;
+		}
+		
+	}
+	
+	JsonObjTool = class {
+		/**
+		 * json 형태 객체({}) 내부에 프로퍼티가 하나도 없는지 확인하는 메서드. 
+	     * @returns - boolean.  객체 내 프로퍼티가 하나도 없으면 true, 하나라도 있으면 false
+		 */
+		isEmptyJsonObj(obj) {
+			return (Reflect.ownKeys(obj).length == 0) ? true : false;
+		}
+		
+		/**
+		 * json 객체 내 프로퍼티의 개수 반환. 
+		 */
+		getPropertyLength(obj) {
+			return Reflect.ownKeys(obj).length;
+		}
+	}
+	
 	constructor() {
 		// 사용자가 선택한 달력 내 칸에 해당하는 연도, 월, 일.
 		this.selectedYear, this.selectedMonth, this.selectedDayNum;
@@ -40,6 +82,8 @@ class CalendarAndReservation {
 			this.todayDateObj.getDate()
 		].join("-");
 		
+		this.jsonTool = new this.JsonObjTool();
+		
 		this._initElement();
 		this._init();
 		this._setEventHandlers();
@@ -54,11 +98,14 @@ class CalendarAndReservation {
 		
 		// "예약 현황" 카드의 월, 연도 표시용 요소.
 		[this.resDisplayMonth, this.resDisplayDate] = this.currentReservation
-				.querySelectorAll("li:first-child span");
+			.querySelectorAll("li:first-child span");
 		
 		// "예약 현황" 카드를 구성하는 table 요소
 		this.reservationTable = this.currentReservation
 			.querySelector("table[class='table table-bordered mb-0'");
+		this.reservationTableTool = new this.ManipulateReservationTable(
+			this.reservationTable
+		);
 		
 		// 사용자가 보고 있는 달에 해당하는 달력 칸 요소들.
 		this.activeCells = document.querySelectorAll(".days > li:not(.inactive)");
@@ -66,7 +113,7 @@ class CalendarAndReservation {
 		
 		// 처음 대시보드 페이지를 열었을 때 달력에 보이는 월, 연도 표시용 요소들을 가져옴.
 		[this.selectedMonth, this.selectedYear] = document
-					.querySelector(".current-date").textContent.split(" ");
+			.querySelector(".current-date").textContent.split(" ");
 	}
 	
 	/**
@@ -104,23 +151,6 @@ class CalendarAndReservation {
 	}
 	
 	/**
-	 * 만약 선택된 날짜에 예약현황 데이터가 없을 경우 화면에 어떻게 표시할지를 결정하는 메서드.
-	 */
-	_noReservationTableInnerHTML() {
-		this.reservationTable.innerHTML = `
-			<tr>
-				<td class="text-bold-500" colspan="2">예약현황이 없습니다.</td>
-			</tr>`;
-	}
-	
-	/**
-	 * 예약현황 데이터를 모두 없앤다. 
-	 */
-	_clearReservationTableInnerHTML() {
-		this.reservationTable.innerHTML = `<tr></tr>`;
-	}
-	
-	/**
 	 * 사용자가 달력에서 선택한 칸에 해당하는 yyyy-mm-dd 형태의 날짜를 DB에 전송 후, 
 	 * 그 날짜에 해당하는 예약 시간 및 예약 서비스명 데이터를 가져와 "예약현황" 카드 테이블에 
 	 * 출력한다. 
@@ -131,7 +161,8 @@ class CalendarAndReservation {
 		fetch(`/TeamProject/dashboard?command=CALENDAR_RESERVATION&date=${dateToInput}`)
 			.then(response => response.json())
 			.then(data => {
-				this._clearReservationTableInnerHTML();
+				//this._clearReservationTableInnerHTML();
+				this.reservationTableTool.clearReservationTableInnerHTML();
 				
 				// for Test
 				//console.log(`data : `);
@@ -139,9 +170,10 @@ class CalendarAndReservation {
 				
 				// 가져온 데이터들을 토대로 목록 구성. 
 				for (let key in data) {
+					/*
 					console.log(
 						key + " : " + data[key] + " : " + data[key][0] + " : " + data[key][1]
-					);
+					); */
 					let tr = document.createElement("tr");
 					for (let i = 0; i < 2; i++) {
 						let td = document.createElement("td");
@@ -156,9 +188,10 @@ class CalendarAndReservation {
 					this.reservationTable.appendChild(tr);
 				}
 				
-				if (this._isEmptyJsonObj(data)) {
+				if (this.jsonTool.isEmptyJsonObj(data)) {
 					// json 형태 객체 내부에 데이터가 없을 경우 처리 로직.
-					this._noReservationTableInnerHTML();
+					//this._noReservationTableInnerHTML();
+					this.reservationTableTool.noReservationTableInnerHTML();
 				} else {
 					this.reservationTable.insertAdjacentHTML("beforeend", 
 						`<tr>
@@ -168,17 +201,9 @@ class CalendarAndReservation {
 								<a href="dashboard.jsp"><span id="next" class="icons material-symbols-rounded " style="display: inline-block; transform: translateY(3px);">chevron_right</span></a>
 								</td>
 						</tr>`
-					)
+					);
 				}
 			});
-	}
-	
-	/**
-	 * json 형태 객체({}) 내부에 프로퍼티가 하나도 없는지 확인하는 메서드. 
-	 * @returns - boolean.  객체 내 프로퍼티가 하나도 없으면 true, 하나라도 있으면 false
-	 */
-	_isEmptyJsonObj(obj) {
-		return (Reflect.ownKeys(obj).length == 0) ? true : false;
 	}
 	
 }
