@@ -402,7 +402,7 @@
 									</div>
 								</div>							
                         </div>
-                        <!--<jsp:useBean id="ld" class="bean.DateDTO" scope="page"></jsp:useBean>-->
+                        <jsp:useBean id="ld" class="bean.DateDTO" scope="page"></jsp:useBean>
                         <div class="col-lg-3 col-md-12">                            
 	                        <div class="card" id="current-reservation">
 	                            <ul class="list-group">
@@ -421,7 +421,7 @@
 										</tr>
 									<%
 										}
-									%>
+									%>  
 										<tr>
 											<td align="center" colspan="2" class="calendar-wrapper">
 												<a href="dashboard.jsp?nowPage1=<%=nowPage1%>&nowPage2=<%=nowPage2 - 1%>"><span id="prev" class="icons material-symbols-rounded" style="display: inline-block; transform: translateY(3px);">chevron_left</span></a>
@@ -435,7 +435,7 @@
 												<a href="dashboard.jsp?nowPage1=<%=nowPage1%>&nowPage2=<%=nowPage2 + 1%>"><span id="next" class="icons material-symbols-rounded " style="display: inline-block; transform: translateY(3px);">chevron_right</span></a>
 
 											</td>
-										</tr>  --%>	
+										</tr> --%>	
 								</table>
 	                        </div>
                         </div>

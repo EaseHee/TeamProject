@@ -156,9 +156,19 @@ class CalendarAndReservation {
 					this.reservationTable.appendChild(tr);
 				}
 				
-				// json 형태 객체 내부에 데이터가 없을 경우 처리 로직.
 				if (this._isEmptyJsonObj(data)) {
+					// json 형태 객체 내부에 데이터가 없을 경우 처리 로직.
 					this._noReservationTableInnerHTML();
+				} else {
+					this.reservationTable.insertAdjacentHTML("beforeend", 
+						`<tr>
+								<td align="center" colspan="2" class="calendar-wrapper">
+								<a href="dashboard.jsp"><span id="prev" class="icons material-symbols-rounded" style="display: inline-block; transform: translateY(3px);">chevron_left</span></a>
+								<i class="bi bi-dot"></i>
+								<a href="dashboard.jsp"><span id="next" class="icons material-symbols-rounded " style="display: inline-block; transform: translateY(3px);">chevron_right</span></a>
+								</td>
+						</tr>`
+					)
 				}
 			});
 	}
