@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 </head>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 	function check() {
 		if(document.search.keyWord.value == "") {
@@ -212,7 +214,7 @@
 	                </div>
 	                <hr style="height: 5px;">
 	                <div class="row form-group justify-content-end">
-					    <form method="post" action="product.jsp" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
+					    <form method="post" action="member.jsp" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
 					        <input type="text" name="keyWord" placeholder="검색" class="form-control me-2">
 					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
 					    </form>
@@ -221,74 +223,87 @@
 	                	<div class="buttons d-flex justify-content-end align-items-end">
 							<a href="member_Post.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
 						</div>
-	                    <div class="row" id="table-hover-row">
-	                        <div class="col-12">
-	                            <div class="card">
-	                                <div class="card-content">
-	                                    <div class="table-responsive">
-	                                        <table class="table table-hover mb-0">
-	                                            <thead>
-	                                                <tr>
-	                                                    <th>직원 사번</th>
-	                                                    <th>직원 명</th>
-	                                                    <th>직원 직책</th>
-	                                                    <th>전화 번호</th>
-	                                                </tr>
-	                                            </thead>
-	                                            <tbody>
-	                                            	
-	                                            	<%
+					<div class="row" id="table-hover-row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-content">
+									<div class="table-responsive">
+										<table class="table table-hover mb-0" id="memberTable">
+											<thead>
+												<tr>
+													<th>직원 사번</th>
+													<th>직원 명</th>
+													<th>직원 직책</th>
+													<th>전화 번호</th>
+												</tr>
+											</thead>
+											<tbody>
+
+												<%
 	                                            		for(int i=beginPerPage; i < beginPerPage + numPerPage && i < totalcnt; i++){
 	                                            			board = list.get(i);
 	                                            	%>
-	                                            	
-	                                                <tr>
-	                                                    <td class="text-bold-500"><%=board.getMember_id() %></a></td>
-	                                                    <td class="text-bold-500"><a href="member_Read.jsp?member_id=<%=board.getMember_id() %>"><%=board.getMember_name() %></a></td>
-	                                                    <td class="text-bold-500"><%=board.getMember_job() %></td>
-	                                                    <td class="text-bold-500"><%=board.getMember_tel() %></td>
-	                                                </tr>
-	                                                <%
+
+												<tr>
+													<td class="text-bold-500"><%=board.getMember_id() %></a></td>
+													<td class="text-bold-500"><a
+														href="member_Read.jsp?member_id=<%=board.getMember_id() %>"><%=board.getMember_name() %></a></td>
+													<td class="text-bold-500"><%=board.getMember_job() %></td>
+													<td class="text-bold-500"><%=board.getMember_tel() %></td>
+												</tr>
+												<%
 	                                            		}
 	                                                %>
-	                                                
-	                                            </tbody>
-	                                        </table>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <div class="col-12 d-flex justify-content-center align-items-center">
-							<nav aria-label="Page navigation example">
-								<ul class="pagination pagination-primary">
-									<!-- nowBlock이 0보다 클 때에만 '이전'을 클릭할 수 있게 -->
-						            <% if(nowBlock > 0) { %>
-						                <li class="page-item">
-											<a class="page-link" href="member.jsp?nowPage=<%=(nowBlock-1) * pagePerBlock %>&nowBlock=<%=nowBlock-1%>">
-											<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a>
-										</li>
-						            <% } %>
-									<%
-						                int startPage = nowBlock * pagePerBlock + 1;
-						                int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
-						
-						                for(int i=startPage; i<=endPage; i++) {
-						            %>
-						                <li class="page-item active"><a class="page-link" href="member.jsp?nowPage=<%=i-1 %>&nowBlock=<%=nowBlock%>"><%=i%></a></li>
-						            <%
-						                }
-						            %>
-						            <% if(totalBlock > nowBlock + 1) { %>
-						                <li class="page-item">
-						                	<a class="page-link" href="member.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock %>&nowBlock=<%=nowBlock + 1%>">
-											<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span></a>
-										</li>
-						            <% } %>
-								</ul>
-							</nav>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
 						</div>
-	                </section>
+					</div>
+					<div class="buttons d-flex justify-content-end align-items-end">
+						<button onclick="downloadExcel();" class="btn btn-outline-warning" style="margin-right: 0px;">
+							엑셀 다운로드</button>
+					</div>
+					<div
+						class="col-12 d-flex justify-content-center align-items-center">
+						<nav aria-label="Page navigation example">
+							<ul class="pagination pagination-primary">
+								<!-- nowBlock이 0보다 클 때에만 '이전'을 클릭할 수 있게 -->
+								<%
+								if (nowBlock > 0) {
+								%>
+								<li class="page-item"><a class="page-link"
+									href="member.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock%>&nowBlock=<%=nowBlock - 1%>">
+										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+								</a></li>
+								<% } %>
+								<%
+								int startPage = nowBlock * pagePerBlock + 1;
+												                int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
+												
+												                for(int i=startPage; i <= endPage; i++) {
+								%>
+								<li class="page-item active"><a class="page-link"
+									href="member.jsp?nowPage=<%=i - 1%>&nowBlock=<%=nowBlock%>"><%=i%></a></li>
+								<%
+								}
+								%>
+								<%
+								if (totalBlock > nowBlock + 1) {
+								%>
+								<li class="page-item"><a class="page-link"
+									href="member.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>">
+										<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+								</a></li>
+								<%
+								}
+								%>
+							</ul>
+						</nav>
+					</div>
+				</section>
 	            <footer>
 	                <div class="footer clearfix mb-0 text-muted">
 	                    <div class="float-start">
@@ -304,9 +319,18 @@
 	        </div>
 	    </div>
 	</div>
-    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/main.js"></script>
+	<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+	<script>
+            function downloadExcel() {
+                var table = document.getElementById("memberTable");
+                var wb = XLSX.utils.table_to_book(table, { sheet: "직원 관리" });
+                XLSX.writeFile(wb, '직원_관리.xlsx');
+            }
+        </script>
 </body>
 
 </html>

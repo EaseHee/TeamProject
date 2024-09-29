@@ -186,7 +186,7 @@
                 </div>
                 <hr style="height: 5px;">
                 <section class="section">
-                    <form method="post" id="" accept-charset="UTF-8" action="memberUpdateProc.jsp">
+                    <form method="post" id="" accept-charset="UTF-8" action="member_UpdateProc.jsp">
                     <input type="hidden" name="member_id" value="<%=memberDto.getMember_id() %>" />
                         <div class="row" id="table-hover-row">
                             <div class="col-lg-12 mb-12">

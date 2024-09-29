@@ -49,7 +49,7 @@ public class MemberDAO {
 		}
 		else {
 			sql = "SELECT member_id, member_name, member_job, member_tel FROM member "
-					+ "WHERE " + keyField + "Like '%" + keyWord + "%'";
+					+ "WHERE " + keyField + "Like % "+ keyWord + "%";
 		}
 			
 			ArrayList list = new ArrayList();
@@ -147,7 +147,7 @@ public class MemberDAO {
 					memberDto.setMember_id(rs.getString("member_id"));
 					memberDto.setMember_name(rs.getString("member_name"));
 					memberDto.setMember_job(rs.getString("member_job"));
-					memberDto.setMember_date(rs.getString("member_id"));
+					memberDto.setMember_date(rs.getString("member_date"));
 					memberDto.setMember_tel(rs.getString("member_tel"));
 				}
 			} catch (Exception e) {
@@ -161,17 +161,19 @@ public class MemberDAO {
 
 		// updateProc.jsp
 		public void updateMemberDTO(MemberDTO MemberDto) {
-			String sql = "UPDATE member SET member_id=?, member_name=?, member_job=?, member_date=?, member_tel=?";
+			String sql = "UPDATE member SET member_name=?, member_job=?, member_date=?, member_tel=? WHERE member_id=?";
 
 			try {
 				conn = ds.getConnection();
 
 				stmt = conn.prepareStatement(sql);
-				stmt.setString(1, MemberDto.getMember_id());
-				stmt.setString(2, MemberDto.getMember_name());
-				stmt.setString(3, MemberDto.getMember_job());
-				stmt.setString(4, MemberDto.getMember_date());
-				stmt.setString(5, MemberDto.getMember_tel());
+
+				stmt.setString(1, MemberDto.getMember_name());
+				stmt.setString(2, MemberDto.getMember_job());
+				stmt.setString(3, MemberDto.getMember_date());
+				stmt.setString(4, MemberDto.getMember_tel());
+				
+				stmt.setString(5, MemberDto.getMember_id());
 
 				stmt.executeUpdate();
 				
