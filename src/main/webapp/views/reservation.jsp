@@ -23,58 +23,86 @@
 <body>
     <jsp:useBean id="dao" class="bean.ReservationDAO"/>
     <jsp:useBean id="dto" class="bean.ReservationDTO"/>
-    <%
-        request.setCharacterEncoding("utf-8");
-    	
-		//페이징에 필요한 변수들
-		int totalRecord = 0; //총 글의 개수
-		int numPerPage = 10; //한 페이지 당 보여질 글의 개수
-		int totalPage = 0; //총 페이지 수
-		int nowPage = 0; // 현재 선택된 페이지
-		int beginPerPage = 0; // 페이지별 시작 번호
-		int pagePerBlock = 5; // 블럭 당 페이지 수
-		int totalBlock = 0; //총 블럭 수
-		int nowBlock = 0; //현재 블럭
-		
+
+	<%
+	request.setCharacterEncoding("utf-8");
+	// 페이징에 필요한 변수들
+	int totalRecord = 0; // 총 글의 개수
+	int numPerPage = 10; // 한 페이지 당 보여질 글의 개수
+	int totalPage = 0; // 총 페이지 수
+	int nowPage = 0; // 현재 선택된 페이지
+	int beginPerPage = 0; // 페이지별 시작 번호
+	int pagePerBlock = 5; // 블럭 당 페이지 수
+	int totalBlock = 0; // 총 블럭 수
+	int nowBlock = 0; // 현재 블럭
+
+	// 검색 후 페이지로 돌아갔을 때 가지고갈 요소들
+	String keyField = request.getParameter("keyField");
+	String keyWord = request.getParameter("keyWord");
+	ArrayList<ReservationDTO> list = new ArrayList<>();
+
+	// 현재 날짜와 30일 후 날짜 계산
+    java.util.Calendar cal = java.util.Calendar.getInstance();
+    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
     
-		// 검색 후 페이지로 돌아갔을 때 가지고갈 요소들
-		String keyField = request.getParameter("keyField");
-		String keyWord = request.getParameter("keyWord");
-		ArrayList<ReservationDTO> list = new ArrayList<>();
-		       
-        System.out.println("keyField: " + keyField);
-        System.out.println("keyWord: " + keyWord);
-        
-     	// 날짜 조회 설정
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
+    String today = sdf.format(cal.getTime()); // 오늘 날짜
+    cal.add(java.util.Calendar.DATE, 30); // 30일 후
+    String thirtyDaysLater = sdf.format(cal.getTime());
 
-        // 날짜 조회 결과
-        ArrayList<ReservationDTO> dateList = (ArrayList)dao.getReservationDateSearch(startDate, endDate);
-        
-        // 날짜 조회 결과에 따른 총 예약 수
-        totalRecord = dateList.size();
-        totalPage = (int)Math.ceil((double)totalRecord / numPerPage);
+    // 날짜 조회 설정
+    String startDate = request.getParameter("startDate");
+    String endDate = request.getParameter("endDate");
 
-        if (request.getParameter("nowPage") != null)
-            nowPage = Integer.parseInt(request.getParameter("nowPage"));
+    // startDate와 endDate가 없으면 기본값으로 설정
+    if (startDate == null || startDate.isEmpty()) {
+        startDate = today;
+    }
+    if (endDate == null || endDate.isEmpty()) {
+        endDate = thirtyDaysLater;
+    }
 
-        beginPerPage = nowPage * numPerPage;
+    // 데이터 리스트 초기화
+    ArrayList<ReservationDTO> resultList = new ArrayList<>();
 
-        // 페이지 수 및 블럭 수 계산
-        totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);
+ 	// 날짜 조회 및 검색 조회 로직
+    if (startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
+        // 날짜 조회
+        resultList = (ArrayList<ReservationDTO>) dao.getReservationDateSearch(startDate, endDate);
+    } else if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmpty()) {
+        // 검색 조회
+        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord);
+    } else {
+        // 전체 리스트 조회
+        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord); // 전체 조회 메서드 사용
+    }
 
-        if (request.getParameter("nowBlock") != null)
-            nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
-		
-     	// 현재 페이지에 해당하는 데이터만 담는 리스트 생성
-        ArrayList<ReservationDTO> currentPageList = new ArrayList<>();
-        for (int i = beginPerPage; i < beginPerPage + numPerPage && i < totalRecord; i++) {
-            currentPageList.add(dateList.get(i));
-        }
-     	
-    %>
-    <div id="app">
+	// 총 예약 수
+	totalRecord = resultList.size();
+	totalPage = (int) Math.ceil((double) totalRecord / numPerPage);
+
+	if (request.getParameter("nowPage") != null)
+		nowPage = Integer.parseInt(request.getParameter("nowPage"));
+	else
+		nowPage = 0; // 기본값 설정
+
+	beginPerPage = nowPage * numPerPage;
+
+	// 페이지 수 및 블럭 수 계산
+	totalBlock = (int) Math.ceil((double) totalPage / pagePerBlock);
+
+	if (request.getParameter("nowBlock") != null)
+		nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
+	else
+		nowBlock = 0; // 기본값 설정
+
+	// 현재 페이지에 해당하는 데이터만 담는 리스트 생성
+	ArrayList<ReservationDTO> currentPageList = new ArrayList<>();
+	for (int i = beginPerPage; i < beginPerPage + numPerPage && i < totalRecord; i++) {
+		currentPageList.add(resultList.get(i));
+	}
+	%>
+
+	<div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
@@ -151,16 +179,16 @@
                 <hr style="height: 5px;">
 				<div class="row form-group">
 					<form method="get" action="reservation.jsp" class="col-4 d-flex">
-  	  					<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate != null ? startDate : "" %>">&nbsp;&nbsp;~&nbsp;&nbsp;
-   						<input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate != null ? endDate : "" %>">
-   						<input type="submit" class="btn btn-outline-success" value="조회">
+    					<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate %>">&nbsp;&nbsp;~&nbsp;&nbsp;
+    					<input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate %>">
+   						 <input type="submit" class="btn btn-outline-success" value="조회">
 					</form>
 					<form class="col-4 d-flex"></form>
 					<form method="get" action="reservation.jsp" class="col-4 d-flex justify-content-end align-items-end">
-    <input type="hidden" name="keyField" value="<%= (keyField != null) ? keyField : "customer_name" %>"> 
-    <input type="text" name="keyWord" placeholder="검색" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
-    <input type="submit" class="btn btn-outline-success" value="조회">
-</form>
+    					<input type="hidden" name="keyField" value="<%= (keyField != null) ? keyField : "customer_name" %>"> 
+    					<input type="text" name="keyWord" placeholder="검색" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
+    					<input type="submit" class="btn btn-outline-success" value="조회">
+					</form>
 
 				</div>
 				<section class="section">
