@@ -40,11 +40,11 @@ public class AdminServlet extends HttpServlet {
 		
 		// DB 연동
 		AdminDTO dto = new AdminDTO();
-		dto.setAd_name(name);
-		dto.setAd_ph(ph);
-		dto.setAd_mail(mail);
-		dto.setAd_id(id);
-		dto.setAd_pw(pw);
+		dto.setAdmin_name(name);
+		dto.setAdmin_ph(ph);
+		dto.setAdmin_mail(mail);
+		dto.setAdmin_id(id);
+		dto.setAdmin_pw(pw);
 		
 		AdminDAO dao = new AdminDAO();
 		dao.insertAdmin(dto);

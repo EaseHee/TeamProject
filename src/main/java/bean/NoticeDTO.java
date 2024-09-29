@@ -13,6 +13,9 @@ public class NoticeDTO {
 	public int getNotice_no() {
 		return notice_no;
 	}
+	public void setNotice_no(int notice_no) {
+		this.notice_no = notice_no;
+	}
 	
 	// 공지사항 제목
 	public String getNotice_title() {

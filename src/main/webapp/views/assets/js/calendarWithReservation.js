@@ -104,6 +104,23 @@ class CalendarAndReservation {
 	}
 	
 	/**
+	 * 만약 선택된 날짜에 예약현황 데이터가 없을 경우 화면에 어떻게 표시할지를 결정하는 메서드.
+	 */
+	_noReservationTableInnerHTML() {
+		this.reservationTable.innerHTML = `
+			<tr>
+				<td class="text-bold-500" colspan="2">예약현황이 없습니다.</td>
+			</tr>`;
+	}
+	
+	/**
+	 * 예약현황 데이터를 모두 없앤다. 
+	 */
+	_clearReservationTableInnerHTML() {
+		this.reservationTable.innerHTML = `<tr></tr>`;
+	}
+	
+	/**
 	 * 사용자가 달력에서 선택한 칸에 해당하는 yyyy-mm-dd 형태의 날짜를 DB에 전송 후, 
 	 * 그 날짜에 해당하는 예약 시간 및 예약 서비스명 데이터를 가져와 "예약현황" 카드 테이블에 
 	 * 출력한다. 
@@ -114,29 +131,54 @@ class CalendarAndReservation {
 		fetch(`/TeamProject/dashboard?command=CALENDAR_RESERVATION&date=${dateToInput}`)
 			.then(response => response.json())
 			.then(data => {
-				// for test === 
-				/*
-				console.log('hi from fetch response');
-				console.log("response data: ");
-				console.log(data);
-				console.log(data.length);
-				*/
-				// for test code end ===
+				this._clearReservationTableInnerHTML();
+				
+				// for Test
+				//console.log(`data : `);
+				//console.log(this._isEmptyJsonObj(data));
 				
 				// 가져온 데이터들을 토대로 목록 구성. 
 				for (let key in data) {
-					console.log(key + " : " + data);
+					console.log(
+						key + " : " + data[key] + " : " + data[key][0] + " : " + data[key][1]
+					);
 					let tr = document.createElement("tr");
-					let td = document.createElement("td");
-					td.setAttribute("class", "text-bold-500");
 					for (let i = 0; i < 2; i++) {
+						let td = document.createElement("td");
+						td.setAttribute("class", "text-bold-500");
+						
 						let textNode = document.createTextNode(data[key][i]);
+						
 						td.appendChild(textNode);
+						tr.appendChild(td);
 					}
 					
-					tr.appendChild(td);
+					this.reservationTable.appendChild(tr);
+				}
+				
+				if (this._isEmptyJsonObj(data)) {
+					// json 형태 객체 내부에 데이터가 없을 경우 처리 로직.
+					this._noReservationTableInnerHTML();
+				} else {
+					this.reservationTable.insertAdjacentHTML("beforeend", 
+						`<tr>
+								<td align="center" colspan="2" class="calendar-wrapper">
+								<a href="dashboard.jsp"><span id="prev" class="icons material-symbols-rounded" style="display: inline-block; transform: translateY(3px);">chevron_left</span></a>
+								<i class="bi bi-dot"></i>
+								<a href="dashboard.jsp"><span id="next" class="icons material-symbols-rounded " style="display: inline-block; transform: translateY(3px);">chevron_right</span></a>
+								</td>
+						</tr>`
+					)
 				}
 			});
+	}
+	
+	/**
+	 * json 형태 객체({}) 내부에 프로퍼티가 하나도 없는지 확인하는 메서드. 
+	 * @returns - boolean.  객체 내 프로퍼티가 하나도 없으면 true, 하나라도 있으면 false
+	 */
+	_isEmptyJsonObj(obj) {
+		return (Reflect.ownKeys(obj).length == 0) ? true : false;
 	}
 	
 }

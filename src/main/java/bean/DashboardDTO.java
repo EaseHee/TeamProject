@@ -1,21 +1,11 @@
 package bean;
 
+/**
 import lombok.Data;
 
 @Data
-/**
- * lombok 라이브러리를 사용하면 DTO 클래스에서 개발자가 직접 
- * getter, setter 메서드를 정의하지 않아도 해당 라이브러리가 
- * 컴파일 과정에서 자동으로 생성해줍니다. 
- * 이를 통해 DB 필드명이 바뀌어도 필드명만 바꿔주면 되어서 더욱 간편합니다. 
- * lombok 라이브러리 설치법 및 사용법은 "채썜의 Servlet&JSP 프로그래밍 핵심" 책의 7장 초반에 있으며, 
- * 그 과정도 매우 쉽습니다. 
- * 단, lombok에서 제공하는 어노테이션들을 적용한 상태에서 getter, setter 등 
- * lombok에서 자동으로 생성해주는 메서드를 개발자가 정의해버리면 
- * 사실상 똑같은 이름의 메서드를 중복 정의하는 것이기에 에러가 발생할 수 있으니 주의해야 합니다. 
- * 그게 아니라면 비즈니스 로직을 구현하는 메서드를 얼마든지 추가해도 문제는 발생하지 않을 것입니다. 
+ * lombok 코드 제거 및 getter, setter 메서드 정의.
  */
-
 public class DashboardDTO {
 	private String product_name;
 	private int product_ea;
@@ -25,7 +15,71 @@ public class DashboardDTO {
 	private int service_price;
 	private int service_cnt;
     private String notice_title;
-	
+    
+	public String getProduct_name() {
+		return product_name;
+	}
+
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+
+	public int getProduct_ea() {
+		return product_ea;
+	}
+
+	public void setProduct_ea(int product_ea) {
+		this.product_ea = product_ea;
+	}
+
+	public String getReservation_time() {
+		return reservation_time;
+	}
+
+	public void setReservation_time(String reservation_time) {
+		this.reservation_time = reservation_time;
+	}
+
+	public String getService_name() {
+		return service_name;
+	}
+
+	public void setService_name(String service_name) {
+		this.service_name = service_name;
+	}
+
+	public String getService_code() {
+		return service_code;
+	}
+
+	public void setService_code(String service_code) {
+		this.service_code = service_code;
+	}
+
+	public int getService_price() {
+		return service_price;
+	}
+
+	public void setService_price(int service_price) {
+		this.service_price = service_price;
+	}
+
+	public int getService_cnt() {
+		return service_cnt;
+	}
+
+	public void setService_cnt(int service_cnt) {
+		this.service_cnt = service_cnt;
+	}
+
+	public String getNotice_title() {
+		return notice_title;
+	}
+
+	public void setNotice_title(String notice_title) {
+		this.notice_title = notice_title;
+	}
+
 	/* 월별 서비스 매출 */
 	public int getChart_revenue() {
 		return service_price * service_cnt;
