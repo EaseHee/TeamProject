@@ -103,21 +103,26 @@
                 </div>
                 <hr style="height: 5px;">
                 <div class="row form-group">
-                    <form method="post" action="#" class="col-4 d-flex">
-                        <input type="date" class="form-control" id="startDate" name="startDate">&nbsp;&nbsp;~&nbsp;&nbsp;
-                        <input type="date" class="form-control" id="endDate" name="endDate">
-                        <input type="button" class="btn btn-outline-success" value="조회">
-                    </form>
-                    <form class="col-4 d-flex"></form>
-                    <form method="post" action="customer.jsp" class="col-4 d-flex justify-content-end align-items-end">
-                        <input type="hidden" name="keyField" value="customer_name">
-                        <input type="text" name="keyWord" placeholder="검색" class="form-control">
-                        <input type="submit" class="btn btn-outline-success" value="조회">
-                    </form>
-                </div>
+    <form method="post" action="customer.jsp" class="col-4 d-flex">
+        <input type="date" class="form-control" id="startDate" name="startDate">&nbsp;&nbsp;~&nbsp;&nbsp;
+        <input type="date" class="form-control" id="endDate" name="endDate">
+        <input type="submit" class="btn btn-outline-success" value="조회">
+    </form>
+    <form method="post" action="customer.jsp" class="col-4 d-flex">
+        <div class="search-filter">
+                <select name="keyField">
+                    <option value="customer_name">이름</option>
+                    <option value="custmoer_rank">등급</option>
+                </select>
+                <input type="text" name="filterValue" id="filterValue">
+                <button type="submit">검색</button>
+            </div>
+    </form>
+</div>
+
                 <section class="section">
                     <div class="buttons d-flex justify-content-end align-items-end">
-                        <a href="customerAdd.jsp" class="btn btn-outline-success">등록</a>
+                        <a href="customerAdd.jsp" class="btn btn-outline-success" style="margin-right:0px">등록</a>
                     </div>
                     <div class="row" id="table-hover-row">
                         <div class="col-12">
@@ -144,7 +149,7 @@
 									    		int totalPage = 0;  	// 총 페이지 수
 									    		int nowPage = 0;     	// 현재 페이지, 선택할때마다 값을 바꿔야해서 0
 									    		int beginPerPage = 0;   // 페이지별 시작번호
-									    		int pagePerBlock = 6;	// 블럭당 페이지 수
+									    		int pagePerBlock = 3;	// 블럭당 페이지 수
 									    		int totalBlock = 0;		// 총 블럭 수
 									    		int nowBlock = 0;		// 현재 블럭
 									    		
@@ -199,12 +204,12 @@
                         </div>
                     </div>
                     <div class="buttons d-flex justify-content-end align-items-end">
-                        <button onclick="downloadExcel();" class="btn btn-outline-warning">엑셀 다운로드</button>
+                        <button onclick="downloadExcel();" class="btn btn-outline-warning" style="margin-right:0px">엑셀 다운로드</button>
                     </div>
                     <div class="col-12 d-flex justify-content-center align-items-center">
                         <nav aria-label="Page navigation example">
 							<ul class="pagination pagination-primary">
-							<!-- 왼쪽 화살표 이동 기능 -->
+								<!-- 왼쪽 화살표 이동 기능 -->
 								<% if(nowPage == 0) { %>
 									<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">
 										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a></li>
@@ -259,7 +264,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
         <script>
             function downloadExcel() {
-                var table = document.getElementById("table");
+                var table = document.getElementById("customerTable");
                 var wb = XLSX.utils.table_to_book(table, { sheet: "회원 관리" });
                 XLSX.writeFile(wb, '회원_관리.xlsx');
             }

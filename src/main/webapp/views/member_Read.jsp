@@ -218,7 +218,7 @@
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1"> 입사일 </span>
-                                    <input type="text" class="form-control" value="<%= memberDto.getMember_date()%>" readonly="readonly" />
+                                    <input type="date" class="form-control" value="<%= memberDto.getMember_date()%>" readonly="readonly" />
                                 </div>
                             </div>
                             <br><br><br>
@@ -230,8 +230,8 @@
                             </div>
                             <br><br><br>
                             <div class="button-container">
-                                <button type="button" onclick="location.href='member_Update.jsp?member_no=<%= memberDto.getMember_id() %>'">수정</button>
-                                <button type="button" onclick="location.href='member_Delete.jsp?member_no=<%= memberDto.getMember_id() %>'">삭제</button>
+                                <button type="button" onclick="location.href='member_Update.jsp?member_id=<%= memberDto.getMember_id() %>'">수정</button>
+                                <button type="button" onclick="location.href='member_Delete.jsp?member_id=<%= memberDto.getMember_id() %>'">삭제</button>
                                 <button type="button" onclick="location.href='member.jsp'">목록</button>
                             </div>
                         </div>
