@@ -277,9 +277,9 @@
 	                               	<%
 										for(int i=0; i<list0.size(); i++){											
 											DashboardDTO board0 = list0.get(i);
-									%>
+									%>									
 										<li class="list-group-item text-bold-500 detail">
-											<a  href="notice_view.jsp"> <%=board0.getNotice_title()%></a>
+											<a  href="notice_view.jsp?notice_no=<%=board0.getNotice_no()%>""> <%=board0.getNotice_title()%></a>
 										</li>
 									<%
 										}
