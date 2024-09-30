@@ -202,10 +202,10 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="/FirstProject/Controller?command=MEMBER">직원 관리</a>
+                                    <a href="member.jsp">직원 관리</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="/FirstProject/Controller?command=MEMBER">기타</a>
+                                    <a href="member.jsp">기타</a>
                                 </li>
                             </ul>
                         </li>

@@ -271,21 +271,19 @@
                 </div>
                 <hr style="height: 5px;">
 
-				<div class="row form-group">
-					<form method="get" action="reservation.jsp" class="col-4 d-flex">
-    					<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate %>">&nbsp;&nbsp;~&nbsp;&nbsp;
-    					<input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate %>">
-   						 <input type="submit" class="btn btn-outline-success" value="조회">
-					</form>
-					<form class="col-4 d-flex"></form>
-					<form method="get" action="reservation.jsp" class="col-4 d-flex justify-content-end align-items-end">
-    					<input type="hidden" name="keyField" value="<%= (keyField != null) ? keyField : "customer_name" %>"> 
-    					<input type="text" name="keyWord" placeholder="검색" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
-    					<input type="submit" class="btn btn-outline-success" value="조회">
-					</form>
-
-				</div>
-				<section class="section">
+                <div class="row form-group">
+                    <form method="post" action="#" class="col-4 d-flex">
+                        <input type="date" class="form-control" id="startDate" name="startDate">&nbsp;&nbsp;~&nbsp;&nbsp;
+                        <input type="date" class="form-control" id="endDate" name="endDate">
+                        <input type="button" class="btn btn-outline-success" value="조회">
+                    </form>
+                    <form method="post" action="reservation.jsp" class="col-4 d-flex justify-content-end align-items-end">
+                        <input type="hidden" name="keyField" value="cus_name">
+                        <input type="text" name="keyWord" placeholder="검색" class="form-control">
+                        <input type="submit" class="btn btn-outline-success" value="조회">
+                    </form>
+                </div>
+                <section class="section">
 
                     <div class="buttons d-flex justify-content-end align-items-end">
                         <a href="reservationPost.jsp" class="btn btn-outline-success" style="margin-right:0px">등록</a>
