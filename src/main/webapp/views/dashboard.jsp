@@ -58,6 +58,9 @@
 			transform: translateY(3px);
 		}
 	</style>
+	<script>
+		
+	</script>
 </head>
 
 <body>
@@ -246,15 +249,9 @@
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-<<<<<<< HEAD
 	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
 	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
                                     	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
-=======
-	                                    <i class="bi bi-person-fill" style="font-size:x-large; color: green;" ></i>
-	                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px; color: green;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
->>>>>>> 110aebd7d79860d39792bbbebd1fa4268a3ebeaa
                                    	</li>
                                 </ol>
                             </nav>
@@ -283,18 +280,14 @@
 	                            </ul>
 	                        </div>
                         </div>
-						
+
+						<!-- 월별 매출 통계 -->
                         <div class="col-lg-9 col-md-12"></div>
-                            <div class="card">
-                                <div id="bar"></div>
-							</div>
+							<jsp:include page="dashboard_Chart.jsp">
+								<jsp:param name="indexMonth" value="${indexMonth}"></jsp:param>
+							</jsp:include>
                         </div>
-                        <!-- value :  이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
-                            아이콘 및 매핑 기능 추가 -->
-                        <%
-							
-                        %>
-                        
+
                     </div>
                 </section>
                 <section class="list-group-button-badge">
@@ -405,7 +398,7 @@
                     </div>
                     <div class="float-end">
                         <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="#main">거니네조</a>
+                                href="dashboard.jsp">거니네조</a>
                         </p>                                
                     </div>
                 </div>
@@ -417,10 +410,12 @@
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/vendors/apexcharts/apexcharts.js"></script>
 <script src="assets/js/pages/dashboard.js"></script>
-<script src="assets/js/pages/ui-apexchart.js"></script><!-- 그래프 ui 설정 변경 js 파일 _ 축별 설정 및 데이터 전달 시 해당 파일 참조 -->
+<!-- <script src="assets/js/pages/ui-apexchart.js"></script> --><!-- 그래프 ui 설정 변경 js 파일 _ 축별 설정 및 데이터 전달 시 해당 파일 참조 -->
+<script src="assets/js/pages/chartMonthRevenue.js"></script><!-- 그래프 ui 설정 변경 js 파일 _ 축별 설정 및 데이터 전달 시 해당 파일 참조 -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/calendar.js" defer></script>
 <script src="assets/js/calendarWithReservation.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 
 </html>

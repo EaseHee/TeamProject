@@ -28,7 +28,7 @@ public class DashboardServlet extends HttpServlet {
         resp.setContentType("text/html;charset:utf-8");
         
         String command = req.getParameter("command");
-        //System.out.println("command: " + command);
+        System.out.println("command: " + command);
         //System.out.println("date:" + req.getParameter("date"));
         
         CommandFactory cmdFact = CommandFactory.newInstance();
