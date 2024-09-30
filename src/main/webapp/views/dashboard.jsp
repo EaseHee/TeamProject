@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DashBoard</title>
+    <title>메인 화면</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="/TeamProject/views/assets/css/calendar.css">
@@ -25,29 +25,40 @@
 
 	<style>
 		a {
-		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
 		    text-decoration: none;  /* 밑줄 없애기 */
-		}		
-		a:visited {
-		    color: inherit;
-		}		
-		a:hover {
-		    color: inherit;
-		}		
-		a:active {
-		    color: inherit;
 		}
 		td {
 			white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 			overflow: hidden; /* 넘치는 텍스트 숨기기 */
 			text-overflow: ellipsis; /* 넘치는 부분 '...'으로 표시 */
 			max-width: 150px; /* 최대 너비 설정 */
+<<<<<<< HEAD
+=======
 		}
 		.list-group-item.detail{
 			font-size: small;
 			white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 			overflow: hidden; /* 넘치는 텍스트 숨기기 */
 			text-overflow: ellipsis; /* 넘치는 부분 '...'으로 표시 */
+		}
+		.bi-plus-square {
+			display: inline-block;
+			transform: translateY(2px);
+		}
+		.bi-person-fill{
+			display: inline-block;
+			transform: translateY(6px);
+			margin-right: 5px;
+		}
+		.bi-bell-fill{
+			display: inline-block;
+			transform: translateY(3px);
+			margin-right: 5px;
+		}
+		.bi-box-arrow-right{
+			display: inline-block;
+			transform: translateY(3px);
+>>>>>>> develop
 		}
 	</style>
 </head>
@@ -110,7 +121,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="#">LOGO</a>
+                            <a href="dashboard.jsp">LOGO</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -187,10 +198,27 @@
                                 </li>
                              </ul>
                         </li>
+<<<<<<< HEAD
+=======
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/></svg>                               
+                                <span>MEMBER</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="member.jsp">직원 관리</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="member.jsp">기타</a>
+                                </li>
+                            </ul>
+                        </li>
+>>>>>>> develop
  
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pen-fill"></i>
+                                <i class="bi bi-megaphone-fill"></i>
                                 <span>NOTICE</span>
                             </a>
                             <ul class="submenu ">
@@ -223,7 +251,21 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
+<<<<<<< HEAD
                                     <li class="breadcrumb-item"><a href="login.jsp">로그아웃</a></li>
+=======
+                                    <li class="breadcrumb-item">
+<<<<<<< HEAD
+	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
+	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
+=======
+	                                    <i class="bi bi-person-fill" style="font-size:x-large; color: green;" ></i>
+	                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px; color: green;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
+>>>>>>> 110aebd7d79860d39792bbbebd1fa4268a3ebeaa
+                                   	</li>
+>>>>>>> develop
                                 </ol>
                             </nav>
                         </div>
@@ -241,9 +283,9 @@
 	                               	<%
 										for(int i=0; i<list0.size(); i++){											
 											DashboardDTO board0 = list0.get(i);
-									%>
+									%>									
 										<li class="list-group-item text-bold-500 detail">
-											<a  href="notice_view.jsp"> <%=board0.getNotice_title()%></a>
+											<a  href="notice_view.jsp?notice_no=<%=board0.getNotice_no()%>""> <%=board0.getNotice_title()%></a>
 										</li>
 									<%
 										}
@@ -251,6 +293,7 @@
 	                            </ul>
 	                        </div>
                         </div>
+<<<<<<< HEAD
 
 <<<<<<< HEAD
                         
@@ -275,10 +318,15 @@
   --%>                       
 >>>>>>> develop
                         <div class="col-lg-9 col-md-12">
+=======
+						
+                        <div class="col-lg-9 col-md-12"></div>
+>>>>>>> develop
                             <div class="card">
                                 <div id="bar"></div>
 							</div>
                         </div>
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
@@ -286,11 +334,14 @@
 =======
 >>>>>>> develop
                         <jsp:setProperty name="dashDAO" property="service" value="0"/>
+=======
+                        <!-- value :  이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
+                            아이콘 및 매핑 기능 추가 -->
+>>>>>>> develop
                         <%
-                            request.setCharacterEncoding("utf-8");
-                            String services = dashDAO.getServices();
-                            String revenues = dashDAO.getRevenues();
+							
                         %>
+<<<<<<< HEAD
 <<<<<<< HEAD
                         <!-- 외부 JS 파일에 데이터 전달 -->
 =======
@@ -310,6 +361,8 @@
 =======
 >>>>>>> origin/admin
 >>>>>>> develop
+=======
+>>>>>>> develop
                         
                     </div>
                 </section>
@@ -321,7 +374,7 @@
 	                                <li class="list-group-item active text-center">재고수량&nbsp;<a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); color:white;"
 										href="product.jsp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" /><path	d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" /></svg></a></li>
 	                            </ul>
-								<!-- <table class="table table-bordered mb-0">
+								<table class="table table-bordered mb-0">
 									<%
 										for(int i = beginPerPage1; i < beginPerPage1 + numPerPage; i++){
 											if(i==totalRecord1) break;
@@ -348,7 +401,7 @@
 
 											</td>
 										</tr>
-								</table> -->
+								</table>
 							</div>	                        
                         </div>
                         <div class="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">							
@@ -374,7 +427,7 @@
 									</div>
 								</div>							
                         </div>
-                        <!--<jsp:useBean id="ld" class="bean.DateDTO" scope="page"></jsp:useBean>-->
+                        <jsp:useBean id="ld" class="bean.DateDTO" scope="page"></jsp:useBean>
                         <div class="col-lg-3 col-md-12">                            
 	                        <div class="card" id="current-reservation">
 	                            <ul class="list-group">
@@ -382,7 +435,7 @@
 										href="reservation.jsp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" /><path	d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" /></svg></a></li>
 	                            </ul>                                        
               					<table class="table table-bordered mb-0">
-							<%--	<%
+							<%
 										for(int i = beginPerPage2; i < beginPerPage2 + numPerPage; i++){
 											if(i==totalRecord2) break;
 											DashboardDTO board2 = list2.get(i);
@@ -393,7 +446,7 @@
 										</tr>
 									<%
 										}
-									%>
+									%>  
 										<tr>
 											<td align="center" colspan="2" class="calendar-wrapper">
 												<a href="dashboard.jsp?nowPage1=<%=nowPage1%>&nowPage2=<%=nowPage2 - 1%>"><span id="prev" class="icons material-symbols-rounded">chevron_left</span></a>
@@ -407,7 +460,7 @@
 												<a href="dashboard.jsp?nowPage1=<%=nowPage1%>&nowPage2=<%=nowPage2 + 1%>"><span id="next" class="icons material-symbols-rounded">chevron_right</span></a>
 
 											</td>
-										</tr>  --%>	
+										</tr>
 								</table>
 	                        </div>
                         </div>
@@ -421,7 +474,7 @@
                     </div>
                     <div class="float-end">
                         <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="#">거니네조</a>
+                                href="#main">거니네조</a>
                         </p>                                
                     </div>
                 </div>
@@ -433,7 +486,7 @@
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/vendors/apexcharts/apexcharts.js"></script>
 <script src="assets/js/pages/dashboard.js"></script>
-<!-- <script src="assets/js/pages/ui-apexchart.js"></script> --><!-- 그래프 ui 설정 변경 js 파일 _ 축별 설정 및 데이터 전달 시 해당 파일 참조 -->
+<script src="assets/js/pages/ui-apexchart.js"></script><!-- 그래프 ui 설정 변경 js 파일 _ 축별 설정 및 데이터 전달 시 해당 파일 참조 -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/calendar.js" defer></script>
 <script src="assets/js/calendarWithReservation.js" defer></script>

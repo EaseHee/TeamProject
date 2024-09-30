@@ -38,8 +38,8 @@ public class DashboardServlet extends HttpServlet {
 =======
         
         String command = req.getParameter("command");
-        System.out.println("command: " + command);
-        System.out.println("date:" + req.getParameter("date"));
+        //System.out.println("command: " + command);
+        //System.out.println("date:" + req.getParameter("date"));
         
         CommandFactory cmdFact = CommandFactory.newInstance();
         ICommand iCmd = null;

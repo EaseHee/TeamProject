@@ -14,7 +14,11 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+<<<<<<< HEAD
 import org.json.simple.JSONArray;
+=======
+import org.json.JSONObject;
+>>>>>>> develop
 
 public class DashboardDAO {
     private Context context = null;
@@ -51,7 +55,7 @@ public class DashboardDAO {
     }
 
 	public List<DashboardDTO> getNotice() {
-		String sql = "SELECT notice_title FROM notice WHERE notice_check = 1 ORDER BY notice_reg desc";
+		String sql = "SELECT notice_no, notice_title FROM notice WHERE notice_check = 1 ORDER BY notice_reg desc";
 		ArrayList<DashboardDTO> list = new ArrayList<>();
 		try {
 			connection = dataSource.getConnection();			
@@ -61,7 +65,7 @@ public class DashboardDAO {
 			while(resultSet.next()){
 				DashboardDTO board = new DashboardDTO();
 				board.setNotice_title(resultSet.getString("notice_title"));
-				
+				board.setNotice_no(resultSet.getInt("notice_no"));
 				list.add(board);
 			}
 		} catch (SQLException e) {
@@ -128,16 +132,15 @@ public class DashboardDAO {
                 1> 이름을 "," 으로 split   "반환 타입 : String[]"
                 2> 배열에 해당하는 데이터(서비스명)가 있는 경우 카운트 증가
             3. DashboardDTO 객체 활용
-                1> 단일 서비스의 DTO를 생성 _ 상품코드의 두 번째 자리가 0
+            4. JSON 라이브러리 활용
+                JSONArray.put() / .get()
     */
     // 인스턴스 변수 메서드화 : 리팩토링 예정 
-    String services;
-    String revenues;
+    JSONObject jsonObject = null;
     // 이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
     public void setService (int indexMonth) {
         // 서비스별 월매출액 저장용
         List<DashboardDTO> list = new LinkedList<>();        
-        JSONArray jsonArray = null;
 		try{
 			connection = dataSource.getConnection();
             // 단일 서비스 조회
@@ -170,6 +173,7 @@ public class DashboardDAO {
                             dto.setService_cnt(dto.getService_cnt()+1);
                         }
                     }
+<<<<<<< HEAD
                     // if (i>0 && i == list.size()-1) {
                     //     for (DashboardDTO dto : list) {
                     //         if (dto.getSer_name().equals("커트")) {
@@ -203,6 +207,14 @@ public class DashboardDAO {
             // revenues = "[" + String.join(", ",  revenuesArr) + "]";
             // System.out.println(services);
             // System.out.println(revenues);
+=======
+
+
+                }
+            }
+            System.out.println(list);
+  
+>>>>>>> develop
 		} catch (SQLException e) {
             System.out.println("[setService] Message : " + e.getMessage());
             System.out.println("[setService] Class   : " + e.getClass().getSimpleName());
@@ -211,12 +223,16 @@ public class DashboardDAO {
 		}
         return jsonArray;
     }
-    // 배열로 return :  JS에 전달용
-    public String getServices() {
-        return services;
+
+    // json배열로 return :  JS에 전달용
+
+    public JSONObject getService() {
+        
+        return jsonObject;
     }
-    public String getRevenues() {
-        return revenues;
+    public JSONObject getRevenue() {
+        return jsonObject;
+
     }
     
     // == 달력에서 선택된 날짜에 대한 예약현황 데이터 가져오기 로직 시작 ==
