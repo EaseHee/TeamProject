@@ -40,7 +40,7 @@ public class MemberDAO {
 			}
 	}
 	
-	//List.jsp
+	//member.jsp
 	public List<MemberDTO> getMemberList(String keyField, String keyWord) {
 		String sql = null;
 
@@ -48,9 +48,9 @@ public class MemberDAO {
 			sql = "SELECT member_id, member_name, member_job, member_tel FROM member";
 		} 
 		else {
-			sql = "SELECT member_id, member_name, member_job, member_tel FROM member " + "WHERE " + keyField + "Like ?";
+			sql = "SELECT member_id, member_name, member_job, member_tel FROM member WHERE " + keyField + " LIKE '%" + keyWord + "%'";
 		}
-
+		System.out.println(keyField +" "+ keyWord);
 		ArrayList<MemberDTO> list = new ArrayList<>();
 			
 		try {
@@ -64,7 +64,7 @@ public class MemberDAO {
 			}
 			else {
 				stmt = conn.prepareStatement(sql);
-				stmt.setString(2,"%" + keyWord + "%");
+				//stmt.setString(1,"%" + keyWord + "%");
 				//like 구문 파라미터 설정 
 			}
 			
