@@ -51,7 +51,7 @@ public class DashboardDAO {
     }
 
 	public List<DashboardDTO> getNotice() {
-		String sql = "SELECT notice_title FROM notice WHERE notice_check = 1 ORDER BY notice_reg desc";
+		String sql = "SELECT notice_no, notice_title FROM notice WHERE notice_check = 1 ORDER BY notice_reg desc";
 		ArrayList<DashboardDTO> list = new ArrayList<>();
 		try {
 			connection = dataSource.getConnection();			
@@ -61,7 +61,7 @@ public class DashboardDAO {
 			while(resultSet.next()){
 				DashboardDTO board = new DashboardDTO();
 				board.setNotice_title(resultSet.getString("notice_title"));
-				
+				board.setNotice_no(resultSet.getInt("notice_no"));
 				list.add(board);
 			}
 		} catch (SQLException e) {
