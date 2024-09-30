@@ -15,7 +15,16 @@ public class DashboardDTO {
 	private int service_price;
 	private int service_cnt;
     private String notice_title;
+    private int notice_no;
     
+	public int getNotice_no() {
+		return notice_no;
+	}
+
+	public void setNotice_no(int notice_no) {
+		this.notice_no = notice_no;
+	}
+
 	public String getProduct_name() {
 		return product_name;
 	}
