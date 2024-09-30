@@ -46,11 +46,9 @@ public class MypageServlet extends HttpServlet{
 		MypageDAO dao = new MypageDAO();
 		dao.updateManager(dto);
 		
-<<<<<<< HEAD
+
 		resp.sendRedirect(req.getContextPath() + "/Mypage?branchcode=" + branchcode);
-=======
-		resp.sendRedirect("/Mypage?branchcode=" + branchcode);
->>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
+
 //		
 	}
 }

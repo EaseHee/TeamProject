@@ -14,15 +14,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-import org.json.simple.JSONArray;
-=======
 import org.json.JSONObject;
->>>>>>> develop
-=======
-import org.json.JSONObject;
->>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 
 public class DashboardDAO {
     private Context context = null;
@@ -142,7 +134,7 @@ public class DashboardDAO {
     // 인스턴스 변수 메서드화 : 리팩토링 예정 
     JSONObject jsonObject = null;
     // 이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
-    public void setService (int indexMonth) {
+    public JSONArray setService (int indexMonth) {
         // 서비스별 월매출액 저장용
         List<DashboardDTO> list = new LinkedList<>();        
 		try{
@@ -177,57 +169,12 @@ public class DashboardDAO {
                             dto.setService_cnt(dto.getService_cnt()+1);
                         }
                     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    // if (i>0 && i == list.size()-1) {
-                    //     for (DashboardDTO dto : list) {
-                    //         if (dto.getSer_name().equals("커트")) {
-                    //             dto.setSer_cnt(dto.getSer_cnt()+1);
-                    //         }
-                    //     }
-                    // }
-                }
-            }
-            
-<<<<<<< HEAD
-            // 배열에 저장
-            String[] servicesArr = new String[list.size()];
-            String[] revenuesArr = new String[list.size()];
-=======
-            /* JSON 라이브러리 객체 활용 */
-            jsonArray = new JSONArray(list);
-            jsonArray.put(list);
-            
-            // // 배열에 저장
-            // String[] servicesArr = new String[list.size()];
-            // String[] revenuesArr = new String[list.size()];
->>>>>>> develop
-
-            // for (int i = 0; i < list.size(); i++) {
-            //     servicesArr[i] = list.get(i).getService_name();
-            //     revenuesArr[i] = String.valueOf(list.get(i).getChart_revenue()/10000);
-            // }
-            
-            // services = "[\"" + String.join("\", \"",  servicesArr) + "\"]";
-            // revenues = "[" + String.join(", ",  revenuesArr) + "]";
-            // System.out.println(services);
-            // System.out.println(revenues);
-=======
 
 
                 }
             }
             System.out.println(list);
   
->>>>>>> develop
-=======
-
-
-                }
-            }
-            System.out.println(list);
-  
->>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 		} catch (SQLException e) {
             System.out.println("[setService] Message : " + e.getMessage());
             System.out.println("[setService] Class   : " + e.getClass().getSimpleName());

@@ -18,14 +18,7 @@ public class DashboardServlet extends HttpServlet {
 
     @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-<<<<<<< HEAD
-		req.setCharacterEncoding("UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        resp.setContentType("text/html;charset:utf-8");
-        
-=======
     	doPost(req, resp);
->>>>>>> develop
 	}
 
 	@Override
@@ -33,9 +26,6 @@ public class DashboardServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset:utf-8");
-<<<<<<< HEAD
-
-=======
         
         String command = req.getParameter("command");
         //System.out.println("command: " + command);
@@ -52,6 +42,5 @@ public class DashboardServlet extends HttpServlet {
         	RequestDispatcher dispatcher = req.getRequestDispatcher(url);
             dispatcher.forward(req, resp);
         }
->>>>>>> develop
     }
 }
