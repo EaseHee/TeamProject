@@ -81,7 +81,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="#">LOGO</a>
+                            <a href="dashboard.jsp">LOGO</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -289,7 +289,7 @@
                         <div class="float-end">
                             <p>
                                 <span class="text-danger"><i class="bi bi-heart"></i></span>
-                                by <a href="#">거니네조</a>
+                                by <a href="#main">거니네조</a>
                             </p>
                         </div>
                     </div>

@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
+    <title>상품 관리</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">    
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -120,7 +120,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="#">LOGO</a>
+                            <a href="dashboard.jsp">LOGO</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -248,10 +248,10 @@
 	                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
 	                                <ol class="breadcrumb">
 	                                    <li class="breadcrumb-item">
-	                                    <i class="bi bi-person-fill" style="font-size:x-large; color: green;" ></i>
-	                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px; color: green;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
-                                   	</li>                                   
+	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
+	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
+                                   	</li>                               
 	                                </ol>
 	                            </nav>
 	                        </div>
@@ -262,12 +262,13 @@
 					    <form method="post" action="product.jsp" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
 					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control me-2">
 					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
+					    </form >
+					    <form class="col-4 d-flex"></form>
+					    <form class="col-4 d-flex justify-content-end align-items-end">
+					    	<a href="product_B_add.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
 					    </form>
 					</div>
 	                <section class="section">
-	                	<div class="buttons d-flex justify-content-end align-items-end">
-							<a href="product_B_add.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
-						</div>
 	                    <div class="row" id="table-hover-row">
 	                        <div class="col-12">
 	                            <div class="card">
@@ -341,7 +342,7 @@
 	                    </div>
 	                    <div class="float-end">
 	                        <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-	                                href="#">거니네조</a>
+	                                href="#main">거니네조</a>
 	                        </p>                                
 	                    </div>
 	                </div>

@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RESERVATION</title>
+    <title>예약 관리</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -101,6 +101,7 @@
     ArrayList<ReservationDTO> resultList = new ArrayList<>();
 
  	// 날짜 조회 및 검색 조회 로직
+ 	/*
     if (startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
         // 날짜 조회
         resultList = (ArrayList<ReservationDTO>) dao.getReservationDateSearch(startDate, endDate);
@@ -111,6 +112,27 @@
         // 전체 리스트 조회
         resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord); // 전체 조회 메서드 사용
     }
+*/
+
+if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmpty()) {
+    // 검색 조회 (기간도 포함되어 있을 경우)
+    if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+        // 기간 및 검색 조회
+        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, startDate, endDate);
+    } else {
+        // 검색 조회 (기간 없이)
+        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, null, null);
+    }
+} else if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+    // 기간 조회 (검색 없이)
+    resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(null, null, startDate, endDate);
+} else {
+    // 전체 리스트 조회
+    resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(null, null, null, null);
+}
+
+
+
 
 	// 총 예약 수
 	totalRecord = resultList.size();
@@ -144,7 +166,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="#">LOGO</a>
+                            <a href="dashboard.jsp">LOGO</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -270,9 +292,9 @@
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-	                                    <i class="bi bi-person-fill" style="font-size:x-large; color: green;" ></i>
-	                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px; color: green;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
+	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
+	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
                                    	</li>
                                 </ol>
                             </nav>
@@ -281,19 +303,20 @@
                 </div>
                 <hr style="height: 5px;">
 
-                <div class="row form-group">
-                    <form method="post" action="#" class="col-4 d-flex">
-                        <input type="date" class="form-control" id="startDate" name="startDate">&nbsp;&nbsp;~&nbsp;&nbsp;
-                        <input type="date" class="form-control" id="endDate" name="endDate">
-                        <input type="button" class="btn btn-outline-success" value="조회">
-                    </form>
-                    <form method="post" action="reservation.jsp" class="col-4 d-flex justify-content-end align-items-end">
-                        <input type="hidden" name="keyField" value="cus_name">
-                        <input type="text" name="keyWord" placeholder="검색" class="form-control">
-                        <input type="submit" class="btn btn-outline-success" value="조회">
-                    </form>
-                </div>
-                <section class="section">
+				<div class="row form-group">
+					<form method="get" action="reservation.jsp" class="col-4 d-flex">
+    					<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate %>">&nbsp;&nbsp;~&nbsp;&nbsp;
+    					<input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate %>">
+   						 <input type="submit" class="btn btn-outline-success" value="조회">
+					</form>
+					<form class="col-4 d-flex"></form>
+					<form method="get" action="reservation.jsp" class="col-4 d-flex justify-content-end align-items-end">
+    					<input type="hidden" name="keyField" value="<%= (keyField != null) ? keyField : "customer_name" %>"> 
+    					<input type="text" name="keyWord" placeholder="예약자명 검색" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
+    					<input type="submit" class="btn btn-outline-success" value="조회">
+					</form>
+				</div>
+				<section class="section">
 
                     <div class="buttons d-flex justify-content-end align-items-end">
                         <a href="reservationPost.jsp" class="btn btn-outline-success" style="margin-right:0px">등록</a>
@@ -398,7 +421,7 @@
                             <p>2024 &copy; ACORN</p>
                         </div>
                         <div class="float-end">
-                            <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="#">거니네조</a></p>
+                            <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="#main">거니네조</a></p>
                         </div>
                     </div>
                 </footer>

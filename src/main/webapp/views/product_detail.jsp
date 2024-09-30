@@ -138,7 +138,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="#">LOGO</a>
+                            <a href="dashboard.jsp">LOGO</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -266,10 +266,10 @@
 	                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
 	                                <ol class="breadcrumb">
 	                                    <li class="breadcrumb-item">
-	                                    <i class="bi bi-person-fill" style="font-size:x-large; color: green;" ></i>
-	                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px; color: green;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
-                                   	</li>                                   
+	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
+	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
+                                   	</li>                                 
 	                                </ol>
 	                            </nav>
 	                        </div>
@@ -325,7 +325,7 @@
 	                        </div>
 	                    </div>
 	                    <div id="excel_export" class="buttons d-flex justify-content-end align-items-end">
-							<button onclick="downloadExcel()" class="btn btn-outline-warning" style="margin-right: 0px;">엑셀 다운로드</button>
+							<button onclick="downloadExcel()" class="btn btn-outline-warning" style="margin-right: 0px; width: 150px; height: 40px; ">엑셀 다운로드</button>
 						</div>
 	                    <div class="col-12 d-flex justify-content-center align-items-center">
 							<nav aria-label="Page navigation example">
@@ -365,7 +365,7 @@
 	                    </div>
 	                    <div class="float-end">
 	                        <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-	                                href="#">거니네조</a>
+	                                href="#main">거니네조</a>
 	                        </p>                                
 	                    </div>
 	                </div>
