@@ -33,7 +33,10 @@
 			text-overflow: ellipsis; /* 넘치는 부분 '...'으로 표시 */
 			max-width: 150px; /* 최대 너비 설정 */
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 		}
 		.list-group-item.detail{
 			font-size: small;
@@ -58,7 +61,10 @@
 		.bi-box-arrow-right{
 			display: inline-block;
 			transform: translateY(3px);
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 		}
 	</style>
 </head>
@@ -199,7 +205,10 @@
                              </ul>
                         </li>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                             	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/></svg>                               
@@ -214,7 +223,10 @@
                                 </li>
                             </ul>
                         </li>
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
  
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
@@ -252,8 +264,11 @@
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     <li class="breadcrumb-item"><a href="login.jsp">로그아웃</a></li>
 =======
+=======
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
                                     <li class="breadcrumb-item">
 <<<<<<< HEAD
 	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
@@ -265,7 +280,10 @@
                                     	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
 >>>>>>> 110aebd7d79860d39792bbbebd1fa4268a3ebeaa
                                    	</li>
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
                                 </ol>
                             </nav>
                         </div>
@@ -293,6 +311,7 @@
 	                            </ul>
 	                        </div>
                         </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 <<<<<<< HEAD
@@ -322,10 +341,15 @@
 						
                         <div class="col-lg-9 col-md-12"></div>
 >>>>>>> develop
+=======
+						
+                        <div class="col-lg-9 col-md-12"></div>
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
                             <div class="card">
                                 <div id="bar"></div>
 							</div>
                         </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 <<<<<<< HEAD
@@ -363,6 +387,13 @@
 >>>>>>> develop
 =======
 >>>>>>> develop
+=======
+                        <!-- value :  이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
+                            아이콘 및 매핑 기능 추가 -->
+                        <%
+							
+                        %>
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
                         
                     </div>
                 </section>

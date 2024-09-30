@@ -219,8 +219,11 @@
 				<br><br><br>
 				<!-- MYPAGE 시작 -->
 <<<<<<< HEAD
+<<<<<<< HEAD
 				<form action="Mypage" method="post">
 =======
+=======
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 				<section class="section">
                     <form action="Mypage" method="post">
                     	<div class="container">
@@ -265,7 +268,10 @@
 				</section>
                             <%--
 				<form action="Mypage" method="post">				
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 					<section class="" background-color='#607080'>
 				        <div class="container">
 				            <div class="row">

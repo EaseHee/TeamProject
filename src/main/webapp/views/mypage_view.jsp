@@ -218,6 +218,7 @@
 				<br><br><br>
 				<!-- MYPAGE 시작 -->
 <<<<<<< HEAD
+<<<<<<< HEAD
 				<form action="mypage_update.jsp" method="get">
 					<section class="" background-color='#607080'>
 				        <div class="container">
@@ -225,13 +226,18 @@
 				                <div class="col-lg-12 mb-4 mb-sm-5">
 				                    <div class="card card-style1 border-0">
 =======
+=======
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 				<section class="section">
                     <form action="mypage_update.jsp" method="get">
                     	<div class="container">
                         	<div class="row" id="table-hover-row">                        	
 	                            <div class="col-lg-12 mb-4 mb-sm-5">
 	                          		<div class="card card-style1 border-0">
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 				                        <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
 				                            <div class="row align-items-center">
 				                                <div class="col-lg-5 mb-4 mb-lg-0">
@@ -239,6 +245,7 @@
 				                                </div>
 			                               		<div class="col-lg-7 px-xl-10">
 				                                    <ul class="list-unstyled mb-1-9">
+<<<<<<< HEAD
 <<<<<<< HEAD
 				                                        <li class="mb-2 mb-xl-3 display-28">
 				                                        	<span class="display-26 text-secondary me-2 font-weight-600">지점코드 :</span>
@@ -293,6 +300,26 @@
 														</li>
 													</ul>													
 				                                </div>
+=======
+				                                        <li class="input-group mb-2 mb-xl-3 display-28">
+						                                    <span class="input-group-text" id="basic-addon1" >지점 코드</span>
+															<input type="text" class="form-control" name="branchcode" value="${manager.branch_code}" readonly="readonly" />
+														</li>
+														<li class="input-group mb-2 mb-xl-3 display-28">
+						                                    <span class="input-group-text">이 름</span>
+				                                   			<input type="text" class="form-control" name="name" value="${manager.manager_name}">
+														</li>
+														<li class="input-group mb-2 mb-xl-3 display-28">
+						                                    <span class="input-group-text">전화 번호</span>
+				                                  			<input type="text" class="form-control" name="tel" value="${manager.manager_tel}">
+														</li>
+														<li class="input-group mb-2 mb-xl-3 display-28">
+						                                    <span class="input-group-text">이메일</span>
+				                                        	<input type="email" class="form-control" name="mail" value="${manager.manager_mail}">
+														</li>
+													</ul>													
+				                                </div>
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 											   	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 				                                	<input type="hidden" name="branchcode" value="${manager.branch_code}">
 											        <button type="submit">수정하기</button>
@@ -306,7 +333,10 @@
 					</form>
 				</section>
 
+<<<<<<< HEAD
 >>>>>>> develop
+=======
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
                 <!-- MYPAGE 종료 -->
                 <br><br><br>
                 <footer>

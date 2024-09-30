@@ -210,16 +210,33 @@
         <input type="date" class="form-control" id="startDate" name="startDate">&nbsp;&nbsp;~&nbsp;&nbsp;
         <input type="date" class="form-control" id="endDate" name="endDate">
         <input type="submit" class="btn btn-outline-success" value="조회">
+<<<<<<< HEAD
     </form >
     <form class="col-5"></form>
 	<form method="post" action="customer.jsp" class="col-3 d-flex justify-content-end align-items-end search-filter">
+=======
+    </form>    
+	<form class="col-4 d-flex"></form>
+	<form method="post" action="customer.jsp" class="col-4 d-flex justify-content-end align-items-end">
+		<div class="search-filter">
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 	        <select name="keyField" class="choices form-select" style="width: 80px; display: inline-block;">
 	            <option value="customer_name">이름</option>
 	            <option value="custmoer_rank">등급</option>
 	        </select>
+<<<<<<< HEAD
 	        <input type="text" name="filterValue" id="filterValue" placeholder="검색" class="form-control">
 	        <input type="submit" class="btn btn-outline-success" value="조회">
 	</form>
+=======
+	        <input type="text" name="filterValue" id="filterValue">
+	        <input type="submit" class="btn btn-outline-success" value="조회">
+    	</div>
+	</form>
+    <form method="post" action="customer.jsp" class="col-4 d-flex">
+        
+    </form>
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 </div>
 
                 <section class="section">

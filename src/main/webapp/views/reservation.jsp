@@ -304,6 +304,7 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
                 <hr style="height: 5px;">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <div class="row form-group">
                     <form method="post" action="#" class="col-4 d-flex">
                         <input type="date" class="form-control" id="startDate" name="startDate">&nbsp;&nbsp;~&nbsp;&nbsp;
@@ -321,6 +322,9 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
 =======
 
 >>>>>>> develop
+=======
+
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 				<div class="row form-group">
 					<form method="get" action="reservation.jsp" class="col-4 d-flex">
     					<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate %>">&nbsp;&nbsp;~&nbsp;&nbsp;
@@ -336,10 +340,14 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
 				</div>
 				<section class="section">
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> develop
 =======
 
 >>>>>>> develop
+=======
+
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
                     <div class="buttons d-flex justify-content-end align-items-end">
                         <a href="reservationPost.jsp" class="btn btn-outline-success" style="margin-right:0px">등록</a>
                     </div>

@@ -15,10 +15,14 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.json.simple.JSONArray;
 =======
 import org.json.JSONObject;
 >>>>>>> develop
+=======
+import org.json.JSONObject;
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 
 public class DashboardDAO {
     private Context context = null;
@@ -174,6 +178,7 @@ public class DashboardDAO {
                         }
                     }
 <<<<<<< HEAD
+<<<<<<< HEAD
                     // if (i>0 && i == list.size()-1) {
                     //     for (DashboardDTO dto : list) {
                     //         if (dto.getSer_name().equals("커트")) {
@@ -215,6 +220,14 @@ public class DashboardDAO {
             System.out.println(list);
   
 >>>>>>> develop
+=======
+
+
+                }
+            }
+            System.out.println(list);
+  
+>>>>>>> f7a568c709f92d2c789750cc714c9a398b74567d
 		} catch (SQLException e) {
             System.out.println("[setService] Message : " + e.getMessage());
             System.out.println("[setService] Class   : " + e.getClass().getSimpleName());
