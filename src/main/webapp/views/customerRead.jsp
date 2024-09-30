@@ -12,31 +12,40 @@
     <title>회원 정보</title>
     
     <style>
-         body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            width: 90%;
-            margin: 0 auto;
-        }
-        h1 {
-            font-size: 36px;
-            margin: 20px 0;
-            border-bottom: 2px solid black;
-        }
-        table {
-            width: 70%;
-            border-collapse: collapse;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
+		a {
+		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
+		    text-decoration: none;  /* 밑줄 없애기 */
+		}		
+		a:visited {
+		    color: inherit;
+		}		
+		a:hover {
+		    color: inherit;
+		}		
+		a:active {
+		    color: inherit;
+		}
+		.list-group-item.detail{
+			font-size: small;
+		}
+		.bi-plus-square {
+			display: inline-block;
+			transform: translateY(2px);
+		}
+		.bi-person-fill{
+			display: inline-block;
+			transform: translateY(6px);
+			margin-right: 5px;
+		}
+		.bi-bell-fill{
+			display: inline-block;
+			transform: translateY(3px);
+			margin-right: 5px;
+		}
+		.bi-box-arrow-right{
+			display: inline-block;
+			transform: translateY(3px);
+		}
     </style>
 </head>
 <body>
