@@ -19,7 +19,17 @@
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
         	<style>
 		a {
+		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
 		    text-decoration: none;  /* 밑줄 없애기 */
+		}		
+		a:visited {
+		    color: inherit;
+		}		
+		a:hover {
+		    color: inherit;
+		}		
+		a:active {
+		    color: inherit;
 		}
 		.list-group-item.detail{
 			font-size: small;
@@ -252,12 +262,13 @@
 					    <form method="post" action="product.jsp" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
 					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control me-2">
 					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
+					    </form >
+					    <form class="col-4 d-flex"></form>
+					    <form class="col-4 d-flex justify-content-end align-items-end">
+					    	<a href="product_B_add.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
 					    </form>
 					</div>
 	                <section class="section">
-	                	<div class="buttons d-flex justify-content-end align-items-end">
-							<a href="product_B_add.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
-						</div>
 	                    <div class="row" id="table-hover-row">
 	                        <div class="col-12">
 	                            <div class="card">

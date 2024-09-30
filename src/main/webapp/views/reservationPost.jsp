@@ -17,7 +17,17 @@
 	
         <style>
 		a {
+		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
 		    text-decoration: none;  /* 밑줄 없애기 */
+		}		
+		a:visited {
+		    color: inherit;
+		}		
+		a:hover {
+		    color: inherit;
+		}		
+		a:active {
+		    color: inherit;
 		}
 		.list-group-item.detail{
 			font-size: small;
@@ -263,8 +273,35 @@
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">예약 시간</span>
-                                    <input type="time" class="form-control" name="reservation_time" >
-                                </div>
+                                    <!--  
+                                    <input type="time" class="form-control" name="reservation_time">
+                                    -->
+									<select name="reservation_time" class="form-control">
+										<option value="09:00">09:00</option>
+										<option value="09:30">09:30</option>
+										<option value="10:00">10:00</option>
+										<option value="10:30">10:30</option>
+										<option value="11:00">11:00</option>
+										<option value="11:30">11:30</option>
+										<option value="12:00">12:00</option>
+										<option value="12:30">12:30</option>
+										<option value="13:00">13:00</option>
+										<option value="13:30">13:30</option>
+										<option value="14:00">14:00</option>
+										<option value="14:30">14:30</option>
+										<option value="15:00">15:00</option>
+										<option value="15:30">15:30</option>
+										<option value="16:00">16:00</option>
+										<option value="16:30">16:30</option>
+										<option value="17:00">17:00</option>
+										<option value="17:30">17:30</option>
+										<option value="18:00">18:00</option>
+										<option value="18:30">18:30</option>
+										<option value="19:00">19:00</option>
+										<option value="19:30">19:30</option>
+										<option value="20:00">20:00</option>
+									</select>
+								</div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">

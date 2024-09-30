@@ -25,7 +25,17 @@
 	type="image/x-icon">
 	    <style>
 		a {
+		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
 		    text-decoration: none;  /* 밑줄 없애기 */
+		}		
+		a:visited {
+		    color: inherit;
+		}		
+		a:hover {
+		    color: inherit;
+		}		
+		a:active {
+		    color: inherit;
 		}
 		.list-group-item.detail{
 			font-size: small;

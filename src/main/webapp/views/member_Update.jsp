@@ -22,7 +22,17 @@
 	
 	<style>
 		a {
+		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
 		    text-decoration: none;  /* 밑줄 없애기 */
+		}		
+		a:visited {
+		    color: inherit;
+		}		
+		a:hover {
+		    color: inherit;
+		}		
+		a:active {
+		    color: inherit;
 		}
 		.list-group-item.detail{
 			font-size: small;
@@ -230,7 +240,7 @@
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">직원 사번</span>
-                                    <input type="text" class="form-control" name="member_id" value="<%= memberDto.getMember_id()%>" />
+                                    <input type="text" class="form-control" name="member_id" value="<%= memberDto.getMember_id()%>" readonly="readonly"/>
                                 </div>
                             </div>
                             <br><br><br>
@@ -266,7 +276,7 @@
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
 									<span class="input-group-text" id="basic-addon1">입사일</span> 
-									<input type="date" class="form-control" name="member_date" value="<%=memberDto.getMember_date()%>">
+									<input type="date" class="form-control" name="member_date" value="<%=memberDto.getMember_date()%>" readonly="readonly"> 
 								</div>
 							</div>
 							<br><br><br>

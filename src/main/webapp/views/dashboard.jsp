@@ -246,9 +246,15 @@
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
+<<<<<<< HEAD
 	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
 	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
                                     	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
+=======
+	                                    <i class="bi bi-person-fill" style="font-size:x-large; color: green;" ></i>
+	                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px; color: green;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
+>>>>>>> 110aebd7d79860d39792bbbebd1fa4268a3ebeaa
                                    	</li>
                                 </ol>
                             </nav>

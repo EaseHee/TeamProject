@@ -22,7 +22,17 @@
 	
 	<style>	    
 		a {
+		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
 		    text-decoration: none;  /* 밑줄 없애기 */
+		}		
+		a:visited {
+		    color: inherit;
+		}		
+		a:hover {
+		    color: inherit;
+		}		
+		a:active {
+		    color: inherit;
 		}
 		.list-group-item.detail{
 			font-size: small;
@@ -262,7 +272,7 @@
                             <br><br><br>
                             <div class="button-container">
                                 <button type="button" onclick="location.href='member_Update.jsp?member_id=<%= memberDto.getMember_id() %>'">수정</button>
-                                <button type="button" onclick="location.href='member_Delete.jsp?member_id=<%= memberDto.getMember_id() %>'">삭제</button>
+                                <button type="button" onclick="confirmDelete('<%= memberDto.getMember_id() %>')">삭제</button>
                                 <button type="button" onclick="location.href='member.jsp'">목록</button>
                             </div>
                         </div>
@@ -287,7 +297,15 @@
     </div>
 <script	src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/main.js"></script></body>
+<script src="assets/js/main.js"></script>
+    <script>
+        function confirmDelete(member_id) {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                location.href = 'member_Delete.jsp?member_id=' + encodeURIComponent(member_id);
+            }
+        }
+    </script>
+</body>
 
 </html>
 </body>
