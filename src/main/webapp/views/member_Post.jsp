@@ -22,7 +22,17 @@
 	
 	<style>
 		a {
+		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
 		    text-decoration: none;  /* 밑줄 없애기 */
+		}		
+		a:visited {
+		    color: inherit;
+		}		
+		a:hover {
+		    color: inherit;
+		}		
+		a:active {
+		    color: inherit;
 		}
 		.list-group-item.detail{
 			font-size: small;
@@ -200,9 +210,9 @@
                                 class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
-	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
+	                                    <i class="bi bi-person-fill" style="font-size:x-large; color: green;" ></i>
+	                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px; color: green;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
                                    	</li>
                                 </ol>
                             </nav>
@@ -223,16 +233,15 @@
                             <br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">사번</span> 
-									<input type="text" class="form-control" name="member_id" placeholder="  사번을 입력해 주세요">
+									<span class="input-group-text" id="basic-addon1">직원 사번</span> 
+									<input type="text" class="form-control" name="member_id" placeholder="  사번을 입력해 주세요" required="required" />
 								</div>
 							</div>
 							<br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">직원 이름</span> <input
-										type="text" class="form-control" name="member_name"
-										placeholder="  이름을 입력해 주세요">
+									<span class="input-group-text" id="basic-addon1">직원 명</span> 
+									<input type="text" class="form-control" name="member_name" placeholder="  이름을 입력해 주세요" required="required" />
 								</div>
 							</div>
 							<br> <br> <br>
@@ -252,15 +261,15 @@
 							<br> <br> <br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">입사일</span> <input
-										type="date" class="form-control" name="member_date">
+									<span class="input-group-text" id="basic-addon1">입사일</span> 
+									<input type="date" class="form-control" name="member_date" required="required" />
 								</div>
 							</div>
 							<br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">전화 번호</span>
-                                    <input type="text" class="form-control" name="member_tel" placeholder="  010-0000-0000형식으로 입력해주세요.">
+                                    <input type="text" class="form-control" name="member_tel" placeholder="  010-0000-0000형식으로 입력해주세요." required="required" />
                                 </div>
                             </div>
                             <br><br><br>
