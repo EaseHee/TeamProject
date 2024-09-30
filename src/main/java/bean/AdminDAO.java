@@ -61,6 +61,9 @@ public class AdminDAO {
             statement.setString(3, dto.getAdmin_name());
             statement.setString(4, dto.getAdmin_ph());
             statement.setString(5, dto.getAdmin_mail());
+            statement.setString(5, dto.getAdmin_postcode());
+            statement.setString(5, dto.getAdmin_roadAddress());
+            statement.setString(5, dto.getAdmin_detailAddress());
             statement.executeUpdate();
     		
         } catch (ClassNotFoundException | SQLException e) {
@@ -88,6 +91,9 @@ public class AdminDAO {
                 admin.setAdmin_name(resultSet.getString("admin_name"));
                 admin.setAdmin_ph(resultSet.getString("admin_ph"));
                 admin.setAdmin_mail(resultSet.getString("admin_mail"));
+                admin.setAdmin_postcode(resultSet.getString("admin_postcode"));
+                admin.setAdmin_roadAddress(resultSet.getString("admin_readAddress"));
+                admin.setAdmin_detailAddress(resultSet.getString("admin_detailAddress"));
     		}
     	} catch (Exception e) {
             System.out.println("[getAdmin] Message : " + e.getMessage());
