@@ -45,8 +45,8 @@
             color: white;
             border: none;
             border-radius: 5px;
-            height: 25px;
-            width: 50px;
+            height: 35px; /* 버튼 높이 조정 */
+            width: 70px; /* 버튼 너비 조정 */
             cursor: pointer;
         }
 	</style>

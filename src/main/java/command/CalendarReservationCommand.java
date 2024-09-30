@@ -8,8 +8,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
 import org.json.JSONArray;
 import org.json.JSONObject;
+=======
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+>>>>>>> 9fc2e14ca1f637699873dd22c0265463226ca016
 
 import bean.DashboardDAO;
 import bean.DashboardDTO;

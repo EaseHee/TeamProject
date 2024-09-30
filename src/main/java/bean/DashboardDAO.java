@@ -14,7 +14,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.json.JSONObject;
+import org.json.*;
 
 public class DashboardDAO {
     private Context context = null;
@@ -134,7 +134,7 @@ public class DashboardDAO {
     // 인스턴스 변수 메서드화 : 리팩토링 예정 
     JSONObject jsonObject = null;
     // 이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
-    public void setService (int indexMonth) {
+    public JSONArray setService (int indexMonth) {
         // 서비스별 월매출액 저장용
         List<DashboardDTO> list = new LinkedList<>();        
 		try{
@@ -181,6 +181,7 @@ public class DashboardDAO {
         } finally{
 			freeConnection();
 		}
+        return jsonArray;
     }
 
     // json배열로 return :  JS에 전달용
