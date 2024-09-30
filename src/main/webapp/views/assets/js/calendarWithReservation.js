@@ -38,6 +38,8 @@ class CalendarAndReservation {
 	}
 	
 	JsonObjTool = class {
+		jsonData;
+		
 		/**
 		 * json 형태 객체({}) 내부에 프로퍼티가 하나도 없는지 확인하는 메서드. 
 	     * @returns - boolean.  객체 내 프로퍼티가 하나도 없으면 true, 하나라도 있으면 false
@@ -51,6 +53,20 @@ class CalendarAndReservation {
 		 */
 		getPropertyLength(obj) {
 			return Reflect.ownKeys(obj).length;
+		}
+		
+		/**
+		 * fetch로 전송받은 json 형태 데이터를 저장. 
+		 */
+		setJsonData(jsonObj) {
+			this.jsonData = jsonObj;
+		}
+		
+		/**
+		 * 이 객체에 설정한 fetch로 전송받은 json 형태 데이터를 반환.
+		 */
+		getJsonData() {
+			return this.jsonData;
 		}
 	}
 	
