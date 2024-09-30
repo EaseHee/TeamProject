@@ -8,8 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import bean.DashboardDAO;
 import bean.DashboardDTO;
@@ -48,13 +48,13 @@ public class CalendarReservationCommand implements ICommand {
 		int[] counter = {1}; // 메서드 내부에서 메서드 바깥에 있는 필드 값 변경을 위함.
 		records.forEach(oneRecord -> {
 			JSONArray arrayJson = new JSONArray();
-			arrayJson.add(oneRecord.getReservation_time());
-			arrayJson.add(oneRecord.getService_name());
-			responseJson.put(counter[0], arrayJson);
+			arrayJson.put(oneRecord.getReservation_time());
+			arrayJson.put(oneRecord.getService_name());
+			responseJson.put(String.valueOf(counter[0]), arrayJson);
 			counter[0]++;
 		});
 		
-		out.print(responseJson.toJSONString());
+		out.print(responseJson);
 		out.flush();
 		
 		return null;

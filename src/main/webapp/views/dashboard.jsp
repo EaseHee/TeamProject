@@ -42,8 +42,13 @@
 			overflow: hidden; /* 넘치는 텍스트 숨기기 */
 			text-overflow: ellipsis; /* 넘치는 부분 '...'으로 표시 */
 			max-width: 150px; /* 최대 너비 설정 */
-			padding-bottom: 0px;
-		}		
+		}
+		.list-group-item.detail{
+			font-size: small;
+			white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+			overflow: hidden; /* 넘치는 텍스트 숨기기 */
+			text-overflow: ellipsis; /* 넘치는 부분 '...'으로 표시 */
+		}
 		.bi-plus-square {
 			display: inline-block;
 			transform: translateY(2px);
@@ -62,18 +67,7 @@
 			display: inline-block;
 			transform: translateY(3px);
 		}
-		.list-group-item.detail{
-			font-size: small;
-			white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-			overflow: hidden; /* 넘치는 텍스트 숨기기 */
-			text-overflow: ellipsis; /* 넘치는 부분 '...'으로 표시 */
-		}
 	</style>
-    <!-- 통계 그래프 출력용 스크립트(type="text/javascript") -->
-    <script type="module">
-        // assets
-        getServiceRevenueChart();
-    </script>
 </head>
 
 <body>
@@ -102,8 +96,8 @@
 			}
 			if(nowPage1 == totalPage1){
 				nowPage1 = 0;
-			}
-		}
+			}											
+		}		
 		beginPerPage1 = nowPage1*numPerPage;
 		
 		int totalRecord2 = 0; 	//총 글의 개수
@@ -211,25 +205,24 @@
                                 </li>
                              </ul>
                         </li>
-                        
-                         <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                             	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/></svg>                               
                                 <span>MEMBER</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="member.jsp">직원 관리</a>
+                                    <a href="/FirstProject/Controller?command=MEMBER">직원 관리</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="member.jsp">기타</a>
+                                    <a href="/FirstProject/Controller?command=MEMBER">기타</a>
                                 </li>
                             </ul>
                         </li>
-                        
+ 
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
-                                <i class="bi bi-pen-fill"></i>
+                                <i class="bi bi-megaphone-fill"></i>
                                 <span>NOTICE</span>
                             </a>
                             <ul class="submenu ">
@@ -256,21 +249,19 @@
             <div class="page-heading">
                 <div class="page-title">
                     <div class="row">
-                        <div class="col-lg-3 col-md-12">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
                             <h3>DASH BOARD</h3>
                         </div>
-                        <div class="col-lg-6 "></div>
-                        
-                        <div class="col-lg-3 col-md-12 d-flex justify-content-end align-items-end">
+                        <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li>
-                                    <i class="bi bi-person-fill" style="font-size:x-large;" ></i>
-                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px;" ></i>
-                        			<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
-                        			</li>
+                                    <li class="breadcrumb-item">
+	                                    <i class="bi bi-person-fill" style="font-size:x-large; color: green;" ></i>
+	                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px; color: green;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
+                                   	</li>
                                 </ol>
-                            </nav>                        
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -286,9 +277,9 @@
 	                               	<%
 										for(int i=0; i<list0.size(); i++){											
 											DashboardDTO board0 = list0.get(i);
-									%>
+									%>									
 										<li class="list-group-item text-bold-500 detail">
-											<a  href="notice_view.jsp"> <%=board0.getNotice_title()%></a>
+											<a  href="notice_view.jsp?notice_no=<%=board0.getNotice_no()%>""> <%=board0.getNotice_title()%></a>
 										</li>
 									<%
 										}
@@ -296,51 +287,18 @@
 	                            </ul>
 	                        </div>
                         </div>
-
-<%--
-                        <jsp:setProperty name="dashDAO" property="service" value="0"/>
-                        <%
-                            String services = dashDAO.getServices();
-                            String revenues = dashDAO.getRevenues();
-                        %>
-                        <!-- 외부 JS 파일에 데이터 전달  -->
-                        <script src="assets/js/pages/ui-apexchart.js"></script>
-                        <script>
-                        		console.log('<%= services %>');
-                        		console.log('<%= revenues %>');
-                            let services = JSON.parse('<%= services %>');
-                            let revenues = JSON.parse('<%= revenues %>');
-                            console.log(services);
-                            console.log(revenues);
-                            getServiceRevenueChart(services, revenues);
-                        </script> 
-  --%>                       
-                        <div class="col-lg-9 col-md-12">
+						
+                        <div class="col-lg-9 col-md-12"></div>
                             <div class="card">
                                 <div id="bar"></div>
 							</div>
                         </div>
-
-<<<<<<< HEAD
-=======
-                        <jsp:setProperty name="dashDAO" property="service" value="0"/>
+                        <!-- value :  이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
+                            아이콘 및 매핑 기능 추가 -->
+                        
                         <%
-                            request.setCharacterEncoding("utf-8");
-                            String services = dashDAO.getServices();
-                            String revenues = dashDAO.getRevenues();
-                        %>
-                        <!-- 외부 JS 파일에 데이터 전달  -->
-                        <script src="assets/js/pages/ui-apexchart.js"></script>
-                        <script>
-                            console.log('<%= services %>');
-                            console.log('<%= revenues %>');
-                            let services = JSON.parse('<%= services %>');
-                            let revenues = JSON.parse('<%= revenues %>');
-                            console.log(services + revenues);
-                            getServiceRevenueChart(services, revenues);
-                        </script> 
 
->>>>>>> origin/admin
+                        %>
                         
                     </div>
                 </section>
@@ -367,7 +325,7 @@
 									%>
 										<tr>
 											<td align="center" colspan="2" class="calendar-wrapper">
-												<a href="dashboard.jsp?nowPage1=<%=nowPage1 - 1%>&nowPage2=<%=nowPage2%>"><span id="prev" class="icons material-symbols-rounded" style="display: inline-block; transform: translateY(3px);">chevron_left</span></a>
+												<a href="dashboard.jsp?nowPage1=<%=nowPage1 - 1%>&nowPage2=<%=nowPage2%>"><span id="prev" class="icons material-symbols-rounded">chevron_left</span></a>
 											<%												
 												for(int i=0; i < totalPage1; i++){
 											%>
@@ -375,7 +333,7 @@
 											<%
 												}
 											%>
-												<a href="dashboard.jsp?nowPage1=<%=nowPage1 + 1%>&nowPage2=<%=nowPage2%>"><span id="next" class="icons material-symbols-rounded" style="display: inline-block; transform: translateY(3px);">chevron_right</span></a>
+												<a href="dashboard.jsp?nowPage1=<%=nowPage1 + 1%>&nowPage2=<%=nowPage2%>"><span id="next" class="icons material-symbols-rounded">chevron_right</span></a>
 
 											</td>
 										</tr>
@@ -405,7 +363,7 @@
 									</div>
 								</div>							
                         </div>
-                        <!--<jsp:useBean id="ld" class="bean.DateDTO" scope="page"></jsp:useBean>-->
+                        <jsp:useBean id="ld" class="bean.DateDTO" scope="page"></jsp:useBean>
                         <div class="col-lg-3 col-md-12">                            
 	                        <div class="card" id="current-reservation">
 	                            <ul class="list-group">
@@ -424,10 +382,10 @@
 										</tr>
 									<%
 										}
-									%>
+									%>  
 										<tr>
 											<td align="center" colspan="2" class="calendar-wrapper">
-												<a href="dashboard.jsp?nowPage1=<%=nowPage1%>&nowPage2=<%=nowPage2 - 1%>"><span id="prev" class="icons material-symbols-rounded" style="display: inline-block; transform: translateY(3px);">chevron_left</span></a>
+												<a href="dashboard.jsp?nowPage1=<%=nowPage1%>&nowPage2=<%=nowPage2 - 1%>"><span id="prev" class="icons material-symbols-rounded">chevron_left</span></a>
 											<%												
 												for(int i=0; i < totalPage2; i++){
 											%>
@@ -435,10 +393,10 @@
 											<%
 												}
 											%>
-												<a href="dashboard.jsp?nowPage1=<%=nowPage1%>&nowPage2=<%=nowPage2 + 1%>"><span id="next" class="icons material-symbols-rounded " style="display: inline-block; transform: translateY(3px);">chevron_right</span></a>
+												<a href="dashboard.jsp?nowPage1=<%=nowPage1%>&nowPage2=<%=nowPage2 + 1%>"><span id="next" class="icons material-symbols-rounded">chevron_right</span></a>
 
 											</td>
-										</tr>  --%>	
+										</tr> --%>	
 								</table>
 	                        </div>
                         </div>
@@ -464,7 +422,7 @@
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/vendors/apexcharts/apexcharts.js"></script>
 <script src="assets/js/pages/dashboard.js"></script>
-<!-- <script src="assets/js/pages/ui-apexchart.js"></script> --><!-- 그래프 ui 설정 변경 js 파일 _ 축별 설정 및 데이터 전달 시 해당 파일 참조 -->
+<script src="assets/js/pages/ui-apexchart.js"></script><!-- 그래프 ui 설정 변경 js 파일 _ 축별 설정 및 데이터 전달 시 해당 파일 참조 -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/calendar.js" defer></script>
 <script src="assets/js/calendarWithReservation.js" defer></script>
