@@ -169,13 +169,8 @@ public class DashboardDAO {
                             dto.setService_cnt(dto.getService_cnt()+1);
                         }
                     }
-                    // if (i>0 && i == list.size()-1) {
-                    //     for (DashboardDTO dto : list) {
-                    //         if (dto.getSer_name().equals("커트")) {
-                    //             dto.setSer_cnt(dto.getSer_cnt()+1);
-                    //         }
-                    //     }
-                    // }
+
+
                 }
             }
             System.out.println(list);
