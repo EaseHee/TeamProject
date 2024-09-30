@@ -134,7 +134,7 @@ public class DashboardDAO {
     // 인스턴스 변수 메서드화 : 리팩토링 예정 
     JSONObject jsonObject = null;
     // 이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
-    public void setService (int indexMonth) {
+    public JSONArray setService (int indexMonth) {
         // 서비스별 월매출액 저장용
         List<DashboardDTO> list = new LinkedList<>();        
 		try{
@@ -169,13 +169,8 @@ public class DashboardDAO {
                             dto.setService_cnt(dto.getService_cnt()+1);
                         }
                     }
-                    // if (i>0 && i == list.size()-1) {
-                    //     for (DashboardDTO dto : list) {
-                    //         if (dto.getSer_name().equals("커트")) {
-                    //             dto.setSer_cnt(dto.getSer_cnt()+1);
-                    //         }
-                    //     }
-                    // }
+
+
                 }
             }
             System.out.println(list);
@@ -186,6 +181,7 @@ public class DashboardDAO {
         } finally{
 			freeConnection();
 		}
+        return jsonArray;
     }
 
     // json배열로 return :  JS에 전달용

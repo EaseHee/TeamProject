@@ -81,7 +81,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="#">LOGO</a>
+                            <a href="dashboard.jsp">LOGO</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -233,16 +233,15 @@
                             <br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">사번</span> 
-									<input type="text" class="form-control" name="member_id" placeholder="  사번을 입력해 주세요">
+									<span class="input-group-text" id="basic-addon1">직원 사번</span> 
+									<input type="text" class="form-control" name="member_id" placeholder="  사번을 입력해 주세요" required="required" />
 								</div>
 							</div>
 							<br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">직원 이름</span> <input
-										type="text" class="form-control" name="member_name"
-										placeholder="  이름을 입력해 주세요">
+									<span class="input-group-text" id="basic-addon1">직원 명</span> 
+									<input type="text" class="form-control" name="member_name" placeholder="  이름을 입력해 주세요" required="required" />
 								</div>
 							</div>
 							<br> <br> <br>
@@ -262,15 +261,15 @@
 							<br> <br> <br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">입사일</span> <input
-										type="date" class="form-control" name="member_date">
+									<span class="input-group-text" id="basic-addon1">입사일</span> 
+									<input type="date" class="form-control" name="member_date" required="required" />
 								</div>
 							</div>
 							<br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">전화 번호</span>
-                                    <input type="text" class="form-control" name="member_tel" placeholder="  010-0000-0000형식으로 입력해주세요.">
+                                    <input type="text" class="form-control" name="member_tel" placeholder="  010-0000-0000형식으로 입력해주세요." required="required" />
                                 </div>
                             </div>
                             <br><br><br>
@@ -290,7 +289,7 @@
                         <div class="float-end">
                             <p>
                                 <span class="text-danger"><i class="bi bi-heart"></i></span>
-                                by <a href="#">거니네조</a>
+                                by <a href="#main">거니네조</a>
                             </p>
                         </div>
                     </div>

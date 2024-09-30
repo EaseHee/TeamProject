@@ -35,6 +35,9 @@ public class AdminServlet extends HttpServlet {
 		String mail = req.getParameter("mail");
 		String id = req.getParameter("id");
 		String pw = req.getParameter("pw");
+		String postcode = req.getParameter("postcode");
+		String road = req.getParameter("roadAddress");
+		String detail = req.getParameter("detailAddress");		
 		String pwcheck = req.getParameter("pwcheck");
 		String[] terms = req.getParameterValues("terms");
 		
@@ -45,6 +48,9 @@ public class AdminServlet extends HttpServlet {
 		dto.setAdmin_mail(mail);
 		dto.setAdmin_id(id);
 		dto.setAdmin_pw(pw);
+		dto.setAdmin_postcode(postcode);
+		dto.setAdmin_roadAddress(road);
+		dto.setAdmin_detailAddress(detail);
 		
 		AdminDAO dao = new AdminDAO();
 		dao.insertAdmin(dto);
