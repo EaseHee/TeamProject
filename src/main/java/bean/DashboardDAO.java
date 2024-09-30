@@ -60,7 +60,7 @@ public class DashboardDAO {
 			
 			while(resultSet.next()){
 				DashboardDTO board = new DashboardDTO();
-				board.setNotice_title(resultSet.getString("notice_title"));
+				// board.setNotice_title(resultSet.getString("notice_title"));
 				
 				list.add(board);
 			}
@@ -83,8 +83,8 @@ public class DashboardDAO {
 			
 			while(resultSet.next()){
 				DashboardDTO board = new DashboardDTO();
-				board.setProduct_name(resultSet.getString("product_name"));
-				board.setProduct_ea(resultSet.getInt("product_ea"));
+				// board.setProduct_name(resultSet.getString("product_name"));
+				// board.setProduct_ea(resultSet.getInt("product_ea"));
 				
 				list.add(board);
 			}
@@ -107,8 +107,8 @@ public class DashboardDAO {
 			
 			while(resultSet.next()){
 				DashboardDTO board = new DashboardDTO();
-				board.setReservation_time(resultSet.getString("reservation_time"));
-				board.setService_name(resultSet.getString("service_name"));
+				// board.setReservation_time(resultSet.getString("reservation_time"));
+				// board.setService_name(resultSet.getString("service_name"));
 				
 				list.add(board);
 			}
@@ -147,10 +147,10 @@ public class DashboardDAO {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
             	DashboardDTO service = new DashboardDTO();
-                service.setService_code(resultSet.getString("service_code"));
-                service.setService_name(resultSet.getString("service_name"));   // 통계 자료에 출력하기 위한 service_name
-                service.setService_price(resultSet.getInt("service_price"));    // 서비스별 이용 요금
-                service.setService_cnt(0); // 서비스 이용 횟수 초기화
+//                service.setService_code(resultSet.getString("service_code"));
+//                service.setService_name(resultSet.getString("service_name"));   // 통계 자료에 출력하기 위한 service_name
+//                service.setService_price(resultSet.getInt("service_price"));    // 서비스별 이용 요금
+//                service.setService_cnt(0); // 서비스 이용 횟수 초기화
                 list.add(service);  // 매출액(value) 0으로 초기화
             }
 
@@ -166,9 +166,9 @@ public class DashboardDAO {
                 String[] service_nameArr = resultSet.getString("service_name").split(",");
                 for (String service_name : service_nameArr) {
                     for (DashboardDTO dto : list) {
-                        if (dto.getService_name().equals(service_name)) {
-                            dto.setService_cnt(dto.getService_cnt()+1);
-                        }
+//                        if (dto.getService_name().equals(service_name)) {
+//                            dto.setService_cnt(dto.getService_cnt()+1);
+//                        }
                     }
                 }
             }
@@ -243,8 +243,8 @@ public class DashboardDAO {
 			while(resultSet.next()){
 				DashboardDTO board = new DashboardDTO();
 				
-				board.setReservation_time(resultSet.getString("reservation_time"));
-				board.setService_name(resultSet.getString("service_name"));
+//				board.setReservation_time(resultSet.getString("reservation_time"));
+//				board.setService_name(resultSet.getString("service_name"));
 				
 				list.add(board);
 			}

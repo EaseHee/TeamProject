@@ -80,6 +80,8 @@
 			}											
 		}		
 		beginPerPage2 = nowPage2*numPerPage;
+		
+		String branchName = (String)session.getAttribute("branchName");
     %>
 
     <div id="app">
@@ -201,7 +203,7 @@
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                	<li class="breadcrumb-item"><a href="/TeamProject/logout">로그아웃</a></li> 
+                                	<b><%=branchName%>&nbsp;&nbsp;&nbsp;</b><li class="breadcrumb-item"><a href="/TeamProject/logout">로그아웃</a></li> 
                                 </ol>
                             </nav>
                         </div>
@@ -264,10 +266,12 @@
 											if(i==totalRecord1) break;
 											DashboardDTO board1 = list1.get(i);
 									%>
+									<%--
 										<tr>
 											<td class="text-bold-500"><%=board1.getPd_name()%></td>
 											<td class="text-bold-500"><%=board1.getPd_ea()%>개</td>
 										</tr>
+									  --%>
 									<%
 										}
 									%>
@@ -324,10 +328,12 @@
 											if(i==totalRecord2) break;
 											DashboardDTO board2 = list2.get(i);
 									%>
+									<%--
 										<tr>
 											<td class="text-bold-500"><%=board2.getRes_time()%></td>
 											<td class="text-bold-500"><%=board2.getSer_name()%></td>
 										</tr>
+										 --%>
 									<%
 										}
 									%>

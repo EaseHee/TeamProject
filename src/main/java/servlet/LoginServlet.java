@@ -74,6 +74,7 @@ public class LoginServlet extends HttpServlet {
 					// 로그인 상태 정보 유지 (세션에 담아 전송, 세션이 종료될 때 까지 인증 상태 유지)
 					HttpSession session = req.getSession();
 					session.setAttribute("branchCode", branch.getBranch_code());
+					session.setAttribute("branchName", branch.getBranch_name());
 					
 					// 성공 시 대시보드로 페이지 이동
 					resp.sendRedirect("/TeamProject/views/dashboard.jsp");
