@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member</title>
+    <title>직원 관리</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">    
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -253,20 +253,26 @@
 	                        </div>
 	                    </div>
 	                </div>
-	                <hr style="height: 5px;">
-				<div class="row form-group justify-content-end">
-					<form method="post" action="member.jsp"
-						class="col-4 d-flex align-items-end" accept-charset="UTF-8">
-						
+				<hr style="height: 5px;">
+				<div class="row form-group">
+
+					<form method="post" action="member.jsp" class="col-4 align-items-end">
 						<div class="search-filter">
-							<select name="keyField">
-								<option value="member_name">이름</option>
-								<option value="member_job">직책</option>
+							<select name="keyField" class="choices form-select"
+								style="width: 80px; display: inline-block;">
+								<option value="member_name">직원 명</option>
+								<option value="member_job">직원 직책</option>
 							</select> 
-							<input type="text" name="filterValue" id="filterValue" placeholder="검색어를 입력해주세요." >
-							<input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
+							<input type="text" name="filterValue" id="filterValue" class="form-control me-2" placeholder="검색어를 입력해주세요 ">
+							<input type="submit" class="btn btn-outline-success" value="조회">
+						</div>
 					</form>
+					<form class="col-4 d-flex"></form>
+					<form class="col-4 d-flex"></form>
 				</div>
+
+
+
 				<section class="section">
 	                	<div class="buttons d-flex justify-content-end align-items-end">
 							<a href="member_Post.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
@@ -294,8 +300,7 @@
 
 												<tr>
 													<td class="text-bold-500 text-center"><%=board.getMember_id() %></a></td>
-													<td class="text-bold-500 text-center"><a
-														href="member_Read.jsp?member_id=<%=board.getMember_id() %>"><%=board.getMember_name() %></a></td>
+													<td class="text-bold-500 text-center"><a href="member_Read.jsp?member_id=<%=board.getMember_id() %>"><%=board.getMember_name() %></a></td>
 													<td class="text-bold-500 text-center"><%=board.getMember_job() %></td>
 													<td class="text-bold-500 text-center"><%=board.getMember_tel() %></td>
 												</tr>
@@ -322,29 +327,34 @@
 								<%
 								if (nowBlock > 0) {
 								%>
-								<li class="page-item"><a class="page-link"
-									href="member.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock%>&nowBlock=<%=nowBlock - 1%>">
-										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
-								</a></li>
+								<li class="page-item">
+									<a class="page-link" href="member.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock%>&nowBlock=<%=nowBlock - 1%>">
+										<span aria-hidden="true">
+											<i class="bi bi-chevron-left"></i>
+										</span>
+									</a>
+								</li>
 								<% } %>
 								<%
 								int startPage = nowBlock * pagePerBlock + 1;
-												                int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
+								int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
 												
-												                for(int i=startPage; i <= endPage; i++) {
+								for(int i=startPage; i <= endPage; i++) {
 								%>
-								<li class="page-item active"><a class="page-link"
-									href="member.jsp?nowPage=<%=i - 1%>&nowBlock=<%=nowBlock%>"><%=i%></a></li>
+								<li class="page-item active"><a class="page-link" href="member.jsp?nowPage=<%=i - 1%>&nowBlock=<%=nowBlock%>"><%=i%></a></li>
 								<%
 								}
 								%>
 								<%
 								if (totalBlock > nowBlock + 1) {
 								%>
-								<li class="page-item"><a class="page-link"
-									href="member.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>">
-										<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
-								</a></li>
+								<li class="page-item">
+									<a class="page-link" href="member.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>">
+										<span aria-hidden="true">
+											<i class="bi bi-chevron-right"></i>
+										</span>
+									</a>
+								</li>
 								<%
 								}
 								%>

@@ -50,7 +50,7 @@ public class MemberDAO {
 		else {
 			sql = "SELECT member_id, member_name, member_job, member_tel FROM member WHERE " + keyField + " LIKE '%" + keyWord + "%'";
 		}
-		System.out.println(keyField +" "+ keyWord);
+		//System.out.println(keyField +" "+ keyWord);
 		ArrayList<MemberDTO> list = new ArrayList<>();
 			
 		try {
