@@ -322,8 +322,9 @@
                             </div>
                             <br><br><br>
                             <div class="button-container">
+                            <button type="button" onclick="location.href='customer.jsp'">목록</button>
                                 <button type="submit" onclick="alert('수정 되었습니다.')">수정</button>
-                                <button type="button" onclick="location.href='customer.jsp'">목록</button>
+                                
                             </div>
                         </div>
                     </form>

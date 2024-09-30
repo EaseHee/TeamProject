@@ -253,7 +253,7 @@
 				<hr style="height: 5px;">
 				<div class="row form-group justify-content-end">
 					<form method="post" action="notice_list.jsp" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
-						<input type="text" name="keyWord" placeholder="공지글 조회" class="form-control me-2">
+						<input type="text" name="keyWord" placeholder="공지글 조회" class="form-control ">
 						<input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
 					</form>
 				</div>

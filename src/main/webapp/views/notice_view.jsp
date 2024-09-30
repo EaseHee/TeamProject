@@ -21,7 +21,6 @@
 	<style>
 		a {
 		    text-decoration: none;  /* 밑줄 없애기 */
-		}  color: inherit;
 		}
 		.list-group-item.detail{
 			font-size: small;

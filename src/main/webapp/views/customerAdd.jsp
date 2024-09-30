@@ -276,8 +276,9 @@ document.getElementById('regdate').valueAsDate = new Date();
                             </div>
                             <br><br><br>
 					        <div class="button">
+					        	<button type="button" onclick="location.href='customer.jsp'">목록</button>
 					            <button type="submit" onclick="alert('등록되었습니다.')">등록</button>
-					            <button type="button" onclick="location.href='customer.jsp'">목록</button>
+					            
 					        </div>
                         </div>
                     </form>

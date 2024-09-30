@@ -56,7 +56,7 @@
         }
         .input-group-text{
         	display: inline-block; 
-        	width: 10%;
+        	width: 15%;
         } 
 	</style>
 </head>
@@ -280,8 +280,9 @@
                             <br><br><br>
                             
                             <div class="button-container">
+                            <button type="button" onclick="location.href='member.jsp'">목록</button>
                                 <button type="submit" onclick="수정되었습니다.">등록</button>
-                                <button type="button" onclick="location.href='member.jsp'">목록</button>
+                                
                             </div>
                         </div>
                     </form>
