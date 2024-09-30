@@ -1,0 +1,103 @@
+/* 구글 폰트 import - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+.calendar-wrapper{
+  font-family: 'Poppins', sans-serif;
+  background: #fff;
+  border-radius: 10px;
+}
+/* 해당 월 이름 */
+.calendar-wrapper header{
+  display: flex;
+  align-items: center;
+  padding: 25px 30px 10px;
+  justify-content: space-between;
+}
+header .icons{
+  display: flex;
+}
+header .icons span{
+  height: 38px;
+  width: 38px;
+  margin: 0 1px;
+  cursor: pointer;
+  color: #878787;
+  text-align: center;
+  line-height: 38px;
+  font-size: 1.9rem;
+  user-select: none;
+  border-radius: 50%;
+}
+.icons span:last-child{
+  margin-right: -10px;
+}
+header .icons span:hover{
+  background: #f2f2f2;
+}
+header .current-date{
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+/* 일별 날짜  */
+.calendar{
+  padding: 20px;
+}
+/* ul 스타일 */
+.calendar ul{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  text-align: center;
+}
+/* 날짜(숫자) 하단 여백 */
+.calendar .days{
+  margin-bottom: 20px;
+}
+/* li 스타일 */
+.calendar li{
+  color: #333;
+  width: calc(100% / 7);
+  font-size: 1.07rem;
+}
+/* 요일명 스타일 */
+.calendar .weeks li{
+  font-weight: 500;
+  cursor: default;
+}
+/* 날짜 스타일 */
+.calendar .days li{
+  z-index: 1;
+  cursor: pointer;
+  position: relative;
+  margin-top: 30px;
+}
+/* 지난 달 출력 날짜, 다음 달 출력 날짜 _ 비활성화 */
+.days li.inactive{
+  color: #aaa;
+}
+/* 이번 달 출력 날짜 _ 활성화 */
+.days li.active{
+  color: #fff;
+}
+
+/* 오늘 날짜 표시 */
+.days li::before{
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  height: 40px;
+  width: 40px;
+  z-index: -1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+/* 오늘 날짜 위치 */
+.days li.active::before{
+  /* background: #9B59B6; */
+  background: rgb(100, 100, 100);
+}
+/* 날짜 hover */
+.days li:not(.active):hover::before{
+  background: #f2f2f2;
+}
