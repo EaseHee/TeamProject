@@ -14,7 +14,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.json.*;
+import org.json.JSONObject;
 
 public class DashboardDAO {
     private Context context = null;

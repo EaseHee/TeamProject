@@ -252,12 +252,13 @@
 					    <form method="post" action="product.jsp" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
 					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control me-2">
 					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
+					    </form >
+					    <form class="col-4 d-flex"></form>
+					    <form class="col-4 d-flex justify-content-end align-items-end">
+					    	<a href="product_B_add.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
 					    </form>
 					</div>
 	                <section class="section">
-	                	<div class="buttons d-flex justify-content-end align-items-end">
-							<a href="product_B_add.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
-						</div>
 	                    <div class="row" id="table-hover-row">
 	                        <div class="col-12">
 	                            <div class="card">
