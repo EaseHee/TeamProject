@@ -20,7 +20,41 @@
 <link rel="shortcut icon" href="assets/images/favicon.svg"
 	type="image/x-icon">
 	
-	<style>
+	<style>	    
+		a {
+		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
+		    text-decoration: none;  /* 밑줄 없애기 */
+		}		
+		a:visited {
+		    color: inherit;
+		}		
+		a:hover {
+		    color: inherit;
+		}		
+		a:active {
+		    color: inherit;
+		}
+		.list-group-item.detail{
+			font-size: small;
+		}
+		.bi-plus-square {
+			display: inline-block;
+			transform: translateY(2px);
+		}
+		.bi-person-fill{
+			display: inline-block;
+			transform: translateY(6px);
+			margin-right: 5px;
+		}
+		.bi-bell-fill{
+			display: inline-block;
+			transform: translateY(3px);
+			margin-right: 5px;
+		}
+		.bi-box-arrow-right{
+			display: inline-block;
+			transform: translateY(3px);
+		}
 		button {
             background-color: rgb(42, 105, 241);
             color: white;
@@ -30,6 +64,10 @@
             width: 50px;
             cursor: pointer;
         }
+        .input-group-text{
+        	display: inline-block; 
+        	width: 10%;
+        } 
 	</style>
 </head>
 
@@ -41,123 +79,122 @@
     	String member_id = request.getParameter("member_id");
     	memberDto = memberDao.getMemberDTO(member_id);   	
     %>
-	<div id="sidebar" class="active">
-        <div class="sidebar-wrapper active">
-            <div class="sidebar-header">
-                <div class="d-flex justify-content-between">
-                    <div class="logo">
-                        <a href="#">LOGO</a>
-                    </div>
-                    <div class="toggler">
-                        <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo">
+                            <a href="#">LOGO</a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
                     </div>
                 </div>
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title">Menu</li>
+
+                        <li class="sidebar-item ">
+                            <a href="dashboard.jsp" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>HOME</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
+                                <span>CUSTOMER</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="customer.jsp">회원 관리</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="customer.jsp">기타</a>
+                                </li>                                
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-collection-fill"></i>
+                                <span>RESERVATION</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="reservation.jsp">예약 관리</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="reservation.jsp">기타</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-grid-1x2-fill"></i>
+                                <span>SERVICE</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="service.jsp">서비스 관리</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="service.jsp">기타</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-hexagon-fill"></i>
+                                <span>PRODUCT</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="product.jsp">상품 관리</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="product.jsp">기타</a>
+                                </li>
+                             </ul>
+                        </li>
+                        <li class="sidebar-item active has-sub">
+                            <a href="#" class='sidebar-link'>
+                            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/></svg>                               
+                                <span>MEMBER</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="member.jsp">직원 관리</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="member.jsp">기타</a>
+                                </li>
+                            </ul>
+                        </li>
+ 
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-megaphone-fill"></i>
+                                <span>NOTICE</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="notice_list.jsp">공지 사항</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="notice_list.jsp">기타</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>
-            <div class="sidebar-menu">
-                <ul class="menu">
-                    <li class="sidebar-title">Menu</li>
-
-                    <li class="sidebar-item ">
-                        <a href="dashboard.jsp" class='sidebar-link'>
-                            <i class="bi bi-grid-fill"></i>
-                            <span>HOME</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-stack"></i>
-                            <span>CUSTOMER</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="customer.jsp">회원 관리</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="customer.jsp">기타</a>
-                            </li>                                
-                        </ul>
-                    </li>
-
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-collection-fill"></i>
-                            <span>RESERVATION</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="reservation.jsp">예약 관리</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="reservation.jsp">기타</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-grid-1x2-fill"></i>
-                            <span>SERVICE</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="service.jsp">서비스 관리</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="service.jsp">기타</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-hexagon-fill"></i>
-                            <span>PRODUCT</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="product.jsp">상품 관리</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="product.jsp">기타</a>
-                            </li>
-                         </ul>
-                    </li>
-                    
-                    <li class="sidebar-item active has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-hexagon-fill"></i>
-                            <span>MEMBER</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="member.jsp">직원 관리</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="mrmber.jsp">기타</a>
-                            </li>
-                         </ul>
-                    </li>
-
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-pen-fill"></i>
-                            <span>NOTICE</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="notice_list.jsp">공지 사항</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="notice_list.jsp">기타</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
         </div>
-    </div>
     <div id="app">		
         <div id="main">
             <header class="mb-3">
@@ -176,7 +213,11 @@
                             <nav aria-label="breadcrumb"
                                 class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="login.jsp">로그아웃</a></li>
+                                    <li class="breadcrumb-item">
+	                                    <i class="bi bi-person-fill" style="font-size:x-large; color: green;" ></i>
+	                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px; color: green;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
+                                   	</li>
                                 </ol>
                             </nav>
                         </div>
@@ -188,7 +229,7 @@
                         <div class="row" id="table-hover-row">
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">지점</span>
+                                    <span class="input-group-text" id="basic-addon1">지점 코드</span>
 									<input type="text" class="form-control" value="B001" readonly="readonly">
 									<!-- 지점 테이블 생성 필요 branch -->
                                 </div>
@@ -218,7 +259,7 @@
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1"> 입사일 </span>
-                                    <input type="text" class="form-control" value="<%= memberDto.getMember_date()%>" readonly="readonly" />
+                                    <input type="date" class="form-control" value="<%= memberDto.getMember_date()%>" readonly="readonly" />
                                 </div>
                             </div>
                             <br><br><br>
@@ -230,8 +271,8 @@
                             </div>
                             <br><br><br>
                             <div class="button-container">
-                                <button type="button" onclick="location.href='member_Update.jsp?member_no=<%= memberDto.getMember_id() %>'">수정</button>
-                                <button type="button" onclick="location.href='member_Delete.jsp?member_no=<%= memberDto.getMember_id() %>'">삭제</button>
+                                <button type="button" onclick="location.href='member_Update.jsp?member_id=<%= memberDto.getMember_id() %>'">수정</button>
+                                <button type="button" onclick="location.href='member_Delete.jsp?member_id=<%= memberDto.getMember_id() %>'">삭제</button>
                                 <button type="button" onclick="location.href='member.jsp'">목록</button>
                             </div>
                         </div>
