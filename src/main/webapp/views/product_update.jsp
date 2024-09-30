@@ -19,6 +19,30 @@
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 	
 	<style>
+		a {
+		    text-decoration: none;  /* 밑줄 없애기 */
+		}
+		.list-group-item.detail{
+			font-size: small;
+		}
+		.bi-plus-square {
+			display: inline-block;
+			transform: translateY(2px);
+		}
+		.bi-person-fill{
+			display: inline-block;
+			transform: translateY(6px);
+			margin-right: 5px;
+		}
+		.bi-bell-fill{
+			display: inline-block;
+			transform: translateY(3px);
+			margin-right: 5px;
+		}
+		.bi-box-arrow-right{
+			display: inline-block;
+			transform: translateY(3px);
+		}
 		button {
             background-color: rgb(42, 105, 241);
             color: white;
@@ -28,6 +52,10 @@
             width: 50px;
             cursor: pointer;
         }
+        .input-group-text{
+        	display: inline-block; 
+        	width: 10%;
+        } 
 	</style>
 </head>
 <body>
@@ -40,7 +68,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="dashboard.jsp"><!-- <img src="assets/images/logo/logo.png" alt="Logo" srcset="">-->LOGO</a>
+                            <a href="dashboard.jsp">LOGO</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -153,7 +181,11 @@
 	                        <div class="col-12 col-md-6 order-md-2 order-first">
 	                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
 	                                <ol class="breadcrumb">
-	                                    <li class="breadcrumb-item"><a href="login.jsp">로그아웃</a></li>                                    
+	                                    <li class="breadcrumb-item">
+	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
+	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
+                                   	</li>                                    
 	                                </ol>
 	                            </nav>
 	                        </div>
@@ -206,13 +238,14 @@
                         </div>
                     </form>
                 </section>
+                <br><br><br>
 	            <footer>
 				    <div class="footer clearfix mb-0 text-muted">
 				        <div class="float-start">
 				            <p>2024 &copy; ACORN</p>
 				        </div>
 				        <div class="float-end">
-				            <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="#">거니네조</a></p>                                
+				            <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="#main">거니네조</a></p>                                
 				        </div>
 				    </div>
 				</footer>
