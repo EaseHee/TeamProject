@@ -19,17 +19,7 @@
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
         	<style>
 		a {
-		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
 		    text-decoration: none;  /* 밑줄 없애기 */
-		}		
-		a:visited {
-		    color: inherit;
-		}		
-		a:hover {
-		    color: inherit;
-		}		
-		a:active {
-		    color: inherit;
 		}
 		.list-group-item.detail{
 			font-size: small;
@@ -120,7 +110,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="#">LOGO</a>
+                            <a href="dashboard.jsp">LOGO</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -248,10 +238,10 @@
 	                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
 	                                <ol class="breadcrumb">
 	                                    <li class="breadcrumb-item">
-	                                    <i class="bi bi-person-fill" style="font-size:x-large; color: green;" ></i>
-	                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px; color: green;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
-                                   	</li>                                   
+	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
+	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
+                                   	</li>                               
 	                                </ol>
 	                            </nav>
 	                        </div>
@@ -341,7 +331,7 @@
 	                    </div>
 	                    <div class="float-end">
 	                        <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-	                                href="#">거니네조</a>
+	                                href="#main">거니네조</a>
 	                        </p>                                
 	                    </div>
 	                </div>
