@@ -137,6 +137,7 @@ public class DashboardDAO {
     // 인스턴스 변수 메서드화 : 리팩토링 예정 
     JSONArray jsonServiceArray = null;
     JSONArray jsonRevenueArray = null;
+    JSONArray jsonCountArray = null;
     // 이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
     public void setService (int indexMonth) {
         // 서비스별 월매출액 저장용
@@ -178,10 +179,12 @@ public class DashboardDAO {
             // 데이터를 저장할 JSON 배열 선언
             jsonServiceArray = new JSONArray();
             jsonRevenueArray = new JSONArray();
+            jsonCountArray = new JSONArray();
             // cf. JSONObject 에는 컬렉션을 저장할 수 없다.  |  JSONArray도 컬렉션을 반환하진 못한다...
             for (DashboardDTO board : list) {
                 jsonServiceArray.put(board.getService_name());
                 jsonRevenueArray.put(board.getChart_revenue());
+                jsonCountArray.put(board.getService_cnt());
             }
 		} catch (SQLException e) {
             System.out.println("[setService] Message : " + e.getMessage());
@@ -196,6 +199,9 @@ public class DashboardDAO {
     }
     public JSONArray getRevenue() {
         return jsonRevenueArray;
+    }
+    public JSONArray getCount() {
+        return jsonCountArray;
     }
     
     // == 달력에서 선택된 날짜에 대한 예약현황 데이터 가져오기 로직 시작 ==

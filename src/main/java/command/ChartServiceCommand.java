@@ -28,8 +28,8 @@ public class ChartServiceCommand implements ICommand {
 	public Object processCommand(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
         int indexMonth;
+        // 
         if (req.getParameter("indexMonth") != null && !req.getParameter("indexMonth").isBlank()) {
-            System.out.println("req.getParameter(indexMonth) : " + req.getParameter("indexMonth"));
             indexMonth = Integer.parseInt(req.getParameter("indexMonth"));
             // 당월 이후의 통계는 조회 불가
             if (indexMonth < 0) {
@@ -44,11 +44,13 @@ public class ChartServiceCommand implements ICommand {
         /* getter() "반환 타입 : JSONArray" */
         JSONArray jsonServiceArray = dashboard.getService();
         JSONArray jsonRevenueArray = dashboard.getRevenue();
+        JSONArray jsonCountArray = dashboard.getCount();
         
         /* 전달용 JSONObject */
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("service", jsonServiceArray);
         jsonObject.put("revenue", jsonRevenueArray);
+        jsonObject.put("count", jsonCountArray);
 
         PrintWriter writer = resp.getWriter();
         writer.print(jsonObject);
