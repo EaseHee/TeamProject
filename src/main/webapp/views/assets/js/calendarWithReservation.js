@@ -23,6 +23,8 @@ class CalendarAndReservation {
 			this._initVarsForPaging();
 
 			this.jsonToolObj;
+
+			this.columnNums = 4;
 		}
 
 		/**
@@ -37,7 +39,7 @@ class CalendarAndReservation {
 		 * 페이징 기능을 위한 변수 초기화.
 		 */
 		_initVarsForPaging() {
-			this.numRecordsPerPage = 1; // 한 페이지에 보여줄 데이터 개수. 이미 정해진 수
+			this.numRecordsPerPage = 5; // 한 페이지에 보여줄 데이터 개수. 이미 정해진 수
 
 			this.currentPageNum = 1; // 현재 페이지 번호. 
 			this.totalPages = 1;  // 전체 페이지 수. 
@@ -61,7 +63,7 @@ class CalendarAndReservation {
 		noReservationTableInnerHTML() {
 			this.reservationTableElement.innerHTML = `
 				<tr>
-					<td class="text-bold-500" colspan="2">예약현황이 없습니다.</td>
+					<td class="text-bold-500" colspan="${this.columnNums}">예약현황이 없습니다.</td>
 				</tr>`;
 		}
 			
@@ -69,7 +71,12 @@ class CalendarAndReservation {
 	     * 예약현황 데이터를 모두 없앤다. 
 		 */
 	    clearReservationTableInnerHTML() {
-			this.reservationTableElement.innerHTML = `<tr></tr>`;
+			this.reservationTableElement.innerHTML = `<tr>
+				<th>예약 시간</th>
+				<th>서비스</th>
+				<th>고객</th>
+				<th>디자이너</th>
+			</tr>`;
 		}
 
 		/**
@@ -95,10 +102,12 @@ class CalendarAndReservation {
 				</tr>
 			*/
 			for (let i = this.startRecordNum; i <= this.endRecordNum; i++) {
+				if (this.jsonToolObj.getPropertyLength() < i) break; 
 				let tr = document.createElement("tr");
 				for (let j = 0; j < data[i].length; j++) {
 					let td = document.createElement("td");
-					td.setAttribute("class", "text-bold-500");
+					td.classList.add("text-bold-500");
+					td.style = "text-align: center;";
 					
 					let textNode = document.createTextNode(data[i][j]);
 					
@@ -132,7 +141,8 @@ class CalendarAndReservation {
 			let tr = document.createElement("tr");
 
 			/**
-			 * 화살표 함수 내부에서의 this는 인스턴스를 가리키지 않으므로(즉, 정보를 잃어버림) 대신 익명함수를 사용해야 한다. 
+			 * 화살표 함수 내부에서의 this는 인스턴스를 가리키지 않으므로(즉, 정보를 잃어버림) 대신 익명함수나 다른 
+			 * 함수를 사용해야 한다. 
 			 * 함수명.bind(this)를 통해 this가 ManipulateReservationTable 객체라는 정보를 전달해준다. 
 			 * 
 			 * 예약현황 table 태그에 nowPage 속성을 부여하여 현재 페이지를 기록하게 하고, 이 정보를 토대로 
@@ -165,8 +175,7 @@ class CalendarAndReservation {
 			tr.addEventListener("click", trEventHandler.bind(this));
 
 			let td = document.createElement("td");
-			td.setAttribute("align", "center");
-			td.setAttribute("colspan", "2");
+			td.setAttribute("colspan", `${this.columnNums}`);
 			td.classList.add("calendar-wrapper");
 
 			/**
@@ -388,7 +397,7 @@ class CalendarAndReservation {
 	}
 	
 }
-//console.log("new hi2"); // For test
+//console.log("new hi1"); // For test
 
 new CalendarAndReservation();
 

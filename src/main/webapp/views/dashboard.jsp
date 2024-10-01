@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/TeamProject/views/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/app.css">
     <link rel="shortcut icon" href="/TeamProject/views/assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/TeamProject/views/assets/css/dashboardReservation.css" >
 
 	<style>
 		a {
@@ -310,7 +311,7 @@
 								</table>
 							</div>	                        
                         </div>
-                        <div class="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">							
+                        <div class="col-lg-5 col-md-12 d-flex justify-content-center align-items-center">
 								<div class="calendar-wrapper">
 									<header>
 										<p class="current-date"></p>
@@ -334,7 +335,7 @@
 								</div>
                         </div>
 
-                        <div class="col-lg-3 col-md-12">                            
+                        <div class="col-lg-4 col-md-12">                            
 	                        <div class="card" id="current-reservation">
 	                            <ul class="list-group">
 	                                <li class="list-group-item active text-center"><span></span>월 <span></span>일 예약현황&nbsp;<a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); color:white;"
