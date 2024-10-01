@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div class="form-check form-check-lg d-flex align-items-end">
-                            <input class="form-check-input me-2" type="checkbox" name="terms" onclick="toggleCheckboxes(this)" value="" id="all_terms" required>
+                            <input class="form-check-input me-2" type="checkbox" name="terms" onclick="toggleCheckboxes(this)" value="" id="all_terms">
                             <label class="form-check-label text-gray-600" for="all_terms">
                                 모든 약관에 동의합니다.
                             </label>
