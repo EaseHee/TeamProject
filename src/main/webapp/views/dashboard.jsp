@@ -33,6 +33,12 @@
 			text-overflow: ellipsis; /* 넘치는 부분 '...'으로 표시 */
 			max-width: 150px; /* 최대 너비 설정 */
 		}
+		svg {
+			size
+		    border: none;
+		    background: none;
+		}
+		
 		.list-group-item.detail{
 			font-size: small;
 			white-space: nowrap; /* 텍스트 줄바꿈 방지 */
@@ -66,29 +72,27 @@
 		request.setCharacterEncoding("utf-8");
 		int numPerPage = 5; 	//한 페이지 당 보여질 글의 개수
 		
-		int totalRecord1 = 0; 	//총 글의 개수
-		int totalPage1 = 0; 		//총 페이지 수
-		int nowPage1 = 0; 		//현재 페이지
-		int beginPerPage1 = 0; 	//페이지별 시작번호
-		
+		int totalRecord = 0; 	//총 글의 개수
+		int totalPage = 0; 		//총 페이지 수
+		int nowPage = 0; 		//현재 페이지
+		int beginPerPage = 0; 	//페이지별 시작번호
+		int pagePerBlock = 3;	//블럭 당 페이지 수
+		int totalBlock = 0; 	//총 블럭 수
+		int nowBlock = 0;		//현재 블럭
+		int xco = nowPage % pagePerBlock;
 		ArrayList<DashboardDTO> list0 = (ArrayList<DashboardDTO>) dashDAO.getNotice();
 		
 		ArrayList<DashboardDTO> list1 = (ArrayList<DashboardDTO>) dashDAO.getProduct();
-		totalRecord1 = list1.size();
-		totalPage1 = (totalRecord1 + numPerPage - 1) / numPerPage;
-		if(request.getParameter("nowPage1") != null ){
-			nowPage1 = Integer.parseInt(request.getParameter("nowPage1"));
-			if(nowPage1 == -1){
-				if(totalPage1 > 0){
-					nowPage1 = totalPage1 - 1;
-				}
-				else nowPage1 = 0;
-			}
-			if(nowPage1 == totalPage1){
-				nowPage1 = 0;
-			}											
-		}		
-		beginPerPage1 = nowPage1*numPerPage;
+		totalRecord = list1.size();
+		totalPage = (totalRecord + numPerPage - 1) / numPerPage;
+		if(request.getParameter("nowPage") != null )
+			nowPage = Integer.parseInt(request.getParameter("nowPage"));
+			
+		beginPerPage = nowPage*numPerPage;
+		totalBlock = (totalPage + pagePerBlock - 1)/pagePerBlock;
+		
+		if(request.getParameter("nowBlock") != null )
+			nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
     %>
 
     <div id="app">
@@ -264,9 +268,6 @@
                         </div>
                         <!-- value :  이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
                             아이콘 및 매핑 기능 추가 -->
-                        <%
-							
-                        %>
                         
                     </div>
                 </section>
@@ -280,10 +281,10 @@
 	                            </ul>
 
 								 <table class="table table-bordered mb-0">
-
-									<%
-										for(int i = beginPerPage1; i < beginPerPage1 + numPerPage; i++){
-											if(i==totalRecord1) break;
+									
+									<%	//대시보드에 재고 3개 이하 상품 노출
+										for(int i = beginPerPage; i < beginPerPage + numPerPage; i++){
+											if(i==totalRecord) break;
 											DashboardDTO board1 = list1.get(i);
 									%>
 										<tr>
@@ -294,22 +295,59 @@
 										}
 									%>
 										<tr>
-											<td align="center" colspan="2" class="calendar-wrapper">
-												<a href="dashboard.jsp?nowPage1=<%=nowPage1 - 1%>"><span id="prev" class="icons material-symbols-rounded">chevron_left</span></a>
-											<%												
-												for(int i=0; i < totalPage1; i++){
-											%>
-												<i class="bi bi-dot"></i>
-											<%
-												}
-											%>
-												<a href="dashboard.jsp?nowPage1=<%=nowPage1 + 1%>"><span id="next" class="icons material-symbols-rounded">chevron_right</span></a>
+											<td colspan="2">
+<%
+if(nowBlock == 0 && nowPage == 0){
+%>
+	<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+<%
+	for(int i=0; i<pagePerBlock;i++){
+		if(i == xco){ 
+%>			
+			<a href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg></a>			
+<%
+		}else{
+%>			
+			<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256-96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg></a>			
+<%
+		}
+	}
+}else if(nowBlock == totalBlock -1 && nowPage == totalRecord){
+%>
+	<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+<%
+	for(int i=0; i<pagePerBlock;i++){
+		if(i == xco){ 
+%>
+			<a href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg></a>
+<%
+		}else{
+%>
+			<a href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256-96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg></a>
+<%
+		}
+	}
+}else{
+	for(int i=0; i<pagePerBlock;i++){
+		if(i == xco){ 
+%>
+			<a href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg></a>
 
-											</td>
-										</tr>
+<%
+		}else{
+%>
+			<a href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256-96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg></a>
+<%
+		}
+	}
+}
+%>
+										</td>
+									</tr>
 								</table>
 							</div>	                        
                         </div>
+                        
                         <div class="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">							
 								<div class="calendar-wrapper">
 									<header>
@@ -333,12 +371,8 @@
 									</div>
 								</div>
                         </div>
-<<<<<<< HEAD
-                        <jsp:useBean id="ld" class="bean.DateDTO" scope="page"></jsp:useBean>
-                        <div class="col-lg-3 col-md-12">
-=======
-                        <div class="col-lg-3 col-md-12">                            
->>>>>>> b294d5b9ced586cb9eeb1240e61b4c41857845d4
+
+                        <div class="col-lg-3 col-md-12">   
 	                        <div class="card" id="current-reservation">
 	                            <ul class="list-group">
 	                                <li class="list-group-item active text-center"><span></span>월 <span></span>일 예약현황&nbsp;<a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); color:white;"
