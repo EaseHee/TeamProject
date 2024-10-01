@@ -29,31 +29,8 @@
 <body>
     <jsp:useBean id="dashDAO" class="bean.DashboardDAO"></jsp:useBean>
     <%
-		request.setCharacterEncoding("utf-8");
-		int numPerPage = 5; 	//한 페이지 당 보여질 글의 개수
-		
-		int totalRecord = 0; 	//총 글의 개수
-		int totalPage = 0; 		//총 페이지 수
-		int nowPage = 0; 		//현재 페이지
-		int beginPerPage = 0; 	//페이지별 시작번호
-		ArrayList<DashboardDTO> list0 = (ArrayList<DashboardDTO>) dashDAO.getNotice();
-		
+		ArrayList<DashboardDTO> list0 = (ArrayList<DashboardDTO>) dashDAO.getNotice();		
 		ArrayList<DashboardDTO> list1 = (ArrayList<DashboardDTO>) dashDAO.getProduct();
-		totalRecord = list1.size();
-		totalPage = (totalRecord + numPerPage - 1) / numPerPage;
-		if(request.getParameter("nowPage") != null ){
-			nowPage = Integer.parseInt(request.getParameter("nowPage"));
-			if(nowPage == -1){
-				if(totalPage > 0){
-					nowPage = totalPage - 1;
-				}
-				else nowPage = 0;
-			}
-			if(nowPage == totalPage){
-				nowPage = 0;
-			}											
-		}		
-		beginPerPage = nowPage*numPerPage;
     %>
 
     <div id="app">
@@ -100,7 +77,7 @@
 	                            </ul>
 
 								 <table class="table table-bordered mb-0">
-									
+									<%@ include file="/views/dashProductPaging.jsp" %>
 									<%	//대시보드에 재고 3개 이하 상품 노출
 										for(int i = beginPerPage; i < beginPerPage + numPerPage; i++){
 											if(i==totalRecord) break;
