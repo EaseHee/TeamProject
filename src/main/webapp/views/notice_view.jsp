@@ -64,7 +64,6 @@
         	border: none;
         	outline: none;
         	resize: none;
-        	border-radius: 5px;
         }
         .img-profile {
         	width: 80px;
@@ -81,8 +80,10 @@
         form {
         	background-color: white;
         	border:solid;
-        	border-width: 2px;
+        	border-width: 1px;
         	border-radius: 5px;
+        	border-color: rgb(37, 57, 111);
+        	overflow: hidden;
         }
 	</style>
 </head>
@@ -281,44 +282,72 @@
 		                    </div>
 		                </div>
 		                <div>
-	                    <form class="mb-5">
-	                    	<textarea class="comment" rows="3" placeholder="매니저님들의 의견을 들려주세요!"></textarea>
-	                    	<table class="w-100">
-	                    		<tr style="background-color: inherit;">
-	                    			<td>0/500</td>
-	                    			<td style="text-align: center; width: 50px">입력</td>
-	                    		</tr>
-	                    	</table>
-	                    </form>
+		                    <form class="mb-5">
+		                    	<textarea class="comment" rows="3" placeholder="매니저님들의 의견을 들려주세요!"></textarea>
+		                    	<table class="w-100">
+		                    		<tr>
+		                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+		                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
+		                    		</tr>
+		                    	</table>
+		                    </form>
 	                    </div>
 		                <div>
 		               		<table>
 		               			<tr>
-		               				<td>
+		               				<td class="align-top">
 		               					<div class="img-profile">프로필 사진</div>
 		               				</td>
 		               				<td class="w-100">
 		               					<table class="w-100">
 		               						<tr><td><b>매니저</b> 2024.01.01 10:00</td></tr>
 		               						<tr><td>매니저의 댓글...</td></tr>
-		               						<tr class="text-end"><td><a href="#">삭제</a> <a href="#">수정</a> <a href="#">답글</a></td></tr>
+		               						<tr class="text-end"><td><a href="#">삭제</a> <a href="#">수정</a> <a data-bs-toggle="collapse" href="#collapseReply1" aria-expanded="false" aria-controls="collapseReply1">답글</a></td></tr>
+		               						<tr>
+		               							<td>
+		               								<form class="collapse mt-2" id="collapseReply1">
+								                    	<textarea class="comment" rows="3" placeholder="매니저에게 답글을 작성..."></textarea>
+								                    	<table class="w-100">
+								                    		<tr>
+								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+								                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
+								                    		</tr>
+								                    	</table>
+								                    </form>
+		               							</td>
+		               						</tr>
 		               					</table>
 		               				</td>
 		               			</tr>
 		               		</table>
+		               		<div>
+	                    </div>
 		               		<hr/>
 		                </div>
 		                <div style="margin-left: 50px;">
 		               		<table>
 		               			<tr>
-		               				<td>
+		               				<td class="align-top">
 		               					<div class="img-profile">본사 로고</div>
 		               				</td>
 		               				<td class="w-100">
 		               					<table class="w-100">
 		               						<tr><td><b style="color: rgb(37, 57, 111);">관리자</b> 2024.01.01 10:00</td></tr>
 		               						<tr><td>관리자의 댓글...</td></tr>
-		               						<tr class="text-end"><td><a href="#">답글</a></td></tr>
+		               						<tr class="text-end"><td><a data-bs-toggle="collapse" href="#collapseReply2" aria-expanded="false" aria-controls="collapseReply2">답글</a></td></tr>
+		               						<tr>
+		               							<td>
+		               								<form class="collapse mt-2" id="collapseReply2">
+								                    	<textarea class="comment" rows="3" placeholder="관리자에게 답글을 작성..."></textarea>
+								                    	<table class="w-100">
+								                    		<tr>
+								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+								                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
+								                    		</tr>
+								                    	</table>
+								                    </form>
+		               							</td>
+		               						</tr>
 		               					</table>
 		               				</td>
 		               			</tr>
@@ -328,7 +357,7 @@
 		                <div style="margin-left: 50px;">
 		               		<table>
 		               			<tr>
-		               				<td>
+		               				<td class="align-top">
 		               					<div class="img-profile invisible">프로필 사진</div>
 		               				</td>
 		               				<td class="w-100">
@@ -338,34 +367,60 @@
 		               		</table>
 		               		<hr/>
 		                </div>
-		                <div style="margin-left: 50px;">
+		                <div style="margin-left: 100px;">
 		               		<table>
 		               			<tr>
-		               				<td>
+		               				<td class="align-top">
 		               					<div class="img-profile">프로필 사진</div>
 		               				</td>
 		               				<td class="w-100">
 		               					<table class="w-100">
 		               						<tr><td><b>매니저</b> 2024.01.01 10:00</td></tr>
 		               						<tr><td>매니저의 댓글...</td></tr>
-		               						<tr class="text-end"><td><a href="#">삭제</a> <a href="#">수정</a> <a href="#">답글</a></td></tr>
+		               						<tr class="text-end"><td><a href="#">삭제</a> <a href="#">수정</a> <a data-bs-toggle="collapse" href="#collapseReply3" aria-expanded="false" aria-controls="collapseReply3">답글</a></td></tr>
+		               						<tr>
+		               							<td>
+		               								<form class="collapse mt-2" id="collapseReply3">
+								                    	<textarea class="comment" rows="3" placeholder="매니저에게 답글을 작성..."></textarea>
+								                    	<table class="w-100">
+								                    		<tr>
+								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+								                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
+								                    		</tr>
+								                    	</table>
+								                    </form>
+		               							</td>
+		               						</tr>
 		               					</table>
 		               				</td>
 		               			</tr>
 		               		</table>
 		               		<hr/>
 		                </div>
-		                <div style="margin-left: 100px;">
+		                <div style="margin-left: 150px;">
 		               		<table>
 		               			<tr>
-		               				<td style="vertical-align: top;">
+		               				<td class="align-top">
 		               					<div class="img-profile">본사 로고</div>
 		               				</td>
 		               				<td class="w-100">
 		               					<table class="w-100">
 		               						<tr><td><b style="color: rgb(37, 57, 111);">관리자</b> 2024.01.01 10:00</td></tr>
 		               						<tr><td>관리자의 댓글...<br>관리자의 댓글...<br>관리자의 댓글...<br>관리자의 댓글...</td></tr>
-		               						<tr class="text-end"><td><a href="#">답글</a></td></tr>
+		               						<tr class="text-end"><td><a data-bs-toggle="collapse" href="#collapseReply4" aria-expanded="false" aria-controls="collapseReply4">답글</a></td></tr>
+		               						<tr>
+		               							<td>
+		               								<form class="collapse mt-2" id="collapseReply4">
+								                    	<textarea class="comment" rows="3" placeholder="관리자에게 답글을 작성..."></textarea>
+								                    	<table class="w-100">
+								                    		<tr>
+								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+								                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
+								                    		</tr>
+								                    	</table>
+								                    </form>
+		               							</td>
+		               						</tr>
 		               					</table>
 		               				</td>
 		               			</tr>
@@ -375,14 +430,27 @@
 		                <div>
 		               		<table>
 		               			<tr>
-		               				<td>
+		               				<td class="align-top">
 		               					<div class="img-profile">프로필 사진</div>
 		               				</td>
 		               				<td class="w-100">
 		               					<table class="w-100">
 		               						<tr><td><b>매니저</b> 2024.01.01 10:00</td></tr>
 		               						<tr><td>매니저의 댓글...</td></tr>
-		               						<tr class="text-end"><td><a href="#">답글</a></td></tr>
+		               						<tr class="text-end"><td><a data-bs-toggle="collapse" href="#collapseReply5" aria-expanded="false" aria-controls="collapseReply5">답글</a></td></tr>
+		               						<tr>
+		               							<td>
+		               								<form class="collapse mt-2" id="collapseReply5">
+								                    	<textarea class="comment" rows="3" placeholder="매니저에게 답글을 작성..."></textarea>
+								                    	<table class="w-100">
+								                    		<tr>
+								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+								                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
+								                    		</tr>
+								                    	</table>
+								                    </form>
+		               							</td>
+		               						</tr>
 		               					</table>
 		               				</td>
 		               			</tr>
