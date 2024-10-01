@@ -334,7 +334,8 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
                                                     <th class="text-center" width="10%">예약날짜</th>
                                                     <th class="text-center" width="10%">예약시간</th>
                                                     <th class="text-center" width="10%">예약자명</th>
-                                                    <th class="text-center" width="40%">특이사항</th>
+                                                    <th class="text-center" width="10%">디자이너</th>
+                                                    <th class="text-center" width="30%">특이사항</th>
                                                 </tr>
                                             </thead>
 											<tbody>
@@ -348,6 +349,7 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
 													<td class="text-center"><%=reservationDTO.getReservation_date() != null ? reservationDTO.getReservation_date() : ""%></td>
 													<td class="text-center"><%=reservationDTO.getReservation_time() != null ? reservationDTO.getReservation_time() : ""%></td>
 													<td class="text-center"><a href="reservationRead.jsp?reservation_no=<%=reservationDTO.getReservation_no()%>"><%=reservationDTO.getCustomer_name() != null ? reservationDTO.getCustomer_name() : ""%></a></td>
+													<td class="text-center"><%=reservationDTO.getMember_name() != null ? reservationDTO.getMember_name() : ""%></td>
 													<td class="text-center"><%=reservationDTO.getReservation_comm() != null ? reservationDTO.getReservation_comm() : ""%></td>
 												</tr>
 												<%

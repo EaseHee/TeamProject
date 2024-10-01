@@ -71,6 +71,7 @@
     <jsp:useBean id="cusDao" class="bean.CustomerDAO"/>
 	<jsp:useBean id="resDao" class="bean.ReservationDAO"/>
     <jsp:useBean id="resDto" class="bean.ReservationDTO"/>
+    <jsp:useBean id="memDao" class="bean.MemberDAO" />
     
     <%
     	int reservation_no = Integer.parseInt(request.getParameter("reservation_no"));
@@ -313,6 +314,26 @@
                                 </div>
                             </div>
                             <br><br><br>
+                            <div class="col-lg-12 mb-12">
+								<div class="input-group mb-12">
+									<span class="input-group-text" id="basic-addon1">디자이너 명</span> 
+									<select name="member_name" class="form-control">
+										<%
+											List<String> memberNames = memDao.getAllMemberNames();
+											String selectedMemberName = resDto.getMember_name();
+	
+											for (String memberName : memberNames) {
+										%>
+											<option value="<%=memberName%>" <%= memberName.equals(selectedMemberName) ? "selected" : "" %>>
+											<%=memberName%>
+											</option>
+										<%
+											}
+										%>
+									</select>
+								</div>
+							</div>
+							<br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">특이 사항</span>

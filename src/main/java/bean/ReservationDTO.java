@@ -13,9 +13,27 @@ public class ReservationDTO {
     private String customer_name;
     private String service_name;
     private int service_cnt;
+    private String member_id;
+    private String member_name;
 
     
 	
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
+	public String getMember_id() {
+		return member_id;
+	}
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+
 	public int getReservation_no() {
 		return reservation_no;
 	}

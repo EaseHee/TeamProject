@@ -71,6 +71,7 @@
 <body>
 	<jsp:useBean id="serDao" class="bean.ServiceDAO" />
     <jsp:useBean id="cusDao" class="bean.CustomerDAO"/>
+    <jsp:useBean id="memDao" class="bean.MemberDAO" />
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
@@ -259,14 +260,14 @@
     								<input type="date" id="reservation_date" class="form-control" name="reservation_date">
 								</div>
 							<script>
-							
+							/*
    								window.onload = function() {
         						var now_utc = Date.now(); // 현재 시간을 UTC로
         						var timeOff = new Date().getTimezoneOffset() * 60000; // UTC와의 차이를 밀리초로
         						var today = new Date(now_utc - timeOff).toISOString().split("T")[0]; // ISO 형식에서 날짜 부분만 추출
         						document.getElementById('reservation_date').setAttribute('min', today); // min 속성에 오늘 날짜 설정
     							}
-							
+							*/
 							</script>
                             </div>
                             <br><br><br>
@@ -304,6 +305,23 @@
 								</div>
                             </div>
                             <br><br><br>
+                            <div class="col-lg-12 mb-12">
+								<div class="input-group mb-12">
+									<span class="input-group-text" id="basic-addon1">디자이너 명</span> 
+									<select name="member_name" class="form-control">
+										<%
+											List<String> memberNames = memDao.getAllMemberNames();
+	
+											for (String memberName : memberNames) {
+										%>
+											<option value="<%=memberName%>"><%=memberName%></option>
+										<%
+											}
+										%>
+									</select>
+								</div>
+							</div>
+							<br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">특이 사항</span>

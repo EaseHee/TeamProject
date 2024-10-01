@@ -76,6 +76,7 @@
     <jsp:useBean id="cusDao" class="bean.CustomerDAO"/>
     <jsp:useBean id="resDao" class="bean.ReservationDAO"/>
     <jsp:useBean id="resDto" class="bean.ReservationDTO"/>
+    <jsp:useBean id="memDao" class="bean.MemberDAO" />
     
     <%
     	int reservation_no = Integer.parseInt(request.getParameter("reservation_no"));
@@ -259,6 +260,13 @@
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
+                                    <span class="input-group-text" id="basic-addon1">디자이너 명</span>
+                                    <input type="text" class="form-control" value="<%= resDto.getMember_name() %>" readonly="readonly">
+                                </div>
+                            </div>
+                            <br><br><br>
+                            <div class="col-lg-12 mb-12">
+                                <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">특이 사항</span>
                                     <input type="text" class="form-control" value="<%=resDto.getReservation_comm() != null ? resDto.getReservation_comm() : ""%>" readonly="readonly">
                                 </div>
@@ -266,7 +274,7 @@
                             <br><br><br>
                             <div class="button-container">
                                 <button type="button" onclick="location.href='reservationUpdate.jsp?reservation_no=<%= resDto.getReservation_no() %>'">수정</button>
-                                <button type="button" onclick="location.href='reservationDelete.jsp?reservation_no=<%= resDto.getReservation_no() %>'">삭제</button>
+                                <button type="button" onclick="confirmDelete('<%=resDto.getReservation_no() %>')">삭제</button>
                                 <button type="button" onclick="location.href='reservation.jsp'">목록</button>
                             </div>
                         </div>
@@ -292,7 +300,13 @@
 <script	src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/main.js"></script></body>
-
+<script>
+        function confirmDelete(reservation_no) {
+            if (confirm("정말로 삭제하시겠습니까?")) {
+                location.href = 'reservationDelete.jsp?reservation_no=' + encodeURIComponent(reservation_no);
+            }
+        }
+    </script>
 </html>
 </body>
 </html>
