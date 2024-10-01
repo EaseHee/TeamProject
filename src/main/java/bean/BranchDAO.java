@@ -89,6 +89,7 @@ public class BranchDAO {
                 branch.setBranch_name(resultSet.getString("branch_name"));
                 branch.setBranch_tel(resultSet.getString("branch_tel"));
                 branch.setBranch_address(resultSet.getString("branch_address"));
+                
     		}
     	} catch (Exception e) {
             System.out.println("[getBranch] Message : " + e.getMessage());
