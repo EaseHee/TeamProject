@@ -10,9 +10,13 @@
  * 데이터들을 집어넣을 수 있도록 예약현황 요소를 DOM으로 가져와 조작. 
  * 4. DB 데이터를 서버에 요청 시 페이지 깜빡임 현상을 없애기 위해 AJAX (fetch) 기술로 
  * 데이터를 가져오는 작업. 
+ * 5. 특정 날의 예약현황 데이터가 많을 경우의 페이징 기능 추가. 
  */
 class CalendarAndReservation {
 	
+	/**
+	 * "예약현황" table 요소를 다루기 위한 중첩 클래스.
+	 */
 	ManipulateReservationTable = class {
 		constructor(reservationTableElement) {
 			this.reservationTableElement = reservationTableElement;
@@ -21,6 +25,10 @@ class CalendarAndReservation {
 			this.jsonToolObj;
 		}
 
+		/**
+		 * json 데이터를 다루는 툴 객체 초기화.
+		 * @param {JsonObjTool} jsonToolObj 
+		 */
 		setJsonToolObj(jsonToolObj) {
 			this.jsonToolObj = jsonToolObj;
 		}
@@ -69,8 +77,6 @@ class CalendarAndReservation {
 		 */
 		constructReservationTable() {
 			let data = this.jsonToolObj.getJsonData();
-			console.log('data: ');
-			console.log(data);
 			if (this.jsonToolObj.isEmptyJsonObj()) {
 				// json 형태 객체 내부에 데이터가 없을 경우 처리 로직.
 				this.noReservationTableInnerHTML();
@@ -81,6 +87,13 @@ class CalendarAndReservation {
 
 			this._setVarsForPaging();
 
+			// this._setVarsForPaging()을 통해 정해진 "현재 페이지"의 데이터만 목록에 출력. 
+			/* ex)
+				<tr>
+					<td class="text-bold-500">15:00:00</td>
+					<td class="text-bold-500">파마</td>
+				</tr>
+			*/
 			for (let i = this.startRecordNum; i <= this.endRecordNum; i++) {
 				let tr = document.createElement("tr");
 				for (let j = 0; j < data[i].length; j++) {
@@ -93,7 +106,7 @@ class CalendarAndReservation {
 					tr.appendChild(td);
 				}
 				
-				this.reservationTableElement.appendChild(tr);
+				this.reservationTableElement.querySelector("tbody").appendChild(tr);
 			}
 
 			this._constructPageVar();
@@ -116,79 +129,109 @@ class CalendarAndReservation {
 			</tr>
 		 */
 		_constructPageVar() {
-			console.log("hi from _constructPageVar!!!");
 			let tr = document.createElement("tr");
 
+			/**
+			 * 화살표 함수 내부에서의 this는 인스턴스를 가리키지 않으므로(즉, 정보를 잃어버림) 대신 익명함수를 사용해야 한다. 
+			 * 함수명.bind(this)를 통해 this가 ManipulateReservationTable 객체라는 정보를 전달해준다. 
+			 * 
+			 * 예약현황 table 태그에 nowPage 속성을 부여하여 현재 페이지를 기록하게 하고, 이 정보를 토대로 
+			 * "현재 페이지"의 데이터만 보여주게끔 함.
+			 * @param {} event 
+			 * @returns 
+			 */
 			function trEventHandler(event) {
-				console.log("hi from _trEventHandler!!!");
 				let trNowPageNum = parseInt(this.reservationTableElement.getAttribute("nowPage"));
 				switch (event.target.tagName) {
 					case "SPAN":
 						const spanPrevNextId = event.target.getAttribute("id");
-						if ((spanPrevNextId == "prev" && trNowPageNum <= 1) || (spanPrevNextId == "next" && trNowPageNum >= this.totalPages)) return;
+						if ((spanPrevNextId == "prev" && trNowPageNum <= 1) || 
+							(spanPrevNextId == "next" && trNowPageNum >= this.totalPages)) return;
 
 						if (spanPrevNextId == "prev") {
-							this.reservationTableElement.setAttribute("nowPage", `${trNowPageNum--}`);
+							this.reservationTableElement.setAttribute("nowPage", `${--trNowPageNum}`);
 						} else if (spanPrevNextId == "next") {
-							this.reservationTableElement.setAttribute("nowPage", `${trNowPageNum++}`);
+							this.reservationTableElement.setAttribute("nowPage", `${++trNowPageNum}`);
 						}
-						console.log("hi from span in _trEventHandler!!!");
-						this.constructReservationTable();
 
 						break;
 					case "I":
 						this.reservationTableElement.setAttribute("nowPage", event.target.getAttribute("pageNum"));
 						break;
 				}
+				this.constructReservationTable();
 			}
 
 			tr.addEventListener("click", trEventHandler.bind(this));
-
-			console.log("hi from _trEventHandler!!! 22");
 
 			let td = document.createElement("td");
 			td.setAttribute("align", "center");
 			td.setAttribute("colspan", "2");
 			td.classList.add("calendar-wrapper");
 
-			const spanFactory = (text) => {
+			/**
+			 * 페이징을 위한 화살표 (<, >) 요소를 구성. 
+			 * 
+			 * ex)
+			 * <span 
+			 * 		id="prev" 
+			 * 		class="icons material-symbols-rounded" 
+			 * 		style="display: inline-block; 
+			 * 		transform: translateY(3px);"
+			 * >chevron_left</span>
+			 * 
+			 * @param {string} arrowText - chevron_left, chevron_right 둘 중 하나. 단, prevNext와 동일한 세트여야 한다. 
+			 * @param {string} prevNext - "prev", "next" 둘 중 하나.
+			 * @returns {HTMLSpanElement} - 구성 완료된 span 태그
+			 */
+			const spanFactory = (arrowText, prevNext) => {
 				let spanElement = document.createElement("span");
-				spanElement.setAttribute("id", "prev");
+				spanElement.setAttribute("id", prevNext);
 				spanElement.classList.add("icons");
 				spanElement.classList.add("material-symbols-rounded");
 				spanElement.setAttribute("style", "display: inline-block; transform: translateY(3px);");
 				//spanElement.style = "display: inline-block; transform: translateY(3px);";
 
-				let textNode = document.createTextNode(text);
+				let textNode = document.createTextNode(arrowText);
 				spanElement.appendChild(textNode);
 
 				return spanElement;
 			};
 
 			const spans = {
-				"left": spanFactory("chevron_left"),
-				"right": spanFactory("chevron_right")
+				"left": spanFactory("chevron_left", "prev"),
+				"right": spanFactory("chevron_right", "next")
 			};
 
 			// < ... > 요소 넣기
 			td.appendChild(spans.left);
 			
+			// 총 페이지 수 만큼의 점(.) 기호를 출력. 
+			// ex) <i class="bi bi-bot" pageNum="1"></i>
 			for (let i = 0; i < this.totalPages; i++) {
 				const iElement = document.createElement("i");
 				// class="bi bi-dot"
 				iElement.classList.add("bi");
 				iElement.classList.add("bi-dot");
+
+				// 각 i 태그에 페이지 번호를 pageNum 속성값으로 매핑한다. 
 				iElement.setAttribute("pageNum", `${i+1}`);
 				td.appendChild(iElement);
 			}
 
 			td.appendChild(spans.right);
+			// < ... > 요소 넣기 끝
+
 			tr.appendChild(td);
-			this.reservationTableElement.appendChild(tr);
+			//this.reservationTableElement.appendChild(tr);
+			this.reservationTableElement.querySelector("tbody").appendChild(tr);
 		}
 		
 	}
 	
+	/**
+	 * json 데이터를 다루기 위한 중첩 클래스.
+	 */
 	JsonObjTool = class {
 		jsonData;
 		
@@ -337,54 +380,15 @@ class CalendarAndReservation {
 		fetch(`/TeamProject/dashboard?command=CALENDAR_RESERVATION&date=${dateToInput}`)
 			.then(response => response.json())
 			.then(data => {
-				/*
-				this.reservationTableTool.clearReservationTableInnerHTML();
-
-				this.jsonTool.setJsonData(data);
-
-				// for Test
-				//console.log(`data : `);
-				//console.log(this._isEmptyJsonObj(data));
-				
-				// 가져온 데이터들을 토대로 목록 구성. 
-				for (let key in data) {
-					let tr = document.createElement("tr");
-					for (let i = 0; i < 2; i++) {
-						let td = document.createElement("td");
-						td.setAttribute("class", "text-bold-500");
-						
-						let textNode = document.createTextNode(data[key][i]);
-						
-						td.appendChild(textNode);
-						tr.appendChild(td);
-					}
-					
-					this.reservationTable.appendChild(tr);
-				}
-				
-				if (this.jsonTool.isEmptyJsonObj(data)) {
-					// json 형태 객체 내부에 데이터가 없을 경우 처리 로직.
-					this.reservationTableTool.noReservationTableInnerHTML();
-				} else {
-					this.reservationTable.insertAdjacentHTML("beforeend", 
-						`<tr>
-								<td align="center" colspan="2" class="calendar-wrapper">
-								<a href="dashboard.jsp"><span id="prev" class="icons material-symbols-rounded" style="display: inline-block; transform: translateY(3px);">chevron_left</span></a>
-								<i class="bi bi-dot"></i>
-								<a href="dashboard.jsp"><span id="next" class="icons material-symbols-rounded " style="display: inline-block; transform: translateY(3px);">chevron_right</span></a>
-								</td>
-						</tr>`
-					)
-				}*/
-
 				this.jsonTool.setJsonData(data);
 				this.reservationTableTool.setJsonToolObj(this.jsonTool);
+				this.reservationTable.setAttribute("nowPage", "1"); // 현재 페이지를 항상 1로 초기화.
 				this.reservationTableTool.constructReservationTable();
 			});
 	}
 	
 }
-console.log("new hi21"); // For test
+//console.log("new hi2"); // For test
 
 new CalendarAndReservation();
 
