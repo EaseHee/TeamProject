@@ -261,23 +261,27 @@ public class ServiceDAO {
 	        	 freeConnection();
 	    }
 	  }
-	public List<String> getAllServiceNames() throws SQLException {
+	
+	//예약 서비스명 조회
+    public List<String> getAllServiceNames() throws SQLException {
 	    List<String> serviceNames = new ArrayList<>();
 	    String query = "SELECT service_name FROM service"; // 'ser' 테이블에서 서비스 명 가져옴
 
 	    try {
 	        connection = dataSource.getConnection();
 	        statement = connection.prepareStatement(query);
-	        resultSet = statement.executeQuery(); // resultSet에 결과 할당
+	        resultSet = statement.executeQuery();
 
 	        while (resultSet.next()) {
 	            serviceNames.add(resultSet.getString("service_name"));
 	        }
-	    } catch (SQLException e) {
-	        System.out.println("[getAllServiceNames] Message : " + e.getMessage());
-	        System.out.println("[getAllServiceNames] Class   : " + e.getClass().getSimpleName());
-	    } finally {
-	        freeConnection();
+	    } 
+	    catch (SQLException e) {
+            System.out.println("[getAllServiceNames] Message : " + e.getMessage());
+            System.out.println("[getAllServiceNames] Class   : " + e.getClass().getSimpleName());
+        }
+	    finally {
+	        freeConnection(); // freeConnection을 finally 블록에서 호출하여 자원을 반환
 	    }
 	    return serviceNames;
 	}

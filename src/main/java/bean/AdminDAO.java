@@ -19,7 +19,7 @@ public class AdminDAO {
     private ResultSet resultSet = null;
     
     private String ADMIN_LIST = "select * from admin";
-    private String ADMIN_INSERT = "insert into admin values(?, ?, ?, ?, ?)";
+    private String ADMIN_INSERT = "insert into admin values(?, ?)";
     private	String ADMIN_GET = "select * from admin where ad_id = ?";
     
     public AdminDAO () {
@@ -56,11 +56,14 @@ public class AdminDAO {
     		Class.forName("org.mariadb.jdbc.Driver");
             connection = dataSource.getConnection();
             statement = connection.prepareStatement(ADMIN_INSERT);
-            statement.setString(1, dto.getAd_id());
-            statement.setString(2, dto.getAd_pw());
-            statement.setString(3, dto.getAd_name());
-            statement.setString(4, dto.getAd_ph());
-            statement.setString(5, dto.getAd_mail());
+            statement.setString(1, dto.getAdmin_id());
+            statement.setString(2, dto.getAdmin_pw());
+            statement.setString(3, dto.getAdmin_name());
+            statement.setString(4, dto.getAdmin_ph());
+            statement.setString(5, dto.getAdmin_mail());
+            statement.setString(5, dto.getAdmin_postcode());
+            statement.setString(5, dto.getAdmin_roadAddress());
+            statement.setString(5, dto.getAdmin_detailAddress());
             statement.executeUpdate();
     		
         } catch (ClassNotFoundException | SQLException e) {
@@ -78,16 +81,19 @@ public class AdminDAO {
     		Class.forName("org.mariadb.jdbc.Driver");
             connection = dataSource.getConnection();
             statement = connection.prepareStatement(ADMIN_GET);
-    		statement.setString(1, dto.getAd_id());
+    		statement.setString(1, dto.getAdmin_id());
     		resultSet = statement.executeQuery();
     		
     		while(resultSet.next()) {
                 admin = new AdminDTO();
-                admin.setAd_id(resultSet.getString("ad_id"));
-                admin.setAd_pw(resultSet.getString("ad_pw"));
-                admin.setAd_name(resultSet.getString("ad_name"));
-                admin.setAd_ph(resultSet.getString("ad_ph"));
-                admin.setAd_mail(resultSet.getString("ad_mail"));
+                admin.setAdmin_id(resultSet.getString("admin_id"));
+                admin.setAdmin_pw(resultSet.getString("admin_pw"));
+                admin.setAdmin_name(resultSet.getString("admin_name"));
+                admin.setAdmin_ph(resultSet.getString("admin_ph"));
+                admin.setAdmin_mail(resultSet.getString("admin_mail"));
+                admin.setAdmin_postcode(resultSet.getString("admin_postcode"));
+                admin.setAdmin_roadAddress(resultSet.getString("admin_readAddress"));
+                admin.setAdmin_detailAddress(resultSet.getString("admin_detailAddress"));
     		}
     	} catch (Exception e) {
             System.out.println("[getAdmin] Message : " + e.getMessage());

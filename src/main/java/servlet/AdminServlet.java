@@ -25,6 +25,9 @@ public class AdminServlet extends HttpServlet {
 		// 한글 인코딩
 		req.setCharacterEncoding("UTF-8");
 		
+		String command = req.getParameter("command");
+		String url = "";
+		
 		// 입력받은 정보 추출
 		String name = req.getParameter("name");
 		String birth = req.getParameter("birth");
@@ -32,25 +35,30 @@ public class AdminServlet extends HttpServlet {
 		String mail = req.getParameter("mail");
 		String id = req.getParameter("id");
 		String pw = req.getParameter("pw");
+		String postcode = req.getParameter("postcode");
+		String road = req.getParameter("roadAddress");
+		String detail = req.getParameter("detailAddress");		
 		String pwcheck = req.getParameter("pwcheck");
 		String[] terms = req.getParameterValues("terms");
 		
 		// DB 연동
 		AdminDTO dto = new AdminDTO();
-		dto.setAd_name(name);
-		dto.setAd_ph(ph);
-		dto.setAd_mail(mail);
-		dto.setAd_id(id);
-		dto.setAd_pw(pw);
+		dto.setAdmin_name(name);
+		dto.setAdmin_ph(ph);
+		dto.setAdmin_mail(mail);
+		dto.setAdmin_id(id);
+		dto.setAdmin_pw(pw);
+		dto.setAdmin_postcode(postcode);
+		dto.setAdmin_roadAddress(road);
+		dto.setAdmin_detailAddress(detail);
 		
 		AdminDAO dao = new AdminDAO();
 		dao.insertAdmin(dto);
 		
 		// 페이지 이동
 		resp.sendRedirect("/TeamProject/views/login.jsp");
-//		String command = req.getParameter("command");
-//		String url = "";
-//		
+		
+		
 //		if(command.equals("LOGIN")) {
 //			url = "/views/login.jsp";
 //		}

@@ -12,8 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import bean.ProductDTO;
-
 public class ProductDAO {
     
     private Context context = null;
@@ -53,7 +51,7 @@ public class ProductDAO {
 
     /* 
 		product.jsp(상품 관리)
-		> pd_B 테이블 조회
+		> product_B 테이블 조회
 	*/
 	//상품 리스트 조회(대분류 페이지 조회)
 	public List<ProductDTO> getProduct_B_List(String keyWord) {
@@ -61,9 +59,9 @@ public class ProductDAO {
 		ArrayList<ProductDTO> list = new ArrayList<>();
 	    
 	    if(keyWord == null || keyWord.isEmpty()) {
-	    	sql = "SELECT pd_B_code, pd_name FROM pd_B";
+	    	sql = "SELECT product_B_code, product_name FROM product_B";
 	    } else {
-	    	sql = "SELECT pd_B_code, pd_name FROM pd_B WHERE pd_name like '%" + keyWord + "%'";
+	    	sql = "SELECT product_B_code, product_name FROM product_B WHERE product_name like '%" + keyWord + "%'";
 	    }
 	
 	    try {
@@ -74,8 +72,8 @@ public class ProductDAO {
 	
 	        while(resultSet.next()) {
 	            ProductDTO board = new ProductDTO();
-	            board.setPd_B_code(resultSet.getString("pd_B_code"));
-	            board.setPd_name(resultSet.getString("pd_name"));
+	            board.setProduct_B_code(resultSet.getString("product_B_code"));
+	            board.setProduct_name(resultSet.getString("product_name"));
 	
 	            list.add(board);
 	        }
@@ -94,36 +92,34 @@ public class ProductDAO {
 		(product.jsp > product_detail.jsp로 이동했을 때 조회되는 화면)
 	*/
 	//상품 리스트 조회(소분류 페이지 조회)
-	public List<ProductDTO> getProductList(String pd_B_code, String keyWord) {
+	public List<ProductDTO> getProductList(String product_B_code, String keyWord) {
 		String sql = "";
 		ArrayList<ProductDTO> list = new ArrayList<>();
 		
 		if(keyWord == null || keyWord.isEmpty()) {
-        	sql = "SELECT pd.pd_code, pd.pd_name, pd.pd_price, pd.pd_ea "
-                + "FROM pd "
-                + "JOIN pd_B ON pd.pd_B_code = pd_B.pd_B_code "
-                + "WHERE pd_B.pd_B_code=?";
+        	sql = "SELECT product.product_code, product.product_name, product.product_price, product.product_ea "
+                + "FROM product "
+                + "JOIN product_B ON product.product_B_code = product_B.product_B_code "
+                + "WHERE product_B.product_B_code=?";
         } else {
-        	System.out.println("키워드 존재");
-        	System.out.println(keyWord);
-        	sql = "SELECT pd.pd_code, pd.pd_name, pd.pd_price, pd.pd_ea "
-                + "FROM pd "
-                + "JOIN pd_B ON pd.pd_B_code = pd_B.pd_B_code "
-                + "WHERE pd_B.pd_B_code=? AND pd.pd_name like '%" + keyWord + "%'";
+        	sql = "SELECT product.product_code, product.product_name, product.product_price, product.product_ea "
+                + "FROM product "
+                + "JOIN product_B ON product.product_B_code = product_B.product_B_code "
+                + "WHERE product_B.product_B_code=? AND product.product_name like '%" + keyWord + "%'";
         }
 		
 		try {
 			connection = dataSource.getConnection();			
 			statement = connection.prepareStatement(sql);
-			statement.setString(1, pd_B_code);
+			statement.setString(1, product_B_code);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()){
 				ProductDTO board = new ProductDTO();
-				board.setPd_code(resultSet.getString("pd_code"));
-				board.setPd_name(resultSet.getString("pd_name"));
-				board.setPd_price(resultSet.getInt("pd_price"));
-				board.setPd_ea(resultSet.getInt("pd_ea"));
+				board.setProduct_code(resultSet.getString("product_code"));
+				board.setProduct_name(resultSet.getString("product_name"));
+				board.setProduct_price(resultSet.getInt("product_price"));
+				board.setProduct_ea(resultSet.getInt("product_ea"));
 				
 				list.add(board);
 			}
@@ -138,28 +134,28 @@ public class ProductDAO {
 	
 	/*
 		product_B_read.jsp
-		(prpduct.jsp > product_B_read.jsp로 이동했을 때 대분류에 대한 정보
+		(prproductuct.jsp > product_B_read.jsp로 이동했을 때 대분류에 대한 정보
 	*/
 	//대분류 개별 조회(샴푸, 린스 등...)
-	public ProductDTO getProductBOne(String pd_B_code) {
-		String sql = "SELECT pd_B_code, pd_name FROM pd_B WHERE pd_B_code=?";
+	public ProductDTO getProductBOne(String product_B_code) {
+		String sql = "SELECT product_B_code, product_name FROM product_B WHERE product_B_code=?";
 		
 		ProductDTO board = new ProductDTO();
 		
-		board.setPd_B_code(pd_B_code);
+		board.setProduct_B_code(product_B_code);
 		
 		try {
 			connection = dataSource.getConnection();
 	        
 	        statement = connection.prepareStatement(sql);
 	        
-	        statement.setString(1, pd_B_code);
+	        statement.setString(1, product_B_code);
 	        
 	        resultSet = statement.executeQuery();
 	        
 	        if(resultSet.next()) {
-	        	board.setPd_B_code(resultSet.getString("pd_B_code"));
-	        	board.setPd_name(resultSet.getString("pd_name"));
+	        	board.setProduct_B_code(resultSet.getString("product_B_code"));
+	        	board.setProduct_name(resultSet.getString("product_name"));
 	        }
 		} catch(Exception e) {
 			System.out.println("[getProductBOne] Message : " + e.getMessage());
@@ -173,35 +169,35 @@ public class ProductDAO {
 	
 	/*
 		product_read.jsp
-		(prpduct_detail.jsp > product_read.jsp로 이동했을 때 상품에 대한 정보
+		(prproductuct_detail.jsp > product_read.jsp로 이동했을 때 상품에 대한 정보
 	*/
 	//개별 상품 조회(미장센, 려 등...)
-	public ProductDTO getProductOne(String pd_B_code, String pd_code) {
-		String sql = "SELECT pd_B.pd_B_code, pd.pd_code, pd.pd_name, pd.pd_price, pd.pd_ea "
-			       + "FROM pd "
-			       + "JOIN pd_B ON pd.pd_B_code = pd_B.pd_B_code "
-			       + "WHERE pd_B.pd_B_code=? AND pd.pd_code=?";
+	public ProductDTO getProductOne(String product_B_code, String product_code) {
+		String sql = "SELECT product_B.product_B_code, product.product_code, product.product_name, product.product_price, product.product_ea "
+			       + "FROM product "
+			       + "JOIN product_B ON product.product_B_code = product_B.product_B_code "
+			       + "WHERE product_B.product_B_code=? AND product.product_code=?";
 		
 		ProductDTO board = new ProductDTO();
 		
-		board.setPd_B_code(pd_B_code);
+		board.setProduct_B_code(product_B_code);
 		
 		try {
 			connection = dataSource.getConnection();
 	        
 	        statement = connection.prepareStatement(sql);
 	        
-	        statement.setString(1, pd_B_code);
-	        statement.setString(2, pd_code);
+	        statement.setString(1, product_B_code);
+	        statement.setString(2, product_code);
 	        
 	        resultSet = statement.executeQuery();
 	        
 	        if(resultSet.next()) {
-	        	board.setPd_B_code(resultSet.getString("pd_B_code"));
-	        	board.setPd_code(resultSet.getString("pd_code"));
-	        	board.setPd_name(resultSet.getString("pd_name"));
-	        	board.setPd_price(resultSet.getInt("pd_price"));
-	        	board.setPd_ea(resultSet.getInt("pd_ea"));
+	        	board.setProduct_B_code(resultSet.getString("product_B_code"));
+	        	board.setProduct_code(resultSet.getString("product_code"));
+	        	board.setProduct_name(resultSet.getString("product_name"));
+	        	board.setProduct_price(resultSet.getInt("product_price"));
+	        	board.setProduct_ea(resultSet.getInt("product_ea"));
 	        }
 		} catch(Exception e) {
 			System.out.println("[getProductOne] Message : " + e.getMessage());
@@ -223,13 +219,13 @@ public class ProductDAO {
 		try {
 			connection = dataSource.getConnection();
 	        
-	        sql = "INSERT INTO pd_B(pd_B_code, pd_name) "
+	        sql = "INSERT INTO product_B(product_B_code, product_name) "
 	        		 + "VALUES(?, ?)";
 	        
 	        statement = connection.prepareStatement(sql);
 	        
-	        statement.setString(1, board.getPd_B_code());
-	        statement.setString(2, board.getPd_name());
+	        statement.setString(1, board.getProduct_B_code());
+	        statement.setString(2, board.getProduct_name());
 	        
 	        statement.executeUpdate();
 		} catch(Exception e) {
@@ -245,7 +241,7 @@ public class ProductDAO {
 	*/
 	//개별 상품 등록
 	public void setProductOne(ProductDTO board) {
-		String sql = "INSERT INTO pd(pd_B_code, pd_code, pd_name, pd_price, pd_ea) "
+		String sql = "INSERT INTO product(product_B_code, product_code, product_name, product_price, product_ea) "
 	   	           + "VALUES(?, ?, ?, ?, ?)";
 		
 		try {
@@ -253,11 +249,11 @@ public class ProductDAO {
 	        
 	        statement = connection.prepareStatement(sql);
 	        
-	        statement.setString(1, board.getPd_B_code());
-	        statement.setString(2, board.getPd_code());
-	        statement.setString(3, board.getPd_name());
-	        statement.setInt(4, board.getPd_price());
-	        statement.setInt(5, board.getPd_ea());
+	        statement.setString(1, board.getProduct_B_code());
+	        statement.setString(2, board.getProduct_code());
+	        statement.setString(3, board.getProduct_name());
+	        statement.setInt(4, board.getProduct_price());
+	        statement.setInt(5, board.getProduct_ea());
 	        
 	        statement.executeUpdate();
 		} catch(Exception e) {
@@ -269,20 +265,20 @@ public class ProductDAO {
 	}
 	
 	/*
-		product_read_action(update).jsp
+		product_update.jsp
 	*/
 	//상품 수정
 	public void updateProductOne(ProductDTO board) {
-		String sql = "UPDATE pd SET pd_name=?, pd_price=?, pd_ea=? WHERE pd_code=?";
+		String sql = "UPDATE product SET product_name=?, product_price=?, product_ea=? WHERE product_code=?";
 	
 		try {
 			connection = dataSource.getConnection();
 	        statement = connection.prepareStatement(sql);
 			
-	        statement.setString(1, board.getPd_name());
-	        statement.setInt(2, board.getPd_price());
-	        statement.setInt(3, board.getPd_ea());
-	        statement.setString(4, board.getPd_code());
+	        statement.setString(1, board.getProduct_name());
+	        statement.setInt(2, board.getProduct_price());
+	        statement.setInt(3, board.getProduct_ea());
+	        statement.setString(4, board.getProduct_code());
 			
 	        statement.executeUpdate();
 		} catch(Exception e) {
@@ -297,37 +293,37 @@ public class ProductDAO {
 		product_B_delete.jsp
 	*/
 	//대분류 삭제
-	public void delelteBProduct(String pd_B_code) {
-		String sql = "DELETE FROM pd_B WHERE pd_B_code=?";
+	public void deleteBProduct(String product_B_code) {
+		String sql = "DELETE FROM product_B WHERE product_B_code=?";
 		
 		try {
 			connection = dataSource.getConnection();
 	        statement = connection.prepareStatement(sql);
 			
-	        statement.setString(1, pd_B_code);
+	        statement.setString(1, product_B_code);
 	        
 	        statement.executeUpdate();
 		} catch(Exception e) {
-			System.out.println("[delelteBProduct] Message : " + e.getMessage());
-			System.out.println("[delelteBProduct] Class   : " + e.getClass().getSimpleName());
+			System.out.println("[deleteBProduct] Message : " + e.getMessage());
+			System.out.println("[deleteBProduct] Class   : " + e.getClass().getSimpleName());
 		} finally {
 			freeConnection();
 		}
 	}
 	
 	/*
-		product_read_action(delete).jsp
+		product_delete.jsp
 	*/
 	//상품 삭제
-	public void delelteProductOne(String pd_B_code, String pd_code) {
-		String sql = "DELETE FROM pd WHERE pd_B_code=? AND pd_code=?";
+	public void deleteProductOne(String product_B_code, String product_code) {
+		String sql = "DELETE FROM product WHERE product_B_code=? AND product_code=?";
 		
 		try {
 			connection = dataSource.getConnection();
 	        statement = connection.prepareStatement(sql);
 			
-	        statement.setString(1, pd_B_code);
-	        statement.setString(2, pd_code);
+	        statement.setString(1, product_B_code);
+	        statement.setString(2, product_code);
 	        
 	        statement.executeUpdate();
 		} catch(Exception e) {
@@ -341,7 +337,7 @@ public class ProductDAO {
 	/* 대시보드 - 재고수량 */
 	public List<ProductDTO> getProductToDashBoard() {
 		
-		String sql = "SELECT pd_name, pd_ea FROM pd WHERE pd_ea < 4";
+		String sql = "SELECT product_name, product_ea FROM product WHERE product_ea < 4";
 		ArrayList<ProductDTO> list = new ArrayList<>();
 		
 		try {
@@ -351,8 +347,8 @@ public class ProductDAO {
 			
 			while(resultSet.next()){
 				ProductDTO board = new ProductDTO();
-				board.setPd_name(resultSet.getString("pd_name"));
-				board.setPd_ea(resultSet.getInt("pd_ea"));
+				board.setProduct_name(resultSet.getString("product_name"));
+				board.setProduct_ea(resultSet.getInt("product_ea"));
 				
 				list.add(board);
 			}
