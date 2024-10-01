@@ -64,6 +64,7 @@
     <jsp:useBean id="dao" class="bean.CustomerDAO"/>
     <jsp:useBean id="dto" class="bean.CustomerDTO"/>
 
+	
 	<div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
@@ -207,8 +208,8 @@
                 <hr style="height: 5px;">
                 <div class="row form-group">
     <form method="post" action="customer.jsp" class="col-4 d-flex">
-        <input type="date" class="form-control" id="startDate" name="startDate">&nbsp;&nbsp;~&nbsp;&nbsp;
-        <input type="date" class="form-control" id="endDate" name="endDate">
+        <input type="date" onclick="this.showPicker()" class="form-control" id="startDate" name="startDate">&nbsp;&nbsp;~&nbsp;&nbsp;
+        <input type="date" onclick="this.showPicker()" class="form-control" id="endDate" name="endDate">
         <input type="submit" class="btn btn-outline-success" value="조회">
     </form>    
 	<form class="col-4 d-flex"></form>
@@ -295,10 +296,10 @@
 								                    <td class="text-center"><a href="customerRead.jsp?customer_id=<%= customer.getCustomer_id() %>"><%= customer.getCustomer_name() %></a></td>
 								                    <td class="text-center"><%= customer.getCustomer_gender() %></td>
 								                    <td class="text-center"> <%= customer.getCustomer_tel() %></td>
-								                    <td><%= customer.getCustomer_mail() %></td>
+								                    <td class="text-center"><%= customer.getCustomer_mail() %></td>
 								                    <td class="text-center"><%= customer.getCustomer_reg() %></td>
 								                    <td class="text-center"><%= customer.getCustomer_rank() %></td>
-								                    <td><%= customer.getCustomer_note() != null ? customer.getCustomer_note() : "" %></td> 
+								                    <td class="text-center"><%= customer.getCustomer_note() != null ? customer.getCustomer_note() : "" %></td> 
 								                </tr>
 								            <% 
 								            }

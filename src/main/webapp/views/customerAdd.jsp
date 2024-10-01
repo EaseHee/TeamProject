@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>CUSTOMER</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -231,7 +231,7 @@
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
 									<span class="input-group-text" id="basic-addon1">회원 연락처</span> 
-									<input type="date" class="form-control" name="customer_tel" placeholder="연락처를 입력해 주세요.">
+									<input type="text" class="form-control" name="customer_tel" placeholder="연락처를 입력해 주세요.">
 								</div>
 							</div>
 							<br><br><br>
@@ -242,24 +242,24 @@
                                 </div>
                             </div>
                             <br><br><br>
-<script>
-// 현재 날짜를 YYYY-MM-DD 형식으로 가져옴
-var today = new Date().toISOString().split('T')[0];
-// input 태그에 최소값(min)을 현재 날짜로 설정
-document.getElementById('regdate').setAttribute('min', today);
-// 기본 값도 오늘 날짜로 설정
-document.getElementById('regdate').valueAsDate = new Date();
-</script>
+								<script>
+								// 현재 날짜를 YYYY-MM-DD 형식으로 가져옴
+								var today = new Date().toISOString().split('T')[0];
+								// input 태그에 최소값(min)을 현재 날짜로 설정
+								document.getElementById('regdate').setAttribute('min', today);
+								// 기본 값도 오늘 날짜로 설정
+								document.getElementById('regdate').valueAsDate = new Date();
+								</script>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">회원 등록일</span>
-                                    <input type="text" class="form-control" name="customer_reg" id="regdate">
+                                    <input type="date" onclick="this.showPicker()" class="form-control" name="customer_reg" id="regdate">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">성별</span>
+                                    <span class="input-group-text" id="basic-addon1">회원 등급</span>
 						            <select class="choices form-select search-filter" name="customer_rank" style="width: 80px; display: inline-block;">
 							            <option value="GOLD">GOLD</option>
 							            <option value="SILVER">SILVER</option>
