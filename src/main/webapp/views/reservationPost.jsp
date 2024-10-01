@@ -61,7 +61,7 @@
         }
         .input-group-text{
         	display: inline-block; 
-        	width: 10%;
+        	width: 15%;
         } 
 	</style>
 
@@ -71,12 +71,13 @@
 <body>
 	<jsp:useBean id="serDao" class="bean.ServiceDAO" />
     <jsp:useBean id="cusDao" class="bean.CustomerDAO"/>
+    <jsp:useBean id="memDao" class="bean.MemberDAO" />
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="dashboard.jsp">LOGO</a>
+                            <a href="dashboard.jsp">로고</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -85,19 +86,19 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
+                        <li class="sidebar-title">메뉴</li>
 
                         <li class="sidebar-item ">
                             <a href="dashboard.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>HOME</span>
+                                <span>홈</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
-                                <span>CUSTOMER</span>
+                                <span>고객</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -109,10 +110,10 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item active has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
-                                <span>RESERVATION</span>
+                                <span>예약</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -124,10 +125,10 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item active has-sub">
+                        <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-grid-1x2-fill"></i>
-                                <span>SERVICE</span>
+                                <span>서비스</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -139,10 +140,10 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
-                                <span>PRODUCT</span>
+                                <span>상품</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -153,10 +154,10 @@
                                 </li>
                              </ul>
                         </li>
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item has-sub">
                             <a href="#" class='sidebar-link'>
                             	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/></svg>                               
-                                <span>MEMBER</span>
+                                <span>직원</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -168,10 +169,10 @@
                             </ul>
                         </li>
  
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-megaphone-fill"></i>
-                                <span>NOTICE</span>
+                                <span>공지</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -208,7 +209,7 @@
                                     <li class="breadcrumb-item">
 	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
 	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
+                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃&nbsp;<i class="bi bi-box-arrow-right " ></i></span></a>
                                    	</li>
                                 </ol>
                             </nav>
@@ -259,14 +260,14 @@
     								<input type="date" id="reservation_date" class="form-control" name="reservation_date">
 								</div>
 							<script>
-							
+							/*
    								window.onload = function() {
         						var now_utc = Date.now(); // 현재 시간을 UTC로
         						var timeOff = new Date().getTimezoneOffset() * 60000; // UTC와의 차이를 밀리초로
         						var today = new Date(now_utc - timeOff).toISOString().split("T")[0]; // ISO 형식에서 날짜 부분만 추출
         						document.getElementById('reservation_date').setAttribute('min', today); // min 속성에 오늘 날짜 설정
     							}
-							
+							*/
 							</script>
                             </div>
                             <br><br><br>
@@ -305,6 +306,23 @@
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
+								<div class="input-group mb-12">
+									<span class="input-group-text" id="basic-addon1">디자이너 명</span> 
+									<select name="member_name" class="form-control">
+										<%
+											List<String> memberNames = memDao.getAllMemberNames();
+	
+											for (String memberName : memberNames) {
+										%>
+											<option value="<%=memberName%>"><%=memberName%></option>
+										<%
+											}
+										%>
+									</select>
+								</div>
+							</div>
+							<br><br><br>
+                            <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">특이 사항</span>
                                     <input type="text" class="form-control" name="reservation_comm" placeholder="  특이 사항을 입력해 주세요">
@@ -312,8 +330,9 @@
                             </div>
                             <br><br><br>
                             <div class="button-container">
+                            <button type="button" onclick="location.href='reservation.jsp'">목록</button>
                                 <button type="submit" onclick="등록되었습니다.">등록</button>
-                                <button type="button" onclick="location.href='reservation.jsp'">목록</button>
+                                
                             </div>
                         </div>
                     </form>
