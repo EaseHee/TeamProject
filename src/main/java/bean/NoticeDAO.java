@@ -81,35 +81,31 @@ public class NoticeDAO {
 	    return list;
 	}
     
-    // 중요 공지사항 표시
+    // 중요 공지사항 표시 (검색어를 입력하지 않았을 때에만 보이도록)
     public List<NoticeDTO> getCheckedNoticeList(String keyWord) {
-		String sql = "";
-		ArrayList<NoticeDTO> list = new ArrayList<>();
-	    
-		// 중요 공지사항은 검색어를 입력하지 않았을 때에만 보이도록
-	    if(keyWord == null || keyWord.isEmpty()) {
-	    	sql = "SELECT notice_no, notice_title, notice_reg FROM notice WHERE notice_check = 1 ORDER BY notice_no DESC";
-	    }
-	    try {
-	        connection = dataSource.getConnection();
-	        statement = connection.prepareStatement(sql);
-	        resultSet = statement.executeQuery();
-	
-	        while(resultSet.next()) {
-	            NoticeDTO noticeDTO = new NoticeDTO();
-	            noticeDTO.setNotice_no(resultSet.getInt("notice_no"));
-	            noticeDTO.setNotice_title(resultSet.getString("notice_title"));
-	            noticeDTO.setNotice_reg(resultSet.getString("notice_reg"));
-	
-	            list.add(noticeDTO);
-	        }
-	    } catch (Exception e) {
-	        System.out.println("[getCheckedNoticeList] Message : " + e.getMessage());
-	        System.out.println("[getCheckedNoticeList] Class   : " + e.getClass().getSimpleName());
-	    } finally {
-	        freeConnection();
-	    }
-	    
+    	ArrayList<NoticeDTO> list = new ArrayList<>();
+    	if(keyWord == null || keyWord.isEmpty()) {
+	    	String sql = "SELECT notice_no, notice_title, notice_reg FROM notice WHERE notice_check = 1 ORDER BY notice_no DESC";
+		    try {
+		        connection = dataSource.getConnection();
+		        statement = connection.prepareStatement(sql);
+		        resultSet = statement.executeQuery();
+		
+		        while(resultSet.next()) {
+		            NoticeDTO noticeDTO = new NoticeDTO();
+		            noticeDTO.setNotice_no(resultSet.getInt("notice_no"));
+		            noticeDTO.setNotice_title(resultSet.getString("notice_title"));
+		            noticeDTO.setNotice_reg(resultSet.getString("notice_reg"));
+		
+		            list.add(noticeDTO);
+		        }
+		    } catch (Exception e) {
+		        System.out.println("[getCheckedNoticeList] Message : " + e.getMessage());
+		        System.out.println("[getCheckedNoticeList] Class   : " + e.getClass().getSimpleName());
+		    } finally {
+		        freeConnection();
+		    }
+    	}
 	    return list;
 	}
     

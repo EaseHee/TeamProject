@@ -2,11 +2,7 @@
 .settings/
 .idea/
 DatabaseProject.iml
-<<<<<<< HEAD
-TeamProject.iml
-=======
 TeamProject.iml
 .DS_Store
 src/.DS_Store
 .metadata/
->>>>>>> develop

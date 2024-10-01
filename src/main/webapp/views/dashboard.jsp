@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DashBoard</title>
+    <title>메인 화면</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="/TeamProject/views/assets/css/calendar.css">
@@ -25,17 +25,7 @@
 
 	<style>
 		a {
-		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
 		    text-decoration: none;  /* 밑줄 없애기 */
-		}		
-		a:visited {
-		    color: inherit;
-		}		
-		a:hover {
-		    color: inherit;
-		}		
-		a:active {
-		    color: inherit;
 		}
 		td {
 			white-space: nowrap; /* 텍스트 줄바꿈 방지 */
@@ -128,7 +118,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="#">LOGO</a>
+                            <a href="dashboard.jsp">LOGO</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -212,10 +202,10 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="/FirstProject/Controller?command=MEMBER">직원 관리</a>
+                                    <a href="member.jsp">직원 관리</a>
                                 </li>
                                 <li class="submenu-item ">
-                                    <a href="/FirstProject/Controller?command=MEMBER">기타</a>
+                                    <a href="member.jsp">기타</a>
                                 </li>
                             </ul>
                         </li>
@@ -256,9 +246,15 @@
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
+<<<<<<< HEAD
+	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
+	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
+=======
 	                                    <i class="bi bi-person-fill" style="font-size:x-large; color: green;" ></i>
 	                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px; color: green;" ></i>
                                     	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
+>>>>>>> 110aebd7d79860d39792bbbebd1fa4268a3ebeaa
                                    	</li>
                                 </ol>
                             </nav>
@@ -295,9 +291,8 @@
                         </div>
                         <!-- value :  이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
                             아이콘 및 매핑 기능 추가 -->
-                        
                         <%
-
+							
                         %>
                         
                     </div>
@@ -310,7 +305,7 @@
 	                                <li class="list-group-item active text-center">재고수량&nbsp;<a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); color:white;"
 										href="product.jsp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" /><path	d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" /></svg></a></li>
 	                            </ul>
-								<!-- <table class="table table-bordered mb-0">
+								<table class="table table-bordered mb-0">
 									<%
 										for(int i = beginPerPage1; i < beginPerPage1 + numPerPage; i++){
 											if(i==totalRecord1) break;
@@ -337,7 +332,7 @@
 
 											</td>
 										</tr>
-								</table> -->
+								</table>
 							</div>	                        
                         </div>
                         <div class="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">							
@@ -371,7 +366,7 @@
 										href="reservation.jsp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" /><path	d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" /></svg></a></li>
 	                            </ul>                                        
               					<table class="table table-bordered mb-0">
-							<%--	<%
+							<%
 										for(int i = beginPerPage2; i < beginPerPage2 + numPerPage; i++){
 											if(i==totalRecord2) break;
 											DashboardDTO board2 = list2.get(i);
@@ -396,7 +391,7 @@
 												<a href="dashboard.jsp?nowPage1=<%=nowPage1%>&nowPage2=<%=nowPage2 + 1%>"><span id="next" class="icons material-symbols-rounded">chevron_right</span></a>
 
 											</td>
-										</tr> --%>	
+										</tr>
 								</table>
 	                        </div>
                         </div>
@@ -410,7 +405,7 @@
                     </div>
                     <div class="float-end">
                         <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="#">거니네조</a>
+                                href="#main">거니네조</a>
                         </p>                                
                     </div>
                 </div>
