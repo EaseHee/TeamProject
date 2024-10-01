@@ -260,19 +260,40 @@
 	                        </div>
                         </div>
 
-						<!-- 월별 매출 통계 -->
-                        <div class="col-lg-9 col-md-12"></div>
-							<%-- <jsp:include page="dashboard_Chart.jsp"></jsp:include> --%>
-							<div class="card">
-                            <div style="text-align: end; margin:auto">
-                                <!-- Ajax 비동기 처리 구현할 것 -->
-                                <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
-                                <span id="nextMonth" class="icons material-symbols-rounded" tabindex="0">chevron_right</span>
+						<!-- 통계 그래프 시안 -->
+                        <!-- 서비스별 시술 횟수 : "assets/js/pages/chartMonthRevenue.js" -->
+                        <div class="col-lg-3 col-md-12"></div>
+                            <div class="card" >
+                                <div style="text-align: center;" >
+                                    <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
+                                    <span id="nextMonth" class="icons material-symbols-rounded" tabindex="0">chevron_right</span>
+                                </div>
+                                <div id="count"></div>
                             </div>
-                            <div id="bar"></div>
                         </div>
+                        
+						<!-- 월별 매출 통계 : "assets/js/pages/chartMonthRevenue.js" -->
+                        <div class="col-lg-3 col-md-12"></div>
+							<div class="card" >
+                                <div style="text-align: center;" >
+                                    <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
+                                    <span id="nextMonth" class="icons material-symbols-rounded" tabindex="0">chevron_right</span>
+                                </div>
+                                <div id="revenue"></div>
+                            </div>
                         </div>
-
+                        	<!-- 성별에 따른 서비스별 매출 통계 :  -->
+<!--                         <div class="col-lg-3 col-md-12"></div>
+							<div class="card" >
+                                <div style="text-align: center;" >
+                                    <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
+                                    <span id="nextMonth" class="icons material-symbols-rounded" tabindex="0">chevron_right</span>
+                                </div>
+                                <div id="genderRevenue"></div>
+                            </div>
+                        </div> -->
+                        
+                        
                     </div>
                 </section>
                 <section class="list-group-button-badge">
