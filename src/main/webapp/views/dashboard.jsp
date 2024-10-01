@@ -151,7 +151,7 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item  has-sub ">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
                                 <span>RESERVATION</span>
@@ -246,8 +246,17 @@
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-
-	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
+											<!-- mypage_view.jsp로 이동 -->
+											<%
+											    String branchcode = (String) session.getAttribute("branchCode");
+											%>
+		                                    <form action="mypage_view.jsp" method="get" style="display: inline; margin: 0;">
+											    <input type="hidden" name="branchcode" value="<%=branchcode %>">
+											    <button type="submit" style="background: none; border: none; padding: 0;">
+											        <i class="bi bi-person-fill text-primary" style="font-size:x-large;"></i>
+											    </button>
+											</form>
+											<!-- mypage_view.jsp로 이동 -->
 	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
                                     	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
 
