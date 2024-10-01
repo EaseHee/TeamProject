@@ -111,12 +111,12 @@
 	%>
 
     <div id="app">
-         <div id="sidebar" class="active">
+        <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="dashboard.jsp">LOGO</a>
+                            <a href="dashboard.jsp">로고</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -125,19 +125,19 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
+                        <li class="sidebar-title">메뉴</li>
 
                         <li class="sidebar-item ">
                             <a href="dashboard.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>HOME</span>
+                                <span>홈</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
-                                <span>CUSTOMER</span>
+                                <span>고객</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -152,7 +152,7 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
-                                <span>RESERVATION</span>
+                                <span>예약</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -167,7 +167,7 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-grid-1x2-fill"></i>
-                                <span>SERVICE</span>
+                                <span>서비스</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -182,7 +182,7 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
-                                <span>PRODUCT</span>
+                                <span>상품</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -196,7 +196,7 @@
                         <li class="sidebar-item active has-sub">
                             <a href="#" class='sidebar-link'>
                             	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/></svg>                               
-                                <span>MEMBER</span>
+                                <span>직원</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -211,7 +211,7 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-megaphone-fill"></i>
-                                <span>NOTICE</span>
+                                <span>공지</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -246,37 +246,30 @@
 	                                    <li class="breadcrumb-item">
 	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
 	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
+                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃&nbsp;<i class="bi bi-box-arrow-right " ></i></span></a>
                                    	</li>                                   
 	                                </ol>
 	                            </nav>
 	                        </div>
 	                    </div>
 	                </div>
-				<hr style="height: 5px;">
-				<div class="row form-group">
+	                <hr style="height: 5px;">	                
+					<div class="row form-group">
 
-					<form method="post" action="member.jsp" class="col-4 align-items-end">
-						<div class="search-filter">
-							<select name="keyField" class="choices form-select"
-								style="width: 80px; display: inline-block;">
-								<option value="member_name">직원 명</option>
-								<option value="member_job">직원 직책</option>
-							</select> 
-							<input type="text" name="filterValue" id="filterValue" class="form-control me-2" placeholder="검색어를 입력해주세요 ">
-							<input type="submit" class="btn btn-outline-success" value="조회">
-						</div>
-					</form>
-					<form class="col-4 d-flex"></form>
-					<form class="col-4 d-flex"></form>
-				</div>
-
-
-
-				<section class="section">
-	                	<div class="buttons d-flex justify-content-end align-items-end">
-							<a href="member_Post.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
-						</div>
+						<form method="post" action="member.jsp" class="col-4 d-flex align-items-end search-filter">
+						        <select name="keyField" class="choices form-select" style="width: 150px; display: block;">
+						            <option value="customer_name">직원명</option>
+						            <option value="custmoer_rank">직원직책</option>
+						        </select>
+						        <input type="text" name="filterValue" id="filterValue" placeholder="검색어를 입력해주세요" class="form-control">
+						        <input type="submit" class="btn btn-outline-success" value="조회">
+						</form>
+						<form class="col-4 d-flex"></form >
+						<form class="col-4 d-flex justify-content-end align-items-end">
+					    	<a href="member_Post.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
+					    </form>
+					</div>
+	                <section class="section">
 					<div class="row" id="table-hover-row">
 						<div class="col-12">
 							<div class="card">

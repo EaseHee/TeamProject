@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.json.JSONObject;
+import org.json.JSONParserConfiguration;
 import org.json.JSONArray;
 
 public class DashboardDAO {
@@ -133,12 +135,12 @@ public class DashboardDAO {
             JSONArray.put() / .get()
     */
     // 인스턴스 변수 메서드화 : 리팩토링 예정 
-    JSONObject jsonObject = null;
-	public void setService() {this.setService(0);}
+    JSONArray jsonServiceArray = null;
+    JSONArray jsonRevenueArray = null;
     // 이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
     public void setService (int indexMonth) {
         // 서비스별 월매출액 저장용
-        List<DashboardDTO> list = new LinkedList<>();        
+        LinkedList<DashboardDTO> list = new LinkedList<>();        
 		try{
 			connection = dataSource.getConnection();
             // 단일 서비스 조회
@@ -173,8 +175,14 @@ public class DashboardDAO {
                     }
                 }
             }
-            jsonObject.put("list", list);
-  
+            // 데이터를 저장할 JSON 배열 선언
+            jsonServiceArray = new JSONArray();
+            jsonRevenueArray = new JSONArray();
+            // cf. JSONObject 에는 컬렉션을 저장할 수 없다.  |  JSONArray도 컬렉션을 반환하진 못한다...
+            for (DashboardDTO board : list) {
+                jsonServiceArray.put(board.getService_name());
+                jsonRevenueArray.put(board.getChart_revenue());
+            }
 		} catch (SQLException e) {
             System.out.println("[setService] Message : " + e.getMessage());
             System.out.println("[setService] Class   : " + e.getClass().getSimpleName());
@@ -182,26 +190,12 @@ public class DashboardDAO {
 			freeConnection();
 		}
     }
-
     // json배열로 return :  JS에 전달용
-
     public JSONArray getService() {
-        LinkedList<DashboardDTO> list = (LinkedList<DashboardDTO>) jsonObject.get("list");
-        JSONArray array = new JSONArray();
-        for (DashboardDTO board : list) {
-        	array.put(board.getService_name());
-        }
-        System.out.println(array);
-        return array;
+    	return jsonServiceArray;
     }
     public JSONArray getRevenue() {
-    	LinkedList<DashboardDTO> list = (LinkedList<DashboardDTO>) jsonObject.get("list");
-        JSONArray array = new JSONArray();
-    	for (DashboardDTO board : list) {
-            array.put(board.getChart_revenue());
-        }
-        System.out.println(array);
-        return array;
+        return jsonRevenueArray;
     }
     
     // == 달력에서 선택된 날짜에 대한 예약현황 데이터 가져오기 로직 시작 ==

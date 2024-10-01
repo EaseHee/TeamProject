@@ -5,47 +5,19 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="module">
     /* 
-        1. DAO 객체 생성, DB 데이터 조회
-            setService() : DB 데이터 조회 및 저장
-        2. 
+        1. 페이지 로드 (class ServiceChart 생성자 호출) 
+        2. _initElement () : indexMonth = 0 으로 그래프 출력
+        3. _setEventHandler() : '<', '>' 버튼 클릭 시 indexMonth 값 변경 후 실행 함수 호출 _ "Ajax"
+        4. _fetchAndShowChart() : DashboardServlet에 command 변수 전달 & 차트 실행 함수 호출
+        5. 
     */
 
-    let index = 0;
-    if (request.getParameter("indexMonth") != null) {
-        index = Integer.parseInt(request.getParameter("indexMonth"));
-    }
-    document.getElementById("prevMonth").addEventListener("click", (e) => {
-        index += 1;
-    });
-    document.getElementById("nextMonth").addEventListener("click", (e) => {
-        index -= 1;
-    });
-
-    axios ({
-        url : "http://localhost:8080/TeamProject/dashboard",
-        method : "post",
-        data : {
-            command : "CHART_SERVICE",
-            indexMonth : index
-        }
-    })
-    .then(response => {
-// test
-console.log("dashboard_Chard.jsp");
-console.log(response.data.service, response.data.revenue);
-        // JSONObject 객체를 반환하여 service, revenue 변수를 전달하여 함수 호출
-        getServiceRevenueChart(response.data.service, response.data.revenue);
-        // *** axios에서는 자체적으로 data라는 속성을 사용하고 있기 때문에 별도의 매개변수를 설정해야 한다. ***
-        // *** 데이터에 접근할 때 .data 객체를 거쳐서 접근한다. ***
-    })
 </script>
-<jsp:useBean id="dashDAO" class="bean.DashboardDAO" />
-
-<div class="card">
+<div class="card" id="chart">
     <div style="text-align: end; margin:auto">
         <!-- Ajax 비동기 처리 구현할 것 -->
-        <a href="dashboard.jsp?indexMonth=${indexMonth +1}"><span id="prevMonth" class="icons material-symbols-rounded">chevron_left</span></a>
-        <a href="dashboard.jsp?indexMonth=${indexMonth -1}"><span id="nextMonth" class="icons material-symbols-rounded">chevron_right</span></a>
+        <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
+        <span id="nextMonth" class="icons material-symbols-rounded" tabindex="0">chevron_right</span>
     </div>
-    <div id="bar"></div>
+    <div id="service"></div>
 </div>

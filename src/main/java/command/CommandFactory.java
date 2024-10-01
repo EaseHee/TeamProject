@@ -13,7 +13,7 @@ public class CommandFactory {
 			case "CALENDAR_RESERVATION":
 				return new CalendarReservationCommand(); // return null
 			case "CHART_SERVICE":
-				return new ChartServiceCommand(); // return null
+				return new ChartServiceCommand(); 
 			default:
 				return null;
 		}

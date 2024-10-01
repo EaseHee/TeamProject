@@ -92,27 +92,6 @@
 			}											
 		}		
 		beginPerPage1 = nowPage1*numPerPage;
-		
-		int totalRecord2 = 0; 	//총 글의 개수
-		int totalPage2 = 0; 		//총 페이지 수
-		int nowPage2 = 0; 		//현재 페이지
-		int beginPerPage2 = 0; 	//페이지별 시작번호
-		ArrayList<DashboardDTO> list2 = (ArrayList<DashboardDTO>) dashDAO.getReservation();
-		totalRecord2 = list2.size();
-		totalPage2 = (totalRecord2 + numPerPage - 1) / numPerPage;
-		if(request.getParameter("nowPage2") != null ){
-			nowPage2 = Integer.parseInt(request.getParameter("nowPage2"));
-			if(nowPage2 == -1){
-				if(totalPage2 > 0){
-					nowPage2 = totalPage2 - 1;
-				}
-				else nowPage2 = 0;
-			}
-			if(nowPage2 == totalPage2){
-				nowPage2 = 0;
-			}											
-		}		
-		beginPerPage2 = nowPage2*numPerPage;
     %>
 
     <div id="app">
@@ -121,7 +100,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="dashboard.jsp">LOGO</a>
+                            <a href="dashboard.jsp">로고</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -130,19 +109,19 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
+                        <li class="sidebar-title">메뉴</li>
 
                         <li class="sidebar-item active ">
                             <a href="dashboard.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>HOME</span>
+                                <span>홈</span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
-                                <span>CUSTOMER</span>
+                                <span>고객</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -157,7 +136,7 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
-                                <span>RESERVATION</span>
+                                <span>예약</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -172,7 +151,7 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-grid-1x2-fill"></i>
-                                <span>SERVICE</span>
+                                <span>서비스</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -187,7 +166,7 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
-                                <span>PRODUCT</span>
+                                <span>상품</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -201,7 +180,7 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                             	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/></svg>                               
-                                <span>MEMBER</span>
+                                <span>직원</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -216,7 +195,7 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-megaphone-fill"></i>
-                                <span>NOTICE</span>
+                                <span>공지</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -251,7 +230,7 @@
                                     <li class="breadcrumb-item">
 	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
 	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
+                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃&nbsp;<i class="bi bi-box-arrow-right " ></i></span></a>
                                    	</li>
                                 </ol>
                             </nav>
@@ -283,9 +262,15 @@
 
 						<!-- 월별 매출 통계 -->
                         <div class="col-lg-9 col-md-12"></div>
-							<jsp:include page="dashboard_Chart.jsp">
-								<jsp:param name="indexMonth" value="${indexMonth}"></jsp:param>
-							</jsp:include>
+							<%-- <jsp:include page="dashboard_Chart.jsp"></jsp:include> --%>
+							<div class="card">
+                            <div style="text-align: end; margin:auto">
+                                <!-- Ajax 비동기 처리 구현할 것 -->
+                                <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
+                                <span id="nextMonth" class="icons material-symbols-rounded" tabindex="0">chevron_right</span>
+                            </div>
+                            <div id="bar"></div>
+                        </div>
                         </div>
 
                     </div>
@@ -298,7 +283,9 @@
 	                                <li class="list-group-item active text-center">재고수량&nbsp;<a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); color:white;"
 										href="product.jsp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" /><path	d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" /></svg></a></li>
 	                            </ul>
-								<table class="table table-bordered mb-0">
+
+								 <table class="table table-bordered mb-0">
+
 									<%
 										for(int i = beginPerPage1; i < beginPerPage1 + numPerPage; i++){
 											if(i==totalRecord1) break;
@@ -313,7 +300,7 @@
 									%>
 										<tr>
 											<td align="center" colspan="2" class="calendar-wrapper">
-												<a href="dashboard.jsp?nowPage1=<%=nowPage1 - 1%>&nowPage2=<%=nowPage2%>"><span id="prev" class="icons material-symbols-rounded">chevron_left</span></a>
+												<a href="dashboard.jsp?nowPage1=<%=nowPage1 - 1%>"><span id="prev" class="icons material-symbols-rounded">chevron_left</span></a>
 											<%												
 												for(int i=0; i < totalPage1; i++){
 											%>
@@ -321,7 +308,7 @@
 											<%
 												}
 											%>
-												<a href="dashboard.jsp?nowPage1=<%=nowPage1 + 1%>&nowPage2=<%=nowPage2%>"><span id="next" class="icons material-symbols-rounded">chevron_right</span></a>
+												<a href="dashboard.jsp?nowPage1=<%=nowPage1 + 1%>"><span id="next" class="icons material-symbols-rounded">chevron_right</span></a>
 
 											</td>
 										</tr>
@@ -349,17 +336,16 @@
 										</ul>
 									<ul class="days"></ul>
 									</div>
-								</div>							
+								</div>
                         </div>
-                        <jsp:useBean id="ld" class="bean.DateDTO" scope="page"></jsp:useBean>
                         <div class="col-lg-3 col-md-12">                            
 	                        <div class="card" id="current-reservation">
 	                            <ul class="list-group">
 	                                <li class="list-group-item active text-center"><span></span>월 <span></span>일 예약현황&nbsp;<a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); color:white;"
 										href="reservation.jsp"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" /><path	d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" /></svg></a></li>
-	                            </ul>                                        
+	                            </ul>
               					<table class="table table-bordered mb-0">
-							<%
+						<%-- <%
 										for(int i = beginPerPage2; i < beginPerPage2 + numPerPage; i++){
 											if(i==totalRecord2) break;
 											DashboardDTO board2 = list2.get(i);
@@ -384,7 +370,7 @@
 												<a href="dashboard.jsp?nowPage1=<%=nowPage1%>&nowPage2=<%=nowPage2 + 1%>"><span id="next" class="icons material-symbols-rounded">chevron_right</span></a>
 
 											</td>
-										</tr>
+										</tr>  --%>	
 								</table>
 	                        </div>
                         </div>
@@ -410,7 +396,7 @@
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/vendors/apexcharts/apexcharts.js"></script>
 <script src="assets/js/pages/dashboard.js"></script>
-<!-- <script src="assets/js/pages/ui-apexchart.js"></script> --><!-- 그래프 ui 설정 변경 js 파일 _ 축별 설정 및 데이터 전달 시 해당 파일 참조 -->
+<!-- <script src="assets/js/pages/ui-apexchart.js"></script> -->
 <script src="assets/js/pages/chartMonthRevenue.js"></script><!-- 그래프 ui 설정 변경 js 파일 _ 축별 설정 및 데이터 전달 시 해당 파일 참조 -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/calendar.js" defer></script>

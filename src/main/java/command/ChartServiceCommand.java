@@ -16,8 +16,9 @@ import org.json.*;
  * 월별 매출 통계의 이전 달, 다음 달 조회 버튼 클릭 시 호출
  * 연관 소스들
  * - java.command.CommandFactory
- * - java.bean.DashboardDAO;
- * - java.bean.DashboardDTO;
+ * - java.servlet.DashboardServlet
+ * - java.bean.DashboardDAO
+ * - java.bean.DashboardDTO
  * - webapp/views/assets/js/pages/chartMonthRevenue.js
  * - webapp/views/dashboard.jsp 
  */
@@ -26,19 +27,34 @@ public class ChartServiceCommand implements ICommand {
 	@Override
 	public Object processCommand(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		int indexMonth = Integer.parseInt(req.getParameter("indexMonth"));
+        int indexMonth;
+        if (req.getParameter("indexMonth") != null && !req.getParameter("indexMonth").isBlank()) {
+            System.out.println("req.getParameter(indexMonth) : " + req.getParameter("indexMonth"));
+            indexMonth = Integer.parseInt(req.getParameter("indexMonth"));
+            // 당월 이후의 통계는 조회 불가
+            if (indexMonth < 0) {
+                indexMonth = 0;
+            }
+        } else {
+            indexMonth = 0;
+        }
         DashboardDAO dashboard = new DashboardDAO();
         dashboard.setService(indexMonth);
         
-        JSONObject json = new JSONObject();
-        /* (반환 타입 : JSONArray) _ JSONObject에 담아서 데이터 전송 */
-        json.put("service", dashboard.getService());
-        json.put("revenue", dashboard.getRevenue());
+        /* getter() "반환 타입 : JSONArray" */
+        JSONArray jsonServiceArray = dashboard.getService();
+        JSONArray jsonRevenueArray = dashboard.getRevenue();
         
+        /* 전달용 JSONObject */
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("service", jsonServiceArray);
+        jsonObject.put("revenue", jsonRevenueArray);
+
         PrintWriter writer = resp.getWriter();
-        writer.print(json);
+        writer.print(jsonObject);
+        writer.flush();
         
-		return "/TeamProject/dashboard.jsp";
+		return null;
 	}
 
     
