@@ -59,7 +59,7 @@
 
 						<!-- 통계 그래프 시안 -->
                         <!-- 서비스별 시술 횟수 : "assets/js/pages/chartMonthRevenue.js" -->
-                        <div class="col-lg-3 col-md-12"></div>
+                        <div class="col-lg-4 col-md-12">
                             <div class="card" >
                                 <div style="text-align: center;" >
                                     <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
@@ -70,7 +70,7 @@
                         </div>
                         
 						<!-- 월별 매출 통계 : "assets/js/pages/chartMonthRevenue.js" -->
-                        <div class="col-lg-3 col-md-12"></div>
+                        <div class="col-lg-5 col-md-12">
 							<div class="card" >
                                 <div style="text-align: center;" >
                                     <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
