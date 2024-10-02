@@ -1,5 +1,6 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% String branchName = (String)session.getAttribute("branchName"); %>
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
