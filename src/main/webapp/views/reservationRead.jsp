@@ -255,13 +255,13 @@
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">예약 시간</span>
-                                    <input type="text" class="form-control" value="<%= resDto.getReservation_time()%>" readonly="readonly">
+                                    <input type="text" class="form-control" value="<%= resDto.getReservation_time().substring(0, 5)%>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">디자이너 명</span>
+                                    <span class="input-group-text" id="basic-addon1">직원 명</span>
                                     <input type="text" class="form-control" value="<%= resDto.getMember_name() %>" readonly="readonly">
                                 </div>
                             </div>
@@ -274,7 +274,6 @@
                             </div>
                             <br><br><br>
                             <div class="button-container">
-                            <button type="button" onclick="location.href='reservation.jsp'">목록</button>
                                 <button type="button" onclick="location.href='reservationUpdate.jsp?reservation_no=<%= resDto.getReservation_no() %>'">수정</button>
                                 <button type="button" onclick="confirmDelete('<%=resDto.getReservation_no() %>')">삭제</button>
                                 <button type="button" onclick="location.href='reservation.jsp'">목록</button>
