@@ -17,10 +17,10 @@ public class MypageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
 
-        // 세션에서 branchcode 가져오기
-        String branchcode = (String) session.getAttribute("branchCode");
+        // 세션에서 branchCode 가져오기
+        String branchCode = (String) session.getAttribute("branchCode");
 
-        if (branchcode == null) {
+        if (branchCode == null) {
             System.out.println("지점코드 null login 페이지로");
             resp.sendRedirect(req.getContextPath() + "/login.jsp");
             return;
@@ -28,10 +28,10 @@ public class MypageServlet extends HttpServlet {
 
         // DB에서 관리자 정보 가져오기
         MypageDAO dao = new MypageDAO();
-        MypageDTO manager = dao.getManagerInfo(branchcode);
+        MypageDTO manager = dao.getManagerInfo(branchCode);
 
         if (manager == null) {
-            System.out.println("매니저 null branchCode: " + branchcode);
+            System.out.println("매니저 null branchCode: " + branchCode);
             req.setAttribute("error", "관리자 정보를 찾을 수 없습니다.");
             req.getRequestDispatcher("/error.jsp").forward(req, resp);
             return;
@@ -50,8 +50,8 @@ public class MypageServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        // 세션에서 branchcode 가져오기
-        String branchcode = (String) session.getAttribute("branchCode");
+        // 세션에서 branchCode 가져오기
+        String branchCode = (String) session.getAttribute("branchCode");
 
         // 사용자로부터 입력받은 수정된 값 가져오기
         String name = req.getParameter("name");
@@ -60,7 +60,7 @@ public class MypageServlet extends HttpServlet {
 
         // DTO에 값 설정
         MypageDTO dto = new MypageDTO();
-        dto.setBranch_code(branchcode);
+        dto.setBranch_code(branchCode);
         dto.setManager_name(name);
         dto.setManager_tel(tel);
         dto.setManager_mail(mail);
@@ -70,6 +70,6 @@ public class MypageServlet extends HttpServlet {
         dao.updateManager(dto);
 
         // branchcode를 포함하여 mypage_view.jsp로 리다이렉트
-        resp.sendRedirect(req.getContextPath() + "/views/mypage_view.jsp?branchcode=" + branchcode);
+        resp.sendRedirect(req.getContextPath() + "/views/mypage_view.jsp?branchCode=" + branchCode);
     }
 }

@@ -30,7 +30,7 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a href="customer.jsp">회원 관리</a>
+                                    <a href="customer.jsp">고객 관리</a>
                                 </li>
                                 <li class="submenu-item ">
                                     <a href="customer.jsp">기타</a>
@@ -133,7 +133,13 @@
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
+	                                    <!-- 마이페이지 버튼 -->
+										<form action="mypage_view.jsp" method="get" style="display: inline; margin: 0;">
+											    <input type="hidden" name="branchCode" value="${branchCode}">
+											    <button type="submit" style="background: none; border: none; padding: 0; width: 25px">
+											        <i class="bi bi-person-fill text-primary" style="font-size:x-large;"></i>
+											    </button>
+											</form>
 	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
                                     	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃&nbsp;<i class="bi bi-box-arrow-right " ></i></span></a>
                                    	</li>
