@@ -216,7 +216,7 @@
 	<form method="post" action="customer.jsp" class="col-4 d-flex justify-content-end align-items-end search-filter">
 	        <select name="keyField" class="choices form-select" style="width: 100px; display: inline-block;">
 	            <option value="customer_name">이름</option>
-	            <option value="custmoer_rank">등급</option>
+	            <option value="customer_rank">등급</option>
 	        </select>
 	        <input type="text" name="filterValue" id="filterValue" placeholder="검색" class="form-control">
 	        <input type="submit" class="btn btn-outline-success" value="조회">
@@ -255,7 +255,7 @@
 									    		int totalPage = 0;  	// 총 페이지 수
 									    		int nowPage = 0;     	// 현재 페이지, 선택할때마다 값을 바꿔야해서 0
 									    		int beginPerPage = 0;   // 페이지별 시작번호
-									    		int pagePerBlock = 3;	// 블럭당 페이지 수
+									    		int pagePerBlock = 5;	// 블럭당 페이지 수
 									    		int totalBlock = 0;		// 총 블럭 수
 									    		int nowBlock = 0;		// 현재 블럭
 									    		
@@ -264,6 +264,9 @@
 									            String startDate = request.getParameter("startDate");
 									            String endDate = request.getParameter("endDate");
 									
+									            
+									        	totalPage = (int) Math.ceil((double) totalRecord / numPerPage);
+									        	
 									            if(request.getParameter("nowPage") != null)
 									    			nowPage = Integer.parseInt(request.getParameter("nowPage"));
 									    		
@@ -377,4 +380,4 @@
         </script>
     </div>
 </body>
-</html>
+</html> 

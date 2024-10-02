@@ -333,12 +333,10 @@
 									</div>
 								</div>
                         </div>
-<<<<<<< HEAD
                         <jsp:useBean id="ld" class="bean.DateDTO" scope="page"></jsp:useBean>
                         <div class="col-lg-3 col-md-12">
-=======
                         <div class="col-lg-3 col-md-12">                            
->>>>>>> b294d5b9ced586cb9eeb1240e61b4c41857845d4
+
 	                        <div class="card" id="current-reservation">
 	                            <ul class="list-group">
 	                                <li class="list-group-item active text-center"><span></span>월 <span></span>일 예약현황&nbsp;<a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); color:white;"
