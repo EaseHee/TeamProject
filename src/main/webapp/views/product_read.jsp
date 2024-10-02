@@ -3,6 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -251,14 +252,14 @@
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">가격</span>
-                                    <input type="text" class="form-control" name="product_price" value="<%=board.getProduct_price() %>" readonly="readonly">
+                                    <input type="text" class="form-control" name="product_price" value="<fmt:formatNumber value='<%=board.getProduct_price() %>'/>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">수량</span>
-                                    <input type="text" class="form-control" name="product_ea" value="<%=board.getProduct_ea() %>" readonly="readonly">
+                                    <input type="text" class="form-control" name="product_ea" value="<fmt:formatNumber value='<%=board.getProduct_ea() %>'/>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>

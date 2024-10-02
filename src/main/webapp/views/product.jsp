@@ -246,8 +246,8 @@
 	                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
 	                                <ol class="breadcrumb">
 	                                    <li class="breadcrumb-item">
-	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
-	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
+	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; "></i>
+	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;"></i>
                                     	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃&nbsp;<i class="bi bi-box-arrow-right " ></i></span></a>
                                    	</li>                               
 	                                </ol>
@@ -258,7 +258,7 @@
 	                <hr style="height: 5px;">
 	                <div class="row form-group">
 					    <form method="post" action="product.jsp" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
-					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control">
+					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
 					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
 					    </form >
 					    <form class="col-4 d-flex"></form>
@@ -310,15 +310,21 @@
 								%>
 									<li class="page-item disabled">
 										<a class="page-link" href="#">
-											<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+											<span aria-hidden="true">
+												<i class="bi bi-chevron-left">
+												</i>
+											</span>
 										</a>
 									</li>
 								<%
 									}else {
 								%>
 									<li class="page-item">
-										<a class="page-link" href="product.jsp?nowPage=<%=(nowBlock-1)*pagePerBlock%>&nowBlock=<%=nowBlock - 1 %>">
-											<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+										<a class="page-link" href="product.jsp?nowPage=<%=(nowBlock-1)*pagePerBlock%>&nowBlock=<%=nowBlock - 1 %>&keyWord=<%=keyWord != null ? keyWord : ""%>">
+											<span aria-hidden="true">
+												<i class="bi bi-chevron-left">
+												</i>
+											</span>
 										</a>
 									</li>
 								<%
@@ -327,26 +333,26 @@
 										for(int i=0; i < pagePerBlock; i++){
 								%>
 											<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
-												<a class="page-link" href="product.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
+												<a class="page-link" href="product.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>&keyWord=<%=keyWord != null ? keyWord : ""%>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
 											</li>
 								<%	
 										}
 									}else{
 										if(totalPage%pagePerBlock !=0 ){
 											for(int i=0; i < totalPage%pagePerBlock; i++){
-												%>
-															<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
-																<a class="page-link" href="product.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
-															</li>
-												<%
+											%>
+												<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
+													<a class="page-link" href="product.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>&keyWord=<%=keyWord != null ? keyWord : ""%>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
+												</li>
+											<%
 											}
 										}else{
 											for(int i=0; i < pagePerBlock; i++){
-												%>
-													<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
-														<a class="page-link" href="product.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
-													</li>
-												<%	
+											%>
+												<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
+													<a class="page-link" href="product.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>&keyWord=<%=keyWord != null ? keyWord : ""%>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
+												</li>
+											<%	
 											
 											}
 										}
@@ -355,15 +361,21 @@
 								%>
 									<li class="page-item disabled">
 										<a class="page-link" href="#">
-											<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+											<span aria-hidden="true">
+												<i class="bi bi-chevron-right">
+												</i>
+											</span>
 										</a>
 									</li>
 								<%
 									} else{
 								%>
 									<li class="page-item">
-										<a class="page-link" href="product.jsp?nowPage=<%=(nowBlock + 1)*pagePerBlock%>&nowBlock=<%=nowBlock + 1 %>">
-											<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+										<a class="page-link" href="product.jsp?nowPage=<%=(nowBlock + 1)*pagePerBlock%>&nowBlock=<%=nowBlock + 1 %>&keyWord=<%=keyWord != null ? keyWord : ""%>">
+											<span aria-hidden="true">
+												<i class="bi bi-chevron-right">
+												</i>
+											</span>
 										</a>
 									</li>
 								<%

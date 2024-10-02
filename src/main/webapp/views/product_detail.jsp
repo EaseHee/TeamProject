@@ -3,6 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -101,7 +102,7 @@
 		int totalPage = 0;    //총 페이지 수
 		int nowPage = 0;      //현재 선택된 페이지
 		int beginPerPage = 0; //페이지별 시작번호(중요!) EX) 1,11,21
-		int pagePerBlock = 2; //블럭당 페이지 수
+		int pagePerBlock = 5; //블럭당 페이지 수
 		int totalBlock = 0;   //총 블럭 수
 		int nowBlock = 0;     //현재 블럭
 		
@@ -280,7 +281,7 @@
 	                <div class="row form-group">
 					    <form method="get" action="product_detail.jsp?product_B_code=<%=product_B_code%>" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
 				        	<input type="hidden" name="product_B_code" value="<%=request.getParameter("product_B_code") %>"/>
-					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control">
+					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
 					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
 					    </form>
 					    <form class="col-4 d-flex"></form>
@@ -290,7 +291,6 @@
 					</div>
 
 	                <section class="section">
-
 	                    <div class="row" id="table-hover-row">
 	                        <div class="col-12">
 	                            <div class="card">
@@ -310,16 +310,14 @@
 	                                            		for(int i=beginPerPage; i < beginPerPage + numPerPage && i < totalcnt; i++) {
 	                                            			board = list.get(i);
 	                                            	%>
-	                                            	
-	                                                <tr>
-	                                                    <td class="text-bold-500 text-center"><%=board.getProduct_code() %></td>
-	                                                    <td class="text-bold-500"><a href="product_read.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&product_code=<%= board.getProduct_code() %>"><%=board.getProduct_name()%></a></td>
-	                                                    <td class="text-bold-500 text-center"><%=board.getProduct_price() %></td>
-	                                                    <td class="text-bold-500 text-center"><%=board.getProduct_ea() %></td>
-	                                                </tr>
+		                                                <tr>
+		                                                    <td class="text-bold-500 text-center"><%=board.getProduct_code() %></td>
+		                                                    <td class="text-bold-500"><a href="product_read.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&product_code=<%= board.getProduct_code() %>"><%=board.getProduct_name()%></a></td>
+		                                                    <td class="text-bold-500 text-center"><fmt:formatNumber value="<%=board.getProduct_price() %>"/></td>
+		                                                    <td class="text-bold-500 text-center"><fmt:formatNumber value="<%=board.getProduct_ea() %>"/></td>
+		                                                </tr>
 	                                                <%
 	                                            		}
-	                                          
 	                                                %>
 	                                            </tbody>
 	                                        </table>
@@ -334,28 +332,82 @@
 	                    <div class="col-12 d-flex justify-content-center align-items-center">
 							<nav aria-label="Page navigation example">
 								<ul class="pagination pagination-primary">
-						            <% if(nowBlock > 0) { %>
-						                <li class="page-item">
-											<a class="page-link" href="product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&nowPage=<%=(nowBlock-1) * pagePerBlock %>&nowBlock=<%=nowBlock-1%>">
-											<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a>
-										</li>
-						            <%
-						            	}
-						                int startPage = nowBlock * pagePerBlock + 1;
-						                int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
-						
-						                for(int i=startPage; i<=endPage; i++) {
-						            %>
-						                <li class="page-item active"><a class="page-link" href="product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&nowPage=<%=i-1 %>&nowBlock=<%=nowBlock%>"><%=i%></a></li>
-						            <%
-						                }
-						            %>
-						            <% if(totalBlock > nowBlock + 1) { %>
-						                <li class="page-item">
-						                	<a class="page-link" href="product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&nowPage=<%=(nowBlock + 1) * pagePerBlock %>&nowBlock=<%=nowBlock + 1%>">
-											<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span></a>
-										</li>
-						            <% } %>
+								<%
+									if(0 == nowBlock ){
+								%>
+									<li class="page-item disabled">
+										<a class="page-link" href="#">
+											<span aria-hidden="true">
+												<i class="bi bi-chevron-left">
+												</i>
+											</span>
+										</a>
+									</li>
+								<%
+									}else {
+								%>
+									<li class="page-item">
+										<a class="page-link" href="product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&nowPage=<%=(nowBlock-1)*pagePerBlock%>&nowBlock=<%=nowBlock - 1 %>&keyWord=<%=keyWord != null ? keyWord : ""%>">
+											<span aria-hidden="true">
+												<i class="bi bi-chevron-left">
+												</i>
+											</span>
+										</a>
+									</li>
+								<%
+									}
+									if(nowBlock != totalBlock-1){
+										for(int i=0; i < pagePerBlock; i++){
+								%>
+											<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
+												<a class="page-link" href="product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>&keyWord=<%=keyWord != null ? keyWord : ""%>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
+											</li>
+								<%	
+										}
+									}else{
+										if(totalPage%pagePerBlock !=0 ){
+											for(int i=0; i < totalPage%pagePerBlock; i++){
+											%>
+												<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
+													<a class="page-link" href="product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>&keyWord=<%=keyWord != null ? keyWord : ""%>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
+												</li>
+											<%
+											}
+										}else{
+											for(int i=0; i < pagePerBlock; i++){
+											%>
+												<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
+													<a class="page-link" href="product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>&keyWord=<%=keyWord != null ? keyWord : ""%>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
+												</li>
+											<%	
+											
+											}
+										}
+									}
+									if(nowBlock == totalBlock-1){
+								%>
+									<li class="page-item disabled">
+										<a class="page-link" href="#">
+											<span aria-hidden="true">
+												<i class="bi bi-chevron-right">
+												</i>
+											</span>
+										</a>
+									</li>
+								<%
+									} else{
+								%>
+									<li class="page-item">
+										<a class="page-link" href="product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&nowPage=<%=(nowBlock + 1)*pagePerBlock%>&nowBlock=<%=nowBlock + 1 %>&keyWord=<%=keyWord != null ? keyWord : ""%>">
+											<span aria-hidden="true">
+												<i class="bi bi-chevron-right">
+												</i>
+											</span>
+										</a>
+									</li>
+								<%
+									}
+								%>
 								</ul>
 							</nav>
 						</div>
