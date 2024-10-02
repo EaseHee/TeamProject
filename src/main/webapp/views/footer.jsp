@@ -24,6 +24,7 @@
 <script src="assets/js/main.js"></script>
 <script src="assets/js/calendar.js" defer></script>
 <script src="assets/js/calendarWithReservation.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 	window.onload = function(){
 		const currentUrl = window.location.pathname;

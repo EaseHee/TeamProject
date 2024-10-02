@@ -17,51 +17,8 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
-        	<style>
-		a {
-		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
-		    text-decoration: none;  /* 밑줄 없애기 */
-		}		
-		a:visited {
-		    color: inherit;
-		}		
-		a:hover {
-		    color: inherit;
-		}		
-		a:active {
-		    color: inherit;
-		}
-		.list-group-item.detail{
-			font-size: small;
-		}
-		.bi-plus-square {
-			display: inline-block;
-			transform: translateY(2px);
-		}
-		.bi-person-fill{
-			display: inline-block;
-			transform: translateY(6px);
-			margin-right: 5px;
-		}
-		.bi-bell-fill{
-			display: inline-block;
-			transform: translateY(3px);
-			margin-right: 5px;
-		}
-		.bi-box-arrow-right{
-			display: inline-block;
-			transform: translateY(3px);
-		}
-		button {
-            background-color: rgb(42, 105, 241);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            height: 25px;
-            width: 50px;
-            cursor: pointer;
-        }
-	</style>
+    <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
+
 </head>
 <script>
 	function check() {
@@ -374,26 +331,7 @@
 						</div>
 						</div>
 	                </section>
-	                <br><br><br>
-	                
-	            <footer>
-	                <div class="footer clearfix mb-0 text-muted">
-	                    <div class="float-start">
-	                        <p>2024 &copy; ACORN</p>
-	                    </div>
-	                    <div class="float-end">
-	                        <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-	                                href="#main">거니네조</a>
-	                        </p>                                
-	                    </div>
-	                </div>
-	            </footer>
-	        </div>
-	    </div>
-	</div>
-    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/main.js"></script>
+<jsp:include page="/views/footer.jsp"></jsp:include>
 </body>
 
 </html>
