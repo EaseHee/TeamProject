@@ -77,7 +77,7 @@
         	border-radius: 50%;
         	margin-right: 16px;
         }
-        form {
+        .comment-div {
         	background-color: white;
         	border:solid;
         	border-width: 1px;
@@ -281,16 +281,16 @@
 								%>
 		                    </div>
 		                </div>
-		                <div>
-		                    <form class="mb-5">
-		                    	<textarea class="comment" rows="3" placeholder="매니저님들의 의견을 들려주세요!"></textarea>
-		                    	<table class="w-100">
-		                    		<tr>
-		                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
-		                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
-		                    		</tr>
-		                    	</table>
-		                    </form>
+		                <div class="comment-div mb-5">
+	                    	<textarea class="comment" id="commentForm" rows="3" placeholder="매니저님들의 의견을 들려주세요!"></textarea>
+	                    	<table class="w-100">
+	                    		<tr>
+	                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+	                    			<td style="width: 50px; padding: 0;">
+	                    				<button onclick="writeComment()" style="border-radius: 0; background-color: rgb(230, 230, 230); height: 26px;">입력</button>
+	                    			</td>
+	                    		</tr>
+	                    	</table>
 	                    </div>
 		                <div>
 		               		<table>
@@ -302,7 +302,13 @@
 		               					<table class="w-100">
 		               						<tr><td><b>매니저A</b> 2024.01.01 10:00</td></tr>
 		               						<tr><td>매니저A의 댓글...</td></tr>
-		               						<tr class="text-end"><td><a href="#">삭제</a> <a href="#">수정</a> <a data-bs-toggle="collapse" href="#collapseReply1" aria-expanded="false" aria-controls="collapseReply1">답글</a></td></tr>
+		               						<tr class="text-end">
+		               							<td>
+		               								<a href="#">삭제</a> 
+		               								<a href="#">수정</a> 
+		               								<a data-bs-toggle="collapse" href="#collapseReply1" aria-expanded="false" aria-controls="collapseReply1">답글</a>
+		               							</td>
+		               						</tr>
 		               						<tr>
 		               							<td>
 		               								<form class="collapse mt-2" id="collapseReply1">
@@ -461,6 +467,7 @@
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/comment.js"></script>
 </body>
 
 </html>
