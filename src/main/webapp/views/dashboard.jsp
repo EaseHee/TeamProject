@@ -79,16 +79,6 @@
                                 <div id="revenue"></div>
                             </div>
                         </div>
-                        	<!-- 성별에 따른 서비스별 매출 통계 :  -->
-<!--                         <div class="col-lg-3 col-md-12"></div>
-							<div class="card" >
-                                <div style="text-align: center;" >
-                                    <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
-                                    <span id="nextMonth" class="icons material-symbols-rounded" tabindex="0">chevron_right</span>
-                                </div>
-                                <div id="genderRevenue"></div>
-                            </div>
-                        </div> -->
                         
                         
                     </div>
@@ -123,7 +113,7 @@
 												for(int i=0; i < totalPage; i++){
 													//<svg class="dash-dot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>
 											%>
-												<svg class="dash-dot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256-96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>									
+												<!-- <svg class="dash-dot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256-96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>									 -->
 											<%	
 												}
 											%>
