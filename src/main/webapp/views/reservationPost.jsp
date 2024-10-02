@@ -257,7 +257,7 @@
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
     								<span class="input-group-text" id="basic-addon1">예약 날짜</span>
-    								<input type="date" id="reservation_date" class="form-control" name="reservation_date">
+    								<input type="date" id="reservation_date" class="form-control" name="reservation_date" onclick="this.showPicker()">
 								</div>
 							<script>
 							/*
@@ -307,7 +307,7 @@
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">디자이너 명</span> 
+									<span class="input-group-text" id="basic-addon1">직원 명</span> 
 									<select name="member_name" class="form-control">
 										<%
 											List<String> memberNames = memDao.getAllMemberNames();
@@ -329,10 +329,9 @@
                                 </div>
                             </div>
                             <br><br><br>
-                            <div class="button-container">
-                            <button type="button" onclick="location.href='reservation.jsp'">목록</button>
+                            <div class="button-container">         
                                 <button type="submit" onclick="등록되었습니다.">등록</button>
-                                
+                                <button type="button" onclick="location.href='reservation.jsp'">목록</button>
                             </div>
                         </div>
                     </form>

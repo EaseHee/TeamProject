@@ -308,7 +308,10 @@
 						<span class="pagination-btn disabled">&lt;</span>
 						<%
                 }
+            %>
 
+            <!-- 페이지 번호 반복 -->
+            <%
                 for (int i = 1; i <= totalPages; i++) {
                     if (i == currentPage) {
             %>
@@ -320,7 +323,10 @@
 						<%
                     }
                 }
+            %>
 
+            <!-- 오른쪽 화살표 이동 기능 -->
+            <%
                 if (currentPage < totalPages) {
             %>
 						<a href="sales.jsp?page=<%= currentPage + 1 %>"
