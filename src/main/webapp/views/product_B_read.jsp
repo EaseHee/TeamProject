@@ -57,9 +57,8 @@
                             </div>
                             <br><br><br>
                             <div class="button-container">
-                            <button type="button" onclick="location.href='product.jsp'">목록</button>
                                 <button type="button" onclick="confirmDelete('<%=board.getProduct_B_code() %>')">삭제</button>
-                                
+                                <button type="button" onclick="location.href='product.jsp'">목록</button>
                             </div>
                         </div>
                     </form>

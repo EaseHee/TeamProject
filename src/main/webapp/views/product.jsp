@@ -244,8 +244,8 @@
 	                                            	%>
 	                                            	
 	                                                <tr>
-	                                                    <td class="text-bold-500 text-center"><a href="product_B_read.jsp?product_B_code=<%=board.getProduct_B_code() %>"><%=board.getProduct_B_code() %></a></td>
-	                                                    <td class="text-bold-500 text-center"><a href="product_detail.jsp?product_B_code=<%=board.getProduct_B_code() %>"><%=board.getProduct_name() %></a></td>
+	                                                    <td class="text-bold-500"><a href="product_B_read.jsp?product_B_code=<%=board.getProduct_B_code() %>"><%=board.getProduct_B_code() %></a></td>
+	                                                    <td class="text-bold-500"><a href="product_detail.jsp?product_B_code=<%=board.getProduct_B_code() %>"><%=board.getProduct_name() %></a></td>
 	                                                </tr>
 	                                                <%
 	                                            		}

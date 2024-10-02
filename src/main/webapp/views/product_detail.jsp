@@ -91,7 +91,7 @@
 	                <div class="row form-group">
 					    <form method="get" action="product_detail.jsp?product_B_code=<%=product_B_code%>" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
 				        	<input type="hidden" name="product_B_code" value="<%=request.getParameter("product_B_code") %>"/>
-					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control">
+					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control me-2">
 					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
 					    </form>
 					    <form class="col-4 d-flex"></form>
@@ -123,10 +123,10 @@
 	                                            	%>
 	                                            	
 	                                                <tr>
-	                                                    <td class="text-bold-500 text-center"><%=board.getProduct_code() %></td>
+	                                                    <td class="text-bold-500"><%=board.getProduct_code() %></td>
 	                                                    <td class="text-bold-500"><a href="product_read.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&product_code=<%= board.getProduct_code() %>"><%=board.getProduct_name()%></a></td>
-	                                                    <td class="text-bold-500 text-center"><%=board.getProduct_price() %></td>
-	                                                    <td class="text-bold-500 text-center"><%=board.getProduct_ea() %></td>
+	                                                    <td class="text-bold-500"><%=board.getProduct_price() %></td>
+	                                                    <td class="text-bold-500"><%=board.getProduct_ea() %></td>
 	                                                </tr>
 	                                                <%
 	                                            		}

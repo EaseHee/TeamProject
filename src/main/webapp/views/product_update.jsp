@@ -66,9 +66,8 @@
                             </div>
                             <br><br><br>
                             <div class="button-container">
-                            <button type="button" onclick="location.href='product_detail.jsp?product_B_code=<%=board.getProduct_B_code()%>'">목록</button>
                                 <button type="submit" onclick="location.href='product_update.jsp?product_B_code=<%=board.getProduct_B_code()%>&product_code=<%=board.getProduct_code()%>'">수정</button>
-                                
+                                <button type="button" onclick="location.href='product_detail.jsp?product_B_code=<%=board.getProduct_B_code()%>'">목록</button>
                             </div>
                         </div>
                     </form>
