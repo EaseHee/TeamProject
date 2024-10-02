@@ -82,8 +82,8 @@
 
 						<form method="post" action="member.jsp" class="col-4 d-flex align-items-end search-filter">
 						        <select name="keyField" class="choices form-select" style="width: 150px; display: block;">
-						            <option value="customer_name">직원명</option>
-						            <option value="custmoer_rank">직원직책</option>
+						            <option value="member_name">직원 명</option>
+						            <option value="member_job">직원 직책</option>
 						        </select>
 						        <input type="text" name="filterValue" id="filterValue" placeholder="검색어를 입력해주세요" class="form-control">
 						        <input type="submit" class="btn btn-outline-success" value="조회">
@@ -136,45 +136,53 @@
 						<button onclick="downloadExcel();" class="btn btn-outline-warning btn-excel"">
 							엑셀 다운로드</button>
 					</div>
-					<div
-						class="col-12 d-flex justify-content-center align-items-center">
+										<div class="col-12 d-flex justify-content-center align-items-center">
 						<nav aria-label="Page navigation example">
 							<ul class="pagination pagination-primary">
-								<!-- nowBlock이 0보다 클 때에만 '이전'을 클릭할 수 있게 -->
+								<!-- 왼쪽 화살표 이동 기능 -->
 								<%
-								if (nowBlock > 0) {
+									if (nowBlock == 0) {
 								%>
-								<li class="page-item">
-									<a class="page-link" href="member.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock%>&nowBlock=<%=nowBlock - 1%>">
-										<span aria-hidden="true">
-											<i class="bi bi-chevron-left"></i>
-										</span>
-									</a>
-								</li>
+										<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"> 
+										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a></li>
+								<%
+									} else {
+								%>
+										<li class="page-item"><a class="page-link" href="reservation.jsp?nowPage=<%=((nowBlock - 1) * pagePerBlock)%>&nowBlock=<%=nowBlock - 1%>">
+										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+										</a></li>
+								<%
+									}
+								%>
+
+								<!-- 페이지 반복 -->
+								<%
+									for (int i = 0; i < pagePerBlock; i++) {
+										int currentPage = (nowBlock * pagePerBlock) + i;
+										if (currentPage >= totalPage)
+											break;
+								%>
+										<li class="page-item <%=currentPage == nowPage ? "active" : ""%>">
+										<a class="page-link" href="member.jsp?nowPage=<%=currentPage%>&nowBlock=<%=nowBlock%>">
+											<%=currentPage + 1%></a></li>
+								<%
+									}
+								%>
+
+								<!-- 오른쪽 화살표 이동 기능 -->
+								<%
+									if (nowBlock >= totalBlock - 1) {
+								%>
+										<li class="page-item disabled"><a class="page-link" href="#"> <span aria-hidden="true">
+										<i class="bi bi-chevron-right"></i></span></a></li>
+								<%
+									} else {
+								%>
+										<li class="page-item" >
+										<a class="page-link" href="member.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>">
+										<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+										</a></li>
 								<% } %>
-								<%
-								int startPage = nowBlock * pagePerBlock + 1;
-								int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
-												
-								for(int i=startPage; i <= endPage; i++) {
-								%>
-								<li class="page-item active"><a class="page-link" href="member.jsp?nowPage=<%=i - 1%>&nowBlock=<%=nowBlock%>"><%=i%></a></li>
-								<%
-								}
-								%>
-								<%
-								if (totalBlock > nowBlock + 1) {
-								%>
-								<li class="page-item">
-									<a class="page-link" href="member.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>">
-										<span aria-hidden="true">
-											<i class="bi bi-chevron-right"></i>
-										</span>
-									</a>
-								</li>
-								<%
-								}
-								%>
 							</ul>
 						</nav>
 					</div>
