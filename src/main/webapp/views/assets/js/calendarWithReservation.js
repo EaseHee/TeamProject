@@ -62,7 +62,7 @@ class CalendarAndReservation {
 		 * 페이징 기능을 위한 변수 초기화.
 		 */
 		_initVarsForPaging() {
-			this.numRecordsPerPage = 5; // 한 페이지에 보여줄 데이터 개수. 이미 정해진 수
+			this.numRecordsPerPage = 5; // 한 페이지에 보여줄 데이터 개수. 이미 여기서 정하면 변치 않는다. 
 
 			this.currentPageNum = 1; // 현재 페이지 번호. 
 			this.totalPages = 1;  // 전체 페이지 수. 
@@ -153,7 +153,7 @@ class CalendarAndReservation {
 					<span id="prev" class="icons material-symbols-rounded" style="display: inline-block; transform: translateY(3px);">
 						chevron_left
 					</span>
-					<svg ...>...</svg>  // 페이지 개수만큼!
+					<span ...>...</span>  // 페이지 개수만큼!
 					<span id="next" class="icons material-symbols-rounded " style="display: inline-block; transform: translateY(3px);">
 						chevron_right
 					</span>
@@ -185,16 +185,23 @@ class CalendarAndReservation {
 							this.reservationTableElement.setAttribute(customAttributeMap.nowPage , `${--trNowPageNum}`);
 						} else if (spanPrevNextId == "next") {
 							this.reservationTableElement.setAttribute(customAttributeMap.nowPage, `${++trNowPageNum}`);
+						} else if (event.target.getAttribute(customAttributeMap.pageNum) != null) {
+							this.reservationTableElement.setAttribute(
+								customAttributeMap.nowPage, 
+								event.target.getAttribute(customAttributeMap.pageNum)
+							);
 						}
 
 						break;
 					// 수정 필요.
+					/*
 					case "I":
 						this.reservationTableElement.setAttribute(
 							customAttributeMap.nowPage, 
 							event.target.getAttribute(customAttributeMap.pageNum)
 						);
 						break;
+					*/
 				}
 				this.constructReservationTable();
 			}
@@ -244,13 +251,13 @@ class CalendarAndReservation {
 			
 			// 총 페이지 수 만큼 각 페이지들을 의미하는 기호를 출력. 
 			/*
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-					<!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-					<path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/>
-				</svg>
+				나중을 위해 일단은 page-num이란 속성을 부여. 
+				<span page-num="1">1</span>
 			*/
 			// 
 			for (let i = 0; i < this.totalPages; i++) {
+				/*
+				// 기존 아이콘 방식
 				const iElement = document.createElement("i");
 				// class="bi bi-dot"
 				iElement.classList.add("bi");
@@ -259,6 +266,15 @@ class CalendarAndReservation {
 				// 각 i 태그에 페이지 번호를 pageNum 속성값으로 매핑한다. 
 				iElement.setAttribute(customAttributeMap.pageNum, `${i+1}`);
 				td.appendChild(iElement);
+				*/
+
+				const pageNumberElement = document.createElement("span");
+				pageNumberElement.setAttribute(customAttributeMap.pageNum, `${i + 1}`);
+
+				let pageNumTextNode = document.createTextNode(`${i + 1}`);
+				pageNumberElement.appendChild(pageNumTextNode);
+
+				td.appendChild(pageNumberElement);
 			}
 
 			td.appendChild(spans.right);
@@ -429,7 +445,7 @@ class CalendarAndReservation {
 	}
 	
 }
-console.log("new hi2"); // For test
+//console.log("new hi2"); // For test
 
 new CalendarAndReservation();
 
