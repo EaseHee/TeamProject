@@ -27,9 +27,15 @@
             dataSource = (DataSource) context.lookup("java:comp/env/jdbc/acorn");
             connection = dataSource.getConnection();
             
-            // 삭제 쿼리 실행
-            String sql = "DELETE FROM customer WHERE customer_id=?";
-            statement = connection.prepareStatement(sql);
+            // 예약 삭제 db
+            String deleteReservationSql = "DELETE FROM reservation WHERE customer_id=?";
+            statement = connection.prepareStatement(deleteReservationSql);
+            statement.setInt(1, Integer.parseInt(cus_id));
+            statement.executeUpdate();
+
+            // 고객 삭제 db
+            String deleteCustomerSql = "DELETE FROM customer WHERE customer_id=?";
+            statement = connection.prepareStatement(deleteCustomerSql);
             statement.setInt(1, Integer.parseInt(cus_id));
             statement.executeUpdate();
             
@@ -44,5 +50,6 @@
         }
     } 
 %>
+	
 </body>
 </html>
