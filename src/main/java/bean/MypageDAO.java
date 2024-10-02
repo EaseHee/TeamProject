@@ -80,7 +80,7 @@ public class MypageDAO {
                 manager.setBranch_code(branchcode);  // branchcode는 쿼리에서 가져오는 값이 아니므로 그대로 설정
                 
                 //조회된 관리자 정보 확인
-                System.out.println("조회된 관리자 정보 확인 branch_code: " + branchcode);
+                //System.out.println("조회된 관리자 정보 확인 branch_code: " + branchcode);
             } else {
                 //조회된 데이터가 없을 경우
                 System.out.println("조회된 데이터가 없을 경우 branch_code: " + branchcode);
