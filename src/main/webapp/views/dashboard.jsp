@@ -11,7 +11,6 @@
     <title>메인 화면</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="/TeamProject/views/assets/css/calendar.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">    
@@ -23,6 +22,8 @@
     <link rel="stylesheet" href="/TeamProject/views/assets/css/app.css">
     <link rel="shortcut icon" href="/TeamProject/views/assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
+    <link rel="stylesheet" href="/TeamProject/views/assets/css/calendar.css">
+	<link rel="stylesheet" href="/TeamProject/views/assets/css/dashboardReservation.css" >
 
 </head>
 
@@ -80,18 +81,18 @@
 
 						<!-- 통계 그래프 시안 -->
                         <!-- 서비스별 시술 횟수 : "assets/js/pages/chartMonthRevenue.js" -->
-                        <div class="col-lg-4 col-md-12">
-                            <div class="card" >
+                        <div class="col-lg-3 col-md-12">
+<!--                             <div class="card" >
                                 <div style="text-align: center;" >
                                     <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
                                     <span id="nextMonth" class="icons material-symbols-rounded" tabindex="0">chevron_right</span>
                                 </div>
                                 <div id="count"></div>
-                            </div>
+                            </div> -->
                         </div>
                         
 						<!-- 월별 매출 통계 : "assets/js/pages/chartMonthRevenue.js" -->
-                        <div class="col-lg-5 col-md-12">
+                        <div class="col-lg-6 col-md-12">
 							<div class="card" >
                                 <div style="text-align: center;" >
                                     <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
