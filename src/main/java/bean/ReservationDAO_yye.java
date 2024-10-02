@@ -2,23 +2,21 @@ package bean;
 
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class ReservationDAO {
+public class ReservationDAO_yye {
     private Context context = null;
     private DataSource dataSource = null;
 
@@ -26,7 +24,7 @@ public class ReservationDAO {
     private PreparedStatement statement = null;
     private ResultSet resultSet = null;
 
-    public ReservationDAO () {
+    public ReservationDAO_yye () {
         try {
             context = new InitialContext();
             dataSource = (DataSource) context.lookup("java:comp/env/jdbc/acorn");
@@ -178,7 +176,11 @@ public class ReservationDAO {
 		return list;
     }
 */
+
     
+    
+    
+/*------------------------------제희 님 요깅~~~~~♥--------------------------------------*/
     public List<ReservationDTO> getReservationDTOList(String keyField, String keyWord, String startDate, String endDate) {
         String sql = "SELECT reservation_no, service_name, reservation_date, reservation_time, customer_name, member_name, reservation_comm "
             + "FROM reservation res "
@@ -202,6 +204,12 @@ public class ReservationDAO {
             } else {
                 sql += " WHERE " + keyField + " LIKE ?";
             }
+            whereAdded = true;
+        }
+        
+        // 전체 조회를 위한 조건 검색
+        if (!whereAdded) {
+            sql += " WHERE 1=1"; // 모든 레코드를 조회
         }
         
         // 정렬
@@ -256,6 +264,18 @@ public class ReservationDAO {
             System.out.println("[getReservationDTOList] Message : " + e.getMessage());
             System.out.println("[getReservationDTOList] Class   : " + e.getClass().getSimpleName());
         } finally {
+        	System.out.println("startDate : " + startDate + ", " +"endDate : " + endDate );
+        	//int st = Integer.parseInt(startDate);
+        	//int ed = Integer.parseInt(endDate);
+        	// 날짜 형식 정의
+//           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        	
+//        	LocalDate startDateStr = LocalDate.parse(startDate, formatter);
+//            LocalDate endDateStr = LocalDate.parse(endDate, formatter);
+//        	if(!startDateStr.isAfter(endDateStr)) {
+//        		System.out.println("시작 날짜를 종료 날짜보다 이후로 설정해주세요");
+//        	}
+     
             freeConnection();
         }
 
@@ -263,7 +283,7 @@ public class ReservationDAO {
     }
 
 
-
+/*--------------------제희 님 요깅~~~~~♥-----------------------------*/
     
     //reservationPostProc.jsp 
     public void setReservationDTO(ReservationDTO reservationDTO) throws SQLException, ClassNotFoundException {

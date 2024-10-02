@@ -300,6 +300,7 @@
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/main.js"></script>
     <script>
+    //삭제 할 때 alert 창 뜨도록
         function confirmDelete(member_id) {
             if (confirm("정말로 삭제하시겠습니까?")) {
                 location.href = 'member_Delete.jsp?member_id=' + encodeURIComponent(member_id);
