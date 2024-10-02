@@ -28,6 +28,7 @@
     <jsp:useBean id="dao" class="bean.CustomerDAO"/>
     <jsp:useBean id="dto" class="bean.CustomerDTO"/>
 
+	
 	<div id="app">
 		<%@ include file="/views/header.jsp" %>
                 <div class="row form-group">
@@ -79,7 +80,7 @@
 									    		int totalPage = 0;  	// 총 페이지 수
 									    		int nowPage = 0;     	// 현재 페이지, 선택할때마다 값을 바꿔야해서 0
 									    		int beginPerPage = 0;   // 페이지별 시작번호
-									    		int pagePerBlock = 3;	// 블럭당 페이지 수
+									    		int pagePerBlock = 5;	// 블럭당 페이지 수
 									    		int totalBlock = 0;		// 총 블럭 수
 									    		int nowBlock = 0;		// 현재 블럭
 									    		
@@ -88,6 +89,9 @@
 									            String startDate = request.getParameter("startDate");
 									            String endDate = request.getParameter("endDate");
 									
+									            
+									        	totalPage = (int) Math.ceil((double) totalRecord / numPerPage);
+									        	
 									            if(request.getParameter("nowPage") != null)
 									    			nowPage = Integer.parseInt(request.getParameter("nowPage"));
 									    		
@@ -118,10 +122,10 @@
 								                    <td class="text-center"><a href="customerRead.jsp?customer_id=<%= customer.getCustomer_id() %>"><%= customer.getCustomer_name() %></a></td>
 								                    <td class="text-center"><%= customer.getCustomer_gender() %></td>
 								                    <td class="text-center"> <%= customer.getCustomer_tel() %></td>
-								                    <td><%= customer.getCustomer_mail() %></td>
+								                    <td class="text-center"><%= customer.getCustomer_mail() %></td>
 								                    <td class="text-center"><%= customer.getCustomer_reg() %></td>
 								                    <td class="text-center"><%= customer.getCustomer_rank() %></td>
-								                    <td><%= customer.getCustomer_note() != null ? customer.getCustomer_note() : "" %></td> 
+								                    <td class="text-center"><%= customer.getCustomer_note() != null ? customer.getCustomer_note() : "" %></td> 
 								                </tr>
 								            <% 
 								            }
@@ -186,4 +190,4 @@
         </script>
     </div>
 </body>
-</html>
+</html> 
