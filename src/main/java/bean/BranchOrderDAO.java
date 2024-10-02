@@ -12,14 +12,14 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class MemberDAO {
+public class BranchOrderDAO {
 	private Connection conn;
 	private PreparedStatement stmt;
 	private ResultSet rs;
 	private Context ctx;
 	private DataSource ds;
 	
-	public MemberDAO() {
+	public BranchOrderDAO() {
 		try {
 			ctx = new InitialContext();
 			
@@ -40,7 +40,7 @@ public class MemberDAO {
 			}
 	}
 	
-	//member.jsp
+	//List.jsp
 	public List<MemberDTO> getMemberList(String keyField, String keyWord) {
 		String sql = null;
 
@@ -48,9 +48,9 @@ public class MemberDAO {
 			sql = "SELECT member_id, member_name, member_job, member_tel FROM member";
 		} 
 		else {
-			sql = "SELECT member_id, member_name, member_job, member_tel FROM member WHERE " + keyField + " LIKE '%" + keyWord + "%'";
+			sql = "SELECT member_id, member_name, member_job, member_tel FROM member " + "WHERE " + keyField + "Like ?";
 		}
-		//System.out.println(keyField +" "+ keyWord);
+
 		ArrayList<MemberDTO> list = new ArrayList<>();
 			
 		try {
@@ -64,7 +64,7 @@ public class MemberDAO {
 			}
 			else {
 				stmt = conn.prepareStatement(sql);
-				//stmt.setString(1,"%" + keyWord + "%");
+				stmt.setString(2,"%" + keyWord + "%");
 				//like 구문 파라미터 설정 
 			}
 			
@@ -218,27 +218,4 @@ public class MemberDAO {
 			}
 		}
 
-		//예약 서비스명 조회
-	    public List<String> getAllMemberNames() throws SQLException {
-		    List<String> memberNames = new ArrayList<>();
-		    String query = "SELECT member_name FROM member"; // 'member' 테이블에서 서비스 명 가져옴
-
-		    try {
-		        conn = ds.getConnection();
-		        stmt = conn.prepareStatement(query);
-		        rs = stmt.executeQuery();
-
-		        while (rs.next()) {
-		            memberNames.add(rs.getString("member_name"));
-		        }
-		    } 
-		    catch (SQLException e) {
-	            System.out.println("[getAllServiceNames] Message : " + e.getMessage());
-	            System.out.println("[getAllServiceNames] Class   : " + e.getClass().getSimpleName());
-	        }
-		    finally {
-		        freeConn(); // freeConnection을 finally 블록에서 호출하여 자원을 반환
-		    }
-		    return memberNames;
-		}
 	}

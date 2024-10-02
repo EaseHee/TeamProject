@@ -66,14 +66,15 @@ public class LoginServlet extends HttpServlet {
 		// 로그인 성공 여부 확인
 		try {
 			if(branch != null) {
-				if(branch.getBranch_pw() != null && branch.getBranch_pw().equals(pw)) {
-					System.out.println("로그인 성공");
+				if(branch.getBranch_code() != null && branch.getBranch_code().equals(code) &&
+						branch.getBranch_pw() != null && branch.getBranch_pw().equals(pw)) {
 //					// 로그인 상태 정보 유지 (쿠키에 담아 전송하는 방법)
 //					Cookie adminId = new Cookie("adminId", admin.getAd_id());
 //					resp.addCookie(adminId);
 					// 로그인 상태 정보 유지 (세션에 담아 전송, 세션이 종료될 때 까지 인증 상태 유지)
 					HttpSession session = req.getSession();
 					session.setAttribute("branchCode", branch.getBranch_code());
+					session.setAttribute("branchName", branch.getBranch_name());
 					
 					// 성공 시 대시보드로 페이지 이동
 					resp.sendRedirect("/TeamProject/views/dashboard.jsp");
@@ -85,7 +86,6 @@ public class LoginServlet extends HttpServlet {
 //					RequestDispatcher dispatcher = req.getRequestDispatcher(url);
 //					dispatcher.forward(req, resp);
 				} else {
-					System.out.println("비밀번호 오류");
 					// 비밀번호 오류시 alert 창 띄우기
 					out.println("<script> alert('입력하신 정보가 틀립니다.');");
 					out.println("history.go(-1); </script>"); 
@@ -93,7 +93,6 @@ public class LoginServlet extends HttpServlet {
 					return;
 				}
 			} else {
-				System.out.println("아이디 오류");
 				// 아이디 오류시 alert 창 띄우기
 				out.println("<script> alert('입력하신 정보가 틀립니다.');");
 				out.println("history.go(-1); </script>"); 

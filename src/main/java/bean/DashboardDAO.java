@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.json.JSONObject;
+import org.json.*;
 
 public class DashboardDAO {
     private Context context = null;
@@ -121,22 +122,24 @@ public class DashboardDAO {
 		return list;
 	}
 
-        /* 
-     		===== 서비스 매출 현황 통계 =====
-            1. 예약 테이블에서 기준일(now) 까지의 1개월간 서비스별 시술 횟수 조회
-            2. 복수 선택의 경우 개별 횟수에 추가
-                1> 이름을 "," 으로 split   "반환 타입 : String[]"
-                2> 배열에 해당하는 데이터(서비스명)가 있는 경우 카운트 증가
-            3. DashboardDTO 객체 활용
-            4. JSON 라이브러리 활용
-                JSONArray.put() / .get()
+    /* 
+        ===== 서비스 매출 현황 통계 =====
+        1. 예약 테이블에서 기준일(now) 까지의 1개월간 서비스별 시술 횟수 조회
+        2. 복수 선택의 경우 개별 횟수에 추가
+            1> 이름을 "," 으로 split   "반환 타입 : String[]"
+            2> 배열에 해당하는 데이터(서비스명)가 있는 경우 카운트 증가
+        3. DashboardDTO 객체 활용
+        4. JSON 라이브러리 활용
+            JSONArray.put() / .get()
     */
     // 인스턴스 변수 메서드화 : 리팩토링 예정 
-    JSONObject jsonObject = null;
+    JSONArray jsonServiceArray = null;
+    JSONArray jsonRevenueArray = null;
+    JSONArray jsonCountArray = null;
     // 이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
     public void setService (int indexMonth) {
         // 서비스별 월매출액 저장용
-        List<DashboardDTO> list = new LinkedList<>();        
+        LinkedList<DashboardDTO> list = new LinkedList<>();        
 		try{
 			connection = dataSource.getConnection();
             // 단일 서비스 조회
@@ -155,8 +158,8 @@ public class DashboardDAO {
 
             // 월별 서비스 매출액 조회
 			sql ="SELECT service_name, reservation_date FROM service INNER JOIN reservation " + 
-                    "ON reservation_date >= DATE_SUB(now(), INTERVAL " + indexMonth + " +1 MONTH) " +
-                    "AND reservation_date <= DATE_SUB(now(), INTERVAL " + indexMonth + " MONTH)";
+                    "ON reservation_date >= DATE_SUB(now(), INTERVAL " + indexMonth + " +3 DAY) " +
+                    "AND reservation_date <= DATE_SUB(now(), INTERVAL " + indexMonth + " DAY)";
 
 			statement = connection.prepareStatement(sql);			
             resultSet = statement.executeQuery();
@@ -169,17 +172,18 @@ public class DashboardDAO {
                             dto.setService_cnt(dto.getService_cnt()+1);
                         }
                     }
-                    // if (i>0 && i == list.size()-1) {
-                    //     for (DashboardDTO dto : list) {
-                    //         if (dto.getSer_name().equals("커트")) {
-                    //             dto.setSer_cnt(dto.getSer_cnt()+1);
-                    //         }
-                    //     }
-                    // }
                 }
             }
-            System.out.println(list);
-  
+            // 데이터를 저장할 JSON 배열 선언
+            jsonServiceArray = new JSONArray();
+            jsonRevenueArray = new JSONArray();
+            jsonCountArray = new JSONArray();
+            // cf. JSONObject 에는 컬렉션을 저장할 수 없다.  |  JSONArray도 컬렉션을 반환하진 못한다...
+            for (DashboardDTO board : list) {
+                jsonServiceArray.put(board.getService_name());
+                jsonRevenueArray.put(board.getChart_revenue());
+                jsonCountArray.put(board.getService_cnt());
+            }
 		} catch (SQLException e) {
             System.out.println("[setService] Message : " + e.getMessage());
             System.out.println("[setService] Class   : " + e.getClass().getSimpleName());
@@ -187,16 +191,15 @@ public class DashboardDAO {
 			freeConnection();
 		}
     }
-
     // json배열로 return :  JS에 전달용
-
-    public JSONObject getService() {
-        
-        return jsonObject;
+    public JSONArray getService() {
+    	return jsonServiceArray;
     }
-    public JSONObject getRevenue() {
-        return jsonObject;
-
+    public JSONArray getRevenue() {
+        return jsonRevenueArray;
+    }
+    public JSONArray getCount() {
+        return jsonCountArray;
     }
     
     // == 달력에서 선택된 날짜에 대한 예약현황 데이터 가져오기 로직 시작 ==
@@ -215,18 +218,35 @@ public class DashboardDAO {
      * 예약 날짜 및 예약 서비스명 데이터 모두 추출.
      * @return
      */
-    public List<DashboardDTO> getReservationByDate() {
+    public List<DashboardReservationDTO> getReservationByDate() {
 		if (this.selectedDateStr == null) return null;
 		Date selectedDate = Date.valueOf(this.selectedDateStr);
     	
+		/*
 		String sql = """
 				SELECT a.reservation_time, b.service_name 
 					FROM reservation a 
 					INNER JOIN service b 
 						ON a.service_code = b.service_code 
 						WHERE reservation_date=? ORDER BY reservation_time
+				""".trim(); */
+		String sql = """
+				SELECT 
+					cus.customer_name, 
+					res.reservation_time, 
+					ser.service_name, 
+					mem.member_name 
+				FROM reservation res 
+				INNER JOIN service ser 
+					ON res.service_code = ser.service_code 
+				INNER JOIN customer cus 
+					ON cus.customer_id = res.customer_id 
+				INNER JOIN member mem 
+					ON mem.member_id = res.member_id 
+				WHERE res.reservation_date=? 
+				ORDER BY res.reservation_time 
 				""".trim();
-		ArrayList<DashboardDTO> list = new ArrayList<>();
+		ArrayList<DashboardReservationDTO> list = new ArrayList<>();
 		try {
 			connection = dataSource.getConnection();			
 			statement = connection.prepareStatement(sql);
@@ -234,10 +254,12 @@ public class DashboardDAO {
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()){
-				DashboardDTO board = new DashboardDTO();
+				DashboardReservationDTO board = new DashboardReservationDTO();
 				
 				board.setReservation_time(resultSet.getString("reservation_time"));
 				board.setService_name(resultSet.getString("service_name"));
+				board.setCustomer_name(resultSet.getString("customer_name"));
+				board.setMember_name(resultSet.getString("member_name"));
 				
 				list.add(board);
 			}

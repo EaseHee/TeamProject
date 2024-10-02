@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RESERVATION</title>
+    <title>예약 관리</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -101,6 +101,7 @@
     ArrayList<ReservationDTO> resultList = new ArrayList<>();
 
  	// 날짜 조회 및 검색 조회 로직
+ 	/*
     if (startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
         // 날짜 조회
         resultList = (ArrayList<ReservationDTO>) dao.getReservationDateSearch(startDate, endDate);
@@ -111,6 +112,27 @@
         // 전체 리스트 조회
         resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord); // 전체 조회 메서드 사용
     }
+*/
+
+if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmpty()) {
+    // 검색 조회 (기간도 포함되어 있을 경우)
+    if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+        // 기간 및 검색 조회
+        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, startDate, endDate);
+    } else {
+        // 검색 조회 (기간 없이)
+        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, null, null);
+    }
+} else if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+    // 기간 조회 (검색 없이)
+    resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(null, null, startDate, endDate);
+} else {
+    // 전체 리스트 조회
+    resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(null, null, null, null);
+}
+
+
+
 
 	// 총 예약 수
 	totalRecord = resultList.size();
@@ -139,12 +161,12 @@
 	%>
 
 	<div id="app">
-         <div id="sidebar" class="active">
+        <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="#">LOGO</a>
+                            <a href="dashboard.jsp">로고</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -153,19 +175,19 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
+                        <li class="sidebar-title">메뉴</li>
 
                         <li class="sidebar-item ">
                             <a href="dashboard.jsp" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>HOME</span>
+                                <span>홈</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
-                                <span>CUSTOMER</span>
+                                <span>고객</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -180,7 +202,7 @@
                         <li class="sidebar-item active has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-collection-fill"></i>
-                                <span>RESERVATION</span>
+                                <span>예약</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -195,7 +217,7 @@
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-grid-1x2-fill"></i>
-                                <span>SERVICE</span>
+                                <span>서비스</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -207,10 +229,10 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-hexagon-fill"></i>
-                                <span>PRODUCT</span>
+                                <span>상품</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -221,10 +243,10 @@
                                 </li>
                              </ul>
                         </li>
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item has-sub">
                             <a href="#" class='sidebar-link'>
                             	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/></svg>                               
-                                <span>MEMBER</span>
+                                <span>직원</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -236,10 +258,10 @@
                             </ul>
                         </li>
  
-                        <li class="sidebar-item  has-sub">
+                        <li class="sidebar-item has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-megaphone-fill"></i>
-                                <span>NOTICE</span>
+                                <span>공지</span>
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
@@ -264,15 +286,15 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3><a href="reservation.jsp">예약 관리</a></h3>
+                            <h3>예약 관리</a></h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-	                                    <i class="bi bi-person-fill" style="font-size:x-large; color: green;" ></i>
-	                       	 			<i class="bi bi-bell-fill" style="font-size:larger; line-height: 10px; color: green;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-light-danger">로그아웃</span>&nbsp;<i class="bi bi-box-arrow-right " ></i></a>
+	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
+	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
+                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃&nbsp;<i class="bi bi-box-arrow-right " ></i></span></a>
                                    	</li>
                                 </ol>
                             </nav>
@@ -281,19 +303,20 @@
                 </div>
                 <hr style="height: 5px;">
 
-                <div class="row form-group">
-                    <form method="post" action="#" class="col-4 d-flex">
-                        <input type="date" class="form-control" id="startDate" name="startDate">&nbsp;&nbsp;~&nbsp;&nbsp;
-                        <input type="date" class="form-control" id="endDate" name="endDate">
-                        <input type="button" class="btn btn-outline-success" value="조회">
-                    </form>
-                    <form method="post" action="reservation.jsp" class="col-4 d-flex justify-content-end align-items-end">
-                        <input type="hidden" name="keyField" value="cus_name">
-                        <input type="text" name="keyWord" placeholder="검색" class="form-control">
-                        <input type="submit" class="btn btn-outline-success" value="조회">
-                    </form>
-                </div>
-                <section class="section">
+				<div class="row form-group">
+					<form method="get" action="reservation.jsp" class="col-4 d-flex">
+    					<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate %>">&nbsp;&nbsp;~&nbsp;&nbsp;
+    					<input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate %>">
+   						 <input type="submit" class="btn btn-outline-success" value="조회">
+					</form>
+					<form class="col-4 d-flex"></form>
+					<form method="get" action="reservation.jsp" class="col-4 d-flex justify-content-end align-items-end">
+    					<input type="hidden" name="keyField" value="<%= (keyField != null) ? keyField : "customer_name" %>"> 
+    					<input type="text" name="keyWord" placeholder="예약자명 검색" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
+    					<input type="submit" class="btn btn-outline-success" value="조회">
+					</form>
+				</div>
+				<section class="section">
 
                     <div class="buttons d-flex justify-content-end align-items-end">
                         <a href="reservationPost.jsp" class="btn btn-outline-success" style="margin-right:0px">등록</a>
@@ -308,10 +331,11 @@
                                                 <tr>
                                                     <th class="text-center" width="10%">예약번호</th>
                                                     <th class="text-center" width="20%">예약품목</th>
-                                                    <th class="text-center" width="10%">예약날짜</th>
-                                                    <th class="text-center" width="10%">예약시간</th>
+                                                    <th class="text-center" width="15%">예약날짜</th>
+                                                    <th class="text-center" width="15%">예약시간</th>
                                                     <th class="text-center" width="10%">예약자명</th>
-                                                    <th class="text-center" width="40%">특이사항</th>
+                                                    <th class="text-center" width="10%">직원명</th>
+                                                    <th class="text-center" width="30%">특이사항</th>
                                                 </tr>
                                             </thead>
 											<tbody>
@@ -323,8 +347,9 @@
 													<td class="text-center"><%=reservationDTO.getReservation_no()%></td>
 													<td class="text-center"><%=reservationDTO.getService_name() != null ? reservationDTO.getService_name() : ""%></td>
 													<td class="text-center"><%=reservationDTO.getReservation_date() != null ? reservationDTO.getReservation_date() : ""%></td>
-													<td class="text-center"><%=reservationDTO.getReservation_time() != null ? reservationDTO.getReservation_time() : ""%></td>
+													<td class="text-center"><%=reservationDTO.getReservation_time() != null ? reservationDTO.getReservation_time().substring(0, 5) : ""%></td>
 													<td class="text-center"><a href="reservationRead.jsp?reservation_no=<%=reservationDTO.getReservation_no()%>"><%=reservationDTO.getCustomer_name() != null ? reservationDTO.getCustomer_name() : ""%></a></td>
+													<td class="text-center"><%=reservationDTO.getMember_name() != null ? reservationDTO.getMember_name() : ""%></td>
 													<td class="text-center"><%=reservationDTO.getReservation_comm() != null ? reservationDTO.getReservation_comm() : ""%></td>
 												</tr>
 												<%
@@ -398,7 +423,7 @@
                             <p>2024 &copy; ACORN</p>
                         </div>
                         <div class="float-end">
-                            <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="#">거니네조</a></p>
+                            <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="#main">거니네조</a></p>
                         </div>
                     </div>
                 </footer>

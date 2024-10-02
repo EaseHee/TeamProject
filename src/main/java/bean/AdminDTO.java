@@ -8,9 +8,11 @@ public class AdminDTO {
     private String admin_name;
     private String admin_ph;
     private String admin_mail;
-	
-    
-     public String getAdmin_id() {
+    private String admin_postcode;
+    private String admin_roadAddress;
+    private String admin_detailAddress;
+  
+    public String getAdmin_id() {
 		return admin_id;
 	}
 
@@ -48,6 +50,30 @@ public class AdminDTO {
 
 	public void setAdmin_mail(String admin_mail) {
 		this.admin_mail = admin_mail;
+	}
+	
+	public String getAdmin_postcode() {
+		return admin_postcode;
+	}
+
+	public void setAdmin_postcode(String admin_postcode) {
+		this.admin_postcode = admin_postcode;
+	}
+
+	public String getAdmin_roadAddress() {
+		return admin_roadAddress;
+	}
+
+	public void setAdmin_roadAddress(String admin_roadAddress) {
+		this.admin_roadAddress = admin_roadAddress;
+	}
+
+	public String getAdmin_detailAddress() {
+		return admin_detailAddress;
+	}
+
+	public void setAdmin_detailAddress(String admin_detailAddress) {
+		this.admin_detailAddress = admin_detailAddress;
 	}
 
 	@Override
