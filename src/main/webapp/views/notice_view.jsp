@@ -300,13 +300,13 @@
 		               				</td>
 		               				<td class="w-100">
 		               					<table class="w-100">
-		               						<tr><td><b>매니저</b> 2024.01.01 10:00</td></tr>
-		               						<tr><td>매니저의 댓글...</td></tr>
+		               						<tr><td><b>매니저A</b> 2024.01.01 10:00</td></tr>
+		               						<tr><td>매니저A의 댓글...</td></tr>
 		               						<tr class="text-end"><td><a href="#">삭제</a> <a href="#">수정</a> <a data-bs-toggle="collapse" href="#collapseReply1" aria-expanded="false" aria-controls="collapseReply1">답글</a></td></tr>
 		               						<tr>
 		               							<td>
 		               								<form class="collapse mt-2" id="collapseReply1">
-								                    	<textarea class="comment" rows="3" placeholder="매니저에게 답글을 작성..."></textarea>
+								                    	<textarea class="comment" rows="3" placeholder="매니저A에게 답글을 작성..."></textarea>
 								                    	<table class="w-100">
 								                    		<tr>
 								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
@@ -324,7 +324,7 @@
 	                    </div>
 		               		<hr/>
 		                </div>
-		                <div style="margin-left: 50px;">
+		                <div style="margin-left: 80px;">
 		               		<table>
 		               			<tr>
 		               				<td class="align-top">
@@ -354,20 +354,7 @@
 		               		</table>
 		               		<hr/>
 		                </div>
-		                <div style="margin-left: 50px;">
-		               		<table>
-		               			<tr>
-		               				<td class="align-top">
-		               					<div class="img-profile invisible">프로필 사진</div>
-		               				</td>
-		               				<td class="w-100">
-		               					삭제된 댓글입니다.
-		               				</td>
-		               			</tr>
-		               		</table>
-		               		<hr/>
-		                </div>
-		                <div style="margin-left: 100px;">
+		                <div style="margin-left: 80px;">
 		               		<table>
 		               			<tr>
 		               				<td class="align-top">
@@ -375,13 +362,13 @@
 		               				</td>
 		               				<td class="w-100">
 		               					<table class="w-100">
-		               						<tr><td><b>매니저</b> 2024.01.01 10:00</td></tr>
-		               						<tr><td>매니저의 댓글...</td></tr>
+		               						<tr><td><b>매니저B</b> 2024.01.01 10:00</td></tr>
+		               						<tr><td><b>@관리자</b> 매니저B의 댓글...</td></tr>
 		               						<tr class="text-end"><td><a href="#">삭제</a> <a href="#">수정</a> <a data-bs-toggle="collapse" href="#collapseReply3" aria-expanded="false" aria-controls="collapseReply3">답글</a></td></tr>
 		               						<tr>
 		               							<td>
 		               								<form class="collapse mt-2" id="collapseReply3">
-								                    	<textarea class="comment" rows="3" placeholder="매니저에게 답글을 작성..."></textarea>
+								                    	<textarea class="comment" rows="3" placeholder="매니저B에게 답글을 작성..."></textarea>
 								                    	<table class="w-100">
 								                    		<tr>
 								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
@@ -397,7 +384,7 @@
 		               		</table>
 		               		<hr/>
 		                </div>
-		                <div style="margin-left: 150px;">
+		                <div style="margin-left: 80px;">
 		               		<table>
 		               			<tr>
 		               				<td class="align-top">
@@ -406,7 +393,7 @@
 		               				<td class="w-100">
 		               					<table class="w-100">
 		               						<tr><td><b style="color: rgb(37, 57, 111);">관리자</b> 2024.01.01 10:00</td></tr>
-		               						<tr><td>관리자의 댓글...<br>관리자의 댓글...<br>관리자의 댓글...<br>관리자의 댓글...</td></tr>
+		               						<tr><td><b>@매니저B</b> 관리자의 댓글...<br>관리자의 댓글...<br>관리자의 댓글...<br>관리자의 댓글...</td></tr>
 		               						<tr class="text-end"><td><a data-bs-toggle="collapse" href="#collapseReply4" aria-expanded="false" aria-controls="collapseReply4">답글</a></td></tr>
 		               						<tr>
 		               							<td>
@@ -435,13 +422,13 @@
 		               				</td>
 		               				<td class="w-100">
 		               					<table class="w-100">
-		               						<tr><td><b>매니저</b> 2024.01.01 10:00</td></tr>
-		               						<tr><td>매니저의 댓글...</td></tr>
+		               						<tr><td><b>매니저B</b> 2024.01.01 10:00</td></tr>
+		               						<tr><td>매니저B의 댓글...</td></tr>
 		               						<tr class="text-end"><td><a data-bs-toggle="collapse" href="#collapseReply5" aria-expanded="false" aria-controls="collapseReply5">답글</a></td></tr>
 		               						<tr>
 		               							<td>
 		               								<form class="collapse mt-2" id="collapseReply5">
-								                    	<textarea class="comment" rows="3" placeholder="매니저에게 답글을 작성..."></textarea>
+								                    	<textarea class="comment" rows="3" placeholder="매니저B에게 답글을 작성..."></textarea>
 								                    	<table class="w-100">
 								                    		<tr>
 								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
