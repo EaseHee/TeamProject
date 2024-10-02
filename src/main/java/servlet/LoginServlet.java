@@ -66,8 +66,8 @@ public class LoginServlet extends HttpServlet {
 		// 로그인 성공 여부 확인
 		try {
 			if(branch != null) {
-				if(branch.getBranch_pw() != null && branch.getBranch_pw().equals(pw)) {
-					System.out.println("로그인 성공");
+				if(branch.getBranch_code() != null && branch.getBranch_code().equals(code) &&
+						branch.getBranch_pw() != null && branch.getBranch_pw().equals(pw)) {
 //					// 로그인 상태 정보 유지 (쿠키에 담아 전송하는 방법)
 //					Cookie adminId = new Cookie("adminId", admin.getAd_id());
 //					resp.addCookie(adminId);
@@ -86,7 +86,6 @@ public class LoginServlet extends HttpServlet {
 //					RequestDispatcher dispatcher = req.getRequestDispatcher(url);
 //					dispatcher.forward(req, resp);
 				} else {
-					System.out.println("비밀번호 오류");
 					// 비밀번호 오류시 alert 창 띄우기
 					out.println("<script> alert('입력하신 정보가 틀립니다.');");
 					out.println("history.go(-1); </script>"); 
@@ -94,7 +93,6 @@ public class LoginServlet extends HttpServlet {
 					return;
 				}
 			} else {
-				System.out.println("아이디 오류");
 				// 아이디 오류시 alert 창 띄우기
 				out.println("<script> alert('입력하신 정보가 틀립니다.');");
 				out.println("history.go(-1); </script>"); 
