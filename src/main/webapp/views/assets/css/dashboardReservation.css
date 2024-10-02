@@ -1,3 +1,11 @@
+/* 예약현황 테이블 내 데이터들에 대한 스타일 적용 */
 #current-reservation table tbody {
-	text-align: center;
+	text-align: center;  /* 텍스트 데이터들을 칸 내에서 가운데 정렬. */
+}
+
+#current-reservation tbody span[page-num] {
+	width: 1em;
+	margin: 0em 1em;
+	padding-bottom: 1em;
+	border-width: 0em 1em 0em 1em;
 }
