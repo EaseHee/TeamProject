@@ -111,7 +111,7 @@ class RevenueChart {
           borderRadius: 10,
           borderRadiusApplication: "around",  // "around", "end" : radius 적용 범위 (around 둘 다 , end 한 곳만)
           borderRadiusWhenStacked: "last",    // "all", "last" : Stacked 되었을 경우 경계 반지름 처리 (last : 마지막만)
-          columnWidth: "60%"		// 막대 두께
+          columnWidth: "50%"		// 막대 두께
         },
       },
       dataLabels: {
@@ -222,7 +222,7 @@ class CountChart {
           borderRadius: 5,
           borderRadiusApplication: "end",  // "around", "end"
           borderRadiusWhenStacked: "all",    // "all", "last"
-          columnWidth: "40%"
+          columnWidth: "50%"
         },
       },
       dataLabels: {
