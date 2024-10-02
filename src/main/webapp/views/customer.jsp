@@ -33,7 +33,7 @@
                     <form method="post" action="customer.jsp" class="col-4 d-flex justify-content-end align-items-end search-filter">
                             <select name="keyField" class="choices form-select" style="width: 100px; display: inline-block;">
                                 <option value="customer_name">이름</option>
-                                <option value="custmoer_rank">등급</option>
+                                <option value="customer_rank">등급</option>
                             </select>
                             <input type="text" name="filterValue" id="filterValue" placeholder="검색" class="form-control">
                             <input type="submit" class="btn btn-outline-success" value="조회">

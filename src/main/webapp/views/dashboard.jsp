@@ -129,39 +129,37 @@
 
 										<tr>
 											<td align="center" colspan="2" class="calendar-wrapper">
-							<ul class="pagination pagination-primary d-flex justify-content-center align-items-center" style="margin-bottom: 0">
-	<li class="page-item <%= (nowBlock==0) && (nowPage==0) ? "disabled" : " "%>">
-		<a class="page-link" href="dashboard.jsp?nowPage=<%=(nowBlock-1)*pagePerBlock%>&nowBlock=<%=nowBlock - 1 %>">
-			<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
-		</a>
-	</li>
-<%
-	if(nowBlock != totalBlock-1){
-		for(int i=0; i < pagePerBlock; i++){
-%>
-			<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
-				<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
-			</li>
-<%	
-		}
-	}else{		
-			for(int i=0; i < totalPage%pagePerBlock; i++){
-				%>
-							<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
-								<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
-							</li>
-				<%
-			}
-		}
-	
-%>
-	<li class="page-item <%= (nowBlock==totalBlock-1) && (nowPage==totalPage-1) ? "disabled" : " "%>">
-		<a class="page-link" href="dashboard.jsp?nowPage=<%=(nowBlock+1)*pagePerBlock%>&nowBlock=<%=nowBlock + 1 %>">
-			<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
-		</a>
-	</li>
-
-							</ul>
+												<ul class="pagination pagination-primary d-flex justify-content-center align-items-center" style="margin-bottom: 0">
+													<li class="page-item <%= (nowBlock==0) && (nowPage==0) ? "disabled" : " "%>">
+														<a class="page-link" href="dashboard.jsp?nowPage=<%=(nowBlock-1)*pagePerBlock%>&nowBlock=<%=nowBlock - 1 %>">
+															<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+														</a>
+													</li>
+												<%
+													if(nowBlock != totalBlock-1){
+														for(int i=0; i < pagePerBlock; i++){
+												%>
+													<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
+														<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
+													</li>
+												<%	
+															}
+														}else{		
+															for(int i=0; i < totalPage%pagePerBlock; i++){
+												%>
+													<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
+														<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
+													</li>
+												<%
+														}
+													}
+												%>
+													<li class="page-item <%= (nowBlock==totalBlock-1) && (nowPage==totalPage-1) ? "disabled" : " "%>">
+														<a class="page-link" href="dashboard.jsp?nowPage=<%=(nowBlock+1)*pagePerBlock%>&nowBlock=<%=nowBlock + 1 %>">
+															<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+														</a>
+													</li>
+												</ul>
 											</td>
 										</tr>
 										
