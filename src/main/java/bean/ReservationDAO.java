@@ -311,6 +311,15 @@ public class ReservationDAO {
     		    statement = connection.prepareStatement(sql);
     		    statement.setString(1, member_id);
     		    statement.executeUpdate();
+    		    
+    		    //customer_total 증가
+    		    sql = "UPDATE customer c "
+    		    	     + "JOIN service s ON c.customer_id = ? AND s.service_code = ? "
+    		    	     + "SET c.customer_total = c.customer_total + s.service_price";
+    		    	statement = connection.prepareStatement(sql);
+    		    	statement.setInt(1, customer_id);  // customer_id가 첫 번째로 들어가야 함
+    		    	statement.setString(2, service_code);  // service_code가 두 번째로 들어가야 함
+    		    	statement.executeUpdate();
     		}
 
         } 
@@ -451,20 +460,22 @@ public class ReservationDAO {
             dataSource = (DataSource)context.lookup("java:comp/env/jdbc/acorn");
             connection = dataSource.getConnection();
             
-            // res 테이블에서 기존 ser_code, member_id 조회
-            sql = "SELECT service_code, member_id FROM reservation WHERE reservation_no = ?";
+            // res 테이블에서 기존 ser_code, member_id, customer_id 조회
+            sql = "SELECT service_code, member_id, customer_id FROM reservation WHERE reservation_no = ?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, resDto.getReservation_no()); 
             resultSet = statement.executeQuery();
             
             String old_ser_code = null;
             String old_mem_id = null;
+            int old_cus_id = 0;
             if (resultSet.next()) {
                 old_ser_code = resultSet.getString("service_code");
                 old_mem_id = resultSet.getString("member_id");
+                old_cus_id = resultSet.getInt("customer_id");
             }
             
-            // cus_id와 ser_code를 조회하는 쿼리
+            // customer_id, service_code, member_id를 조회하는 쿼리
             sql = "SELECT c.customer_id, s.service_code, m.member_id FROM customer c, service s, member m"
             		+ " WHERE c.customer_name = ? AND s.service_name = ? AND m.member_name = ?";
             statement = connection.prepareStatement(sql);
@@ -474,7 +485,7 @@ public class ReservationDAO {
             resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-                int customer_id = resultSet.getInt("customer_id");
+                int new_cus_id = resultSet.getInt("customer_id");
                 String new_ser_code = resultSet.getString("service_code");
                 String new_mem_id = resultSet.getString("member_id");
 
@@ -502,17 +513,39 @@ public class ReservationDAO {
                     statement.setString(1, old_mem_id);
                     statement.executeUpdate();
 
-                    // 새로운 ser_code의 ser_cnt 증가
+                    // 새로운 member_code의 member_cnt 증가
                     sql = "UPDATE member SET member_cnt = member_cnt + 1 WHERE member_id = ?";
                     statement = connection.prepareStatement(sql);
                     statement.setString(1, new_mem_id);
+                    statement.executeUpdate();
+                }
+                
+                
+                // customer_id가 변경된 경우에만 customer_total 수정
+                if (old_cus_id != new_cus_id) {
+                    // 기존cus_id의 customer_total 감소
+                	sql = "UPDATE customer c "
+       		    	     + "JOIN service s ON c.customer_id = ? AND s.service_code = ? "
+       		    	     + "SET c.customer_total = c.customer_total - s.service_price";
+                    statement = connection.prepareStatement(sql);
+                    statement.setInt(1, old_cus_id);
+                    statement.setString(2, old_ser_code);
+                    statement.executeUpdate();
+
+                    // 새로운 cus_id의 customer_total 증가
+                    sql = "UPDATE customer c "
+       		    	     + "JOIN service s ON c.customer_id = ? AND s.service_code = ? "
+       		    	     + "SET c.customer_total = c.customer_total + s.service_price";
+                    statement = connection.prepareStatement(sql);
+                    statement.setInt(1, new_cus_id);
+                    statement.setString(2, new_ser_code);
                     statement.executeUpdate();
                 }
 
                 // res 테이블 수정
                 sql = "UPDATE reservation SET customer_id = ?, service_code = ?, reservation_date = ?, reservation_time = ?, member_id = ?, reservation_comm = ? WHERE reservation_no = ?";
                 statement = connection.prepareStatement(sql);
-                statement.setInt(1, customer_id);
+                statement.setInt(1, new_cus_id);
                 statement.setString(2, new_ser_code);
                 statement.setString(3, resDto.getReservation_date());
                 statement.setString(4, resDto.getReservation_time());
@@ -541,7 +574,7 @@ public class ReservationDAO {
 			connection = dataSource.getConnection();
 
 			// res 테이블에서 service_code, member_id 조회
-			sql = "SELECT service_code, member_id FROM reservation WHERE reservation_no=?";
+			sql = "SELECT service_code, member_id, customer_id FROM reservation WHERE reservation_no=?";
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, reservation_no);
 			resultSet = statement.executeQuery();
@@ -549,9 +582,11 @@ public class ReservationDAO {
 			// resultSet을 통해 ser_code를 가져옴
 			String service_code = null;
 			String member_id = null;
+			int customer_id = 0;
 			if (resultSet.next()) {
 				service_code = resultSet.getString("service_code");
 				member_id = resultSet.getString("member_id");
+				customer_id = resultSet.getInt("customer_id");
 			}
 
 			// 예약 삭제하는 쿼리
@@ -571,6 +606,15 @@ public class ReservationDAO {
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, member_id);
 			statement.executeUpdate();
+			
+			//customer_total 감소하는 쿼리
+		    sql = "UPDATE customer c "
+		    	     + "JOIN service s ON c.customer_id = ? AND s.service_code = ? "
+		    	     + "SET c.customer_total = c.customer_total - s.service_price";
+		    	statement = connection.prepareStatement(sql);
+		    	statement.setInt(1, customer_id);  // customer_id가 첫 번째로 들어가야 함
+		    	statement.setString(2, service_code);  // service_code가 두 번째로 들어가야 함
+		    	statement.executeUpdate();
 
 		} catch(Exception e) {
     		System.out.println("[deleteReservationDTO] Message : " + e.getMessage());

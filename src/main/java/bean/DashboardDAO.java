@@ -15,9 +15,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.json.JSONObject;
-import org.json.JSONParserConfiguration;
-import org.json.JSONArray;
+import org.json.*;
 
 public class DashboardDAO {
     private Context context = null;
@@ -220,18 +218,35 @@ public class DashboardDAO {
      * 예약 날짜 및 예약 서비스명 데이터 모두 추출.
      * @return
      */
-    public List<DashboardDTO> getReservationByDate() {
+    public List<DashboardReservationDTO> getReservationByDate() {
 		if (this.selectedDateStr == null) return null;
 		Date selectedDate = Date.valueOf(this.selectedDateStr);
     	
+		/*
 		String sql = """
 				SELECT a.reservation_time, b.service_name 
 					FROM reservation a 
 					INNER JOIN service b 
 						ON a.service_code = b.service_code 
 						WHERE reservation_date=? ORDER BY reservation_time
+				""".trim(); */
+		String sql = """
+				SELECT 
+					cus.customer_name, 
+					res.reservation_time, 
+					ser.service_name, 
+					mem.member_name 
+				FROM reservation res 
+				INNER JOIN service ser 
+					ON res.service_code = ser.service_code 
+				INNER JOIN customer cus 
+					ON cus.customer_id = res.customer_id 
+				INNER JOIN member mem 
+					ON mem.member_id = res.member_id 
+				WHERE res.reservation_date=? 
+				ORDER BY res.reservation_time 
 				""".trim();
-		ArrayList<DashboardDTO> list = new ArrayList<>();
+		ArrayList<DashboardReservationDTO> list = new ArrayList<>();
 		try {
 			connection = dataSource.getConnection();			
 			statement = connection.prepareStatement(sql);
@@ -239,10 +254,12 @@ public class DashboardDAO {
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()){
-				DashboardDTO board = new DashboardDTO();
+				DashboardReservationDTO board = new DashboardReservationDTO();
 				
 				board.setReservation_time(resultSet.getString("reservation_time"));
 				board.setService_name(resultSet.getString("service_name"));
+				board.setCustomer_name(resultSet.getString("customer_name"));
+				board.setMember_name(resultSet.getString("member_name"));
 				
 				list.add(board);
 			}
