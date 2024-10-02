@@ -15,14 +15,6 @@
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script>
-        function downloadExcel() {
-            var table = document.getElementById("customerTable");
-            var wb = XLSX.utils.table_to_book(table, {sheet: "회원 관리"});
-            XLSX.writeFile(wb, '회원관리.xlsx');
-        }
-    </script>
 </head>
 <body>
     <jsp:useBean id="dao" class="bean.CustomerDAO"/>
@@ -30,7 +22,7 @@
 
 	
 	<div id="app">
-		<%@ include file="/views/header.jsp" %>
+	<jsp:include page="/views/header.jsp" ></jsp:include>
                 <div class="row form-group">
                     <form method="post" action="customer.jsp" class="col-4 d-flex">
                         <input type="date" onclick="this.showPicker()" class="form-control" id="startDate" name="startDate">&nbsp;&nbsp;~&nbsp;&nbsp;
@@ -138,7 +130,7 @@
                         </div>
                     </div>
                     <div class="buttons d-flex justify-content-end align-items-end">
-                        <button onclick="downloadExcel();" class="btn btn-outline-warning" style="margin-right:0px; width: 150px; height: 40px;" >엑셀 다운로드</button>
+                        <button onclick="downloadExcel();" class="btn btn-outline-warning btn-excel"  >엑셀 다운로드</button>
                     </div>
                     <div class="col-12 d-flex justify-content-center align-items-center">
                         <nav aria-label="Page navigation example">
@@ -180,7 +172,7 @@
 						</nav>
                     </div>
                 </section>
-<%@ include file="/views/footer.jsp" %>
+<jsp:include page="/views/footer.jsp"></jsp:include>
         <script>
             function downloadExcel() {
                 var table = document.getElementById("customerTable");

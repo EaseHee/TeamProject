@@ -14,12 +14,11 @@
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
-
 </head>
 <body>
 
     <div id="app">		
-<%@ include file="/views/header.jsp" %>
+<jsp:include page="/views/header.jsp" ></jsp:include>
                 <section class="section">
                 	<form method="post" id="" accept-charset="UTF-8" action="customerAddProc.jsp">
                         <div class="row" id="table-hover-row">
@@ -102,6 +101,6 @@
                         </div>
                     </form>
                 </section>   
-<%@ include file="/views/footer.jsp" %>
+<jsp:include page="/views/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="/TeamProject/views/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/app.css">
     <link rel="shortcut icon" href="/TeamProject/views/assets/images/favicon.svg" type="image/x-icon">
-    <link rel="stylesheet" href="/TeamProject/views/assets/css/dashboardReservation.css" >
+    <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
 
 </head>
 
@@ -31,10 +31,31 @@
     <%
 		ArrayList<DashboardDTO> list0 = (ArrayList<DashboardDTO>) dashDAO.getNotice();		
 		ArrayList<DashboardDTO> list1 = (ArrayList<DashboardDTO>) dashDAO.getProduct();
+		int numPerPage = 5; 	//한 페이지 당 보여질 글의 개수		
+		int totalRecord = 0; 	//총 글의 개수
+		int totalPage = 0; 		//총 페이지 수
+		int nowPage = 0; 		//현재 페이지
+		int beginPerPage = 0; 	//페이지별 시작번호
+		int pagePerBlock = 3;	//블럭 당 페이지 수
+		int totalBlock = 0; 	//총 블럭 수
+		int nowBlock = 0;		//현재 블럭
+		totalRecord = list1.size();
+		totalPage = (totalRecord + numPerPage - 1) / numPerPage;
+		
+		if(request.getParameter("nowPage") != null )
+		nowPage = Integer.parseInt(request.getParameter("nowPage"));
+		
+		beginPerPage = nowPage*numPerPage;
+		totalBlock = (totalPage + pagePerBlock - 1)/pagePerBlock;
+		//totalBlock = (int)Math.ceil((double)totalPage / numPerBlock);
+		
+		if(request.getParameter("nowBlock") != null )
+		nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
+		beginPerPage = nowPage*numPerPage;
     %>
 
     <div id="app">
-		<%@ include file="/views/header.jsp" %>
+		<jsp:include page="/views/header.jsp" ></jsp:include>
                 <section id="basic-list-group">
                     <div class="row match-height">
                         <div class="col-lg-3 col-md-12">                            
@@ -93,7 +114,6 @@
 	                            </ul>
 
 								 <table class="table table-bordered mb-0">
-									<%@ include file="/views/dashProductPaging.jsp" %>
 									<%	//대시보드에 재고 3개 이하 상품 노출
 										for(int i = beginPerPage; i < beginPerPage + numPerPage; i++){
 											if(i==totalRecord) break;
@@ -106,19 +126,42 @@
 									<%
 										}
 									%>
+
 										<tr>
 											<td align="center" colspan="2" class="calendar-wrapper">
-												<a href="dashboard.jsp?nowPage=<%=nowPage - 1%>"><span id="prev" class="icons material-symbols-rounded">chevron_left</span></a>
-											<%												
-												for(int i=0; i < totalPage; i++){
-													//<svg class="dash-dot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>
-											%>
-												<!-- <svg class="dash-dot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256-96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>									 -->
-											<%	
-												}
-											%>
-												<a href="dashboard.jsp?nowPage=<%=nowPage + 1%>"><span id="next" class="icons material-symbols-rounded"">chevron_right</span></a>
+							<ul class="pagination pagination-primary d-flex justify-content-center align-items-center" style="margin-bottom: 0">
+	<li class="page-item <%= (nowBlock==0) && (nowPage==0) ? "disabled" : " "%>">
+		<a class="page-link" href="dashboard.jsp?nowPage=<%=(nowBlock-1)*pagePerBlock%>&nowBlock=<%=nowBlock - 1 %>">
+			<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+		</a>
+	</li>
+<%
+	if(nowBlock != totalBlock-1){
+		for(int i=0; i < pagePerBlock; i++){
+%>
+			<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
+				<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
+			</li>
+<%	
+		}
+	}else{		
+			for(int i=0; i < totalPage%pagePerBlock; i++){
+				%>
+							<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
+								<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
+							</li>
+				<%
+			}
+		}
+	
+%>
+	<li class="page-item <%= (nowBlock==totalBlock-1) && (nowPage==totalPage-1) ? "disabled" : " "%>">
+		<a class="page-link" href="dashboard.jsp?nowPage=<%=(nowBlock+1)*pagePerBlock%>&nowBlock=<%=nowBlock + 1 %>">
+			<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+		</a>
+	</li>
 
+							</ul>
 											</td>
 										</tr>
 										
@@ -188,7 +231,7 @@
                 	</div>
                         
                 </section>
-			<%@ include file="/views/footer.jsp" %>
+			<jsp:include page="/views/footer.jsp"></jsp:include>
 
 </body>
 

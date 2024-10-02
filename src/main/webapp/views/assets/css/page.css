@@ -17,6 +17,11 @@
             width: 50px;
             cursor: pointer;
         }
+        .btn-excel{
+        	margin-right:0px; 
+        	width: 150px; 
+        	height: 40px;
+        }
 		.list-group-item.detail{
 			font-size: small;
 			white-space: nowrap; /* 텍스트 줄바꿈 방지 */
