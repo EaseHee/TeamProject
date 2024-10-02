@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.Objects;
+
 public class MypageDTO {
 	private String branch_code;
 	private String manager_name; 
@@ -31,4 +33,18 @@ public class MypageDTO {
 		this.manager_mail = manager_mail;
 	}
 	
+	@Override
+    public String toString() {
+        return "MypageDTO{" +
+                "manager_name='" + manager_name + '\'' +
+                ", manager_tel='" + manager_tel + '\'' +
+                ", manager_mail='" + manager_mail + '\'' +
+                ", branch_code='" + branch_code + '\'' +
+                '}';
+    }
+	
+	@Override
+    public int hashCode() {
+        return Objects.hashCode(branch_code);
+    }
 }

@@ -1,3 +1,26 @@
+/*
+	개발자 지정 HTML 요소의 속성값들을 정의 및 관리.
+	js : camel case, html-attr : dash case
+*/
+let customAttributeMap = {
+	nowPage: "now-page", // 현재 페이지 번호를 기록하기 위한 속성. 
+	pageNum: "page-num", // 페이지 바의 각 아이콘에 페이지 번호를 부여하기 위한 속성. 
+};
+
+/*
+	이미 정의된 속성값들을 모음. 
+	지금 현재는 불필요한 변수이나, 나중에 필요할 수도 있어 일단 남김.
+*/
+let fixedAttributeValueMap = {
+	pageBar : {
+		// 현재 페이지일 경우 색칠된 아이콘으로
+		currentYes : "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z",
+		
+		// 현재 페이지가 아닐 경우 색칠되지 않은 아이콘으로
+		currentNo : "M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256-96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"
+	}
+}
+
 /**
  * 캘린더와 예약현황 카드 연계 로직을 위한 클래스. 
  * 
@@ -23,6 +46,8 @@ class CalendarAndReservation {
 			this._initVarsForPaging();
 
 			this.jsonToolObj;
+
+			this.columnNums = 4;
 		}
 
 		/**
@@ -37,7 +62,7 @@ class CalendarAndReservation {
 		 * 페이징 기능을 위한 변수 초기화.
 		 */
 		_initVarsForPaging() {
-			this.numRecordsPerPage = 1; // 한 페이지에 보여줄 데이터 개수. 이미 정해진 수
+			this.numRecordsPerPage = 5; // 한 페이지에 보여줄 데이터 개수. 이미 정해진 수
 
 			this.currentPageNum = 1; // 현재 페이지 번호. 
 			this.totalPages = 1;  // 전체 페이지 수. 
@@ -49,7 +74,7 @@ class CalendarAndReservation {
 		 * json 데이터를 받아 페이징 관련 변수들을 할당. 
 		 */
 		_setVarsForPaging() {
-			this.currentPageNum = parseInt(this.reservationTableElement.getAttribute("nowPage"));
+			this.currentPageNum = parseInt(this.reservationTableElement.getAttribute(customAttributeMap.nowPage));
 			this.totalPages = Math.ceil(this.jsonToolObj.getPropertyLength() / this.numRecordsPerPage);
 			this.startRecordNum = 1 + (this.currentPageNum - 1) * this.numRecordsPerPage;
 			this.endRecordNum = this.currentPageNum * this.numRecordsPerPage; 
@@ -61,7 +86,7 @@ class CalendarAndReservation {
 		noReservationTableInnerHTML() {
 			this.reservationTableElement.innerHTML = `
 				<tr>
-					<td class="text-bold-500" colspan="2">예약현황이 없습니다.</td>
+					<td class="text-bold-500" colspan="${this.columnNums}">예약현황이 없습니다.</td>
 				</tr>`;
 		}
 			
@@ -69,7 +94,12 @@ class CalendarAndReservation {
 	     * 예약현황 데이터를 모두 없앤다. 
 		 */
 	    clearReservationTableInnerHTML() {
-			this.reservationTableElement.innerHTML = `<tr></tr>`;
+			this.reservationTableElement.innerHTML = `<tr>
+				<th>예약 시간</th>
+				<th>서비스</th>
+				<th>고객</th>
+				<th>디자이너</th>
+			</tr>`;
 		}
 
 		/**
@@ -95,10 +125,12 @@ class CalendarAndReservation {
 				</tr>
 			*/
 			for (let i = this.startRecordNum; i <= this.endRecordNum; i++) {
+				if (this.jsonToolObj.getPropertyLength() < i) break; 
 				let tr = document.createElement("tr");
 				for (let j = 0; j < data[i].length; j++) {
 					let td = document.createElement("td");
-					td.setAttribute("class", "text-bold-500");
+					td.classList.add("text-bold-500");
+					td.style = "text-align: center;";
 					
 					let textNode = document.createTextNode(data[i][j]);
 					
@@ -121,7 +153,7 @@ class CalendarAndReservation {
 					<span id="prev" class="icons material-symbols-rounded" style="display: inline-block; transform: translateY(3px);">
 						chevron_left
 					</span>
-					<i class="bi bi-dot"></i>  // 페이지 개수만큼!
+					<svg ...>...</svg>  // 페이지 개수만큼!
 					<span id="next" class="icons material-symbols-rounded " style="display: inline-block; transform: translateY(3px);">
 						chevron_right
 					</span>
@@ -132,7 +164,8 @@ class CalendarAndReservation {
 			let tr = document.createElement("tr");
 
 			/**
-			 * 화살표 함수 내부에서의 this는 인스턴스를 가리키지 않으므로(즉, 정보를 잃어버림) 대신 익명함수를 사용해야 한다. 
+			 * 화살표 함수 내부에서의 this는 인스턴스를 가리키지 않으므로(즉, 정보를 잃어버림) 대신 익명함수나 다른 
+			 * 함수를 사용해야 한다. 
 			 * 함수명.bind(this)를 통해 this가 ManipulateReservationTable 객체라는 정보를 전달해준다. 
 			 * 
 			 * 예약현황 table 태그에 nowPage 속성을 부여하여 현재 페이지를 기록하게 하고, 이 정보를 토대로 
@@ -141,7 +174,7 @@ class CalendarAndReservation {
 			 * @returns 
 			 */
 			function trEventHandler(event) {
-				let trNowPageNum = parseInt(this.reservationTableElement.getAttribute("nowPage"));
+				let trNowPageNum = parseInt(this.reservationTableElement.getAttribute(customAttributeMap.nowPage));
 				switch (event.target.tagName) {
 					case "SPAN":
 						const spanPrevNextId = event.target.getAttribute("id");
@@ -149,14 +182,18 @@ class CalendarAndReservation {
 							(spanPrevNextId == "next" && trNowPageNum >= this.totalPages)) return;
 
 						if (spanPrevNextId == "prev") {
-							this.reservationTableElement.setAttribute("nowPage", `${--trNowPageNum}`);
+							this.reservationTableElement.setAttribute(customAttributeMap.nowPage , `${--trNowPageNum}`);
 						} else if (spanPrevNextId == "next") {
-							this.reservationTableElement.setAttribute("nowPage", `${++trNowPageNum}`);
+							this.reservationTableElement.setAttribute(customAttributeMap.nowPage, `${++trNowPageNum}`);
 						}
 
 						break;
+					// 수정 필요.
 					case "I":
-						this.reservationTableElement.setAttribute("nowPage", event.target.getAttribute("pageNum"));
+						this.reservationTableElement.setAttribute(
+							customAttributeMap.nowPage, 
+							event.target.getAttribute(customAttributeMap.pageNum)
+						);
 						break;
 				}
 				this.constructReservationTable();
@@ -165,8 +202,7 @@ class CalendarAndReservation {
 			tr.addEventListener("click", trEventHandler.bind(this));
 
 			let td = document.createElement("td");
-			td.setAttribute("align", "center");
-			td.setAttribute("colspan", "2");
+			td.setAttribute("colspan", `${this.columnNums}`);
 			td.classList.add("calendar-wrapper");
 
 			/**
@@ -206,8 +242,14 @@ class CalendarAndReservation {
 			// < ... > 요소 넣기
 			td.appendChild(spans.left);
 			
-			// 총 페이지 수 만큼의 점(.) 기호를 출력. 
-			// ex) <i class="bi bi-bot" pageNum="1"></i>
+			// 총 페이지 수 만큼 각 페이지들을 의미하는 기호를 출력. 
+			/*
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+					<!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+					<path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/>
+				</svg>
+			*/
+			// 
 			for (let i = 0; i < this.totalPages; i++) {
 				const iElement = document.createElement("i");
 				// class="bi bi-dot"
@@ -215,7 +257,7 @@ class CalendarAndReservation {
 				iElement.classList.add("bi-dot");
 
 				// 각 i 태그에 페이지 번호를 pageNum 속성값으로 매핑한다. 
-				iElement.setAttribute("pageNum", `${i+1}`);
+				iElement.setAttribute(customAttributeMap.pageNum, `${i+1}`);
 				td.appendChild(iElement);
 			}
 
@@ -223,7 +265,6 @@ class CalendarAndReservation {
 			// < ... > 요소 넣기 끝
 
 			tr.appendChild(td);
-			//this.reservationTableElement.appendChild(tr);
 			this.reservationTableElement.querySelector("tbody").appendChild(tr);
 		}
 		
@@ -324,7 +365,7 @@ class CalendarAndReservation {
 		);
 
 		// 예약현황 <table> 요소에 현재 페이지 번호 정보 남김. 
-		this.reservationTable.setAttribute("nowPage", "1");
+		this.reservationTable.setAttribute(customAttributeMap.nowPage, "1");
 		
 		// 사용자가 보고 있는 달에 해당하는 달력 칸 요소들.
 		this.activeCells = document.querySelectorAll(".days > li:not(.inactive)");
@@ -382,13 +423,13 @@ class CalendarAndReservation {
 			.then(data => {
 				this.jsonTool.setJsonData(data);
 				this.reservationTableTool.setJsonToolObj(this.jsonTool);
-				this.reservationTable.setAttribute("nowPage", "1"); // 현재 페이지를 항상 1로 초기화.
+				this.reservationTable.setAttribute(customAttributeMap.nowPage, "1"); // 현재 페이지를 항상 1로 초기화.
 				this.reservationTableTool.constructReservationTable();
 			});
 	}
 	
 }
-//console.log("new hi2"); // For test
+console.log("new hi2"); // For test
 
 new CalendarAndReservation();
 
