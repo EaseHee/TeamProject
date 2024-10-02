@@ -275,6 +275,13 @@
                 	<form method="post" action="customerUpdateProc.jsp" accept-charset="UTF-8">
                 	<input type="hidden" name="customer_id" value="<%=customer_id%>" />
                         <div class="row" id="table-hover-row">
+                        	<div class="col-lg-12 mb-12">
+                                <div class="input-group mb-12">
+                                    <span class="input-group-text" id="basic-addon1">회원 ID</span>
+									<input type="text" class="form-control" name="customer_id" value="<%=customer_id%>"  />
+                                </div>
+                            </div>
+                            <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">회원 이름</span>
@@ -295,7 +302,7 @@
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
 									<span class="input-group-text" id="basic-addon1">회원 연락처</span> 
-									<input type="date" class="form-control" name="customer_tel" value="<%=customer_tel%>" placeholder="연락처를 입력해 주세요.">
+									<input type="text" class="form-control" name="customer_tel" value="<%=customer_tel%>" placeholder="연락처를 입력해 주세요.">
 								</div>
 							</div>
 							<br><br><br>
@@ -315,7 +322,7 @@
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">성별</span>
+                                    <span class="input-group-text" id="basic-addon1">회원등급</span>
 						            <select class="choices form-select search-filter" name="customer_rank" style="width: 80px; display: inline-block;">
 							            <option value="GOLD" <%= "GOLD".equals(customer_rank) ? "selected" : "" %>>GOLD</option>
 							            <option value="SILVER" <%= "SILVER".equals(customer_rank) ? "selected" : "" %>>SILVER</option>
