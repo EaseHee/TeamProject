@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="/TeamProject/views/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/app.css">
     <link rel="shortcut icon" href="/TeamProject/views/assets/images/favicon.svg" type="image/x-icon">
-    <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
+    <link rel="stylesheet" href="/TeamProject/views/assets/css/dashboardReservation.css" >
 
 </head>
 
