@@ -23,11 +23,11 @@ class DashboardChart {
   }
 
   _setEventHandler() {
-    document.querySelector(".prevMonth").addEventListener("click", () => {
+    document.getElementById("prevMonth").addEventListener("click", () => {
       this.indexMonth += 1;
       this._fetchAndShowChart();
     });
-    document.querySelector(".nextMonth").addEventListener("click", () => {
+    document.getElementById("nextMonth").addEventListener("click", () => {
       this.indexMonth -= 1;
       this._fetchAndShowChart();
     });

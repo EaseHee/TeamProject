@@ -160,8 +160,8 @@ public class DashboardDAO {
 
             // 월별 서비스 매출액 조회
 			sql ="SELECT service_name, reservation_date FROM service INNER JOIN reservation " + 
-                    "ON reservation_date >= DATE_SUB(now(), INTERVAL " + indexMonth + " +1 MONTH) " +
-                    "AND reservation_date <= DATE_SUB(now(), INTERVAL " + indexMonth + " MONTH)";
+                    "ON reservation_date >= DATE_SUB(now(), INTERVAL " + indexMonth + " +3 DAY) " +
+                    "AND reservation_date <= DATE_SUB(now(), INTERVAL " + indexMonth + " DAY)";
 
 			statement = connection.prepareStatement(sql);			
             resultSet = statement.executeQuery();
