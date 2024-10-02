@@ -3,9 +3,16 @@
 	text-align: center;  /* 텍스트 데이터들을 칸 내에서 가운데 정렬. */
 }
 
-#current-reservation tbody span[page-num] {
-	width: 1em;
-	margin: 0em 1em;
-	padding-bottom: 1em;
-	border-width: 0em 1em 0em 1em;
+#current-reservation tbody tr td.calendar-wrapper span[page-num] {
+	position: relative; 
+	bottom: 0.2em;
+	padding: 0.5em;
+}
+
+#current-reservation tbody tr td.calendar-wrapper span {
+	cursor: pointer;
+}
+
+#current-reservation tbody tr td.calendar-wrapper span:hover {
+	background-color: #f2f2f2;
 }

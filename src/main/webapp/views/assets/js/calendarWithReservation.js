@@ -62,7 +62,7 @@ class CalendarAndReservation {
 		 * 페이징 기능을 위한 변수 초기화.
 		 */
 		_initVarsForPaging() {
-			this.numRecordsPerPage = 1; // 한 페이지에 보여줄 데이터 개수. 이미 정해진 수
+			this.numRecordsPerPage = 5; // 한 페이지에 보여줄 데이터 개수. 이미 여기서 정하면 변치 않는다. 
 
 			this.currentPageNum = 1; // 현재 페이지 번호. 
 			this.totalPages = 1;  // 전체 페이지 수. 
@@ -153,7 +153,7 @@ class CalendarAndReservation {
 					<span id="prev" class="icons material-symbols-rounded" style="display: inline-block; transform: translateY(3px);">
 						chevron_left
 					</span>
-					<svg ...>...</svg>  // 페이지 개수만큼!
+					<span ...>...</span>  // 페이지 개수만큼!
 					<span id="next" class="icons material-symbols-rounded " style="display: inline-block; transform: translateY(3px);">
 						chevron_right
 					</span>
@@ -185,16 +185,23 @@ class CalendarAndReservation {
 							this.reservationTableElement.setAttribute(customAttributeMap.nowPage , `${--trNowPageNum}`);
 						} else if (spanPrevNextId == "next") {
 							this.reservationTableElement.setAttribute(customAttributeMap.nowPage, `${++trNowPageNum}`);
+						} else if (event.target.getAttribute(customAttributeMap.pageNum) != null) {
+							this.reservationTableElement.setAttribute(
+								customAttributeMap.nowPage, 
+								event.target.getAttribute(customAttributeMap.pageNum)
+							);
 						}
 
 						break;
 					// 수정 필요.
+					/*
 					case "I":
 						this.reservationTableElement.setAttribute(
 							customAttributeMap.nowPage, 
 							event.target.getAttribute(customAttributeMap.pageNum)
 						);
 						break;
+					*/
 				}
 				this.constructReservationTable();
 			}
@@ -438,7 +445,7 @@ class CalendarAndReservation {
 	}
 	
 }
-//console.log("new hi4"); // For test
+//console.log("new hi2"); // For test
 
 new CalendarAndReservation();
 
