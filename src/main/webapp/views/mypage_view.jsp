@@ -1,3 +1,8 @@
+<%@page import="bean.MypageDAO"%>
+<%@ page import="bean.MypageDTO"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
+<%@ page session="true" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -18,55 +23,65 @@
 <link rel="stylesheet" href="assets/css/app.css">
 <link rel="shortcut icon" href="assets/images/favicon.svg"
 	type="image/x-icon">
-		<style>
-	    button {
-            background-color: rgb(42, 105, 241);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            height: 25px;
-            width: 90px;
-            cursor: pointer;
-        }
-		a {
-		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
-		    text-decoration: none;  /* 밑줄 없애기 */
-		}		
-		a:visited {
-		    color: inherit;
-		}		
-		a:hover {
-		    color: inherit;
-		}		
-		a:active {
-		    color: inherit;
-		}
-		.list-group-item.detail{
-			font-size: small;
-		}
-		.bi-plus-square {
-			display: inline-block;
-			transform: translateY(2px);
-		}
-		.bi-person-fill{
-			display: inline-block;
-			transform: translateY(6px);
-			margin-right: 5px;
-		}
-		.bi-bell-fill{
-			display: inline-block;
-			transform: translateY(3px);
-			margin-right: 5px;
-		}
-		.bi-box-arrow-right{
-			display: inline-block;
-			transform: translateY(3px);
-		}
-		.input-group-text{
-        	display: inline-block; 
-        	width: 20%;
-        } 
-	</style>
+<style>
+button {
+	background-color: rgb(42, 105, 241);
+	color: white;
+	border: none;
+	border-radius: 5px;
+	height: 25px;
+	width: 90px;
+	cursor: pointer;
+}
+
+a {
+	color: inherit; /* 부모 요소의 텍스트 색상을 따르도록 설정 */
+	text-decoration: none; /* 밑줄 없애기 */
+}
+
+a:visited {
+	color: inherit;
+}
+
+a:hover {
+	color: inherit;
+}
+
+a:active {
+	color: inherit;
+}
+
+.list-group-item.detail {
+	font-size: small;
+}
+
+.bi-plus-square {
+	display: inline-block;
+	transform: translateY(2px);
+}
+
+.bi-person-fill {
+	display: inline-block;
+	transform: translateY(6px);
+	margin-right: 5px;
+}
+
+.bi-bell-fill {
+	display: inline-block;
+	transform: translateY(3px);
+	margin-right: 5px;
+}
+
+.bi-box-arrow-right {
+	display: inline-block;
+	transform: translateY(3px);
+}
+
+.input-group-text {
+	display: inline-block;
+	width: 20%;
+}
+</style>
 </head>
 
 <body>
@@ -258,30 +273,111 @@
                         		</div>
 							</div>
 						</div>
-					</form>
-				</section>
+						<div class="col-12 col-md-6 order-md-2 order-first">
+							<nav aria-label="breadcrumb"
+								class="breadcrumb-header float-start float-lg-end">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item">
+									<!-- 마이페이지 버튼 -->
+									<form action="mypage_view.jsp" method="get" style="display: inline; margin: 0;">
+											    <input type="hidden" name="branchcode" value="<%=branchcode %>">
+											    <button type="submit" style="background: none; border: none; padding: 0; width: 25px">
+											        <i class="bi bi-person-fill text-primary" style="font-size:x-large;"></i>
+											    </button>
+											</form>
+										
+										
+										 <i class="bi bi-bell-fill text-primary"
+										style="font-size: larger; line-height: 10px;"></i> <a
+										href="login.jsp"><span class="badges badge bg-primary">로그아웃<i
+												class="bi bi-box-arrow-right "></i></span></a></li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
+				<hr style="height: 5px;">
+				<br>
+				<br>
+				<br>
+				<!-- MYPAGE 시작 -->
 
-                <!-- MYPAGE 종료 -->
-                <br><br><br>
-                <footer>
-                    <div class="footer clearfix mb-0 text-muted">
-                        <div class="float-start">
-                            <p>2024 &copy; ACORN</p>
-                        </div>
-                        <div class="float-end">
-                            <p>
-                                <span class="text-danger"><i class="bi bi-heart"></i></span>
-                                by <a href="#main">거니네조</a>
-                            </p>
+            <section class="section">
+                <form action="mypage_update.jsp" method="get">
+                    <div class="container">
+                        <div class="row" id="table-hover-row">
+                            <div class="col-lg-12 mb-4 mb-sm-5">
+                                <div class="card card-style1 border-0">
+                                    <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-5 mb-4 mb-lg-0">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="315">
+                                            </div>
+                                            <div class="col-lg-7 px-xl-10">
+                                                <ul class="list-unstyled mb-1-9">
+                                                    <li class="input-group mb-2 mb-xl-3 display-28">
+                                                        <span class="input-group-text" id="basic-addon1">지점 코드</span>
+                                                        <input type="text" class="form-control" name="branchcode" 
+                                                        value="<%= manager.getBranch_code() %>" readonly="readonly" />
+                                                    </li>
+                                                    <li class="input-group mb-2 mb-xl-3 display-28">
+                                                        <span class="input-group-text">이 름</span>
+                                                        <input type="text" class="form-control" name="name" 
+                                                        value="<%= manager.getManager_name() %>" readonly="readonly"/>
+                                                    </li>
+                                                    <li class="input-group mb-2 mb-xl-3 display-28">
+                                                        <span class="input-group-text">전화 번호</span>
+                                                        <input type="text" class="form-control" name="tel" 
+                                                        value="<%= manager.getManager_tel() %>" readonly="readonly"/>
+                                                    </li>
+                                                    <li class="input-group mb-2 mb-xl-3 display-28">
+                                                        <span class="input-group-text">이메일</span>
+                                                        <input type="email" class="form-control" name="mail" 
+                                                        value="<%= manager.getManager_mail() %>" readonly="readonly"/>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <!-- 버튼 -->
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                                <button type="submit">수정하기</button>
+                                            </div>
+                                            <!-- 종료 -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </footer>
-            </div>
-        </div>
-    </div>
-<script	src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/main.js"></script></body>
+                </form>
+            </section>
+<% 
+        } 
+    } 
+%>
+<!-- MYPAGE 종료 -->
+				<br>
+				<br>
+				<br>
+				<footer>
+					<div class="footer clearfix mb-0 text-muted">
+						<div class="float-start">
+							<p>2024 &copy; ACORN</p>
+						</div>
+						<div class="float-end">
+							<p>
+								<span class="text-danger"><i class="bi bi-heart"></i></span> by
+								<a href="#main">거니네조</a>
+							</p>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
+	<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="assets/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
 
 </html>
 </body>

@@ -24,7 +24,7 @@
 				<li>
 					java.bean.DashBoardDAO
 					<ul>
-						<li>public List&lt;DashboardDTO&gt; getReservationByDate()</li>
+						<li>public List&lt;DashboardReservationDTO&gt; getReservationByDate()</li>
 						<li>public void setSelectedDate(String selectedDateStr)</li>
 					</ul>
 				</li>
@@ -48,6 +48,8 @@
 			<tr>
 				<th>예약 시간</th>
 				<th>예약 서비스명</th>
+				<th>고객명</th>
+				<th>배정 디자이너</th>
 			</tr>
 			<c:choose>
 				<c:when test="${ empty param.date }">
@@ -62,13 +64,15 @@
 						<c:choose>
 							<c:when test="${ empty dao.reservationByDate }">
 								<tr>
-									<td colspan="2">조회 결과가 없습니다.</td>
+									<td colspan="4">조회 결과가 없습니다.</td>
 								</tr>
 							</c:when>
 							<c:otherwise>
 								<tr>
 									<td>${ empty oneRecord.reservation_time ? "-" : oneRecord.reservation_time }</td>
 									<td>${ empty oneRecord.service_name ? "-" : oneRecord.service_name }</td>
+									<td>${ empty oneRecord.customer_name ? "-" : oneRecord.customer_name }</td>
+									<td>${ empty oneRecord.member_name ? "-" : oneRecord.member_name }</td>
 								</tr>
 							</c:otherwise>
 						</c:choose>

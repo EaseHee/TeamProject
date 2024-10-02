@@ -101,3 +101,4 @@ header .current-date{
 .days li:not(.active):hover::before{
   background: #f2f2f2;
 }
+

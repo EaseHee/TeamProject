@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notice</title>
+    <title>공지사항</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">    
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -58,6 +58,32 @@
         	border: none;
         	border-radius: 10px;
         	padding: 50px;
+        }
+        .comment {
+        	width: 100%;
+        	border: none;
+        	outline: none;
+        	resize: none;
+        }
+        .img-profile {
+        	width: 80px;
+        	height: 80px;
+        	background-color: rgb(37, 57, 111);
+        	font-size: 12px;
+        	color: white;
+        	display: flex;
+        	justify-content: center;
+        	align-items: center;
+        	border-radius: 50%;
+        	margin-right: 16px;
+        }
+        form {
+        	background-color: white;
+        	border:solid;
+        	border-width: 1px;
+        	border-radius: 5px;
+        	border-color: rgb(37, 57, 111);
+        	overflow: hidden;
         }
 	</style>
 </head>
@@ -178,7 +204,7 @@
                         </li>
                     </ul>
                 </div>
-                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+                <button type="button" class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>
         </div>
 	        <div id="main">
@@ -233,11 +259,11 @@
 		                    		// 조회 가능한 공지사항 범위를 넘어선 글의 번호를 가져오면 null이 아니라 0이 반환됨. int의 기본값이라 그런 듯? 
 		                    		if(previousNotice.getNotice_no() != 0){
 		                    	%>		<!-- 이전 게시글이 있을 때에만 보이는 버튼 -->
-				                    	<button onclick="location.href='notice_view.jsp?notice_no=<%=previousNotice.getNotice_no()%>'">이전</button>
+				                    	<button type="button" onclick="location.href='notice_view.jsp?notice_no=<%=previousNotice.getNotice_no()%>'">이전</button>
 		                    	<%
 		                    		} else {
 		                    	%>		<!-- 자리만 차지하고 있는 버튼 -->
-		                    			<button disabled aria-disabled="true" style="visibility: hidden;">이전</button>
+		                    			<button type="button" disabled aria-disabled="true" style="visibility: hidden;">이전</button>
 		                    	<%
 		                    		}
 		                    	%>
@@ -245,15 +271,178 @@
                     			<%
 									if(nextNotice.getNotice_no() != 0){
 								%>		<!-- 다음 게시글이 있을 때에만 보이는 버튼 -->
-										<button onclick="location.href='notice_view.jsp?notice_no=<%=nextNotice.getNotice_no()%>'">다음</button>
+										<button type="button" onclick="location.href='notice_view.jsp?notice_no=<%=nextNotice.getNotice_no()%>'">다음</button>
 								<%
 									} else {
 								%>		<!-- 자리만 차지하고 있는 버튼 -->
-										<button disabled aria-disabled="true" style="visibility: hidden;">다음</button>
+										<button type="button" disabled aria-disabled="true" style="visibility: hidden;">다음</button>
 								<%
 									}
 								%>
 		                    </div>
+		                </div>
+		                <div>
+		                    <form class="mb-5">
+		                    	<textarea class="comment" rows="3" placeholder="매니저님들의 의견을 들려주세요!"></textarea>
+		                    	<table class="w-100">
+		                    		<tr>
+		                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+		                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
+		                    		</tr>
+		                    	</table>
+		                    </form>
+	                    </div>
+		                <div>
+		               		<table>
+		               			<tr>
+		               				<td class="align-top">
+		               					<div class="img-profile">프로필 사진</div>
+		               				</td>
+		               				<td class="w-100">
+		               					<table class="w-100">
+		               						<tr><td><b>매니저A</b> 2024.01.01 10:00</td></tr>
+		               						<tr><td>매니저A의 댓글...</td></tr>
+		               						<tr class="text-end"><td><a href="#">삭제</a> <a href="#">수정</a> <a data-bs-toggle="collapse" href="#collapseReply1" aria-expanded="false" aria-controls="collapseReply1">답글</a></td></tr>
+		               						<tr>
+		               							<td>
+		               								<form class="collapse mt-2" id="collapseReply1">
+								                    	<textarea class="comment" rows="3" placeholder="매니저A에게 답글을 작성..."></textarea>
+								                    	<table class="w-100">
+								                    		<tr>
+								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+								                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
+								                    		</tr>
+								                    	</table>
+								                    </form>
+		               							</td>
+		               						</tr>
+		               					</table>
+		               				</td>
+		               			</tr>
+		               		</table>
+		               		<div>
+	                    </div>
+		               		<hr/>
+		                </div>
+		                <div style="margin-left: 80px;">
+		               		<table>
+		               			<tr>
+		               				<td class="align-top">
+		               					<div class="img-profile">본사 로고</div>
+		               				</td>
+		               				<td class="w-100">
+		               					<table class="w-100">
+		               						<tr><td><b style="color: rgb(37, 57, 111);">관리자</b> 2024.01.01 10:00</td></tr>
+		               						<tr><td>관리자의 댓글...</td></tr>
+		               						<tr class="text-end"><td><a data-bs-toggle="collapse" href="#collapseReply2" aria-expanded="false" aria-controls="collapseReply2">답글</a></td></tr>
+		               						<tr>
+		               							<td>
+		               								<form class="collapse mt-2" id="collapseReply2">
+								                    	<textarea class="comment" rows="3" placeholder="관리자에게 답글을 작성..."></textarea>
+								                    	<table class="w-100">
+								                    		<tr>
+								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+								                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
+								                    		</tr>
+								                    	</table>
+								                    </form>
+		               							</td>
+		               						</tr>
+		               					</table>
+		               				</td>
+		               			</tr>
+		               		</table>
+		               		<hr/>
+		                </div>
+		                <div style="margin-left: 80px;">
+		               		<table>
+		               			<tr>
+		               				<td class="align-top">
+		               					<div class="img-profile">프로필 사진</div>
+		               				</td>
+		               				<td class="w-100">
+		               					<table class="w-100">
+		               						<tr><td><b>매니저B</b> 2024.01.01 10:00</td></tr>
+		               						<tr><td><b>@관리자</b> 매니저B의 댓글...</td></tr>
+		               						<tr class="text-end"><td><a href="#">삭제</a> <a href="#">수정</a> <a data-bs-toggle="collapse" href="#collapseReply3" aria-expanded="false" aria-controls="collapseReply3">답글</a></td></tr>
+		               						<tr>
+		               							<td>
+		               								<form class="collapse mt-2" id="collapseReply3">
+								                    	<textarea class="comment" rows="3" placeholder="매니저B에게 답글을 작성..."></textarea>
+								                    	<table class="w-100">
+								                    		<tr>
+								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+								                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
+								                    		</tr>
+								                    	</table>
+								                    </form>
+		               							</td>
+		               						</tr>
+		               					</table>
+		               				</td>
+		               			</tr>
+		               		</table>
+		               		<hr/>
+		                </div>
+		                <div style="margin-left: 80px;">
+		               		<table>
+		               			<tr>
+		               				<td class="align-top">
+		               					<div class="img-profile">본사 로고</div>
+		               				</td>
+		               				<td class="w-100">
+		               					<table class="w-100">
+		               						<tr><td><b style="color: rgb(37, 57, 111);">관리자</b> 2024.01.01 10:00</td></tr>
+		               						<tr><td><b>@매니저B</b> 관리자의 댓글...<br>관리자의 댓글...<br>관리자의 댓글...<br>관리자의 댓글...</td></tr>
+		               						<tr class="text-end"><td><a data-bs-toggle="collapse" href="#collapseReply4" aria-expanded="false" aria-controls="collapseReply4">답글</a></td></tr>
+		               						<tr>
+		               							<td>
+		               								<form class="collapse mt-2" id="collapseReply4">
+								                    	<textarea class="comment" rows="3" placeholder="관리자에게 답글을 작성..."></textarea>
+								                    	<table class="w-100">
+								                    		<tr>
+								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+								                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
+								                    		</tr>
+								                    	</table>
+								                    </form>
+		               							</td>
+		               						</tr>
+		               					</table>
+		               				</td>
+		               			</tr>
+		               		</table>
+		               		<hr/>
+		                </div>
+		                <div>
+		               		<table>
+		               			<tr>
+		               				<td class="align-top">
+		               					<div class="img-profile">프로필 사진</div>
+		               				</td>
+		               				<td class="w-100">
+		               					<table class="w-100">
+		               						<tr><td><b>매니저B</b> 2024.01.01 10:00</td></tr>
+		               						<tr><td>매니저B의 댓글...</td></tr>
+		               						<tr class="text-end"><td><a data-bs-toggle="collapse" href="#collapseReply5" aria-expanded="false" aria-controls="collapseReply5">답글</a></td></tr>
+		               						<tr>
+		               							<td>
+		               								<form class="collapse mt-2" id="collapseReply5">
+								                    	<textarea class="comment" rows="3" placeholder="매니저B에게 답글을 작성..."></textarea>
+								                    	<table class="w-100">
+								                    		<tr>
+								                    			<td style="background-color: rgb(245, 245, 245);">0/500</td>
+								                    			<td style="text-align: center; width: 50px; background-color: rgb(230, 230, 230); cursor: pointer;" onclick="location.href='#'">입력</td>
+								                    		</tr>
+								                    	</table>
+								                    </form>
+		               							</td>
+		               						</tr>
+		               					</table>
+		               				</td>
+		               			</tr>
+		               		</table>
+		               		<hr/>
 		                </div>
                 </section>
 	            <footer>
