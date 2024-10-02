@@ -48,6 +48,8 @@
 		}else if(currentUrl.includes('notice')){
 			document.getElementById('notice-li').classList.add('active')
 			document.getElementById('header-text').textContent = '공지'
+		}else if(currentUrl.includes('mypage')){
+			document.getElementById('header-text').textContent = '마이 페이지'
 		}else{
 			window.alert('존재하지 않는 페이지 입니다.')
 		}
