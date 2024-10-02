@@ -90,27 +90,6 @@
 		}		
 		beginPerPage1 = nowPage1*numPerPage;
 		
-		int totalRecord2 = 0; 	//총 글의 개수
-		int totalPage2 = 0; 		//총 페이지 수
-		int nowPage2 = 0; 		//현재 페이지
-		int beginPerPage2 = 0; 	//페이지별 시작번호
-		ArrayList<DashboardDTO> list2 = (ArrayList<DashboardDTO>) dashDAO.getReservation();
-		totalRecord2 = list2.size();
-		totalPage2 = (totalRecord2 + numPerPage - 1) / numPerPage;
-		if(request.getParameter("nowPage2") != null ){
-			nowPage2 = Integer.parseInt(request.getParameter("nowPage2"));
-			if(nowPage2 == -1){
-				if(totalPage2 > 0){
-					nowPage2 = totalPage2 - 1;
-				}
-				else nowPage2 = 0;
-			}
-			if(nowPage2 == totalPage2){
-				nowPage2 = 0;
-			}											
-		}		
-		beginPerPage2 = nowPage2*numPerPage;
-		
 		String branchName = (String)session.getAttribute("branchName");
     %>
 
@@ -248,10 +227,10 @@
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                    	<b><%=branchName%></b>
+                                    <b><%=branchName%>&nbsp;&nbsp;&nbsp;</b>
 	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
 	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃<i class="bi bi-box-arrow-right " ></i></span></a>
+                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃&nbsp;<i class="bi bi-box-arrow-right " ></i></span></a>
                                    	</li>
                                 </ol>
                             </nav>
