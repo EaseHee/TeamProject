@@ -80,7 +80,7 @@
 <jsp:include page="/views/header.jsp" ></jsp:include>              
 					<div class="row form-group">
 
-						<form method="post" action="member.jsp" class="col-4 d-flex align-items-end search-filter">
+						<form method="post" action="member.jsp" class="col-5 d-flex align-items-end search-filter">
 						        <select name="keyField" class="choices form-select" style="width: 150px; display: block;">
 						            <option value="member_name">직원 명</option>
 						            <option value="member_job">직원 직책</option>
@@ -88,7 +88,7 @@
 						        <input type="text" name="filterValue" id="filterValue" placeholder="검색어를 입력해주세요" class="form-control">
 						        <input type="submit" class="btn btn-outline-success" value="조회">
 						</form>
-						<form class="col-4 d-flex"></form >
+						<form class="col-3 d-flex"></form >
 						<form class="col-4 d-flex justify-content-end align-items-end">
 					    	<a href="member_Post.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
 					    </form>
@@ -133,7 +133,7 @@
 						</div>
 					</div>
 					<div class="buttons d-flex justify-content-end align-items-end">
-						<button onclick="downloadExcel();" class="btn btn-outline-warning btn-excel"">
+						<button onclick="downloadExcel();" class="btn-excel btn btn-outline-warning ">
 							엑셀 다운로드</button>
 					</div>
 										<div class="col-12 d-flex justify-content-center align-items-center">
