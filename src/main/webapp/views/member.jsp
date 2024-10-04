@@ -80,16 +80,16 @@
 <jsp:include page="/views/header.jsp" ></jsp:include>              
 					<div class="row form-group">
 
-						<form method="post" action="member.jsp" class="col-4 d-flex align-items-end search-filter">
+						<form method="post" action="member.jsp" class="col-5 d-flex align-items-end search-filter">
 						        <select name="keyField" class="choices form-select" style="width: 150px; display: block;">
-						            <option value="member_name">직원 명</option>
-						            <option value="member_job">직원 직책</option>
+						            <option value="member_name">이름</option>
+						            <option value="member_job">직책</option>
 						        </select>
 						        <input type="text" name="filterValue" id="filterValue" placeholder="검색어를 입력해주세요" class="form-control">
 						        <input type="submit" class="btn btn-outline-success" value="조회">
 						</form>
 						<form class="col-4 d-flex"></form >
-						<form class="col-4 d-flex justify-content-end align-items-end">
+						<form class="col-3 d-flex justify-content-end align-items-end">
 					    	<a href="member_Post.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
 					    </form>
 					</div>
@@ -102,10 +102,10 @@
 										<table class="table table-hover mb-0" id="memberTable">
 											<thead>
 												<tr>
-													<th class="text-center" width="25">직원 사번</th>
-													<th class="text-center" width="25">직원 명</th>
-													<th class="text-center" width="25">직원 직책</th>
-													<th class="text-center" width="25">전화 번호</th>
+													<th class="text-center" width="25">사번</th>
+													<th class="text-center" width="25">이름</th>
+													<th class="text-center" width="25">직책</th>
+													<th class="text-center" width="25">연락처</th>
 												</tr>
 											</thead>
 											<tbody>

@@ -45,21 +45,21 @@
                             <br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">직원 사번</span> 
+									<span class="input-group-text" id="basic-addon1">사번</span> 
 									<input type="text" class="form-control" value="<%= memberDto.getMember_id()%>"  readonly="readonly" />
 								</div>
 							</div>
 							<br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">직원 명</span>
+                                    <span class="input-group-text" id="basic-addon1">이름</span>
                                     <input type="text" class="form-control" value="<%= memberDto.getMember_name()%>" readonly="readonly" />
                                 </div>
                             </div>
                             <br><br><br>							
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">직원 직책</span>
+                                    <span class="input-group-text" id="basic-addon1">직책</span>
                                     <input type="text" class="form-control" value="<%= memberDto.getMember_job()%>" readonly="readonly" />
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">전화 번호 </span>
+                                    <span class="input-group-text" id="basic-addon1"> 연락처 </span>
                                     <input type="text" class="form-control" value="<%= memberDto.getMember_tel()%>" readonly="readonly" />
                                 </div>
                             </div>

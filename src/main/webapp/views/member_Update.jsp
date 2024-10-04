@@ -48,21 +48,21 @@
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">직원 사번</span>
+                                    <span class="input-group-text" id="basic-addon1">사번</span>
                                     <input type="text" class="form-control" name="member_id" value="<%= memberDto.getMember_id()%>" readonly="readonly"/>
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">직원 명</span>
+                                    <span class="input-group-text" id="basic-addon1">이름</span>
                                     <input type="text" class="form-control" name="member_name" value="<%= memberDto.getMember_name()%>" />
                                 </div>
                             </div>
                             <br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">직원 직책</span>
+									<span class="input-group-text" id="basic-addon1">직책</span>
 									
 										<select name="member_job" class="form-control">
 											<option value="원장"
@@ -85,13 +85,13 @@
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
 									<span class="input-group-text" id="basic-addon1">입사일</span> 
-									<input type="date" class="form-control" name="member_date" value="<%=memberDto.getMember_date()%>" readonly="readonly"> 
+									<input type="date" onclick="this.showPicker()" class="form-control" name="member_date" value="<%=memberDto.getMember_date()%>" readonly="readonly"> 
 								</div>
 							</div>
 							<br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">전화 번호</span>
+                                    <span class="input-group-text" id="basic-addon1">연락처</span>
                                     <input type="text" class="form-control" name="member_tel" value="<%= memberDto.getMember_tel()%>">
                                 </div>
                             </div>

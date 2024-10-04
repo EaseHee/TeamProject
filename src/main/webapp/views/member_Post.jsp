@@ -42,42 +42,52 @@
                             <br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">직원 사번</span> 
+									<span class="input-group-text" id="basic-addon1">사번</span> 
 									<input type="text" class="form-control" name="member_id" placeholder="  사번을 입력해 주세요" required="required" />
+									
 								</div>
-							</div>
+								<input type="text" class="form-control"  placeholder="실장은 B110번대, &nbsp;디자이너는 B120번대, &nbsp;인턴은 B130번대, &nbsp;파트타임은 B140번대로 입력해주세요" readonly="readonly"/> 
+							</div><br>
 							<br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">직원 명</span> 
+									<span class="input-group-text" id="basic-addon1">이름</span> 
 									<input type="text" class="form-control" name="member_name" placeholder="  이름을 입력해 주세요" required="required" />
 								</div>
 							</div>
 							<br> <br> <br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12"> 
-									<span class="input-group-text" id="basic-addon1">직원 직책</span> 
+									<span class="input-group-text" id="basic-addon1">직책</span> 
 									<select name="member_job" class="form-control">
 											<option value="원장">원장</option>
 											<option value="부원장">부원장</option>
 											<option value="실장">실장</option>
-											<option value="인턴">인턴</option>
 											<option value="디자이너">디자이너</option>
+											<option value="인턴">인턴</option>
 											<option value="파트타임">파트타임</option>
 									</select>
 								</div>
 							</div>
 							<br> <br> <br>
+								<script>
+								// 현재 날짜를 YYYY-MM-DD 형식으로 가져옴
+								var today = new Date().toISOString().split('T')[0];
+								// input 태그에 최소값(min)을 현재 날짜로 설정
+								document.getElementById('regdate').setAttribute('min', today);
+								// 기본 값도 오늘 날짜로 설정
+								document.getElementById('regdate').valueAsDate = new Date();
+								</script>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
 									<span class="input-group-text" id="basic-addon1">입사일</span> 
-									<input type="date" class="form-control" name="member_date" required="required" />
+									<input type="date" onclick="this.showPicker()" class="form-control" name="member_date" id="regdate" required="required" />
 								</div>
 							</div>
 							<br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">전화 번호</span>
+                                    <span class="input-group-text" id="basic-addon1">연락처</span>
                                     <input type="text" class="form-control" name="member_tel" placeholder="  010-0000-0000형식으로 입력해주세요." required="required" />
                                 </div>
                             </div>

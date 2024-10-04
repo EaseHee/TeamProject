@@ -264,14 +264,14 @@ public class ReservationDAO_yye {
             System.out.println("[getReservationDTOList] Message : " + e.getMessage());
             System.out.println("[getReservationDTOList] Class   : " + e.getClass().getSimpleName());
         } finally {
-        	System.out.println("startDate : " + startDate + ", " +"endDate : " + endDate );
+        	//System.out.println("startDate : " + startDate + ", " +"endDate : " + endDate );
         	//int st = Integer.parseInt(startDate);
         	//int ed = Integer.parseInt(endDate);
         	// 날짜 형식 정의
 //           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //        	
 //        	LocalDate startDateStr = LocalDate.parse(startDate, formatter);
-//            LocalDate endDateStr = LocalDate.parse(endDate, formatter);
+//          LocalDate endDateStr = LocalDate.parse(endDate, formatter);
 //        	if(!startDateStr.isAfter(endDateStr)) {
 //        		System.out.println("시작 날짜를 종료 날짜보다 이후로 설정해주세요");
 //        	}

@@ -305,7 +305,8 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
 <!-- 제희님  -->
 				<div class="row form-group"> <!-- 파일명 변경해주셔야 되용  -->
 					<form method="get" action="reservation_yye.jsp" 
-						class="col-8 d-flex justify-content-end align-items-end"  onsubmit="return validateDates()">
+						class="col-12 d-flex justify-content-end align-items-end"  onsubmit="return validateDates()">
+						<!-- validateDates() : 이전날짜 선택 alert 함수 -->
 						<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate %>">&nbsp;&nbsp;~&nbsp;&nbsp;
 						<input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate %>">
 						<!-- input type="submit" name="start" class="btn btn-outline-success" value="조회"-->
@@ -318,7 +319,7 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
 							<option value="member_name">직원명</option>
 						</select> 
 						<input type="text" name="keyWord" placeholder="검색어를 입력해주세요" class="form-control" value="<%= keyWord != null ? keyWord : "" %>"> 
-							<input type="submit" name="end" class="btn btn-outline-success" value="조회">
+						<input type="submit" name="end" class="btn btn-outline-success" value="조회">
 					</form>
 				</div>
 				
@@ -446,23 +447,22 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
                 XLSX.writeFile(wb, '예약_관리.xlsx');
             }
         </script>
+<!-- 여기부텅 -->        
         <script>
-    
 					function validateDates() {
 						const startDate = document.getElementById('startDate').value;
 						const endDate = document.getElementById('endDate').value;
 
 						if (startDate && endDate) {
 							if (new Date(startDate) > new Date(endDate)) {
-								alert("경고: 시작 날짜가 종료 날짜보다 이후입니다.");
+								alert("시작 날짜가 종료 날짜보다 이후입니다.");
 								return false; // 폼 제출을 막음
 							}
 						}
 						return true; // 폼 제출 허용
 					}
 				</script>
-      
-        
+<!-- 이건 이전 날짜 선택했을 때 alert 뜨는 함수  -->
         <script>
     document.addEventListener("DOMContentLoaded", function() {
         // 로컬 스토리지에서 날짜 값을 가져와서 설정
