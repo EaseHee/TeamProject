@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/calendar.css">
 	<link rel="stylesheet" href="/TeamProject/views/assets/css/dashboardReservation.css" >
-
 </head>
 
 <body>
@@ -79,29 +78,20 @@
 	                        </div>
                         </div>
 
-						<!-- 통계 그래프 시안 -->
-                        <!-- 서비스별 시술 횟수 : "assets/js/pages/chartMonthRevenue.js" -->
-                        <div class="col-lg-3 col-md-12">
-<!--                             <div class="card" >
-                                <div style="text-align: center;" >
-                                    <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
-                                    <span id="nextMonth" class="icons material-symbols-rounded" tabindex="0">chevron_right</span>
-                                </div>
-                                <div id="count"></div>
-                            </div> -->
-                        </div>
-                        
 						<!-- 월별 매출 통계 : "assets/js/pages/chartMonthRevenue.js" -->
-                        <div class="col-lg-6 col-md-12">
-							<div class="card" >
-                                <div style="text-align: center;" >
-                                    <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
-                                    <span id="nextMonth" class="icons material-symbols-rounded" tabindex="0">chevron_right</span>
-                                </div>
-                                <div id="revenue"></div>
+                        <div class="col-lg-9 col-md-12">
+							<div class="card h-80" >
+								<ul class="list-group">
+									<li class="list-group-item active text-center">
+										<div id="chart-title"></div>
+										<div id="chart-legend"></div>
+									</li>
+									<li class="list-group-item">
+										<div id="revenue"></div>
+									</li>
+								</ul>
                             </div>
                         </div>
-                        
                         
                     </div>
                 </section>

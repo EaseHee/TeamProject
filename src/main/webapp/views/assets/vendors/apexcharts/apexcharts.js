@@ -3173,7 +3173,7 @@
               },
               export: {
                 csv: {
-                  filename: undefined,
+                  // filename: undefined,
                   columnDelimiter: ',',
                   headerCategory: 'category',
                   headerValue: 'value',
@@ -3182,10 +3182,10 @@
                   }
                 },
                 png: {
-                  filename: undefined
+                  // filename: undefined
                 },
                 svg: {
-                  filename: undefined
+                  // filename: undefined
                 }
               },
               autoSelected: 'zoom' // accepts -> zoom, pan, selection
