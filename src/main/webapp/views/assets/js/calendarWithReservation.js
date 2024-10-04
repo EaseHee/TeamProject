@@ -100,9 +100,9 @@ class CalendarAndReservation {
 	    clearReservationTableInnerHTML() {
 			this.reservationTableElement.innerHTML = `<tr>
 				<th>예약 시간</th>
-				<th>서비스</th>
-				<th>고객</th>
-				<th>디자이너</th>
+				<th>서비스명</th>
+				<th>고객명</th>
+				<th>직원명</th>
 			</tr>`;
 		}
 
