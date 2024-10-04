@@ -79,49 +79,52 @@
     								<span class="input-group-text" id="basic-addon1">예약 날짜</span>
     								<input type="date" id="reservation_date" class="form-control" name="reservation_date" value="<%= resDto.getReservation_date() %>" onclick="this.showPicker()">
 								</div>
-							<script>
-							
-   								window.onload = function() {
-        						var now_utc = Date.now(); // 현재 시간을 UTC로
-        						var timeOff = new Date().getTimezoneOffset() * 60000; // UTC와의 차이를 밀리초로
-        						var today = new Date(now_utc - timeOff).toISOString().split("T")[0]; // ISO 형식에서 날짜 부분만 추출
-        						document.getElementById('reservation_date').setAttribute('min', today); // min 속성에 오늘 날짜 설정
-    							}
-							
-							</script>
+								<script>
+									//예약 날짜 선택 시, 오늘 이전 날짜 선택 불가능
+   	 								document.addEventListener("DOMContentLoaded", function() {
+        								var now_utc = Date.now(); // 현재 시간을 UTC로
+        								var timeOff = new Date().getTimezoneOffset() * 60000; // UTC와의 차이를 밀리초로
+        								var today = new Date(now_utc - timeOff).toISOString().split("T")[0]; // ISO 형식에서 날짜 부분만 추출
+        								document.getElementById('reservation_date').setAttribute('min', today); // min 속성에 오늘 날짜 설정
+    								});
+   	 								
+								</script>
                             </div>
                             <br><br><br>
-                            <div class="col-lg-12 mb-12">
-                                <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">예약 시간</span>
-                                    <select name="reservation_time" class="form-control" value="<%= resDto.getReservation_time() %>">
-										<option value="09:00">09:00</option>
-										<option value="09:30">09:30</option>
-										<option value="10:00">10:00</option>
-										<option value="10:30">10:30</option>
-										<option value="11:00">11:00</option>
-										<option value="11:30">11:30</option>
-										<option value="12:00">12:00</option>
-										<option value="12:30">12:30</option>
-										<option value="13:00">13:00</option>
-										<option value="13:30">13:30</option>
-										<option value="14:00">14:00</option>
-										<option value="14:30">14:30</option>
-										<option value="15:00">15:00</option>
-										<option value="15:30">15:30</option>
-										<option value="16:00">16:00</option>
-										<option value="16:30">16:30</option>
-										<option value="17:00">17:00</option>
-										<option value="17:30">17:30</option>
-										<option value="18:00">18:00</option>
-										<option value="18:30">18:30</option>
-										<option value="19:00">19:00</option>
-										<option value="19:30">19:30</option>
-										<option value="20:00">20:00</option>
-									</select>
-                                </div>
-                            </div>
-                            <br><br><br>
+				<div class="col-lg-12 mb-12">
+					<div class="input-group mb-12">
+						<span class="input-group-text" id="basic-addon1">예약 시간</span> <select
+							name="reservation_time" class="form-control">
+							<%
+							String selectedTime = resDto.getReservation_time().substring(0, 5); // 시:분 포맷으로 자르기
+							%>
+							<option value="09:00" <%=selectedTime.equals("09:00") ? "selected" : ""%>>09:00</option>
+							<option value="09:30" <%=selectedTime.equals("09:30") ? "selected" : ""%>>09:30</option>
+							<option value="10:00" <%=selectedTime.equals("10:00") ? "selected" : ""%>>10:00</option>
+							<option value="10:30" <%=selectedTime.equals("10:30") ? "selected" : ""%>>10:30</option>
+							<option value="11:00" <%=selectedTime.equals("11:00") ? "selected" : ""%>>11:00</option>
+							<option value="11:30" <%=selectedTime.equals("11:30") ? "selected" : ""%>>11:30</option>
+							<option value="12:00" <%=selectedTime.equals("12:00") ? "selected" : ""%>>12:00</option>
+							<option value="12:30" <%=selectedTime.equals("12:30") ? "selected" : ""%>>12:30</option>
+							<option value="13:00" <%=selectedTime.equals("13:00") ? "selected" : ""%>>13:00</option>
+							<option value="13:30" <%=selectedTime.equals("13:30") ? "selected" : ""%>>13:30</option>
+							<option value="14:00" <%=selectedTime.equals("14:00") ? "selected" : ""%>>14:00</option>
+							<option value="14:30" <%=selectedTime.equals("14:30") ? "selected" : ""%>>14:30</option>
+							<option value="15:00" <%=selectedTime.equals("15:00") ? "selected" : ""%>>15:00</option>
+							<option value="15:30" <%=selectedTime.equals("15:30") ? "selected" : ""%>>15:30</option>
+							<option value="16:00" <%=selectedTime.equals("16:00") ? "selected" : ""%>>16:00</option>
+							<option value="16:30" <%=selectedTime.equals("16:30") ? "selected" : ""%>>16:30</option>
+							<option value="17:00" <%=selectedTime.equals("17:00") ? "selected" : ""%>>17:00</option>
+							<option value="17:30" <%=selectedTime.equals("17:30") ? "selected" : ""%>>17:30</option>
+							<option value="18:00" <%=selectedTime.equals("18:00") ? "selected" : ""%>>18:00</option>
+							<option value="18:30" <%=selectedTime.equals("18:30") ? "selected" : ""%>>18:30</option>
+							<option value="19:00" <%=selectedTime.equals("19:00") ? "selected" : ""%>>19:00</option>
+							<option value="19:30" <%=selectedTime.equals("19:30") ? "selected" : ""%>>19:30</option>
+							<option value="20:00" <%=selectedTime.equals("20:00") ? "selected" : ""%>>20:00</option>
+						</select>
+					</div>
+				</div>
+				<br><br><br>
                             <div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
 									<span class="input-group-text" id="basic-addon1">직원 명</span> 
@@ -150,8 +153,8 @@
                             </div>
                             <br><br><br>
                             <div class="button-container">
-                                <button type="submit" onclick="수정되었습니다.">등록</button>
-                                <button type="button" onclick="location.href='reservation.jsp'">목록</button>
+                            	<button type="button" onclick="location.href='reservation.jsp'">목록</button>
+                                <button type="submit" onclick="alert('수정되었습니다.')">수정</button>
                             </div>
                         </div>
                     </form>

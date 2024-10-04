@@ -82,9 +82,9 @@
                             </div>
                             <br><br><br>
                             <div class="button-container">
+                            	<button type="button" onclick="location.href='reservation.jsp'">목록</button>
                                 <button type="button" onclick="location.href='reservationUpdate.jsp?reservation_no=<%= resDto.getReservation_no() %>'">수정</button>
                                 <button type="button" onclick="confirmDelete('<%=resDto.getReservation_no() %>')">삭제</button>
-                                <button type="button" onclick="location.href='reservation.jsp'">목록</button>
                             </div>
                         </div>
                     </form>

@@ -66,16 +66,16 @@
     								<span class="input-group-text" id="basic-addon1">예약 날짜</span>
     								<input type="date" id="reservation_date" class="form-control" name="reservation_date" onclick="this.showPicker()">
 								</div>
-							<script>
-							/*
-   								window.onload = function() {
-        						var now_utc = Date.now(); // 현재 시간을 UTC로
-        						var timeOff = new Date().getTimezoneOffset() * 60000; // UTC와의 차이를 밀리초로
-        						var today = new Date(now_utc - timeOff).toISOString().split("T")[0]; // ISO 형식에서 날짜 부분만 추출
-        						document.getElementById('reservation_date').setAttribute('min', today); // min 속성에 오늘 날짜 설정
-    							}
-							*/
-							</script>
+								<script>
+									//예약 날짜 선택 시, 오늘 이전 날짜 선택 불가능
+   	 								document.addEventListener("DOMContentLoaded", function() {
+        								var now_utc = Date.now(); // 현재 시간을 UTC로
+        								var timeOff = new Date().getTimezoneOffset() * 60000; // UTC와의 차이를 밀리초로
+        								var today = new Date(now_utc - timeOff).toISOString().split("T")[0]; // ISO 형식에서 날짜 부분만 추출
+        								document.getElementById('reservation_date').setAttribute('min', today); // min 속성에 오늘 날짜 설정
+    								});
+   	 								
+								</script>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
@@ -137,8 +137,8 @@
                             </div>
                             <br><br><br>
                             <div class="button-container">         
-                                <button type="submit" onclick="등록되었습니다.">등록</button>
                                 <button type="button" onclick="location.href='reservation.jsp'">목록</button>
+                                <button type="submit" onclick="alert('등록되었습니다.')">등록</button>
                             </div>
                         </div>
                     </form>
