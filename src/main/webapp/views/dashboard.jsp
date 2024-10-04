@@ -125,6 +125,7 @@
 								</table>
 							</div>	                        
                         </div>
+                        <!-- 캘린더 -->
                         <div class="col-lg-5 col-md-12 d-flex justify-content-center align-items-center">
 								<div class="calendar-wrapper">
 									<header>
@@ -148,7 +149,8 @@
 									</div>
 								</div>
                         </div>
-
+                        
+                        <!-- 예약현황 카드 -->
                         <div class="col-lg-4 col-md-12">                            
 	                        <div class="card" id="current-reservation">
 	                            <ul class="list-group">
