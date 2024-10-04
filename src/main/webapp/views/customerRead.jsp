@@ -309,7 +309,7 @@
                             <div class="button-container">
                                 <button type="button" onclick="location.href='customer.jsp'">목록</button>
 								<button type="button" onclick="location.href='customerUpdate.jsp?customer_id=<%= customer_id %>'">수정</button>
-								<button type="button" onclick="location.href='customerDelete.jsp?customer_id=<%=customer_id%>'">삭제</button>
+								<!-- <button type="button" onclick="location.href='customerDelete.jsp?customer_id=<%=customer_id%>'">삭제</button>  -->
                             </div>
                         </div>
        <%
