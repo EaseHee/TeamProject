@@ -59,7 +59,7 @@
 		<jsp:include page="/views/header.jsp" ></jsp:include>
                 <section id="basic-list-group">
                     <div class="row match-height">
-                        <div class="col-lg-3 col-md-12">                            
+                        <div class="col-lg-3 col-md-12">
 	                        <div class="card">
 	                            <ul class="list-group">
 	                                <li class="list-group-item active text-center">공지&nbsp;<a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); color:white;"
@@ -131,7 +131,7 @@
 										<tr>
 											<td align="center" colspan="2" class="calendar-wrapper">
 												<ul class="pagination pagination-primary d-flex justify-content-center align-items-center" style="margin-bottom: 0">
-													<li class="page-item <%= (nowBlock==0) && (nowPage==0) ? "disabled" : " "%>">
+													<li class="page-item <%= (nowBlock==0) ? "disabled" : " "%>">
 														<a class="page-link" href="dashboard.jsp?nowPage=<%=(nowBlock-1)*pagePerBlock%>&nowBlock=<%=nowBlock - 1 %>">
 															<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
 														</a>
@@ -144,18 +144,28 @@
 														<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
 													</li>
 												<%	
-															}
-														}else{		
+														}
+													}else{
+														if(totalPage%pagePerBlock != 0){
 															for(int i=0; i < totalPage%pagePerBlock; i++){
 												%>
 													<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
 														<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
 													</li>
 												<%
-														}
+															}
+														}else{
+															for(int i=0; i < pagePerBlock; i++){
+												%>
+													<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
+														<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
+													</li>
+												<%																	
+															}
+														}														
 													}
 												%>
-													<li class="page-item <%= (nowBlock==totalBlock-1) && (nowPage==totalPage-1) ? "disabled" : " "%>">
+													<li class="page-item <%= (nowBlock==totalBlock-1) ? "disabled" : " "%>">
 														<a class="page-link" href="dashboard.jsp?nowPage=<%=(nowBlock+1)*pagePerBlock%>&nowBlock=<%=nowBlock + 1 %>">
 															<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
 														</a>
