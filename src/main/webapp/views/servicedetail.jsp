@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -241,7 +242,7 @@
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">판매 가격</span>
-                                    <input type="text" class="form-control" name="service_price" value="<%= service.getService_price() %>" readonly>
+                                    <input type="text" class="form-control" name="service_price" value=<fmt:formatNumber value="<%= service.getService_price() %>"/> readonly>
                                 </div>
                             </div>
                             <br><br><br>

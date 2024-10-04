@@ -1,6 +1,8 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="bean.*, java.util.Set, java.util.HashSet"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -60,6 +62,53 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
+    <% request.setCharacterEncoding("utf-8"); %>
+    <jsp:useBean id="serDao" class="bean.ServiceDAO" />
+<%
+    request.setCharacterEncoding("UTF-8");
+
+    int numPerPage = 10;   // 한 페이지당 보여줄 게시물 수
+    int pagePerBlock = 5;  // 한 블록당 보여줄 페이지 수
+
+    int nowPage = 1;  // 기본 페이지는 1부터 시작
+    int nowBlock = 0; 
+
+    // nowPage 값 가져오기 (없으면 기본값 1)
+    if (request.getParameter("nowPage") != null) {
+        nowPage = Integer.parseInt(request.getParameter("nowPage"));
+    }
+
+    // nowBlock 값 가져오기 (없으면 기본값 0)
+    if (request.getParameter("nowBlock") != null) {
+        nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
+    }
+
+    Set<ServiceDTO> serviceSet;
+    String searchName = request.getParameter("searchName");
+    int totalRecord = 0;
+
+    // 검색어가 있는 경우 결과의 총 레코드 수 가져오기
+    if (searchName != null && !searchName.trim().isEmpty()) {
+        serviceSet = serDao.getServicesByName(searchName);
+        totalRecord = serviceSet.size();  // 검색된 결과의 총 개수를 사용
+    } else {
+        totalRecord = serDao.getTotalServiceCount();  // 전체 레코드 수
+        serviceSet = serDao.getServicesWithPaging(nowPage, numPerPage);
+    }
+
+    // 페이지 및 블록 관련 계산
+    int totalPage = (int) Math.ceil((double) totalRecord / numPerPage);  // 총 페이지 수 계산
+    int totalBlock = (int) Math.ceil((double) totalPage / pagePerBlock); // 총 블록 수 계산
+
+    // 현재 페이지 시작 게시물 번호 계산
+    int beginPerPage = (nowPage - 1) * numPerPage;  
+    if (beginPerPage < 0) {
+        beginPerPage = 0;  // 시작 값 음수가 되지 않도록 보정
+    }
+
+    request.setAttribute("serviceSet", serviceSet);
+%>
+
 	<div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
@@ -204,42 +253,16 @@
 						</div>
 					</div>
 				</div>
-				<% request.setCharacterEncoding("utf-8"); %>
-				<jsp:useBean id="serDao" class="bean.ServiceDAO" />
 
-				<%
-        int currentPage = 1;  // 기본 페이지
-        int recordsPerPage = 10;  // 페이지당 표시할 레코드 수
-
-        String pageStr = request.getParameter("page");
-        if (pageStr != null && !pageStr.isEmpty()) {
-            currentPage = Integer.parseInt(pageStr);
-        }
-
-        // 전체 서비스 개수를 가져와 총 페이지 수를 계산
-        int totalRecords = serDao.getTotalServiceCount();
-        int totalPages = (int) Math.ceil((double) totalRecords / recordsPerPage);
-
-        // 페이징 처리된 서비스 목록 가져오기
-        Set<ServiceDTO> serviceSet;
-        String searchName = request.getParameter("searchName");
-
-        if (searchName != null && !searchName.trim().isEmpty()) { 
-            serviceSet = serDao.getServicesByName(searchName);
-        } else {
-            serviceSet = serDao.getServicesWithPaging(currentPage, recordsPerPage);
-        }
-
-        request.setAttribute("serviceSet", serviceSet);
-    %>
 				<hr style="height: 5px;">		
 				<div class="row form-group">
 					<!-- 왼쪽 폼 -->
 						<form method="get" action="#" class="col-4 d-flex">
-							<input type="text" name="searchName" placeholder="품목명으로 조회"
-								class="form-control"> <input
-								type="submit" class="btn btn-outline-success" value="조회">
+							<input type="text" name="searchName" value="${param.searchName}" placeholder="품목명으로 조회" class="form-control"> 
+								<input type="submit" class="btn btn-outline-success" value="조회">
 						</form>
+						
+						
 						<form class="col-4 d-flex"></form>
 						<form class="col-4 d-flex justify-content-end align-items-end">
 							<a onclick="location.href='servicepost.jsp'" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
@@ -277,7 +300,7 @@
 											<td class="text-center"><%= service.getService_code() %></td>
 											<td class="text-center"><a
 												href="servicedetail.jsp?code=<%= service.getService_code() %>"><%= service.getService_name() %></a></td>
-											<td class="text-center"><%= service.getService_price() %></td>
+											<td class="text-center" ><fmt:formatNumber value='<%= service.getService_price() %>'/></td>
 										</tr>
 										<%
                         }
@@ -296,52 +319,48 @@
 				</div>
 
 				<div class="col-12 d-flex justify-content-center align-items-center">
-					<nav aria-label="Page navigation example">
-						<%
-                if (currentPage > 1) {
-            %>
-						<a href="sales.jsp?page=<%= currentPage - 1 %>"
-							class="pagination-btn">&lt;</a>
-						<%
-                } else {
-            %>
-						<span class="pagination-btn disabled">&lt;</span>
-						<%
-                }
-            %>
+  
+							
+<!-- 페이징 UI -->
+<ul class="pagination pagination-primary">
+    <% if (nowBlock > 0) { %>
+        <li class="page-item">
+            <a class="page-link" href="service.jsp?nowPage=<%=(nowBlock-1)*pagePerBlock+1%>&nowBlock=<%=nowBlock - 1 %>">
+                <span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+            </a>
+        </li>
+    <% } else { %>
+        <li class="page-item disabled">
+            <a class="page-link" href="#">
+                <span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+            </a>
+        </li>
+    <% } %>
 
-            <!-- 페이지 번호 반복 -->
-            <%
-                for (int i = 1; i <= totalPages; i++) {
-                    if (i == currentPage) {
-            %>
-						<button class="pagination-btn active"><%= i %></button>
-						<%
-                    } else {
-            %>
-						<a href="sales.jsp?page=<%= i %>" class="pagination-btn"><%= i %></a>
-						<%
-                    }
-                }
-            %>
+    <% 
+        for (int i = 0; i < pagePerBlock && nowBlock * pagePerBlock + i < totalPage; i++) { 
+            int pageIndex = nowBlock * pagePerBlock + i + 1;
+    %>
+        <li class="page-item <%= (pageIndex == nowPage) ? "active" : "" %>">
+            <a class="page-link" href="service.jsp?nowPage=<%=pageIndex%>&nowBlock=<%=nowBlock%>"><%= pageIndex %></a>
+        </li>
+    <% } %>
 
-            <!-- 오른쪽 화살표 이동 기능 -->
-            <%
-                if (currentPage < totalPages) {
-            %>
-						<a href="sales.jsp?page=<%= currentPage + 1 %>"
-							class="pagination-btn">&gt;</a>
-						<%
-                } else {
-            %>
-						<span class="pagination-btn disabled">&gt;</span>
-						<%
-                }
-            %>
-					
-				</div>
-				</nav>
-			</div>
+    <% if (nowBlock < totalBlock - 1) { %>
+        <li class="page-item">
+            <a class="page-link" href="service.jsp?nowPage=<%=(nowBlock+1)*pagePerBlock+1%>&nowBlock=<%=nowBlock + 1 %>">
+                <span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+            </a>
+        </li>
+    <% } else { %>
+        <li class="page-item disabled">
+            <a class="page-link" href="#">
+                <span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+            </a>
+        </li>
+    <% } %>
+</ul>
+						</div>
 			</section>
 			<br><br><br>
 			<footer>
@@ -362,15 +381,38 @@
 	<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
 	<script src="assets/js/main.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-	<script>
-            function downloadExcel() {
-                var table = document.getElementById("salesTable");
-                var wb = XLSX.utils.table_to_book(table, { sheet: "판매_관리" });
-                XLSX.writeFile(wb, '판매_관리.xlsx');
-            }
-        </script>
+<script>
+    function downloadExcel() {
+        var serviceData = [//자바 객체 데이터를 jsp 배열로 변환
+            <% 
+            //serDao에서 getAllServices() 메서드를 호출>모든 서비스를 가져옴
+                Set<ServiceDTO> services = serDao.getAllServices();
+                for (ServiceDTO service : services) {
+                    %>{
+                    service_code: '<%= service.getService_code() %>',
+                    service_name: '<%= service.getService_name() %>',
+                    service_price: <%= service.getService_price() %>
+                },
+            <% } %>
+        ];
+
+        var wb = XLSX.utils.book_new(); //엑셀 파일 생성 함수
+        var ws_data = [['서비스 코드', '서비스 이름', '서비스 가격']]; // 엑셀 행 
+        
+        // 데이터를 행별로 추가
+        serviceData.forEach(function(service) {
+            ws_data.push([service.service_code, service.service_name, service.service_price]);
+        });
+
+        var ws = XLSX.utils.aoa_to_sheet(ws_data); // ws_data 배열을 엑셀 시트로 변환
+        XLSX.utils.book_append_sheet(wb, ws, '서비스_관리');//엑셀에 변환한 시트를 추가하는 함수
+        
+        // 엑셀 파일 저장
+        XLSX.writeFile(wb, '서비스_관리.xlsx');
+    }
+</script>
+
+
 	</div>
 </body>
 </html>
