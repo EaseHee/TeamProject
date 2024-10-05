@@ -19,11 +19,8 @@
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
    <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
    <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">    
-
- 
 </head>
 <body>
-
     <div id="app">
             <%
             String customer_id = request.getParameter("customer_id");
@@ -119,7 +116,7 @@
                             <div class="button-container">
                                 <button type="button" onclick="location.href='customer.jsp'">목록</button>
 								<button type="button" onclick="location.href='customerUpdate.jsp?customer_id=<%= customer_id %>'">수정</button>
-								<button type="button" onclick="location.href='customerDelete.jsp?customer_id=<%=customer_id%>'">삭제</button>
+								<!-- <button type="button" onclick="location.href='customerDelete.jsp?customer_id=<%=customer_id%>'">삭제</button>  -->
                             </div>
                         </div>
        <%

@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/calendar.css">
 	<link rel="stylesheet" href="/TeamProject/views/assets/css/dashboardReservation.css" >
-
 </head>
 
 <body>
@@ -59,7 +58,7 @@
 		<jsp:include page="/views/header.jsp" ></jsp:include>
                 <section id="basic-list-group">
                     <div class="row match-height">
-                        <div class="col-lg-3 col-md-12">                            
+                        <div class="col-lg-3 col-md-12">
 	                        <div class="card">
 	                            <ul class="list-group">
 	                                <li class="list-group-item active text-center">공지&nbsp;<a class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); color:white;"
@@ -70,7 +69,7 @@
 											DashboardDTO board0 = list0.get(i);
 									%>									
 										<li class="list-group-item text-bold-500 detail">
-											<a  href="notice_view.jsp?notice_no=<%=board0.getNotice_no()%>""> <%=board0.getNotice_title()%></a>
+											<a  href="notice_view.jsp?notice_no=<%=board0.getNotice_no()%>"> <%=board0.getNotice_title()%></a>
 										</li>
 									<%
 										}
@@ -79,29 +78,19 @@
 	                        </div>
                         </div>
 
-						<!-- 통계 그래프 시안 -->
-                        <!-- 서비스별 시술 횟수 : "assets/js/pages/chartMonthRevenue.js" -->
-                        <div class="col-lg-3 col-md-12">
-<!--                             <div class="card" >
-                                <div style="text-align: center;" >
-                                    <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
-                                    <span id="nextMonth" class="icons material-symbols-rounded" tabindex="0">chevron_right</span>
-                                </div>
-                                <div id="count"></div>
-                            </div> -->
-                        </div>
-                        
 						<!-- 월별 매출 통계 : "assets/js/pages/chartMonthRevenue.js" -->
-                        <div class="col-lg-6 col-md-12">
-							<div class="card" >
-                                <div style="text-align: center;" >
-                                    <span id="prevMonth" class="icons material-symbols-rounded" tabindex="0">chevron_left</span>
-                                    <span id="nextMonth" class="icons material-symbols-rounded" tabindex="0">chevron_right</span>
-                                </div>
-                                <div id="revenue"></div>
+                        <div class="col-lg-9 col-md-12">
+							<div class="card h-80" >
+								<ul class="list-group">
+									<li class="list-group-item active text-center">
+										<div id="chart-title"></div>
+									</li>
+									<li class="list-group-item">
+										<div id="revenue"></div>
+									</li>
+								</ul>
                             </div>
                         </div>
-                        
                         
                     </div>
                 </section>
@@ -131,7 +120,7 @@
 										<tr>
 											<td align="center" colspan="2" class="calendar-wrapper">
 												<ul class="pagination pagination-primary d-flex justify-content-center align-items-center" style="margin-bottom: 0">
-													<li class="page-item <%= (nowBlock==0) && (nowPage==0) ? "disabled" : " "%>">
+													<li class="page-item <%= (nowBlock==0) ? "disabled" : " "%>">
 														<a class="page-link" href="dashboard.jsp?nowPage=<%=(nowBlock-1)*pagePerBlock%>&nowBlock=<%=nowBlock - 1 %>">
 															<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
 														</a>
@@ -144,18 +133,28 @@
 														<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
 													</li>
 												<%	
-															}
-														}else{		
+														}
+													}else{
+														if(totalPage%pagePerBlock != 0){
 															for(int i=0; i < totalPage%pagePerBlock; i++){
 												%>
 													<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
 														<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
 													</li>
 												<%
-														}
+															}
+														}else{
+															for(int i=0; i < pagePerBlock; i++){
+												%>
+													<li class="page-item <%= (i == nowPage % pagePerBlock) ? "active" : "" %>">
+														<a class="page-link" href="dashboard.jsp?nowPage=<%=nowBlock*pagePerBlock + i%>&nowBlock=<%=nowBlock %>" ><%=(nowBlock*pagePerBlock + i + 1) %></a>
+													</li>
+												<%																	
+															}
+														}														
 													}
 												%>
-													<li class="page-item <%= (nowBlock==totalBlock-1) && (nowPage==totalPage-1) ? "disabled" : " "%>">
+													<li class="page-item <%= (nowBlock==totalBlock-1) ? "disabled" : " "%>">
 														<a class="page-link" href="dashboard.jsp?nowPage=<%=(nowBlock+1)*pagePerBlock%>&nowBlock=<%=nowBlock + 1 %>">
 															<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
 														</a>
@@ -167,6 +166,7 @@
 								</table>
 							</div>	                        
                         </div>
+                        <!-- 캘린더 -->
                         <div class="col-lg-5 col-md-12 d-flex justify-content-center align-items-center">
 								<div class="calendar-wrapper">
 									<header>
@@ -190,7 +190,8 @@
 									</div>
 								</div>
                         </div>
-
+                        
+                        <!-- 예약현황 카드 -->
                         <div class="col-lg-4 col-md-12">                            
 	                        <div class="card" id="current-reservation">
 	                            <ul class="list-group">
