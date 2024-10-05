@@ -39,7 +39,7 @@
 	                        		<div><h6>&#35;<%=noticeDTO.getNotice_no()%></h6></div>
 	                        		<div><%=noticeDTO.getNotice_reg()%></div>
 	                        	</div>
-	                            <div class="content"><%=noticeDTO.getNotice_content()%></div>
+	                            <div class="bg-white rounded-3 p-5"><%=noticeDTO.getNotice_content()%></div>
 	                        </div>
 		                    <div class="container mb-5 d-flex justify-content-center gap-2">
 	                    		<%
