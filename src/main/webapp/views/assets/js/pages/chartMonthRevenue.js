@@ -10,8 +10,22 @@
 class DashboardChart {
 
   constructor () {
-    // 화면 로드 시 매출 현황 그래프 초기화 
-    this._fetchAndShowChart();
+    // 메인 화면 로드 시 매출 현황 그래프 초기화 
+    if(this._isMainPage()) {
+      this._fetchAndShowChart();
+    };
+  }
+
+  // 메인 화면 여부 반환
+  _isMainPage() {
+    let path = window.location.pathname; ///TeamProject/views/dashboard.jsp
+    let nowPage = path.substring(path.lastIndexOf("/")+1, path.lastIndexOf("."));
+    console.log("[현재 페이지] : " + nowPage); 
+    if (nowPage === "dashboard") {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   _fetchAndShowChart() {
@@ -42,6 +56,7 @@ class RevenueChart {
     this.colors = [this.color_blue, this.color_red, this.color_green, this.color_yellow]
 
     document.getElementById("revenue").style.boxSizing = "border-box";
+    document.getElementById("revenue").setAttribute("position", "relative");
   }
 
   _setHeader() {
