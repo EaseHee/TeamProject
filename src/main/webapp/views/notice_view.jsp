@@ -262,7 +262,7 @@
 				                    	<button type="button" onclick="location.href='notice_view.jsp?notice_no=<%=previousNotice.getNotice_no()%>'">이전</button>
 		                    	<%
 		                    		} else {
-		                    	%>		<!-- 자리만 차지하고 있는 버튼 -->
+		                    	%>		<!-- 자리만 차지하고 있는 비활성화된 버튼 -->
 		                    			<button type="button" disabled aria-disabled="true" style="visibility: hidden;">이전</button>
 		                    	<%
 		                    		}
@@ -274,13 +274,14 @@
 										<button type="button" onclick="location.href='notice_view.jsp?notice_no=<%=nextNotice.getNotice_no()%>'">다음</button>
 								<%
 									} else {
-								%>		<!-- 자리만 차지하고 있는 버튼 -->
+								%>		<!-- 자리만 차지하고 있는 비활성화된 버튼 -->
 										<button type="button" disabled aria-disabled="true" style="visibility: hidden;">다음</button>
 								<%
 									}
 								%>
 		                    </div>
 		                </div>
+		                <!-- 
 		                <div class="comment-div mb-5">
 	                    	<textarea class="comment" id="commentForm" rows="3" placeholder="매니저님들의 의견을 들려주세요!"></textarea>
 	                    	<table class="w-100">
@@ -326,8 +327,6 @@
 		               				</td>
 		               			</tr>
 		               		</table>
-		               		<div>
-	                    </div>
 		               		<hr/>
 		                </div>
 		                <div style="margin-left: 80px;">
@@ -450,6 +449,7 @@
 		               		</table>
 		               		<hr/>
 		                </div>
+		                -->
                 </section>
 	            <footer>
 				    <div class="footer clearfix mb-0 text-muted">
