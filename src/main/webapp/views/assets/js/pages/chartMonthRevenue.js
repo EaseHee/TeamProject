@@ -74,10 +74,16 @@ class RevenueChart {
         type: "bar",
         width: "100%",
         height: "450",
-        stacked: false, // 데이터 중첩 여부
+        stacked: false, // 데이터 중첩 X
+        /* 
+        
+        stacked: true, // 데이터 중첩 O (막대 하나에 모두 표시)
+        stackType: "100%",  // 전체 범위 중 비율로 표기
+        */
+       
         toolbar: {
           show: true  // 마우스 올렸을 때 툴바 출력 여부
-        }
+        },
       },
 
       // plotOptions : 차트 옵션 (line, bar, area, bubble, ... )
@@ -86,7 +92,7 @@ class RevenueChart {
           horizontal: false,
           borderRadius: 10,
           columnWidth: "80%",	// 막대 두께
-          barHeight: "80%",   // 막대 높이
+          barHeight: "60%",   // 막대 높이
           dataLabels: {
             position: 'top'
           },
@@ -96,12 +102,22 @@ class RevenueChart {
 
       // 막대 내부에 라벨(y축 값) 출력
       dataLabels: {
-        textAnchor: "middle",  // "start", "middle", "end"
         enabled: false, // 데이터 포인트에 레이블 출력 여부 결정
+        // 가로 위치 조정
+        textAnchor: "middle",  // "start", "middle", "end"
+        style: {
+          color: this.color_main,
+          fontSize: 10,
+          fontWeight: "bold",
+        },
+        // 세로 위치 조정
+        offsetY: 5,
         formatter: (val) => {
-          // 단위 : 만원 & 구분 : 1000 단위 ","  
-          return parseInt(val/10000).toLocaleString() + " 만원";
-        }
+          /* 단위 : 만원 & 구분 : 1000 단위 "," */
+          return parseInt(val / 10000).toLocaleString() + " 만원";
+          /* stacked: true 인 경우 전체 비율 중 해당 데이터의 비율을 출력 */
+          // return val.toFixed(0) + "%";
+        },
       },
 
       // 막대의 테두리 획 s설정
@@ -112,8 +128,10 @@ class RevenueChart {
       },
       xaxis: {
         categories: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"], // x축 : 1~12월
+        fontSize: 15,
+        fontWeight: "bold",
         labels: {
-          offsetY: 0, // x축 데이터 값
+          offsetY: 3, // x축 데이터 값
         }
       },
 
@@ -122,28 +140,33 @@ class RevenueChart {
         show: true,
         fontSize: '10px',
         position: "bottom",
-        horizontalAlign: "center" ,
+        horizontalAlign: "left" ,
         floating: false,
-        offsetX: 0,
-        offsetY: 25,
+        offsetX: 10,
+        offsetY: -50,
         markers: {
-          size: 20,
-          strokeWidth: 2,
-          fillColors: this.colors
+          size: 25,
+          fillColors: this.colors,
+          offsetY: -20,
         },
       },
       
       yaxis: {
         title: {
           text: "(단위 : 만원)",
+          // 글꼴 스타일 설정
+          style: {
+            fontSize: 10,
+            fontWeight: "normal", // 기본값 : "bold"
+          },
           rotate: 0, // 수평 
           // 조금씩 움직이기..! (원점 : (x: 20, y: 210) | y축 끝 : (x: 20, y: -200))
-          offsetX: 20,
-          offsetY: -200
+          offsetX: 15,
+          offsetY: -195,
         },
         // y축 데이터 값 
         labels: {
-          formatter: val => parseInt(val/10000).toLocaleString(),
+          formatter: val => parseInt(val / 10000).toLocaleString(),
         },
         type: "numeric"
       },
@@ -153,7 +176,7 @@ class RevenueChart {
       // 마우스 올렸을 때 뜨는 창
       tooltip: {
         y: {
-          formatter: val => parseInt(val/10000).toLocaleString() + " 만원"
+          formatter: val => parseInt(val / 10000).toLocaleString() + " 만원"
         },
       },
       /* 참고 : https://apexcharts.com/docs/options/chart/toolbar/ */

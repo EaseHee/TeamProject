@@ -13,8 +13,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.json.*;
-
 public class DashboardDAO {
     private Context context = null;
     private DataSource dataSource = null;
@@ -119,16 +117,17 @@ public class DashboardDAO {
 		}
 		return list;
 	}
-
-    /* 
-     * ======================== 서비스 매출 현황 통계 로직 시작 =======================
+    
+    /* ======================== 서비스 매출 현황 통계 로직 시작 ======================= */
+    /**
      *  1. 예약 테이블에서 기준일(now) 을 기준으로 1개월 간격으로 서비스별 시술 횟수 조회
-     *  2. 복수 선택의 경우 개별 횟수에 추가
+     *  2. 복수 선택의 경우 단일 서비스로 분할하여 적용
      *      1> 이름을 "," 으로 split   "반환 타입 : String[]"
-     *      2> 배열에 해당하는 데이터(서비스명)가 있는 경우 카운트 증가
-     *  3. DashboardDTO 객체 활용 _ revenue
-     *  4. JSON 라이브러리 활용 <ChartServiceCommand.java 에서 처리>
+     *      2> 배열에 해당하는 데이터(서비스)의 수익 금액 배열리스트에 저장
+     *  3. JSON 라이브러리 활용 <ChartServiceCommand.java 에서 처리>
      *      JSONArray.put() / .get()
+     * @param isMulti 복합 서비스 여부  (단일 : false | 복합 : true) _ ChartServiceCommand에서 인자 전달
+     * @return 
      */  
     // 서비스(DTO) 리스트 반환 (매개변수 : 복합 서비스 여부 | 없을 시 단일 서비스)
     public List<DashboardDTO> getServiceList(boolean isMulti) {
@@ -160,11 +159,15 @@ public class DashboardDAO {
     // 오버로딩 (인자를 전달받지 못할 경우 단일 서비스 조회)
     public List<DashboardDTO> getServiceList() {return getServiceList(false);};
 
+    /** 
+     * @param board 서비스 객체 (getServiceList()에서 List에 저장된 DTO)
+     * @return
+     */
     // 서비스별 연간 수익액 반환 (1~12월 저장)
     public List<Integer> getMonthRevenueList(DashboardDTO board) {
         // DTO(서비스)별 월 수익 저장
         List<Integer> revenueList = new ArrayList<>();
-        // 저장되지 않는 월이 없도록 0으로 초기화 (null 방지)
+        // 저장되지 않는 월이 없도록 0으로 초기화 (null 방지) _ 이후 값 변경은 add()가 아니라 set() 
         for (int i = 0; i < 12; i++) revenueList.add(0);
 
         try {
@@ -181,10 +184,11 @@ public class DashboardDAO {
             connection = dataSource.getConnection();
 			statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
-            /* 
+            /**
              * DB 조회 데이터 순회 : 서비스 별 수익 여부 저장 
              * 1> 서비스명 동일 여부  
              * 2> 월 조회  
+             * 
              * 3> 수익 산출
              */
             while(resultSet.next()) {
@@ -197,7 +201,7 @@ public class DashboardDAO {
                         int indexMonth = resultSet.getInt("month") - 1;   // MONTH()_ return : 1~12
                     /***** 3> 당월 서비스 수익 산출 (서비스 횟수 * 서비스 금액) *****/
                         revenueList.set(indexMonth, resultSet.getInt("service_count") * board.getService_price());
-                    }   // .set() : 값 변경  "add()는 추가 : 배열의 크기 증가"
+                    }   // .set() : 값 변경  "add()는 추가 : 배열의 크기가 증가됨"
                 }
             }
         } catch (SQLException e) {

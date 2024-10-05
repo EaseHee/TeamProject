@@ -24,7 +24,7 @@ import bean.DashboardDTO;
  * - webapp/views/dashboard.jsp 
  */
     
-/* 
+/**
  * ========================= 관련 파일 및 속성 =========================
  * chartMonthRevenue.js _ barOptions _ series 속성에 저장할 데이터 (JSONArray)
  * JSONArary : [
@@ -56,8 +56,6 @@ public class ChartServiceCommand implements ICommand {
         DashboardDAO dashboard = new DashboardDAO();
         List<DashboardDTO> serviceList = dashboard.getServiceList(); // 서비스(DTO) 리스트
 
-System.out.println(serviceList.size());
-
         JSONArray jsonArray = new JSONArray();
         for (DashboardDTO service : serviceList) { // 반복 횟수 4회 (= 단일 서비스 개수)
             // JSONObject에 (KEY : VALUE) 형식으로 (name : service_name), (data : revenueList)을 JSONArray에 저장
@@ -65,9 +63,6 @@ System.out.println(serviceList.size());
             jsonObject.put("name", service.getService_name());
             jsonObject.put("data", dashboard.getMonthRevenueList(service)); // 수익 금액 리스트 | JSONObject에 Collection 저장 시 JSONArray로 자동 변환
             jsonArray.put(jsonObject);
-
-            System.out.println(service.getService_name());
-            System.out.println(dashboard.getMonthRevenueList(service).size());
         }
         writer.print(jsonArray); // JSON형식 전달 : [chartMonthRevenue.js] fetch()의 return 값
         writer.flush();

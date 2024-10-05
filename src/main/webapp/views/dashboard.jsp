@@ -84,7 +84,6 @@
 								<ul class="list-group">
 									<li class="list-group-item active text-center">
 										<div id="chart-title"></div>
-										<div id="chart-legend"></div>
 									</li>
 									<li class="list-group-item">
 										<div id="revenue"></div>
