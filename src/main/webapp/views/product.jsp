@@ -103,8 +103,8 @@
 	                                            	%>
 	                                            	
 	                                                <tr>
-	                                                    <td class="text-bold-500"><a href="product_B_read.jsp?product_B_code=<%=board.getProduct_B_code() %>"><%=board.getProduct_B_code() %></a></td>
-	                                                    <td class="text-bold-500"><a href="product_detail.jsp?product_B_code=<%=board.getProduct_B_code() %>"><%=board.getProduct_name() %></a></td>
+	                                                    <td class="text-bold-500 text-center"><a href="product_B_read.jsp?product_B_code=<%=board.getProduct_B_code() %>"><%=board.getProduct_B_code() %></a></td>
+	                                                    <td class="text-bold-500 text-center"><a href="product_detail.jsp?product_B_code=<%=board.getProduct_B_code() %>"><%=board.getProduct_name() %></a></td>
 	                                                </tr>
 	                                                <%
 	                                            		}
@@ -118,9 +118,6 @@
 	                        </div>
 	                    </div>
 	                    <div class="col-12 d-flex justify-content-center align-items-center">
-	                    
-					<div class="col-12 d-flex justify-content-center align-items-center">
-  
 							<ul class="pagination pagination-primary">
 								<%
 									if(0 == nowBlock ){
@@ -187,7 +184,6 @@
 									}
 								%>
 							</ul>
-						</div>
 						</div>
 	                </section>
 <jsp:include page="/views/footer.jsp"></jsp:include>
