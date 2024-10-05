@@ -20,10 +20,10 @@
     <link rel="stylesheet" href="/TeamProject/views/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="/TeamProject/views/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/app.css">
-    <link rel="shortcut icon" href="/TeamProject/views/assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/calendar.css">
 	<link rel="stylesheet" href="/TeamProject/views/assets/css/dashboardReservation.css" >
+    <link rel="shortcut icon" href="/TeamProject/views/assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -78,7 +78,7 @@
 	                        </div>
                         </div>
 
-						<!-- 월별 매출 통계 : "assets/js/pages/chartMonthRevenue.js" -->
+						<!-- 월별 매출 통계 시작  [관련 파일]: "/assets/js/pages/chartMonthRevenue.js" -->
                         <div class="col-lg-9 col-md-12">
 							<div class="card h-80" >
 								<ul class="list-group">
@@ -91,6 +91,7 @@
 								</ul>
                             </div>
                         </div>
+						<!-- 월별 매출 통계 종료 -->
                         
                     </div>
                 </section>
@@ -118,7 +119,7 @@
 									%>
 
 										<tr>
-											<td align="center" colspan="2" class="calendar-wrapper">
+											<td align="center" colspan="2" >
 												<ul class="pagination pagination-primary d-flex justify-content-center align-items-center" style="margin-bottom: 0">
 													<li class="page-item <%= (nowBlock==0) ? "disabled" : " "%>">
 														<a class="page-link" href="dashboard.jsp?nowPage=<%=(nowBlock-1)*pagePerBlock%>&nowBlock=<%=nowBlock - 1 %>">
