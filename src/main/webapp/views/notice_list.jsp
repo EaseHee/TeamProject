@@ -50,7 +50,7 @@
 	//페이징에 필요한 변수
 	int totalcnt = 0;		// 총 글의 개수
 	int totalchecked = 0;	// 중요 공지사항 개수
-	int numPerPage = 10;		// 한 페이지당 보여질 모든 글의 개수
+	int numPerPage = 10;	// 한 페이지당 보여질 모든 글의 개수
 	int normalPerPage = 0;	// 한 페이지당 보여질 일반 공지사항의 개수
 	int totalPage = 0;		// 총 페이지 수
 	int nowPage = 0;		// 현재 선택된 페이지
@@ -72,8 +72,7 @@
 		nowPage = Integer.parseInt(request.getParameter("nowPage"));
 	}
 
-	// 페이지당 시작번호
-	beginPerPage = nowPage * normalPerPage;
+	beginPerPage = nowPage * normalPerPage; // 페이지당 시작번호
 
 	totalBlock = (int) Math.ceil((double) totalPage / pagePerBlock); // 페이지블럭 개수 구하기
 
@@ -86,7 +85,7 @@
 <jsp:include page="/views/header.jsp" ></jsp:include>
 				<div class="row form-group justify-content-end">
 					<form method="post" action="notice_list.jsp" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
-						<input type="text" name="keyWord" placeholder="공지글 조회" class="form-control ">
+						<input type="text" name="keyWord" placeholder="제목으로 조회" class="form-control ">
 						<input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
 					</form>
 				</div>
@@ -105,16 +104,16 @@
 												</tr>
 											</thead>
 											<tbody>
-												<%
+												<%	// 입력한 검색어와 일치하는 결과가 없으면
 													if (list.isEmpty()){
-												%>
+												%>		<!-- 결과가 없다고 출력 -->
 														<tr>
 															<td class="text-bold-500 text-center" colspan="3">조회된 결과가 없습니다.</td>
 														</tr>
 												<%
-													} else {
+													} else { // 검색어를 입력하지 않고 조회버튼을 누르면
 														for (NoticeDTO checkedNoticeDTO: checkedList){
-												%>
+												%>		<!-- 중요 공지를 모두 출력 -->
 														<tr>
 															<td class="text-center text-bold-500"><i class="bi bi-pin-angle-fill"></i></td>
 															<td class="text-bold-500">
@@ -122,11 +121,9 @@
 															</td>
 															<td class="text-center text-bold-500"><%=checkedNoticeDTO.getNotice_reg()%></td>
 														</tr>
-												<%
-														}
-												%>
-												<%
-														for (int i = beginPerPage; i < beginPerPage + numPerPage - checkedList.size() && i < list.size(); i++) {
+												<%			// 검색어를 입력하지 않으면 페이지당 공지 수에서 중요 공지 수를 뺀 만큼 페이지마다 일반 공지 출력
+														}	// 검색어를 입력하면 검색어와 일치하는 모든 공지 출력
+														for (int i = beginPerPage; i < beginPerPage + numPerPage - totalchecked && i < list.size(); i++) {
 															noticeDTO = list.get(i);
 												%>
 														<tr>
@@ -150,18 +147,18 @@
 					<div class="col-12 d-flex justify-content-center align-items-center">
 						<nav aria-label="Page navigation example">
 							<ul class="pagination pagination-primary">
-								<!-- 왼쪽 화살표 이동 기능 -->
-								<%
+								<!-- 이전 블럭 이동 기능 -->
+								<%	// 현재 페이지블럭 인덱스가 0일경우
 									if (nowBlock == 0) {
-								%>
+								%>		<!-- 이전 블럭으로 이동 버튼 비활성화 -->
 										<li class="page-item disabled">
 											<a class="page-link" href="#" tabindex="-1" aria-disabled="true"> 
 												<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
 											</a>
 										</li>
-								<%
+								<%	// 현재 페이지블럭 인덱스가 0보다 클 경우
 									} else {
-								%>
+								%>		<!-- 이전 블럭으로 이동 버튼 활성화 -->
 										<li class="page-item">
 											<a class="page-link" href="notice_list.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock + pagePerBlock - 1%>&nowBlock=<%=nowBlock - 1%>">
 												<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
@@ -172,33 +169,33 @@
 								%>
 
 								<!-- 페이지 반복 -->
-								<%
+								<%	// 총 페이지수 이전까지, 블럭 당 페이지수 만큼 페이지 구분을 하여 현재 페이지에 할당
 									for (int i = 0; i < pagePerBlock; i++) {
 										int currentPage = (nowBlock * pagePerBlock) + i;
 										if (currentPage >= totalPage)
 											break;
-								%>
+								%>		<!-- 현재 페이지와 일치하는 페이지번호 버튼 active -->
 										<li class="page-item <%=currentPage == nowPage ? "active" : ""%>">
 											<a class="page-link" href="notice_list.jsp?nowPage=<%=currentPage%>&nowBlock=<%=nowBlock%>">
-												<%=currentPage + 1%>
+												<%=currentPage + 1%> <!-- 페이지 반복 -->
 											</a>
 										</li>
 								<%
 									}
 								%>
 
-								<!-- 오른쪽 화살표 이동 기능 -->
-								<%
+								<!-- 다음 블럭 이동 기능 -->
+								<%	// 현재 페이지블럭 번호가 마지막 이상일 경우
 									if (nowBlock >= totalBlock - 1) {
-								%>
+								%>		<!-- 다음 블럭으로 이동 버튼 비활성화 -->
 										<li class="page-item disabled">
 											<a class="page-link" href="#">
 												<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
 											</a>
 										</li>
-								<%
+								<%	// 현재 페이지블럭 번호가 마지막 미만일 경우
 									} else {
-								%>
+								%>		<!-- 다음 블럭으로 이동 버튼 활성화 -->
 										<li class="page-item">
 											<a class="page-link" href="notice_list.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>">
 												<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
