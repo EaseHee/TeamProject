@@ -44,76 +44,62 @@
 	ArrayList<ReservationDTO> list = new ArrayList<>();
 
 	// 현재 날짜와 30일 후 날짜 계산
-    java.util.Calendar cal = java.util.Calendar.getInstance();
-    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-    
-    String today = sdf.format(cal.getTime()); // 오늘 날짜
-    cal.add(java.util.Calendar.DATE, 30); // 30일 후
-    String thirtyDaysLater = sdf.format(cal.getTime());
+	java.util.Calendar cal = java.util.Calendar.getInstance();
+	java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
-    // 날짜 조회 설정
-    String startDate = request.getParameter("startDate");
-    String endDate = request.getParameter("endDate");
+	String today = sdf.format(cal.getTime()); // 오늘 날짜
+	cal.add(java.util.Calendar.DATE, 30); // 30일 후
+	String thirtyDaysLater = sdf.format(cal.getTime());
 
-    // startDate와 endDate가 없으면 기본값으로 설정
-    if (startDate == null || startDate.isEmpty()) {
-        startDate = today;
-    }
-    if (endDate == null || endDate.isEmpty()) {
-        endDate = thirtyDaysLater;
-    }
+	// 날짜 조회 설정
+	String startDate = request.getParameter("startDate");
+	String endDate = request.getParameter("endDate");
 
-    // 데이터 리스트 초기화
-    ArrayList<ReservationDTO> resultList = new ArrayList<>();
+	// 기간 조회 값이 없으면 startDate는 오늘 , endDate는 startDate+30일로 설정
+	if (startDate == null) {
+		startDate = today;
+	}
+	if (endDate == null) {
+		endDate = thirtyDaysLater;
+	}
 
- 	// 날짜 조회 및 검색 조회 로직
- 	/*
-    if (startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
-        // 날짜 조회
-        resultList = (ArrayList<ReservationDTO>) dao.getReservationDateSearch(startDate, endDate);
-    } else if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmpty()) {
-        // 검색 조회
-        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord);
-    } else {
-        // 전체 리스트 조회
-        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord); // 전체 조회 메서드 사용
-    }
-*/
+	// 데이터 리스트 초기화
+	ArrayList<ReservationDTO> resultList = new ArrayList<>();
 
-if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmpty()) {
-    // 검색 조회 (기간도 포함되어 있을 경우)
-    if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
-        // 기간 및 검색 조회
-        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, startDate, endDate);
-    } else {
-        // 검색 조회 (기간 없이)
-        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, null, null);
-    }
-} else if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
-    // 기간 조회 (검색 없이)
-    resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(null, null, startDate, endDate);
-} else {
-    // 전체 리스트 조회
-    resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(null, null, null, null);
-}
+	// 날짜 조회 및 검색 조회 로직
+	if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmpty()) {
+		// 검색 조회 (기간도 포함되어 있을 경우)
+		if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+			// 기간 및 검색 조회
+			resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, startDate, endDate);
+		} else {
+			// 검색 조회 (기간 없이)
+			resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, null, null);
+		}
+	} else if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+		// 기간 조회 (검색 없이)
+		resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(null, null, startDate, endDate);
+	} else {
+		// 전체 리스트 조회
+		resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, null, null);
+	}
 
-
-
-
-	// 총 예약 수
-	totalRecord = resultList.size();
-	totalPage = (int) Math.ceil((double) totalRecord / numPerPage);
-
+	
+	totalRecord = resultList.size(); // 총 예약 수
+	totalPage = (int) Math.ceil((double) totalRecord / numPerPage); //총 페이지 수
+	
+	//현재 선택된 page가 null이 아닐 경우의 nowPage값을 int값으로 변환하여 저장
 	if (request.getParameter("nowPage") != null)
 		nowPage = Integer.parseInt(request.getParameter("nowPage"));
 	else
 		nowPage = 0; // 기본값 설정
 
-	beginPerPage = nowPage * numPerPage;
+	beginPerPage = nowPage * numPerPage; // 페이지별 시작번호 계산
 
 	// 페이지 수 및 블럭 수 계산
 	totalBlock = (int) Math.ceil((double) totalPage / pagePerBlock);
 
+	//현재 선택된 block이 null이 아닐 경우의 nowBlock값을 int값으로 변환하여 저장
 	if (request.getParameter("nowBlock") != null)
 		nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
 	else
@@ -129,21 +115,25 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
 	<div id="app">
 <jsp:include page="/views/header.jsp" ></jsp:include>
 
-				<div class="row form-group">
-					<form method="get" action="reservation.jsp" class="col-4 d-flex">
-    					<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate %>">&nbsp;&nbsp;~&nbsp;&nbsp;
-    					<input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate %>">
-   						 <input type="submit" class="btn btn-outline-success" value="조회">
-					</form>
-					<form class="col-4 d-flex"></form>
-					<form method="get" action="reservation.jsp" class="col-4 d-flex justify-content-end align-items-end">
-    					<input type="hidden" name="keyField" value="<%= (keyField != null) ? keyField : "customer_name" %>"> 
-    					<input type="text" name="keyWord" placeholder="예약자명 검색" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
-    					<input type="submit" class="btn btn-outline-success" value="조회">
+				<div class="row form-group"> 
+					<form method="get" action="reservation.jsp" class="col-12 d-flex justify-content-end align-items-end"  onsubmit="return validateDates()">
+						<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate %>" onclick="this.showPicker()">&nbsp;&nbsp;~&nbsp;&nbsp;
+						<input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate %>" onclick="this.showPicker()">
+						<!-- input type="submit" name="start" class="btn btn-outline-success" value="조회"-->
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="hidden" value="<%=startDate %>" /> 
+						<input type="hidden" value="<%=endDate %>" /> 
+						<select name="keyField" class="choices form-select" style="width: 150px; display: block;">
+							<option value="service_name">예약품목</option>
+							<option value="customer_name">예약자명</option>
+							<option value="member_name">직원명</option>
+						</select> 
+						<input type="text" name="keyWord" placeholder="검색어를 입력해주세요" class="form-control" value="<%= keyWord != null ? keyWord : "" %>"> 
+							<input type="submit" name="end" class="btn btn-outline-success" value="조회">
 					</form>
 				</div>
+				
 				<section class="section">
-
                     <div class="buttons d-flex justify-content-end align-items-end">
                         <a href="reservationPost.jsp" class="btn btn-outline-success" style="margin-right:0px">등록</a>
                     </div>
@@ -190,54 +180,65 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
                     </div>
 
                     <div class="buttons d-flex justify-content-end align-items-end">
-                        <button onclick="downloadExcel();" class="btn btn-outline-warning" style="margin-right:0px">엑셀 다운로드</button>
+                        <button onclick="downloadExcel();" class="btn btn-outline-warning btn-excel"  >엑셀 다운로드</button>
                     </div>
 					<div class="col-12 d-flex justify-content-center align-items-center">
 						<nav aria-label="Page navigation example">
 							<ul class="pagination pagination-primary">
 								<!-- 왼쪽 화살표 이동 기능 -->
 								<%
-									if (nowBlock == 0) {
-								%>
-										<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"> 
-										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a></li>
+    								if (nowBlock == 0) { 
+								%>		
+										<!-- 현재 Block이 0이면(첫번째 블럭) 왼쪽 화살표 클릭 불가능 -->
+    									<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"> 
+    									<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a></li>
 								<%
-									} else {
+    								} else {
 								%>
-										<li class="page-item"><a class="page-link" href="reservation.jsp?nowPage=<%=((nowBlock - 1) * pagePerBlock)%>&nowBlock=<%=nowBlock - 1%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>">
-										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
-										</a></li>
+    									<li class="page-item">
+        								<a class="page-link" href="reservation.jsp?nowPage=<%=((nowBlock - 1) * pagePerBlock)%>&nowBlock=<%=nowBlock - 1%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>&keyField=<%=keyField != null ? keyField : ""%>&keyWord=<%=keyWord != null ? keyWord : ""%>">
+        								<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+        								</a>
+    									</li>
 								<%
-									}
+   									}
 								%>
 
 								<!-- 페이지 반복 -->
 								<%
-									for (int i = 0; i < pagePerBlock; i++) {
-										int currentPage = (nowBlock * pagePerBlock) + i;
-										if (currentPage >= totalPage)
-											break;
+   			 						for (int i = 0; i < pagePerBlock; i++) {
+        								int currentPage = (nowBlock * pagePerBlock) + i;
+        									if (currentPage >= totalPage) //현재 페이지가 총 페이지수보다 크면 나타나지 않도록함
+            									break;
 								%>
-										<li class="page-item <%=currentPage == nowPage ? "active" : ""%>">
-										<a class="page-link" href="reservation.jsp?nowPage=<%=currentPage%>&nowBlock=<%=nowBlock%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>">
-											<%=currentPage + 1%></a></li>
+    									<li class="page-item <%=currentPage == nowPage ? "active" : ""%>">
+       									<a class="page-link" href="reservation.jsp?nowPage=<%=currentPage%>&nowBlock=<%=nowBlock%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>&keyField=<%=keyField != null ? keyField : ""%>&keyWord=<%=keyWord != null ? keyWord : ""%>">
+            							<%=currentPage + 1%>
+        								</a>
+    									</li>
 								<%
-									}
+ 								   }
 								%>
 
 								<!-- 오른쪽 화살표 이동 기능 -->
 								<%
-									if (nowBlock >= totalBlock - 1) {
+   									if (nowBlock >= totalBlock - 1) {
 								%>
-										<li class="page-item disabled"><a class="page-link" href="#"> <span aria-hidden="true">
-										<i class="bi bi-chevron-right"></i></span></a></li>
+										<!-- 현재 Block이 마지막 블럭이면 클릭 불가능 -->
+    									<li class="page-item disabled"><a class="page-link" href="#"> <span aria-hidden="true">
+    									<i class="bi bi-chevron-right"></i></span></a></li>
 								<%
-									} else {
+    								} else {
 								%>
-										<li class="page-item"><a class="page-link" href="reservation.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>">
-										<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
-										</a></li>
-								<% } %>
+    									<li class="page-item">
+        								<a class="page-link" href="reservation.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>&keyField=<%=keyField != null ? keyField : ""%>&keyWord=<%=keyWord != null ? keyWord : ""%>">
+        								<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+        								</a>
+    									</li>
+								<%
+    								}
+								%>
+
 							</ul>
 						</nav>
 					</div>
@@ -250,6 +251,42 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
                 XLSX.writeFile(wb, '예약_관리.xlsx');
             }
         </script>
-    </div>
+        <script>
+			function validateDates() {
+				const startDate = document.getElementById('startDate').value;
+				const endDate = document.getElementById('endDate').value;
+
+					if (startDate && endDate) {
+						if (new Date(startDate) > new Date(endDate)) {
+							alert("경고: 시작 날짜가 종료 날짜보다 이후입니다.");
+							return false; // 폼 제출을 막음
+						}
+					}
+					return true; // 폼 제출 허용
+				}
+		</script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				// 로컬 스토리지에서 날짜 값을 가져와서 설정
+				const startDateInput = document.getElementById("startDate");
+				const endDateInput = document.getElementById("endDate");
+
+				if (localStorage.getItem("startDate")) {
+					startDateInput.value = localStorage.getItem("startDate");
+				}
+				if (localStorage.getItem("endDate")) {
+					endDateInput.value = localStorage.getItem("endDate");
+				}
+
+				// 날짜가 변경될 때마다 로컬 스토리지에 저장
+				startDateInput.addEventListener("change", function() {
+					localStorage.setItem("startDate", startDateInput.value);
+				});
+				endDateInput.addEventListener("change", function() {
+					localStorage.setItem("endDate", endDateInput.value);
+				});
+			});
+		</script>
+	</div>
 </body>
 </html>
