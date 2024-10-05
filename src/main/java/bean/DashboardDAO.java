@@ -6,16 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
-import org.json.*;
 
 public class DashboardDAO {
     private Context context = null;
@@ -121,87 +117,104 @@ public class DashboardDAO {
 		}
 		return list;
 	}
-
-    /* 
-        ===== 서비스 매출 현황 통계 =====
-        1. 예약 테이블에서 기준일(now) 까지의 1개월간 서비스별 시술 횟수 조회
-        2. 복수 선택의 경우 개별 횟수에 추가
-            1> 이름을 "," 으로 split   "반환 타입 : String[]"
-            2> 배열에 해당하는 데이터(서비스명)가 있는 경우 카운트 증가
-        3. DashboardDTO 객체 활용
-        4. JSON 라이브러리 활용
-            JSONArray.put() / .get()
-    */
-    // 인스턴스 변수 메서드화 : 리팩토링 예정 
-    JSONArray jsonServiceArray = null;
-    JSONArray jsonRevenueArray = null;
-    JSONArray jsonCountArray = null;
-    // 이전 매출 현황 조회 시 indexMonth 값 입력 (ex. 이번 달의 경우 0, 한 달 전의 경우 1)
-    public void setService (int indexMonth) {
-        // 서비스별 월매출액 저장용
-        LinkedList<DashboardDTO> list = new LinkedList<>();        
-		try{
-			connection = dataSource.getConnection();
+    
+    /* ======================== 서비스 매출 현황 통계 로직 시작 ======================= */
+    /**
+     *  1. 예약 테이블에서 기준일(now) 을 기준으로 1개월 간격으로 서비스별 시술 횟수 조회
+     *  2. 복수 선택의 경우 단일 서비스로 분할하여 적용
+     *      1> 이름을 "," 으로 split   "반환 타입 : String[]"
+     *      2> 배열에 해당하는 데이터(서비스)의 수익 금액 배열리스트에 저장
+     *  3. JSON 라이브러리 활용 <ChartServiceCommand.java 에서 처리>
+     *      JSONArray.put() / .get()
+     * @param isMulti 복합 서비스 여부  (단일 : false | 복합 : true) _ ChartServiceCommand에서 인자 전달
+     * @return 
+     */  
+    // 서비스(DTO) 리스트 반환 (매개변수 : 복합 서비스 여부 | 없을 시 단일 서비스)
+    public List<DashboardDTO> getServiceList(boolean isMulti) {
+        List<DashboardDTO> serviceList = new ArrayList<>();
+        try {
             // 단일 서비스 조회
-            String sql = "SELECT service_code, service_name, service_price FROM service " +
-                    "WHERE service_code LIKE 'S0%'";  
-			statement = connection.prepareStatement(sql);			
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-            	DashboardDTO service = new DashboardDTO();
-                service.setService_code(resultSet.getString("service_code"));
-                service.setService_name(resultSet.getString("service_name"));   // 통계 자료에 출력하기 위한 service_name
-                service.setService_price(resultSet.getInt("service_price"));    // 서비스별 이용 요금
-                service.setService_cnt(0); // 서비스 이용 횟수 초기화
-                list.add(service);  // 매출액(value) 0으로 초기화
-            }
-
-            // 월별 서비스 매출액 조회
-			sql ="SELECT service_name, reservation_date FROM service INNER JOIN reservation " + 
-                    "ON reservation_date >= DATE_SUB(now(), INTERVAL " + indexMonth + " +3 DAY) " +
-                    "AND reservation_date <= DATE_SUB(now(), INTERVAL " + indexMonth + " DAY)";
-
-			statement = connection.prepareStatement(sql);			
+            String sql = """
+                SELECT service_code, service_name, service_price 
+                    FROM service WHERE service_code LIKE ?
+                """; // LIKE 연산자의 입력값은 ?로 부분 처리할 수 없다.
+            connection = dataSource.getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, "S" + (isMulti ? 1 : 0) + "%");   // 복합 서비스 여부 (단일 : 0 | 복합 : 1)
             resultSet = statement.executeQuery();
             while(resultSet.next()) {
-            	// 복수 선택 서비스 분리 : 서비스명으로 조회 후 카운트 증가
-                String[] service_nameArr = resultSet.getString("service_name").split(",");
-                for (String service_name : service_nameArr) {
-                    for (DashboardDTO dto : list) {
-                        if (dto.getService_name().equals(service_name)) {
-                            dto.setService_cnt(dto.getService_cnt()+1);
-                        }
-                    }
+                DashboardDTO service = new DashboardDTO();
+                service.setService_code(resultSet.getString("service_code"));
+                service.setService_name(resultSet.getString("service_name"));
+                service.setService_price(resultSet.getInt("service_price"));
+                serviceList.add(service);
+            }
+        } catch (SQLException e) {
+            System.out.println("[getServiceList] \n\tMessage : " + e.getMessage() + "\n\tClass   : " + e.getClass().getSimpleName());
+        } finally {
+            freeConnection();
+        }
+        return serviceList;
+    }
+    // 오버로딩 (인자를 전달받지 못할 경우 단일 서비스 조회)
+    public List<DashboardDTO> getServiceList() {return getServiceList(false);};
+
+    /** 
+     * @param board 서비스 객체 (getServiceList()에서 List에 저장된 DTO)
+     * @return
+     */
+    // 서비스별 연간 수익액 반환 (1~12월 저장)
+    public List<Integer> getMonthRevenueList(DashboardDTO board) {
+        // DTO(서비스)별 월 수익 저장
+        List<Integer> revenueList = new ArrayList<>();
+        // 저장되지 않는 월이 없도록 0으로 초기화 (null 방지) _ 이후 값 변경은 add()가 아니라 set() 
+        for (int i = 0; i < 12; i++) revenueList.add(0);
+
+        try {
+            String sql = """
+                SELECT 
+                    service_name , 
+                    MONTH(reservation_date) month, 
+                    COUNT(MONTH(reservation_date)) service_count 
+                FROM service s 
+                INNER JOIN reservation r ON s.service_code = r.service_code 
+                GROUP BY service_name, month 
+                ORDER BY s.service_code ASC, reservation_date ASC
+                """;
+            connection = dataSource.getConnection();
+			statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            /**
+             * DB 조회 데이터 순회 : 서비스 별 수익 여부 저장 
+             * 1> 서비스명 동일 여부  
+             * 2> 월 조회  
+             * 
+             * 3> 수익 산출
+             */
+            while(resultSet.next()) {
+                // 복수 선택 서비스 분리 : 서비스명으로 조회 후 카운트 증가
+                String[] service_nameArr = resultSet.getString("service_name").split(",");  // split() _ "return : String[]"
+                for (String service_name : service_nameArr) { // 반복 횟수 1~2회 (= 단일 서비스, 복합 서비스 차등)
+                    /***** 1> DTO 객체의 서비스명과 동일 여부 확인  *****/
+                    if (board.getService_name().equals(service_name)) {
+                    /***** 2> 예약 월 조회 : ArrayList의 인덱스로 활용  *****/
+                        int indexMonth = resultSet.getInt("month") - 1;   // MONTH()_ return : 1~12
+                    /***** 3> 당월 서비스 수익 산출 (서비스 횟수 * 서비스 금액) *****/
+                        revenueList.set(indexMonth, resultSet.getInt("service_count") * board.getService_price());
+                    }   // .set() : 값 변경  "add()는 추가 : 배열의 크기가 증가됨"
                 }
             }
-            // 데이터를 저장할 JSON 배열 선언
-            jsonServiceArray = new JSONArray();
-            jsonRevenueArray = new JSONArray();
-            jsonCountArray = new JSONArray();
-            // cf. JSONObject 에는 컬렉션을 저장할 수 없다.  |  JSONArray도 컬렉션을 반환하진 못한다...
-            for (DashboardDTO board : list) {
-                jsonServiceArray.put(board.getService_name());
-                jsonRevenueArray.put(board.getChart_revenue());
-                jsonCountArray.put(board.getService_cnt());
-            }
-		} catch (SQLException e) {
-            System.out.println("[setService] Message : " + e.getMessage());
-            System.out.println("[setService] Class   : " + e.getClass().getSimpleName());
-        } finally{
-			freeConnection();
-		}
+        } catch (SQLException e) {
+            System.out.println("[getMonthRevenueList] \n\tMessage : " + e.getMessage() + "\n\tClass   : " + e.getClass().getSimpleName());
+        } finally {
+            freeConnection();
+        }
+        return revenueList;
     }
-    // json배열로 return :  JS에 전달용
-    public JSONArray getService() {
-    	return jsonServiceArray;
-    }
-    public JSONArray getRevenue() {
-        return jsonRevenueArray;
-    }
-    public JSONArray getCount() {
-        return jsonCountArray;
-    }
+    /* ======================== 서비스 매출 현황 통계 로직 종료 ======================= */
+
     
+
     // == 달력에서 선택된 날짜에 대한 예약현황 데이터 가져오기 로직 시작 ==
     private String selectedDateStr = null;
     

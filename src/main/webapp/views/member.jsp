@@ -133,7 +133,7 @@
 						</div>
 					</div>
 					<div class="buttons d-flex justify-content-end align-items-end">
-						<button onclick="downloadExcel();" class="btn btn-outline-warning btn-excel"">
+						<button onclick="downloadExcel();" class="btn-excel btn btn-outline-warning ">
 							엑셀 다운로드</button>
 					</div>
 										<div class="col-12 d-flex justify-content-center align-items-center">

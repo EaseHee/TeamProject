@@ -19,7 +19,7 @@
 <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/vendors/apexcharts/apexcharts.js"></script>
-<script src="assets/js/pages/dashboard.js"></script>
+<!-- <script src="assets/js/pages/dashboard.js"></script> -->
 <script src="assets/js/pages/chartMonthRevenue.js"></script><!-- 그래프 ui 설정 변경 js 파일 _ 축별 설정 및 데이터 전달 시 해당 파일 참조 -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/calendarWithReservation.js" defer></script>

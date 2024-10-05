@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
-    <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
+    <link rel="stylesheet" href="assets/css/page.css">
 
 </head>
 <script>
@@ -91,7 +91,7 @@
 	                <div class="row form-group">
 					    <form method="get" action="product_detail.jsp?product_B_code=<%=product_B_code%>" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
 				        	<input type="hidden" name="product_B_code" value="<%=request.getParameter("product_B_code") %>"/>
-					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control me-2">
+					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control">
 					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
 					    </form>
 					    <form class="col-4 d-flex"></form>
@@ -111,9 +111,9 @@
 	                                            <thead>
 	                                                <tr>
 	                                                    <th class="text-center" width="10%">상품코드</th>
-	                                                    <th class="text-center" width="75%">상품명</th>
+	                                                    <th class="text-center" width="70%">상품명</th>
 	                                                    <th class="text-center" width="10%">가격</th>
-	                                                    <th class="text-center" width="5%">수량</th>
+	                                                    <th class="text-center" width="10%">수량</th>
 	                                                </tr>
 	                                            </thead>
 	                                            <tbody>
@@ -126,7 +126,7 @@
 	                                                    <td class="text-bold-500"><%=board.getProduct_code() %></td>
 	                                                    <td class="text-bold-500"><a href="product_read.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&product_code=<%= board.getProduct_code() %>"><%=board.getProduct_name()%></a></td>
 	                                                    <td class="text-bold-500"><%=board.getProduct_price() %></td>
-	                                                    <td class="text-bold-500"><%=board.getProduct_ea() %></td>
+	                                                    <td class="text-bold-500 text-center"><%=board.getProduct_ea() %></td>
 	                                                </tr>
 	                                                <%
 	                                            		}
@@ -139,9 +139,18 @@
 	                            </div>
 	                        </div>
 	                    </div>
-	                    <div id="excel_export" class="buttons d-flex justify-content-end align-items-end">
-							<button onclick="downloadExcel()" class="btn btn-outline-warning btn-excel">엑셀 다운로드</button>
-						</div>
+	                    <div class="row">
+	                    	<div class="col-6 d-flex justify-content-start align-items-center">
+	                    		<span class="badges badge bg-primary">상품 종류 : <%= list.size() %>개</span>	
+	                    	</div>
+	                    	<div class="col-6 d-flex justify-content-end">
+	                    		<div id="excel_export" class="buttons d-flex justify-content-end align-items-end">
+								<button onclick="downloadExcel()" class="btn btn-outline-warning btn-excel">엑셀 다운로드</button>
+							</div>	
+	                    	</div>
+	                    </div>
+	                    
+	                    
 	                    <div class="col-12 d-flex justify-content-center align-items-center">
 							<nav aria-label="Page navigation example">
 								<ul class="pagination pagination-primary">

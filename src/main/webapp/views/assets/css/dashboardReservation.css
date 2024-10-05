@@ -3,6 +3,7 @@
 	text-align: center;  /* 텍스트 데이터들을 칸 내에서 가운데 정렬. */
 }
 
+/* 예약현황 카드의 페이지 바의 페이지 번호들의 위치 조정. */
 #current-reservation tbody tr td.calendar-wrapper span[page-num] {
 	position: relative; 
 	bottom: 0.2em;
@@ -10,9 +11,9 @@
 }
 
 #current-reservation tbody tr td.calendar-wrapper span {
-	cursor: pointer;
+	cursor: pointer;  /* 마우스 커서 올리면 커서 모양이 "클릭 가능" 모양으로 변하도록 함. */
 }
 
 #current-reservation tbody tr td.calendar-wrapper span:hover {
-	background-color: #f2f2f2;
+	background-color: #f2f2f2; /* 예약현황 카드 페이지 번호에 마우스 hover 시 배경색이 변하도록 함. */
 }

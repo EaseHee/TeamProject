@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
-    <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
+    <link rel="stylesheet" href="assets/css/page.css">
 
 </head>
 
@@ -179,9 +179,9 @@
                         </div>
                     </div>
 
-                    <div class="buttons d-flex justify-content-end align-items-end">
-                        <button onclick="downloadExcel();" class="btn btn-outline-warning btn-excel"  >엑셀 다운로드</button>
-                    </div>
+                   <div class="buttons d-flex justify-content-end align-items-end">
+                       <button onclick="downloadExcel();" class="btn btn-outline-warning btn-excel">엑셀 다운로드</button>
+                   </div>
 					<div class="col-12 d-flex justify-content-center align-items-center">
 						<nav aria-label="Page navigation example">
 							<ul class="pagination pagination-primary">
