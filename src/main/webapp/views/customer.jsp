@@ -17,6 +17,47 @@
 	<link rel="stylesheet" href="assets/css/app.css">
 	<link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 	<link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
+	<style>
+		a {
+		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
+		    text-decoration: none;  /* 밑줄 없애기 */
+		}		
+		a:visited {
+		    color: inherit;
+		}		
+		a:hover {
+		    color: inherit;
+		}		
+		a:active {
+		    color: inherit;
+		}
+		.list-group-item.detail{
+			font-size: small;
+		}
+		.bi-plus-square {
+			display: inline-block;
+			transform: translateY(2px);
+		}
+		.bi-person-fill{
+			display: inline-block;
+			transform: translateY(6px);
+			margin-right: 5px;
+		}
+		.bi-bell-fill{
+			display: inline-block;
+			transform: translateY(3px);
+			margin-right: 5px;
+		}
+		.bi-box-arrow-right{
+			display: inline-block;
+			transform: translateY(3px);
+		}
+        .input-group-text{
+        	display: inline-block; 
+        	width: 15%;
+        } 
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 	<script>
 		function check() {
@@ -131,7 +172,7 @@
 										<tr>
 											<td class="text-bold-500 text-center"><%=board.getCustomer_id() %></td>
 											<td class="text-bold-500 text-center"><a
-												href="customerRead.jsp?customer_id=<%= board.getCustomer_id() %>"><%= board.getCustomer_name() %></a>
+												href="customerRead.jsp?customer_id=<%= board.getCustomer_id() %>"><%= board.getCustomer_name() %></a></td>
 											<td class="text-bold-500 text-center"><%=board.getCustomer_gender() %></td>
 											<td class="text-bold-500 text-center"><%=board.getCustomer_tel() %></td>
 											<td class="text-bold-500 text-center"><%=board.getCustomer_mail() %></td>
@@ -152,8 +193,7 @@
 				</div>
 			</div>
 			<div class="buttons d-flex justify-content-end align-items-end">
-				<button onclick="downloadExcel();" class="btn btn-outline-warning"
-					style="margin-right: 0px;">엑셀 다운로드</button>
+				<button onclick="downloadExcel();" class="btn-excel btn btn-outline-warning" style="margin-right: 0px;">엑셀 다운로드</button>
 			</div>
 			<div class="col-12 d-flex justify-content-center align-items-center">
 				<nav aria-label="Page navigation example">
