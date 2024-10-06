@@ -116,7 +116,7 @@ a:active {
 			<!-- 왼쪽 폼 -->
 			<form method="get" action="#" class="col-4 d-flex">
 				<input type="text" name="searchName" value="${param.searchName}"
-					placeholder="품목명으로 조회" class="form-control"> <input
+					placeholder="서비스명으로 조회" class="form-control"> <input
 					type="submit" class="btn btn-outline-success" value="조회">
 			</form>
 
@@ -142,7 +142,7 @@ a:active {
 									<tr>
 										<th class="text-center" width="30%">품목코드</th>
 										<th class="text-center" width="40%">서비스명</th>
-										<th class="text-center" width="30%">판매 가격</th>
+										<th class="text-center" width="30%">서비스 가격</th>
 									</tr>
 								</thead>
 								<%
