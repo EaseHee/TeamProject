@@ -83,7 +83,7 @@
 
     <div id="app">
 <jsp:include page="/views/header.jsp" ></jsp:include>
-				<div class="row form-group justify-content-end">
+				<div class="row form-group justify-content-start">
 					<form method="post" action="notice_list.jsp" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
 						<input type="text" name="keyWord" placeholder="제목으로 조회" class="form-control ">
 						<input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
@@ -160,7 +160,7 @@
 									} else {
 								%>		<!-- 이전 블럭으로 이동 버튼 활성화 -->
 										<li class="page-item">
-											<a class="page-link" href="notice_list.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock + pagePerBlock - 1%>&nowBlock=<%=nowBlock - 1%>">
+											<a class="page-link" href="notice_list.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock%>&nowBlock=<%=nowBlock - 1%>">
 												<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
 											</a>
 										</li>
