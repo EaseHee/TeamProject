@@ -123,10 +123,10 @@
 	                                            	%>
 	                                            	
 	                                                <tr>
-	                                                    <td class="text-bold-500"><%=board.getProduct_code() %></td>
-	                                                    <td class="text-bold-500"><a href="product_read.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&product_code=<%= board.getProduct_code() %>"><%=board.getProduct_name()%></a></td>
-	                                                    <td class="text-bold-500"><%=board.getProduct_price() %></td>
-	                                                    <td class="text-bold-500 text-center"><%=board.getProduct_ea() %></td>
+	                                                    <td class="text-center text-bold-500"><%=board.getProduct_code() %></td>
+	                                                    <td class="text-center text-bold-500"><a href="product_read.jsp?product_B_code=<%=request.getParameter("product_B_code") %>&product_code=<%= board.getProduct_code() %>"><%=board.getProduct_name()%></a></td>
+	                                                    <td class="text-center text-bold-500"><%=board.getProduct_price() %></td>
+	                                                    <td class="text-center text-bold-500"><%=board.getProduct_ea() %></td>
 	                                                </tr>
 	                                                <%
 	                                            		}
