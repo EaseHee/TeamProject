@@ -55,7 +55,7 @@
 	int totalPage = 0;		// 총 페이지 수
 	int nowPage = 0;		// 현재 선택된 페이지
 	int beginPerPage = 0;	// 페이지별 시작번호(중요!) EX) 1,11,21
-	int pagePerBlock = 2;	// 블럭당 페이지 수
+	int pagePerBlock = 5;	// 블럭당 페이지 수
 	int totalBlock = 0;		// 총 블럭 수
 	int nowBlock = 0;		// 현재 블럭
 
