@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="assets/css/app.css">
 	<link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
-<style>
+<!-- <style>
 a {
 	color: inherit; /* 부모 요소의 텍스트 색상을 따르도록 설정 */
 	text-decoration: none; /* 밑줄 없애기 */
@@ -60,7 +60,7 @@ a:active {
 	display: inline-block;
 	transform: translateY(3px);
 }
-</style>
+</style> -->
 </head>
 <body>
 	<%
@@ -157,8 +157,7 @@ a:active {
 								%>
 								<tr>
 									<td class="text-center"><%=service.getService_code()%></td>
-									<td class="text-center"><a
-										href="servicedetail.jsp?code=<%=service.getService_code()%>"><%=service.getService_name()%></a></td>
+									<td class="text-center"><a href="servicedetail.jsp?code=<%=service.getService_code()%>"><%=service.getService_name()%></a></td>
 									<td class="text-center"><fmt:formatNumber
 											value='<%=service.getService_price()%>' /></td>
 								</tr>
