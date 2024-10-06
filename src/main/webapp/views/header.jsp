@@ -89,6 +89,7 @@
 	                                    <!-- 마이페이지 버튼 -->
 										<form action="mypage_view.jsp" method="get" style="display: inline; margin: 0;">
 											    <input type="hidden" name="branchCode" value="${branchCode}">
+											    <% String branchName = (String)session.getAttribute("branchName"); %>
 											    <b><%=branchName%>&nbsp;&nbsp;&nbsp;</b><button type="submit" style="background: none; border: none; padding: 0; width: 25px">
 											        <i class="bi bi-person-fill text-primary" style="font-size:x-large;"></i>
 											    </button>
