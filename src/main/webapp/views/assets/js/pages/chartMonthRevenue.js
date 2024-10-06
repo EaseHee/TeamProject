@@ -21,11 +21,8 @@ class DashboardChart {
     let path = window.location.pathname; ///TeamProject/views/dashboard.jsp
     let nowPage = path.substring(path.lastIndexOf("/")+1, path.lastIndexOf("."));
     console.log("[현재 페이지] : " + nowPage); 
-    if (nowPage === "dashboard") {
-      return true;
-    } else {
-      return false;
-    }
+    // 현재 페이지가 dashboard인지 확인
+    return nowPage === "dashboard";
   }
 
   _fetchAndShowChart() {
@@ -43,22 +40,20 @@ class DashboardChart {
 class RevenueChart {
   constructor() {
     this.barOptions;
-    this._setAttribute();
+    this._setColors();
     this._setHeader();
   }
 
-  _setAttribute() {
+  _setColors() {
+    /* 막대 색상 변수로 선언 */
     this.color_main = "#435ebe";
     this.color_blue = "#7BD3EA";
     this.color_red = "#F6D6D6";
     this.color_green = "#A1EEBD";
     this.color_yellow = "#F6F7C4";
     this.colors = [this.color_blue, this.color_red, this.color_green, this.color_yellow]
-
-    document.getElementById("revenue").style.boxSizing = "border-box";
-    document.getElementById("revenue").setAttribute("position", "relative");
   }
-
+  
   _setHeader() {
     document.getElementById("chart-title").innerText = "연간 서비스 매출액 통계";
   }
@@ -95,12 +90,25 @@ class RevenueChart {
         stacked: true, // 데이터 중첩 O (막대 하나에 모두 표시)
         stackType: "100%",  // 전체 범위 중 비율로 표기
         */
-       
+
+        /* 
+        // safari 범례 위치 고정 불가 오류 _ 크롬으로 실행.
+        // DOM에 접근하려면 차트가 렌더되어야 한다고 한다. events 속성으로 addEventListener() 속성 부여.
+        events: {
+          rendered: () => {
+            // 범례 묶음을 기준으로 position 설정
+            let legendSeries = document.querySelector("#revenue .apexcharts-legend-Series");
+            let legend = legendSeries.parentElement;
+            legend.style.position = "relative";
+            legendSeries.style.position = "absolute";
+          }
+        },
+        */
         toolbar: {
           show: true  // 마우스 올렸을 때 툴바 출력 여부
         },
       },
-
+    
       // plotOptions : 차트 옵션 (line, bar, area, bubble, ... )
       plotOptions: {
         bar: {
@@ -141,9 +149,10 @@ class RevenueChart {
         width: 0.3,
         colors: [this.color_main]
       },
+
       xaxis: {
         categories: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"], // x축 : 1~12월
-        fontSize: 15,
+        fontSize: 20,
         fontWeight: "bold",
         labels: {
           offsetY: 3, // x축 데이터 값
@@ -154,15 +163,20 @@ class RevenueChart {
       legend: {
         show: true,
         fontSize: '10px',
-        position: "bottom",
-        horizontalAlign: "left" ,
+        // 차트에 종속할지 화면에 떠다닐지 설정
+        floating: false, // yaxis offsetY 수정 필요 ()
+        /* 
         floating: false,
+        position: "bottom", // floating: false일 경우 유효
+        horizontalAlign: "left" , // floating: false일 경우 유효
         offsetX: 10,
         offsetY: -50,
+        */
         markers: {
+          show: true,
           size: 25,
           fillColors: this.colors,
-          offsetY: -20,
+          // offsetY: -20,// floating: false일 경우 적용
         },
       },
       
@@ -175,9 +189,9 @@ class RevenueChart {
             fontWeight: "normal", // 기본값 : "bold"
           },
           rotate: 0, // 수평 
-          // 조금씩 움직이기..! (원점 : (x: 20, y: 210) | y축 끝 : (x: 20, y: -200))
+          // 조금씩 움직이기..! (원점 : (x: 15, y: 210) | y축 끝 : (x: 15, y: --195))
           offsetX: 15,
-          offsetY: -195,
+          offsetY: -205,
         },
         // y축 데이터 값 
         labels: {
@@ -185,15 +199,18 @@ class RevenueChart {
         },
         type: "numeric"
       },
+
       fill: {
         opacity: 1, // 불투명
       },
+
       // 마우스 올렸을 때 뜨는 창
       tooltip: {
         y: {
           formatter: val => parseInt(val / 10000).toLocaleString() + " 만원"
         },
       },
+
       /* 참고 : https://apexcharts.com/docs/options/chart/toolbar/ */
       export: { // 미적용.
         csv: {
@@ -217,5 +234,5 @@ class RevenueChart {
     new ApexCharts(document.querySelector("#revenue"), this.barOptions).render();
    }
 }
-  
+
 new DashboardChart();
