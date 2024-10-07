@@ -13,13 +13,15 @@ let customAttributeMap = {
 */
 let fixedAttributeValueMap = {
 	pageBar : {
-		// 현재 페이지일 경우 색칠된 아이콘으로
-		currentYes : "M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z",
-		
-		// 현재 페이지가 아닐 경우 색칠되지 않은 아이콘으로
-		currentNo : "M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256-96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"
-	}
-}
+		pageItem: "page-item", // 페이지 아이템임을 나타내는 속성. 
+		pageLink: "page-link", 
+	},
+	active: "active",
+	arrow: {
+		left: "chevron_left",
+		right: "chevron_right"
+	},
+};
 
 /**
  * 캘린더와 예약현황 카드 연계 로직을 위한 클래스. 
@@ -169,57 +171,6 @@ class CalendarAndReservation {
 		 */
 		_constructPageVar() {
 			let tr = document.createElement("tr");
-
-			/**
-			 * 화살표 함수 내부에서의 this는 현재 인스턴스를 가리키지 않으므로(즉, 정보를 잃어버림) 대신 익명함수나 다른 
-			 * 함수를 사용해야 한다. 
-			 * 함수명.bind(this)를 통해 this가 ManipulateReservationTable 객체임을 알리는 정보를 전달해준다. 
-			 * 
-			 * 예약현황 table 태그에 nowPage 속성을 부여하여 현재 페이지를 기록하게 하고, 이 정보를 토대로 
-			 * "현재 페이지"의 데이터만 보여주게끔 함.
-			 * @param {} event 
-			 * @returns 
-			 */
-			function trEventHandler(event) {
-				let trNowPageNum = parseInt(
-					this.reservationTableElement
-						.getAttribute(customAttributeMap.nowPage)
-				);
-				
-				switch (event.target.tagName) {
-					case "SPAN":
-						const spanPrevNextId = event.target.getAttribute("id");
-						if ((spanPrevNextId == "prev" && trNowPageNum <= 1) || 
-							(spanPrevNextId == "next" && trNowPageNum >= this.totalPages)) return;
-							
-						if (spanPrevNextId == "prev") {
-							// 이전(<) 버튼 클릭 시 현재 페이지가 1이 아닌 이상 이전 페이지로 넘어가도록 한다.
-							this.reservationTableElement.setAttribute(
-								customAttributeMap.nowPage , 
-								`${--trNowPageNum}`
-							);
-						} else if (spanPrevNextId == "next") {
-							// 다음(>) 버튼 클릭 시 현재 페이지가 끝 페이지가 아닌 이상 다음 페이지로 넘어가도록 한다. 
-							this.reservationTableElement.setAttribute(
-								customAttributeMap.nowPage, 
-								`${++trNowPageNum}`
-							);
-						} else if (event.target.getAttribute(customAttributeMap.pageNum) != null) {
-							// 페이지 번호를 클릭한 경우 해당 페이지의 데이터가 보이도록 하기 위해 
-							// 클릭된 페이지 번호 정보를 예약현황 table 요소에 속성값으로 기록. 
-							this.reservationTableElement.setAttribute(
-								customAttributeMap.nowPage, 
-								event.target.getAttribute(customAttributeMap.pageNum)
-							);
-						}
-
-						break;
-				}
-				this.constructReservationTable();
-			}
-
-			tr.addEventListener("click", trEventHandler.bind(this));
-
 			let td = document.createElement("td");
 			
 			// 데이터 필드 수를 대입하여 페이지 바가 양 옆으로 크게 나오도록 한다. 
@@ -228,75 +179,132 @@ class CalendarAndReservation {
 			td.classList.add("calendar-wrapper");
 
 			/**
-			 * 페이징을 위한 화살표 (<, >) 요소를 구성. 
+			 * 페이지 버튼 요소 생성 함수
 			 * 
-			 * ex)
-			 * <span 
-			 * 		id="prev" 
-			 * 		class="icons material-symbols-rounded" 
-			 * 		style="display: inline-block; 
-			 * 		transform: translateY(3px);"
-			 * >chevron_left</span>
-			 * 
-			 * @param {string} arrowText - chevron_left, chevron_right 둘 중 하나. 단, prevNext와 동일한 세트여야 한다. 
-			 * @param {string} prevNext - "prev", "next" 둘 중 하나.
-			 * @returns {HTMLSpanElement} - 구성 완료된 span 태그
+			 * @param {string} arrowText 
+			 * @returns 
 			 */
-			const spanFactory = (arrowText, prevNext) => {
-				let spanElement = document.createElement("span");
-				spanElement.setAttribute("id", prevNext);
-				spanElement.classList.add("icons");
-				spanElement.classList.add("material-symbols-rounded");
-				spanElement.setAttribute("style", "display: inline-block; transform: translateY(3px);");
+			function arrowButtonFactory(arrowText) {
+				const liElement = document.createElement("li");
+				liElement.classList.add(fixedAttributeValueMap.pageBar.pageItem);
+				liElement.classList.add(fixedAttributeValueMap.pageBar.pageLink);
+				liElement.classList.add("arrow");  // 해당 요소가 화살표 요소임을 인식.
+				liElement.classList.add(arrowText);  // 왼쪽 또는 오른쪽 화살표인지 인식용.
 
-				let textNode = document.createTextNode(arrowText);
-				spanElement.appendChild(textNode);
+				const spanElement = document.createElement("span");
+				spanElement.setAttribute("aria-hidden", "true");
 
-				return spanElement;
-			};
-
-			const spans = {
-				"left": spanFactory("chevron_left", "prev"),
-				"right": spanFactory("chevron_right", "next")
-			};
-
-			// < ... > (페이지 바 구성)요소 넣기
-			td.appendChild(spans.left);
-			
-			// 총 페이지 수 만큼 각 페이지들을 의미하는 기호를 출력. 
-			/*
-				나중을 위해 일단은 page-num이란 속성을 부여. 
-				<span page-num="1">1</span>
-			*/
-			// 
-			for (let i = 0; i < this.totalPages; i++) {
-				/*
-				// 기존 아이콘 방식
 				const iElement = document.createElement("i");
-				// class="bi bi-dot"
 				iElement.classList.add("bi");
-				iElement.classList.add("bi-dot");
+				iElement.classList.add(`bi-${arrowText}`);
+				iElement.classList.add("material-symbols-rounded");
+				iElement.textContent = arrowText;
 
-				// 각 i 태그에 페이지 번호를 pageNum 속성값으로 매핑한다. 
-				iElement.setAttribute(customAttributeMap.pageNum, `${i+1}`);
-				td.appendChild(iElement);
-				*/
-				
-				// 페이지 번호 부여 방식.
-				const pageNumberElement = document.createElement("span");
-				pageNumberElement.setAttribute(customAttributeMap.pageNum, `${i + 1}`);
+				spanElement.appendChild(iElement);
+				liElement.appendChild(spanElement);
 
-				let pageNumTextNode = document.createTextNode(`${i + 1}`);
-				pageNumberElement.appendChild(pageNumTextNode);
-
-				td.appendChild(pageNumberElement);
+				return liElement;
 			}
 
-			td.appendChild(spans.right);
+			/**
+			 * 페이지 버튼에 할당할 이벤트 핸들러 함수.
+			 * @param {*} event 
+			 */
+			function clickEventHandler(event) {
+				let trNowPageNum = parseInt(
+					this.reservationTableElement.getAttribute(customAttributeMap.nowPage)
+				);
+
+				if (event.currentTarget.classList.contains(fixedAttributeValueMap.arrow.left) && trNowPageNum > 1) {
+					--trNowPageNum;
+				} else if (event.currentTarget.classList.contains(fixedAttributeValueMap.arrow.right) && trNowPageNum < this.totalPages) {
+					++trNowPageNum;
+				}
+
+				// 페이지 이동이 되도록 table의 now-page 속성의 값을 변경. 
+				this.reservationTableElement.setAttribute(
+					customAttributeMap.nowPage, 
+					trNowPageNum
+				);
+
+				this.constructReservationTable();
+			}
+
+			const arrows = {
+				"left" : arrowButtonFactory(fixedAttributeValueMap.arrow.left),
+				"right": arrowButtonFactory(fixedAttributeValueMap.arrow.right)
+			};
+
+			arrows.left.addEventListener("click", clickEventHandler.bind(this));
+			arrows.right.addEventListener("click", clickEventHandler.bind(this));
+
+			// 페이지 바를 구성하는 요소 생성 및 구축. 
+			const ulParentElement = document.createElement("ul");
+			const classListToAdd = [
+				"pagination", 
+				"pagination-primary", 
+				"d-flex",
+				"justify-content-center",
+				"align-items-center"
+			];
+			classListToAdd.forEach(attr => {
+				ulParentElement.classList.add(attr);
+			});
+
+			ulParentElement.setAttribute("style", "margin-bottom: 0");
+
+			// < ... > (페이지 바 구성)요소 넣기
+			ulParentElement.appendChild(arrows.left);
+
+			
+			// 총 페이지 수 만큼 각 페이지들을 의미하는 기호를 출력. 
+			for (let i = 0; i < this.totalPages; i++) {
+				// 페이지 모양 통일안
+				const liPageNumElement = document.createElement("li");
+				liPageNumElement.classList.add(fixedAttributeValueMap.pageBar.pageItem);
+				liPageNumElement.classList.add(fixedAttributeValueMap.pageBar.pageLink);
+				liPageNumElement.textContent = i + 1;
+
+				ulParentElement.appendChild(liPageNumElement);
+			}
+
+			ulParentElement.appendChild(arrows.right);
+
+			// 화살표가 아닌 페이지 번호 요소들에 대한 이벤트 핸들러 설정.
+			function pageNumHandler(event) {
+				/*
+				// 현재 이 코드가 제대로 작동되지 않음. 
+				// 모든 페이지 번호 요소들의 active 속성 삭제. 
+				ulParentElement.querySelectorAll("li:not(.arrow)").forEach(liEle => {
+					console.log(liEle);
+					liEle.classList.remove(fixedAttributeValueMap.active);
+				});
+
+				// 활성화 관련 설정. 
+				console.log("currentTarget?");
+				console.log(event.currentTarget);
+				console.log(event.currentTarget.parentElement);
+				event.currentTarget.classList.add("active"); */
+
+				this.reservationTableElement.setAttribute(
+					customAttributeMap.nowPage, 
+					event.currentTarget.textContent
+				);
+
+				this.constructReservationTable();
+			}
+
+			// 화살표가 아닌 페이지 번호 요소들에 대한 이벤트 핸들러 설정. 
+			const liPageNums = ulParentElement.querySelectorAll("li:not(.arrow)");
+			for (const liPageNumElement of liPageNums) {
+				liPageNumElement.addEventListener("click", pageNumHandler.bind(this));
+			}
 			// < ... > 요소 넣기 끝
 
+			td.appendChild(ulParentElement);
 			tr.appendChild(td);
 			this.reservationTableElement.querySelector("tbody").appendChild(tr);
+
 		}
 		
 	}
