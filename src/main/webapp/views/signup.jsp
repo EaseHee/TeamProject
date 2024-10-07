@@ -160,6 +160,8 @@ function sample4_execDaumPostcode() {
             document.getElementById('sample4_postcode').value = data.zonecode;
             document.getElementById("sample4_roadAddress").value = roadAddr;
            	
+            // 우편번호, 주소 필드 입력 후 상세주소로 포커스 이동
+            document.getElementById("sample4_detailAddress").focus();
             
         }  
    	}).open();
