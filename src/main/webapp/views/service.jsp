@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="assets/css/app.css">
 	<link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
-<style>
+<!-- <style>
 a {
 	color: inherit; /* 부모 요소의 텍스트 색상을 따르도록 설정 */
 	text-decoration: none; /* 밑줄 없애기 */
@@ -60,7 +60,7 @@ a:active {
 	display: inline-block;
 	transform: translateY(3px);
 }
-</style>
+</style> -->
 </head>
 <body>
 	<%
@@ -116,7 +116,7 @@ a:active {
 			<!-- 왼쪽 폼 -->
 			<form method="get" action="#" class="col-4 d-flex">
 				<input type="text" name="searchName" value="${param.searchName}"
-					placeholder="품목명으로 조회" class="form-control"> <input
+					placeholder="서비스명으로 조회" class="form-control"> <input
 					type="submit" class="btn btn-outline-success" value="조회">
 			</form>
 
@@ -142,7 +142,7 @@ a:active {
 									<tr>
 										<th class="text-center" width="30%">품목코드</th>
 										<th class="text-center" width="40%">서비스명</th>
-										<th class="text-center" width="30%">판매 가격</th>
+										<th class="text-center" width="30%">서비스 가격</th>
 									</tr>
 								</thead>
 								<%
@@ -157,8 +157,7 @@ a:active {
 								%>
 								<tr>
 									<td class="text-center"><%=service.getService_code()%></td>
-									<td class="text-center"><a
-										href="servicedetail.jsp?code=<%=service.getService_code()%>"><%=service.getService_name()%></a></td>
+									<td class="text-center"><a href="servicedetail.jsp?code=<%=service.getService_code()%>"><%=service.getService_name()%></a></td>
 									<td class="text-center"><fmt:formatNumber
 											value='<%=service.getService_price()%>' /></td>
 								</tr>
