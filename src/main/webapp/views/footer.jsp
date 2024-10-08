@@ -28,30 +28,46 @@
 	window.onload = function(){
 		const currentUrl = window.location.pathname;
 		if(currentUrl.includes('dashboard')){
-			document.getElementById('dashboard-li').classList.add('active')
-			document.getElementById('header-text').textContent = '메인'
+			document.getElementById('dashboard-li').classList.add('active');
+			document.getElementById('header-text').textContent = '메인';
 		}else if(currentUrl.includes('customer')){
-			document.getElementById('customer-li').classList.add('active')
-			document.getElementById('header-text').textContent = '고객'
+			document.getElementById('customer-li').classList.add('active');
+			document.getElementById('header-text').textContent = '고객';
+			if(currentUrl.includes('Add')) document.getElementById('header-text').textContent = '고객 등록';
+			else if(currentUrl.includes('Read')) document.getElementById('header-text').textContent = '고객 상세';
+			else if(currentUrl.includes('Update')) document.getElementById('header-text').textContent = '고객 수정';			
 		}else if(currentUrl.includes('reservation')){
-			document.getElementById('reservation-li').classList.add('active')
-			document.getElementById('header-text').textContent = '예약'
+			document.getElementById('reservation-li').classList.add('active');
+			document.getElementById('header-text').textContent = '예약';
+			if(currentUrl.includes('Post')) document.getElementById('header-text').textContent = '예약 등록';
+			else if(currentUrl.includes('Read')) document.getElementById('header-text').textContent = '예약 상세';
+			else if(currentUrl.includes('Update')) document.getElementById('header-text').textContent = '예약 수정';
 		}else if(currentUrl.includes('service')){
-			document.getElementById('service-li').classList.add('active')
-			document.getElementById('header-text').textContent = '서비스'
+			document.getElementById('service-li').classList.add('active');
+			document.getElementById('header-text').textContent = '서비스';
+			if(currentUrl.includes('post')) document.getElementById('header-text').textContent = '서비스 등록';
+			else if(currentUrl.includes('detail')) document.getElementById('header-text').textContent = '서비스 상세';
+			else if(currentUrl.includes('update')) document.getElementById('header-text').textContent = '서비스 수정';
 		}else if(currentUrl.includes('product')){
-			document.getElementById('product-li').classList.add('active')
-			document.getElementById('header-text').textContent = '상품'
+			document.getElementById('product-li').classList.add('active');
+			document.getElementById('header-text').textContent = '상품';
+			if(currentUrl.includes('add')) document.getElementById('header-text').textContent = '상품 등록';
+			else if(currentUrl.includes('product_read')) document.getElementById('header-text').textContent = '상품 상세';
+			else if(currentUrl.includes('update')) document.getElementById('header-text').textContent = '상품 수정';
 		}else if(currentUrl.includes('member')){
-			document.getElementById('member-li').classList.add('active')
-			document.getElementById('header-text').textContent = '직원'
+			document.getElementById('member-li').classList.add('active');
+			document.getElementById('header-text').textContent = '직원';
+			if(currentUrl.includes('Post')) document.getElementById('header-text').textContent = '직원 등록';
+			else if(currentUrl.includes('Read')) document.getElementById('header-text').textContent = '직원 상세';
+			else if(currentUrl.includes('Update')) document.getElementById('header-text').textContent = '직원 수정';
 		}else if(currentUrl.includes('notice')){
-			document.getElementById('notice-li').classList.add('active')
-			document.getElementById('header-text').textContent = '공지'
+			document.getElementById('notice-li').classList.add('active');
+			document.getElementById('header-text').textContent = '공지';
+			if(currentUrl.includes('notice_view')) document.getElementById('header-text').textContent = '공지 상세 페이지';
 		}else if(currentUrl.includes('mypage')){
-			document.getElementById('header-text').textContent = '마이 페이지'
+			document.getElementById('header-text').textContent = '마이 페이지';
 		}else{
-			window.alert('존재하지 않는 페이지 입니다.')
+			window.alert('존재하지 않는 페이지 입니다.');
 		}
 	}
 </script>
