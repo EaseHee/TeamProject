@@ -55,7 +55,6 @@ public class ReservationDAO {
     }
     
     //reservation.jsp
-    
     public List<ReservationDTO> getReservationDTOList(String keyField, String keyWord, String startDate, String endDate) {
         String sql = "SELECT reservation_no, service_name, reservation_date, reservation_time, customer_name, member_name, reservation_comm "
             + "FROM reservation res "
