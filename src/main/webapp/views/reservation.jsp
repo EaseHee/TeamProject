@@ -120,7 +120,8 @@
 						<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate %>" onclick="this.showPicker()">&nbsp;&nbsp;~&nbsp;&nbsp;
 						<input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate %>" onclick="this.showPicker()">
 						<!-- input type="submit" name="start" class="btn btn-outline-success" value="조회"-->
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+						&nbsp;&nbsp;&nbsp;&nbsp;<div style="width:2000px;"></div>
+						 
 						<input type="hidden" value="<%=startDate %>" /> 
 						<input type="hidden" value="<%=endDate %>" /> 
 						<select name="keyField" class="choices form-select" style="width: 150px; display: block;">
@@ -244,14 +245,51 @@
 					</div>
 				</section>
 <jsp:include page="/views/footer.jsp"></jsp:include>
-        <script>
-            function downloadExcel() {
-                var table = document.getElementById("table");
-                var wb = XLSX.utils.table_to_book(table, { sheet: "예약 관리" });
-                XLSX.writeFile(wb, '예약_관리.xlsx');
-            }
-        </script>
-        <script>
+		<script>
+    		function downloadExcel() {
+        		// JSP에서 자바 객체 데이터를 자바스크립트 배열로 변환
+       			 var reservationData = [
+            	<%// DAO 메서드를 호출하여 예약 정보를 가져옴
+					List<ReservationDTO> reservations = dao.getReservationDTOList(keyField, keyWord, startDate, endDate);
+					for (ReservationDTO reservation : reservations) {
+				%>
+           			 {
+                		reservation_no : '<%=reservation.getReservation_no()%>',
+               			service_name: '<%=reservation.getService_name()%>',
+                		reservation_date : '<%=reservation.getReservation_date()%>',
+                		reservation_time : '<%=reservation.getReservation_time()%>',
+                		customer_name : '<%=reservation.getCustomer_name()%>',
+                		member_name: '<%=reservation.getMember_name()%>',
+                		reservation_comm : '<%=reservation.getReservation_comm()%>'
+            		},
+            	<%}%>
+        		];
+
+        		var wb = XLSX.utils.book_new(); // 새로운 엑셀 파일 생성
+        		var ws_data = [['예약 번호', '예약 품목', '예약 날짜', '예약 시간', '예약자 명', '직원 명', '특이 사항']]; // 엑셀 헤더
+
+        		// 예약 데이터를 엑셀에 추가
+        		reservationData.forEach(function(reservation) {
+            	ws_data.push([
+                reservation.reservation_no,
+                reservation.service_name,
+                reservation.reservation_date,
+                reservation.reservation_time,
+                reservation.customer_name,
+                reservation.member_name,
+                reservation.reservation_comm
+            	]);
+        	});
+
+        		var ws = XLSX.utils.aoa_to_sheet(ws_data); // 데이터를 시트로 변환
+        		XLSX.utils.book_append_sheet(wb, ws, '예약_관리'); // 시트를 엑셀 파일에 추가
+
+        		// 엑셀 파일 다운로드
+        		XLSX.writeFile(wb, '예약_관리.xlsx');
+    		}
+		</script>
+
+		<script>
 			function validateDates() {
 				const startDate = document.getElementById('startDate').value;
 				const endDate = document.getElementById('endDate').value;
