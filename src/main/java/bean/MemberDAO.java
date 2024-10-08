@@ -211,14 +211,14 @@ public class MemberDAO {
 		        stmt.executeUpdate();
 			} 
 			catch(Exception e) {
-				System.out.println("[delelteBProduct] Message : " + e.getMessage());
-				System.out.println("[delelteBProduct] Class   : " + e.getClass().getSimpleName());
+				System.out.println("[delelteMemberDTO] Message : " + e.getMessage());
+				System.out.println("[delelteMemberDTO] Class   : " + e.getClass().getSimpleName());
 			} finally {
 				freeConn();
 			}
 		}
 
-		//예약 서비스명 조회
+		//직원 이름 전체 조회
 	    public List<String> getAllMemberNames() throws SQLException {
 		    List<String> memberNames = new ArrayList<>();
 		    String query = "SELECT member_name FROM member"; // 'member' 테이블에서 서비스 명 가져옴
@@ -233,8 +233,8 @@ public class MemberDAO {
 		        }
 		    } 
 		    catch (SQLException e) {
-	            System.out.println("[getAllServiceNames] Message : " + e.getMessage());
-	            System.out.println("[getAllServiceNames] Class   : " + e.getClass().getSimpleName());
+	            System.out.println("[getAllMemberNames] Message : " + e.getMessage());
+	            System.out.println("[getAllMemberNames] Class   : " + e.getClass().getSimpleName());
 	        }
 		    finally {
 		        freeConn(); // freeConnection을 finally 블록에서 호출하여 자원을 반환
