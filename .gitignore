@@ -6,3 +6,4 @@ TeamProject.iml
 .DS_Store
 src/.DS_Store
 .metadata/
+/bin/

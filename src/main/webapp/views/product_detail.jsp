@@ -1,8 +1,8 @@
-<%@page import="bean.*"%>
 <%@ page import="java.sql.*" %>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="bean.*, java.util.Set, java.util.HashSet"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
+    <title>상품</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">    
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -88,11 +88,10 @@
 
     <div id="app">
 <jsp:include page="/views/header.jsp" ></jsp:include>
-	                
 	                <div class="row form-group">
 					    <form method="get" action="product_detail.jsp?product_B_code=<%=product_B_code%>" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
 				        	<input type="hidden" name="product_B_code" value="<%=request.getParameter("product_B_code") %>"/>
-					        <input type="text" name="keyWord" placeholder="상품명으로 검색" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
+					        <input type="text" name="keyWord" placeholder="상품명으로 조회" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
 					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
 					    </form>
 					    <form class="col-4 d-flex"></form>
@@ -112,8 +111,8 @@
 	                                                <tr>
 	                                                    <th class="text-center" width="10%">상품코드</th>
 	                                                    <th class="text-center" width="70%">상품명</th>
-	                                                    <th class="text-center" width="10%">가격</th>
-	                                                    <th class="text-center" width="10%">수량</th>
+	                                                    <th class="text-center" width="10%">상품 가격</th>
+	                                                    <th class="text-center" width="10%">상품 수량</th>
 	                                                </tr>
 	                                            </thead>
 	                                            <tbody>
@@ -240,9 +239,35 @@
     %>
     <script>
 	    function downloadExcel() {
-	        var table = document.getElementById("productTable");
-	        // 테이블 > 워크시트
-	        var wb = XLSX.utils.table_to_book(table, {sheet: "상품 관리"});
+	    	
+	    	var productData = [ //자바 객체 데이터를 jsp 배열로 변환
+	    		<% 
+    			//productDAO에서 getProductList() 메서드를 호출 > 모든 상품을 가져옴
+    			//prodDAO.getProductList(product_B_code, keyWord) > java.util.ArrayList
+    			ArrayList<ProductDTO> productList = (ArrayList<ProductDTO>) prodDAO.getProductList(product_B_code, keyWord);
+    			Set<ProductDTO> products = new HashSet<>(productList);
+    			
+    			for(ProductDTO product : products) {%>{
+    				product_code : '<%=product.getProduct_code()%>',
+    				product_name : '<%=product.getProduct_name()%>',
+    				product_price : '<%=product.getProduct_price()%>',
+    				product_ea : '<%=product.getProduct_ea()%>'
+    			},
+    		<%}%>
+	    	];
+	    	
+	        var wb = XLSX.utils.book_new(); //엑셀 파일 생성 함수
+	        var ws_data = [['상품코드', '상품명', '상품 가격', '상품 수량']]; //엑셀 행
+	        
+	        //데이터를 행별로 추가
+	        productData.forEach(function(product) {
+	        		ws_data.push([product.product_code, product.product_name, product.product_price, product.product_ea]);
+	        });
+	        
+	        var ws = XLSX.utils.aoa_to_sheet(ws_data); //ws_data 배열을 엑셀 시트로 변환
+	        XLSX.utils.book_append_sheet(wb, ws, '상품 관리'); //엑셀에 변환한 시트를 추가하는 함수
+	        
+	        //엑셀 파일 저장
 	        XLSX.writeFile(wb, '상품_관리.xlsx');
 	    }
 	</script>
