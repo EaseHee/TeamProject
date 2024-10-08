@@ -211,8 +211,8 @@ public class MemberDAO {
 		        stmt.executeUpdate();
 			} 
 			catch(Exception e) {
-				System.out.println("[delelteBProduct] Message : " + e.getMessage());
-				System.out.println("[delelteBProduct] Class   : " + e.getClass().getSimpleName());
+				System.out.println("[delelteMemberDTO] Message : " + e.getMessage());
+				System.out.println("[delelteMemberDTO] Class   : " + e.getClass().getSimpleName());
 			} finally {
 				freeConn();
 			}
