@@ -4,7 +4,7 @@ body {
 
 #auth {
 	height: 100vh;
-	overflow-x: hidden
+	overflow-x: hidden;
 }
 
 #auth #auth-right {
@@ -14,7 +14,7 @@ body {
 }
 
 #auth #auth-left {
-	padding: 5rem 7rem
+	padding: 5rem 7rem;
 }
 
 #auth #auth-left .auth-title {
@@ -29,7 +29,7 @@ body {
 }
 
 #auth #auth-left .auth-logo {
-	margin-bottom: 7rem
+	margin-bottom: 1rem
 }
 
 #auth #auth-left .auth-logo img {
