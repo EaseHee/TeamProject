@@ -2,23 +2,21 @@ package bean;
 
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class ReservationDAO {
+public class ReservationDAO_yye {
     private Context context = null;
     private DataSource dataSource = null;
 
@@ -26,7 +24,7 @@ public class ReservationDAO {
     private PreparedStatement statement = null;
     private ResultSet resultSet = null;
 
-    public ReservationDAO () {
+    public ReservationDAO_yye () {
         try {
             context = new InitialContext();
             dataSource = (DataSource) context.lookup("java:comp/env/jdbc/acorn");
@@ -55,7 +53,134 @@ public class ReservationDAO {
     }
     
     //reservation.jsp
+    /*
+    public List<ReservationDTO> getReservationDTOList(String keyField, String keyWord){
+    	String sql = null;
+    	
+    	if(keyWord == null || keyWord.isEmpty()) {
+    		sql = "SELECT reservation_no, service_name, reservation_date, reservation_time, customer_name, reservation_comm FROM reservation res "
+            		+ "INNER JOIN customer cus ON cus.customer_id = res.customer_id "
+            		+ "INNER JOIN service ser ON ser.service_code = res.service_code "
+    				+ "ORDER BY reservation_date DESC";
+    	}
+    	else {
+    		sql = "SELECT reservation_no, service_name, reservation_date, reservation_time, customer_name, reservation_comm FROM reservation res "
+            		+ "INNER JOIN customer cus ON cus.customer_id = res.customer_id "
+            		+ "INNER JOIN service ser ON ser.service_code = res.service_code "
+    				+ "WHERE " + keyField + " like '%" + keyWord + "%'";
+    	}
+    	
+    	ArrayList<ReservationDTO> list = new ArrayList<>();
+    	
+    	try {
+    		context = new InitialContext();
+    		dataSource = (DataSource)context.lookup("java:comp/env/jdbc/acorn");
+    		connection = dataSource.getConnection();
+    		
+
+    		statement = connection.prepareStatement(sql);
+    		resultSet = statement.executeQuery();
+    		
+    		while(resultSet.next()) {
+    			ReservationDTO reservationDTO = new ReservationDTO();
+    			reservationDTO.setReservation_no(resultSet.getInt("reservation_no"));
+    			reservationDTO.setService_name(resultSet.getString("service_name"));
+    			reservationDTO.setReservation_date(resultSet.getString("reservation_date"));
+    			reservationDTO.setReservation_time(resultSet.getString("reservation_time"));
+    			reservationDTO.setCustomer_name(resultSet.getString("customer_name"));
+    			reservationDTO.setReservation_comm(resultSet.getString("reservation_comm"));
+    			
+    			list.add(reservationDTO);
+    		}
+    		
+    	}
+    	catch(Exception e) {
+    		System.out.println("[getReservationDTOList] Message : " + e.getMessage());
+            System.out.println("[getReservationDTOList] Class   : " + e.getClass().getSimpleName());
+    	}
+    	finally {
+    		freeConnection();
+    	}
+		return list;
+    }
+	*/
+    /*
+    public List<ReservationDTO> getReservationDTOList(String keyField, String keyWord, String startDate, String endDate){
+    	String sql = "SELECT reservation_no, service_name, reservation_date, reservation_time, customer_name, reservation_comm FROM reservation res "
+        		+ "INNER JOIN customer cus ON cus.customer_id = res.customer_id "
+        		+ "INNER JOIN service ser ON ser.service_code = res.service_code";
+    	
+    	if(keyWord != null || !keyWord.isEmpty() || startDate != null || !startDate.isEmpty() || endDate != null || !endDate.isEmpty()) {
+    		//기간 & 검색 조회
+    		sql += " WHERE " + keyField + " like '%" + keyWord + "%'" + " WHERE reservation_date BETWEEN ? AND ? ORDER BY reservation_date DESC";
+    	}
+    	else if (keyWord != null || !keyWord.isEmpty() || startDate == null || startDate.isEmpty() || endDate == null || endDate.isEmpty()) {
+    		//검색 조회
+    		sql += " WHERE " + keyField + " like '%" + keyWord + "%'" + " ORDER BY reservation_date DESC";
+    	}
+    	else if (keyWord == null || keyWord.isEmpty() || startDate != null || !startDate.isEmpty() || endDate != null || !endDate.isEmpty()) {
+    		//기간 조회
+    		sql += " WHERE reservation_date BETWEEN ? AND ? ORDER BY reservation_date DESC";
+    	}
+    	else {
+    		//전체 조회
+    		sql += " ORDER BY reservation_date DESC";
+    	}
+    		
+    	
+    	ArrayList<ReservationDTO> list = new ArrayList<>();
+    	
+    	try {
+    		// 데이터베이스 연결
+	        context = new InitialContext();
+	        dataSource = (DataSource) context.lookup("java:comp/env/jdbc/acorn");
+	        connection = dataSource.getConnection();
+
+	        // PreparedStatement 준비
+	        statement = connection.prepareStatement(sql);
+	        
+	        // 날짜가 주어졌다면, 변환 후 바인딩
+	        if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+	            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	            java.sql.Date sqlStartDate = new java.sql.Date(format.parse(startDate).getTime());
+	            java.sql.Date sqlEndDate = new java.sql.Date(format.parse(endDate).getTime());
+
+	            statement.setDate(1, sqlStartDate);
+	            statement.setDate(2, sqlEndDate);
+	        }
+
+	        // 쿼리 실행
+	        resultSet = statement.executeQuery();
+
+	        // 결과 처리
+	        while (resultSet.next()) {
+	            ReservationDTO reservationDTO = new ReservationDTO();
+	            reservationDTO.setReservation_no(resultSet.getInt("reservation_no"));
+	            reservationDTO.setService_name(resultSet.getString("service_name"));
+	            reservationDTO.setReservation_date(resultSet.getString("reservation_date"));
+	            reservationDTO.setReservation_time(resultSet.getString("reservation_time"));
+	            reservationDTO.setCustomer_name(resultSet.getString("customer_name"));
+	            reservationDTO.setReservation_comm(resultSet.getString("reservation_comm"));
+
+	            list.add(reservationDTO);
+    		}
+    		
+    	}
+    	catch(Exception e) {
+    		System.out.println("[getReservationDTOList] Message : " + e.getMessage());
+            System.out.println("[getReservationDTOList] Class   : " + e.getClass().getSimpleName());
+    	}
+    	finally {
+    		freeConnection();
+    	}
+		return list;
+    }
+*/
+
     
+    
+    
+/*------------------------------제희 님 요깅~~~~~♥--------------------------------------*/
     public List<ReservationDTO> getReservationDTOList(String keyField, String keyWord, String startDate, String endDate) {
         String sql = "SELECT reservation_no, service_name, reservation_date, reservation_time, customer_name, member_name, reservation_comm "
             + "FROM reservation res "
@@ -139,14 +264,14 @@ public class ReservationDAO {
             System.out.println("[getReservationDTOList] Message : " + e.getMessage());
             System.out.println("[getReservationDTOList] Class   : " + e.getClass().getSimpleName());
         } finally {
-        	System.out.println("startDate : " + startDate + ", " +"endDate : " + endDate );
+        	//System.out.println("startDate : " + startDate + ", " +"endDate : " + endDate );
         	//int st = Integer.parseInt(startDate);
         	//int ed = Integer.parseInt(endDate);
         	// 날짜 형식 정의
 //           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //        	
 //        	LocalDate startDateStr = LocalDate.parse(startDate, formatter);
-//            LocalDate endDateStr = LocalDate.parse(endDate, formatter);
+//          LocalDate endDateStr = LocalDate.parse(endDate, formatter);
 //        	if(!startDateStr.isAfter(endDateStr)) {
 //        		System.out.println("시작 날짜를 종료 날짜보다 이후로 설정해주세요");
 //        	}
@@ -158,7 +283,7 @@ public class ReservationDAO {
     }
 
 
-
+/*--------------------제희 님 요깅~~~~~♥-----------------------------*/
     
     //reservationPostProc.jsp 
     public void setReservationDTO(ReservationDTO reservationDTO) throws SQLException, ClassNotFoundException {
@@ -169,7 +294,7 @@ public class ReservationDAO {
     		dataSource = (DataSource)context.lookup("java:comp/env/jdbc/acorn");
     		connection = dataSource.getConnection();
     		
-    		// 각 name에 맞는 customer_id, service_code, member_id 조회하는 쿼리
+    		// cus_id와 ser_code를 조회하는 쿼리
     		sql = "SELECT c.customer_id, s.service_code, m.member_id FROM customer c, service s, member m"
     				+ " WHERE c.customer_name = ? AND s.service_name = ? AND m.member_name = ?";
     		statement = connection.prepareStatement(sql);
@@ -212,8 +337,8 @@ public class ReservationDAO {
     		    	     + "JOIN service s ON c.customer_id = ? AND s.service_code = ? "
     		    	     + "SET c.customer_total = c.customer_total + s.service_price";
     		    	statement = connection.prepareStatement(sql);
-    		    	statement.setInt(1, customer_id); 
-    		    	statement.setString(2, service_code);  
+    		    	statement.setInt(1, customer_id);  // customer_id가 첫 번째로 들어가야 함
+    		    	statement.setString(2, service_code);  // service_code가 두 번째로 들어가야 함
     		    	statement.executeUpdate();
     		}
 
@@ -231,12 +356,13 @@ public class ReservationDAO {
     //예약자명 조회
     public List<String> getAllCustomerNames() throws SQLException{
 		List<String> customerNames = new ArrayList<>();
-		String query = "SELECT customer_name FROM customer"; //'customer' 테이블에서 회원명 가져옴
+		String query = "SELECT customer_name FROM customer"; //'cus' 테이블에서 회원명 가져옴
     	
 		try {
 			connection = dataSource.getConnection();
 			statement = connection.prepareStatement(query);
 			
+			//statement.setString(1, "customer_name");
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()) {
@@ -256,7 +382,7 @@ public class ReservationDAO {
     //예약 서비스명 조회
     public List<String> getAllServiceNames() throws SQLException {
 	    List<String> serviceNames = new ArrayList<>();
-	    String query = "SELECT service_name FROM service"; // 'service' 테이블에서 서비스 명 가져옴
+	    String query = "SELECT service_name FROM service"; // 'ser' 테이블에서 서비스 명 가져옴
 
 	    try {
 	        connection = dataSource.getConnection();
@@ -272,7 +398,7 @@ public class ReservationDAO {
             System.out.println("[getAllServiceNames] Class   : " + e.getClass().getSimpleName());
         }
 	    finally {
-	        freeConnection(); 
+	        freeConnection(); // freeConnection을 finally 블록에서 호출하여 자원을 반환
 	    }
 	    return serviceNames;
 	}
@@ -296,7 +422,7 @@ public class ReservationDAO {
             System.out.println("[getAllServiceNames] Class   : " + e.getClass().getSimpleName());
         }
 	    finally {
-	        freeConnection();
+	        freeConnection(); // freeConnection을 finally 블록에서 호출하여 자원을 반환
 	    }
 	    return memberNames;
 	}
@@ -354,13 +480,12 @@ public class ReservationDAO {
             dataSource = (DataSource)context.lookup("java:comp/env/jdbc/acorn");
             connection = dataSource.getConnection();
             
-            // res 테이블에서 기존 service_code, member_id, customer_id 조회
+            // res 테이블에서 기존 ser_code, member_id, customer_id 조회
             sql = "SELECT service_code, member_id, customer_id FROM reservation WHERE reservation_no = ?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, resDto.getReservation_no()); 
             resultSet = statement.executeQuery();
             
-            //수정하려고 하는 (기존의) service_code,member_id,customer_id를 별도로 저장
             String old_ser_code = null;
             String old_mem_id = null;
             int old_cus_id = 0;
@@ -380,20 +505,19 @@ public class ReservationDAO {
             resultSet = statement.executeQuery();
             
             if (resultSet.next()) {
-            	//수정하려고하는 (새로운) customer_id, service_code, member_id를 별도로 저장
                 int new_cus_id = resultSet.getInt("customer_id");
                 String new_ser_code = resultSet.getString("service_code");
                 String new_mem_id = resultSet.getString("member_id");
 
-                // service_code가 변경된 경우에만 service_cnt 수정
+                // ser_code가 변경된 경우에만 ser_cnt 수정
                 if (!old_ser_code.equals(new_ser_code)) {
-                    // 기존 service_code의 service_cnt 감소
+                    // 기존 ser_code의 ser_cnt 감소
                     sql = "UPDATE service SET service_cnt = service_cnt - 1 WHERE service_code = ?";
                     statement = connection.prepareStatement(sql);
                     statement.setString(1, old_ser_code);
                     statement.executeUpdate();
 
-                    // 새로운 service_code의 service_cnt 증가
+                    // 새로운 ser_code의 ser_cnt 증가
                     sql = "UPDATE service SET service_cnt = service_cnt + 1 WHERE service_code = ?";
                     statement = connection.prepareStatement(sql);
                     statement.setString(1, new_ser_code);
@@ -401,9 +525,9 @@ public class ReservationDAO {
                 }
                 
                 
-                // member_id가 변경된 경우에만 member_cnt 수정
+                // mem_id가 변경된 경우에만 member_cnt 수정
                 if (!old_mem_id.equals(new_mem_id)) {
-                    // 기존 member_id의 member_cnt 감소
+                    // 기존 mem_id의 mem_cnt 감소
                     sql = "UPDATE member SET member_cnt = member_cnt - 1 WHERE member_id = ?";
                     statement = connection.prepareStatement(sql);
                     statement.setString(1, old_mem_id);
@@ -419,7 +543,7 @@ public class ReservationDAO {
                 
                 // customer_id가 변경된 경우에만 customer_total 수정
                 if (old_cus_id != new_cus_id) {
-                    // 기존customer_id의 customer_total 감소
+                    // 기존cus_id의 customer_total 감소
                 	sql = "UPDATE customer c "
        		    	     + "JOIN service s ON c.customer_id = ? AND s.service_code = ? "
        		    	     + "SET c.customer_total = c.customer_total - s.service_price";
@@ -428,7 +552,7 @@ public class ReservationDAO {
                     statement.setString(2, old_ser_code);
                     statement.executeUpdate();
 
-                    // 새로운 customer_id의 customer_total 증가
+                    // 새로운 cus_id의 customer_total 증가
                     sql = "UPDATE customer c "
        		    	     + "JOIN service s ON c.customer_id = ? AND s.service_code = ? "
        		    	     + "SET c.customer_total = c.customer_total + s.service_price";
@@ -491,7 +615,7 @@ public class ReservationDAO {
 			statement.setInt(1, reservation_no);
 			statement.executeUpdate();
 
-			// service_cnt 감소하는 쿼리
+			// ser_cnt 감소하는 쿼리
 			sql = "UPDATE service SET service_cnt = service_cnt - 1 WHERE service_code = ?";
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, service_code);
@@ -519,4 +643,70 @@ public class ReservationDAO {
 			freeConnection();
 		}
 	  }
+	
+	//날짜별 예약 조회
+	/*
+	public List<ReservationDTO> getReservationDateSearch(String startDate, String endDate) {
+	    String sql = null;
+	    ArrayList<ReservationDTO> dateList = new ArrayList<>();
+	    
+	    try {
+	        // SQL 쿼리 설정
+	        if (startDate == null || startDate.isEmpty() || endDate == null || endDate.isEmpty()) {
+	            sql = "SELECT reservation_no, service_name, reservation_date, reservation_time, customer_name, reservation_comm FROM reservation res "
+	                    + "INNER JOIN customer cus ON cus.customer_id = res.customer_id "
+	                    + "INNER JOIN service ser ON ser.service_code = res.service_code "
+	                    + "ORDER BY reservation_date DESC";
+	        } else {
+	            sql = "SELECT reservation_no, service_name, reservation_date, reservation_time, customer_name, reservation_comm FROM reservation res "
+	                    + "INNER JOIN customer cus ON cus.customer_id = res.customer_id "
+	                    + "INNER JOIN service ser ON ser.service_code = res.service_code "
+	                    + "WHERE reservation_date BETWEEN ? AND ? "
+	                    + "ORDER BY reservation_date DESC";
+	        }
+
+	        // 데이터베이스 연결
+	        context = new InitialContext();
+	        dataSource = (DataSource) context.lookup("java:comp/env/jdbc/acorn");
+	        connection = dataSource.getConnection();
+
+	        // PreparedStatement 준비
+	        statement = connection.prepareStatement(sql);
+	        
+	        // 날짜가 주어졌다면, 변환 후 바인딩
+	        if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+	            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	            java.sql.Date sqlStartDate = new java.sql.Date(format.parse(startDate).getTime());
+	            java.sql.Date sqlEndDate = new java.sql.Date(format.parse(endDate).getTime());
+
+	            statement.setDate(1, sqlStartDate);
+	            statement.setDate(2, sqlEndDate);
+	        }
+
+	        // 쿼리 실행
+	        resultSet = statement.executeQuery();
+
+	        // 결과 처리
+	        while (resultSet.next()) {
+	            ReservationDTO reservationDTO = new ReservationDTO();
+	            reservationDTO.setReservation_no(resultSet.getInt("reservation_no"));
+	            reservationDTO.setService_name(resultSet.getString("service_name"));
+	            reservationDTO.setReservation_date(resultSet.getString("reservation_date"));
+	            reservationDTO.setReservation_time(resultSet.getString("reservation_time"));
+	            reservationDTO.setCustomer_name(resultSet.getString("customer_name"));
+	            reservationDTO.setReservation_comm(resultSet.getString("reservation_comm"));
+
+	            dateList.add(reservationDTO);
+	        }
+
+	    } catch(Exception e) {
+    		System.out.println("[getReservationDateSearch] Message : " + e.getMessage());
+            System.out.println("[getReservationDateSearch] Class   : " + e.getClass().getSimpleName());
+    	} finally {
+	        freeConnection();
+	    }
+	    
+	    return dateList;
+	}
+	*/
 }

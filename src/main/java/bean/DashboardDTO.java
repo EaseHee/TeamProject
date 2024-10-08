@@ -89,8 +89,4 @@ public class DashboardDTO {
 		this.notice_title = notice_title;
 	}
 
-	/* 월별 서비스 매출 */
-	public int getChart_revenue() {
-		return service_price * service_cnt;
-	}
 }

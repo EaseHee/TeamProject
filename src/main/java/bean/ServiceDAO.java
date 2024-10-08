@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -105,14 +106,16 @@ public class ServiceDAO {
 
         return serviceSet;
     }
+    
+    
     public Set<ServiceDTO> getServicesWithPaging(int currentPage, int recordsPerPage) {
-        Set<ServiceDTO> services = new HashSet<>();
+        Set<ServiceDTO> services = new LinkedHashSet<>();
 
         int start = (currentPage - 1) * recordsPerPage;
 
         try {
             connection = dataSource.getConnection();        // ser_code를 기준으로 내림차순 정렬
-            String sql = "SELECT * FROM service ORDER BY service_code DESC LIMIT ?, ?";
+            String sql = "SELECT * FROM service ORDER BY service_code ASC LIMIT ?, ?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, start);
             statement.setInt(2, recordsPerPage);

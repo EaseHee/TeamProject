@@ -63,7 +63,7 @@
 							<a href="signup.jsp" class="font-bold">회원가입</a>
 						</p>
 						<p>
-							<a class="font-bold" href="auth-forgot-password.html">비밀번호를 잊으셨나요?</a>
+							<a class="font-bold" href="#">비밀번호를 잊으셨나요?</a>
 						</p>
 					</div>
 				</div>

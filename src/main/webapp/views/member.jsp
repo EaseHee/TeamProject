@@ -17,42 +17,8 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
-    <style>
-		a {
-		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
-		    text-decoration: none;  /* 밑줄 없애기 */
-		}		
-		a:visited {
-		    color: inherit;
-		}		
-		a:hover {
-		    color: inherit;
-		}		
-		a:active {
-		    color: inherit;
-		}
-		.list-group-item.detail{
-			font-size: small;
-		}
-		.bi-plus-square {
-			display: inline-block;
-			transform: translateY(2px);
-		}
-		.bi-person-fill{
-			display: inline-block;
-			transform: translateY(6px);
-			margin-right: 5px;
-		}
-		.bi-bell-fill{
-			display: inline-block;
-			transform: translateY(3px);
-			margin-right: 5px;
-		}
-		.bi-box-arrow-right{
-			display: inline-block;
-			transform: translateY(3px);
-		}
-	</style>
+    <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
+
 </head>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -111,161 +77,19 @@
 	%>
 
     <div id="app">
-        <div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
-                    <div class="d-flex justify-content-between">
-                        <div class="logo">
-                            <a href="dashboard.jsp">로고</a>
-                        </div>
-                        <div class="toggler">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
-                        <li class="sidebar-title">메뉴</li>
-
-                        <li class="sidebar-item ">
-                            <a href="dashboard.jsp" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>홈</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-stack"></i>
-                                <span>고객</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="customer.jsp">회원 관리</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="customer.jsp">기타</a>
-                                </li>                                
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-collection-fill"></i>
-                                <span>예약</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="reservation.jsp">예약 관리</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="reservation.jsp">기타</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>서비스</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="service.jsp">서비스 관리</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="service.jsp">기타</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>상품</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="product.jsp">상품 관리</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="product.jsp">기타</a>
-                                </li>
-                             </ul>
-                        </li>
-                        <li class="sidebar-item active has-sub">
-                            <a href="#" class='sidebar-link'>
-                            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/></svg>                               
-                                <span>직원</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="member.jsp">직원 관리</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="member.jsp">기타</a>
-                                </li>
-                            </ul>
-                        </li>
- 
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-megaphone-fill"></i>
-                                <span>공지</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="notice_list.jsp">공지 사항</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="notice_list.jsp">기타</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
-            </div>
-        </div>
-	        <div id="main">
-	            <header class="mb-3">
-	                <a href="#" class="burger-btn d-block d-xl-none">
-	                    <i class="bi bi-justify fs-3"></i>
-	                </a>
-	            </header>
-	
-	            <div class="page-heading">
-	                <div class="page-title">
-	                    <div class="row">
-	                        <div class="col-12 col-md-6 order-md-1 order-last">
-	                            <h3>직원 관리</h3>
-	                        </div>
-	                        <div class="col-12 col-md-6 order-md-2 order-first">
-	                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-	                                <ol class="breadcrumb">
-	                                    <li class="breadcrumb-item">
-	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
-	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃&nbsp;<i class="bi bi-box-arrow-right " ></i></span></a>
-                                   	</li>                                   
-	                                </ol>
-	                            </nav>
-	                        </div>
-	                    </div>
-	                </div>
-	                <hr style="height: 5px;">	                
+<jsp:include page="/views/header.jsp" ></jsp:include>              
 					<div class="row form-group">
 
-						<form method="post" action="member.jsp" class="col-4 d-flex align-items-end search-filter">
+						<form method="post" action="member.jsp" class="col-5 d-flex align-items-end search-filter">
 						        <select name="keyField" class="choices form-select" style="width: 150px; display: block;">
-						            <option value="customer_name">직원명</option>
-						            <option value="custmoer_rank">직원직책</option>
+						            <option value="member_name">이름</option>
+						            <option value="member_job">직책</option>
 						        </select>
 						        <input type="text" name="filterValue" id="filterValue" placeholder="검색어를 입력해주세요" class="form-control">
 						        <input type="submit" class="btn btn-outline-success" value="조회">
 						</form>
 						<form class="col-4 d-flex"></form >
-						<form class="col-4 d-flex justify-content-end align-items-end">
+						<form class="col-3 d-flex justify-content-end align-items-end">
 					    	<a href="member_Post.jsp" class="btn btn-outline-success" style="margin-right: 0px;">등록</a>
 					    </form>
 					</div>
@@ -278,10 +102,10 @@
 										<table class="table table-hover mb-0" id="memberTable">
 											<thead>
 												<tr>
-													<th class="text-center" width="25">직원 사번</th>
-													<th class="text-center" width="25">직원 명</th>
-													<th class="text-center" width="25">직원 직책</th>
-													<th class="text-center" width="25">전화 번호</th>
+													<th class="text-center" width="25">사번</th>
+													<th class="text-center" width="25">이름</th>
+													<th class="text-center" width="25">직책</th>
+													<th class="text-center" width="25">연락처</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -309,72 +133,61 @@
 						</div>
 					</div>
 					<div class="buttons d-flex justify-content-end align-items-end">
-						<button onclick="downloadExcel();" class="btn btn-outline-warning" style="margin-right: 0px;">
+						<button onclick="downloadExcel();" class="btn-excel btn btn-outline-warning ">
 							엑셀 다운로드</button>
 					</div>
-					<div
-						class="col-12 d-flex justify-content-center align-items-center">
+										<div class="col-12 d-flex justify-content-center align-items-center">
 						<nav aria-label="Page navigation example">
 							<ul class="pagination pagination-primary">
-								<!-- nowBlock이 0보다 클 때에만 '이전'을 클릭할 수 있게 -->
+								<!-- 왼쪽 화살표 이동 기능 -->
 								<%
-								if (nowBlock > 0) {
+									if (nowBlock == 0) {
 								%>
-								<li class="page-item">
-									<a class="page-link" href="member.jsp?nowPage=<%=(nowBlock - 1) * pagePerBlock%>&nowBlock=<%=nowBlock - 1%>">
-										<span aria-hidden="true">
-											<i class="bi bi-chevron-left"></i>
-										</span>
-									</a>
-								</li>
+										<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"> 
+										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a></li>
+								<%
+									} else {
+								%>
+										<li class="page-item"><a class="page-link" href="reservation.jsp?nowPage=<%=((nowBlock - 1) * pagePerBlock)%>&nowBlock=<%=nowBlock - 1%>">
+										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+										</a></li>
+								<%
+									}
+								%>
+
+								<!-- 페이지 반복 -->
+								<%
+									for (int i = 0; i < pagePerBlock; i++) {
+										int currentPage = (nowBlock * pagePerBlock) + i;
+										if (currentPage >= totalPage)
+											break;
+								%>
+										<li class="page-item <%=currentPage == nowPage ? "active" : ""%>">
+										<a class="page-link" href="member.jsp?nowPage=<%=currentPage%>&nowBlock=<%=nowBlock%>">
+											<%=currentPage + 1%></a></li>
+								<%
+									}
+								%>
+
+								<!-- 오른쪽 화살표 이동 기능 -->
+								<%
+									if (nowBlock >= totalBlock - 1) {
+								%>
+										<li class="page-item disabled"><a class="page-link" href="#"> <span aria-hidden="true">
+										<i class="bi bi-chevron-right"></i></span></a></li>
+								<%
+									} else {
+								%>
+										<li class="page-item" >
+										<a class="page-link" href="member.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>">
+										<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+										</a></li>
 								<% } %>
-								<%
-								int startPage = nowBlock * pagePerBlock + 1;
-								int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
-												
-								for(int i=startPage; i <= endPage; i++) {
-								%>
-								<li class="page-item active"><a class="page-link" href="member.jsp?nowPage=<%=i - 1%>&nowBlock=<%=nowBlock%>"><%=i%></a></li>
-								<%
-								}
-								%>
-								<%
-								if (totalBlock > nowBlock + 1) {
-								%>
-								<li class="page-item">
-									<a class="page-link" href="member.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>">
-										<span aria-hidden="true">
-											<i class="bi bi-chevron-right"></i>
-										</span>
-									</a>
-								</li>
-								<%
-								}
-								%>
 							</ul>
 						</nav>
 					</div>
 				</section>
-	            <footer>
-	                <div class="footer clearfix mb-0 text-muted">
-	                    <div class="float-start">
-	                        <p>2024 &copy; ACORN</p>
-	                    </div>
-	                    <div class="float-end">
-	                        <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-	                                href="#main">거니네조</a>
-	                        </p>                                
-	                    </div>
-	                </div>
-	            </footer>
-	        </div>
-	    </div>
-	</div>
-	<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script src="assets/js/bootstrap.bundle.min.js"></script>
-	<script src="assets/js/main.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<jsp:include page="/views/footer.jsp"></jsp:include>
 	<script>
             function downloadExcel() {
                 var table = document.getElementById("memberTable");

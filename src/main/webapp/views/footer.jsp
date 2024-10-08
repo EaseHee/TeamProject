@@ -19,11 +19,11 @@
 <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/vendors/apexcharts/apexcharts.js"></script>
-<script src="assets/js/pages/dashboard.js"></script>
 <script src="assets/js/pages/chartMonthRevenue.js"></script><!-- 그래프 ui 설정 변경 js 파일 _ 축별 설정 및 데이터 전달 시 해당 파일 참조 -->
 <script src="assets/js/main.js"></script>
-<script src="assets/js/calendar.js" defer></script>
+<script src="assets/js/calendar.js"></script>
 <script src="assets/js/calendarWithReservation.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 	window.onload = function(){
 		const currentUrl = window.location.pathname;
@@ -48,6 +48,8 @@
 		}else if(currentUrl.includes('notice')){
 			document.getElementById('notice-li').classList.add('active')
 			document.getElementById('header-text').textContent = '공지'
+		}else if(currentUrl.includes('mypage')){
+			document.getElementById('header-text').textContent = '마이 페이지'
 		}else{
 			window.alert('존재하지 않는 페이지 입니다.')
 		}

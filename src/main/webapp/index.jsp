@@ -5,6 +5,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+    <jsp:forward page="/views/login.jsp"></jsp:forward>
 </body>
 </html>

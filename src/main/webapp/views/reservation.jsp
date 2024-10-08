@@ -18,42 +18,8 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
-        <style>
-		a {
-		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
-		    text-decoration: none;  /* 밑줄 없애기 */
-		}		
-		a:visited {
-		    color: inherit;
-		}		
-		a:hover {
-		    color: inherit;
-		}		
-		a:active {
-		    color: inherit;
-		}
-		.list-group-item.detail{
-			font-size: small;
-		}
-		.bi-plus-square {
-			display: inline-block;
-			transform: translateY(2px);
-		}
-		.bi-person-fill{
-			display: inline-block;
-			transform: translateY(6px);
-			margin-right: 5px;
-		}
-		.bi-bell-fill{
-			display: inline-block;
-			transform: translateY(3px);
-			margin-right: 5px;
-		}
-		.bi-box-arrow-right{
-			display: inline-block;
-			transform: translateY(3px);
-		}
-	</style>
+    <link rel="stylesheet" href="assets/css/page.css">
+
 </head>
 
 <body>
@@ -78,76 +44,62 @@
 	ArrayList<ReservationDTO> list = new ArrayList<>();
 
 	// 현재 날짜와 30일 후 날짜 계산
-    java.util.Calendar cal = java.util.Calendar.getInstance();
-    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-    
-    String today = sdf.format(cal.getTime()); // 오늘 날짜
-    cal.add(java.util.Calendar.DATE, 30); // 30일 후
-    String thirtyDaysLater = sdf.format(cal.getTime());
+	java.util.Calendar cal = java.util.Calendar.getInstance();
+	java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
-    // 날짜 조회 설정
-    String startDate = request.getParameter("startDate");
-    String endDate = request.getParameter("endDate");
+	String today = sdf.format(cal.getTime()); // 오늘 날짜
+	cal.add(java.util.Calendar.DATE, 30); // 30일 후
+	String thirtyDaysLater = sdf.format(cal.getTime());
 
-    // startDate와 endDate가 없으면 기본값으로 설정
-    if (startDate == null || startDate.isEmpty()) {
-        startDate = today;
-    }
-    if (endDate == null || endDate.isEmpty()) {
-        endDate = thirtyDaysLater;
-    }
+	// 날짜 조회 설정
+	String startDate = request.getParameter("startDate");
+	String endDate = request.getParameter("endDate");
 
-    // 데이터 리스트 초기화
-    ArrayList<ReservationDTO> resultList = new ArrayList<>();
+	// 기간 조회 값이 없으면 startDate는 오늘 , endDate는 startDate+30일로 설정
+	if (startDate == null) {
+		startDate = today;
+	}
+	if (endDate == null) {
+		endDate = thirtyDaysLater;
+	}
 
- 	// 날짜 조회 및 검색 조회 로직
- 	/*
-    if (startDate != null && endDate != null && !startDate.isEmpty() && !endDate.isEmpty()) {
-        // 날짜 조회
-        resultList = (ArrayList<ReservationDTO>) dao.getReservationDateSearch(startDate, endDate);
-    } else if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmpty()) {
-        // 검색 조회
-        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord);
-    } else {
-        // 전체 리스트 조회
-        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord); // 전체 조회 메서드 사용
-    }
-*/
+	// 데이터 리스트 초기화
+	ArrayList<ReservationDTO> resultList = new ArrayList<>();
 
-if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmpty()) {
-    // 검색 조회 (기간도 포함되어 있을 경우)
-    if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
-        // 기간 및 검색 조회
-        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, startDate, endDate);
-    } else {
-        // 검색 조회 (기간 없이)
-        resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, null, null);
-    }
-} else if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
-    // 기간 조회 (검색 없이)
-    resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(null, null, startDate, endDate);
-} else {
-    // 전체 리스트 조회
-    resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(null, null, null, null);
-}
+	// 날짜 조회 및 검색 조회 로직
+	if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmpty()) {
+		// 검색 조회 (기간도 포함되어 있을 경우)
+		if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+			// 기간 및 검색 조회
+			resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, startDate, endDate);
+		} else {
+			// 검색 조회 (기간 없이)
+			resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, null, null);
+		}
+	} else if (startDate != null && !startDate.isEmpty() && endDate != null && !endDate.isEmpty()) {
+		// 기간 조회 (검색 없이)
+		resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(null, null, startDate, endDate);
+	} else {
+		// 전체 리스트 조회
+		resultList = (ArrayList<ReservationDTO>) dao.getReservationDTOList(keyField, keyWord, null, null);
+	}
 
-
-
-
-	// 총 예약 수
-	totalRecord = resultList.size();
-	totalPage = (int) Math.ceil((double) totalRecord / numPerPage);
-
+	
+	totalRecord = resultList.size(); // 총 예약 수
+	totalPage = (int) Math.ceil((double) totalRecord / numPerPage); //총 페이지 수
+	
+	//현재 선택된 page가 null이 아닐 경우의 nowPage값을 int값으로 변환하여 저장
 	if (request.getParameter("nowPage") != null)
 		nowPage = Integer.parseInt(request.getParameter("nowPage"));
 	else
 		nowPage = 0; // 기본값 설정
 
-	beginPerPage = nowPage * numPerPage;
+	beginPerPage = nowPage * numPerPage; // 페이지별 시작번호 계산
 
 	// 페이지 수 및 블럭 수 계산
 	totalBlock = (int) Math.ceil((double) totalPage / pagePerBlock);
 
+	//현재 선택된 block이 null이 아닐 경우의 nowBlock값을 int값으로 변환하여 저장
 	if (request.getParameter("nowBlock") != null)
 		nowBlock = Integer.parseInt(request.getParameter("nowBlock"));
 	else
@@ -161,163 +113,27 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
 	%>
 
 	<div id="app">
-        <div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
-                    <div class="d-flex justify-content-between">
-                        <div class="logo">
-                            <a href="dashboard.jsp">로고</a>
-                        </div>
-                        <div class="toggler">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
-                        <li class="sidebar-title">메뉴</li>
+<jsp:include page="/views/header.jsp" ></jsp:include>
 
-                        <li class="sidebar-item ">
-                            <a href="dashboard.jsp" class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
-                                <span>홈</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-stack"></i>
-                                <span>고객</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="customer.jsp">회원 관리</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="customer.jsp">기타</a>
-                                </li>                                
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item active has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-collection-fill"></i>
-                                <span>예약</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="reservation.jsp">예약 관리</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="reservation.jsp">기타</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>서비스</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="service.jsp">서비스 관리</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="service.jsp">기타</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-hexagon-fill"></i>
-                                <span>상품</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="product.jsp">상품 관리</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="product.jsp">기타</a>
-                                </li>
-                             </ul>
-                        </li>
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class='sidebar-link'>
-                            	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-gear" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/></svg>                               
-                                <span>직원</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="member.jsp">직원 관리</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="member.jsp">기타</a>
-                                </li>
-                            </ul>
-                        </li>
- 
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-megaphone-fill"></i>
-                                <span>공지</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="notice_list.jsp">공지 사항</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="notice_list.jsp">기타</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
-            </div>
-        </div>
-        <div id="main">
-            <header class="mb-3">
-                <a href="#" class="burger-btn d-block d-xl-none"> <i class="bi bi-justify fs-3"></i></a>
-            </header>
-
-            <div class="page-heading">
-                <div class="page-title">
-                    <div class="row">
-                        <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>예약 관리</a></h3>
-                        </div>
-                        <div class="col-12 col-md-6 order-md-2 order-first">
-                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-	                                    <i class="bi bi-person-fill text-primary" style="font-size:x-large; " ></i>
-	                       	 			<i class="bi bi-bell-fill text-primary" style="font-size:larger; line-height: 10px;" ></i>
-                                    	<a href="login.jsp"><span class="badges badge bg-primary">로그아웃&nbsp;<i class="bi bi-box-arrow-right " ></i></span></a>
-                                   	</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-                <hr style="height: 5px;">
-
-				<div class="row form-group">
-					<form method="get" action="reservation.jsp" class="col-4 d-flex">
-    					<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate %>">&nbsp;&nbsp;~&nbsp;&nbsp;
-    					<input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate %>">
-   						 <input type="submit" class="btn btn-outline-success" value="조회">
-					</form>
-					<form class="col-4 d-flex"></form>
-					<form method="get" action="reservation.jsp" class="col-4 d-flex justify-content-end align-items-end">
-    					<input type="hidden" name="keyField" value="<%= (keyField != null) ? keyField : "customer_name" %>"> 
-    					<input type="text" name="keyWord" placeholder="예약자명 검색" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
-    					<input type="submit" class="btn btn-outline-success" value="조회">
+				<div class="row form-group"> 
+					<form method="get" action="reservation.jsp" class="col-12 d-flex justify-content-end align-items-end"  onsubmit="return validateDates()">
+						<input type="date" class="form-control" id="startDate" name="startDate" value="<%= startDate %>" onclick="this.showPicker()">&nbsp;&nbsp;~&nbsp;&nbsp;
+						<input type="date" class="form-control" id="endDate" name="endDate" value="<%= endDate %>" onclick="this.showPicker()">
+						<!-- input type="submit" name="start" class="btn btn-outline-success" value="조회"-->
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+						<input type="hidden" value="<%=startDate %>" /> 
+						<input type="hidden" value="<%=endDate %>" /> 
+						<select name="keyField" class="choices form-select" style="width: 150px; display: block;">
+							<option value="service_name">예약품목</option>
+							<option value="customer_name">예약자명</option>
+							<option value="member_name">직원명</option>
+						</select> 
+						<input type="text" name="keyWord" placeholder="검색어를 입력해주세요" class="form-control" value="<%= keyWord != null ? keyWord : "" %>"> 
+							<input type="submit" name="end" class="btn btn-outline-success" value="조회">
 					</form>
 				</div>
+				
 				<section class="section">
-
                     <div class="buttons d-flex justify-content-end align-items-end">
                         <a href="reservationPost.jsp" class="btn btn-outline-success" style="margin-right:0px">등록</a>
                     </div>
@@ -363,76 +179,71 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
                         </div>
                     </div>
 
-                    <div class="buttons d-flex justify-content-end align-items-end">
-                        <button onclick="downloadExcel();" class="btn btn-outline-warning" style="margin-right:0px">엑셀 다운로드</button>
-                    </div>
+                   <div class="buttons d-flex justify-content-end align-items-end">
+                       <button onclick="downloadExcel();" class="btn btn-outline-warning btn-excel">엑셀 다운로드</button>
+                   </div>
 					<div class="col-12 d-flex justify-content-center align-items-center">
 						<nav aria-label="Page navigation example">
 							<ul class="pagination pagination-primary">
 								<!-- 왼쪽 화살표 이동 기능 -->
 								<%
-									if (nowBlock == 0) {
-								%>
-										<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"> 
-										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a></li>
+    								if (nowBlock == 0) { 
+								%>		
+										<!-- 현재 Block이 0이면(첫번째 블럭) 왼쪽 화살표 클릭 불가능 -->
+    									<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"> 
+    									<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span></a></li>
 								<%
-									} else {
+    								} else {
 								%>
-										<li class="page-item"><a class="page-link" href="reservation.jsp?nowPage=<%=((nowBlock - 1) * pagePerBlock)%>&nowBlock=<%=nowBlock - 1%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>">
-										<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
-										</a></li>
+    									<li class="page-item">
+        								<a class="page-link" href="reservation.jsp?nowPage=<%=((nowBlock - 1) * pagePerBlock)%>&nowBlock=<%=nowBlock - 1%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>&keyField=<%=keyField != null ? keyField : ""%>&keyWord=<%=keyWord != null ? keyWord : ""%>">
+        								<span aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+        								</a>
+    									</li>
 								<%
-									}
+   									}
 								%>
 
 								<!-- 페이지 반복 -->
 								<%
-									for (int i = 0; i < pagePerBlock; i++) {
-										int currentPage = (nowBlock * pagePerBlock) + i;
-										if (currentPage >= totalPage)
-											break;
+   			 						for (int i = 0; i < pagePerBlock; i++) {
+        								int currentPage = (nowBlock * pagePerBlock) + i;
+        									if (currentPage >= totalPage) //현재 페이지가 총 페이지수보다 크면 나타나지 않도록함
+            									break;
 								%>
-										<li class="page-item <%=currentPage == nowPage ? "active" : ""%>">
-										<a class="page-link" href="reservation.jsp?nowPage=<%=currentPage%>&nowBlock=<%=nowBlock%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>">
-											<%=currentPage + 1%></a></li>
+    									<li class="page-item <%=currentPage == nowPage ? "active" : ""%>">
+       									<a class="page-link" href="reservation.jsp?nowPage=<%=currentPage%>&nowBlock=<%=nowBlock%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>&keyField=<%=keyField != null ? keyField : ""%>&keyWord=<%=keyWord != null ? keyWord : ""%>">
+            							<%=currentPage + 1%>
+        								</a>
+    									</li>
 								<%
-									}
+ 								   }
 								%>
 
 								<!-- 오른쪽 화살표 이동 기능 -->
 								<%
-									if (nowBlock >= totalBlock - 1) {
+   									if (nowBlock >= totalBlock - 1) {
 								%>
-										<li class="page-item disabled"><a class="page-link" href="#"> <span aria-hidden="true">
-										<i class="bi bi-chevron-right"></i></span></a></li>
+										<!-- 현재 Block이 마지막 블럭이면 클릭 불가능 -->
+    									<li class="page-item disabled"><a class="page-link" href="#"> <span aria-hidden="true">
+    									<i class="bi bi-chevron-right"></i></span></a></li>
 								<%
-									} else {
+    								} else {
 								%>
-										<li class="page-item"><a class="page-link" href="reservation.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>">
-										<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
-										</a></li>
-								<% } %>
+    									<li class="page-item">
+        								<a class="page-link" href="reservation.jsp?nowPage=<%=(nowBlock + 1) * pagePerBlock%>&nowBlock=<%=nowBlock + 1%>&startDate=<%=startDate != null ? startDate : ""%>&endDate=<%=endDate != null ? endDate : ""%>&keyField=<%=keyField != null ? keyField : ""%>&keyWord=<%=keyWord != null ? keyWord : ""%>">
+        								<span aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+        								</a>
+    									</li>
+								<%
+    								}
+								%>
+
 							</ul>
 						</nav>
 					</div>
 				</section>
-				<br><br><br>
-                <footer>
-                    <div class="footer clearfix mb-0 text-muted">
-                        <div class="float-start">
-                            <p>2024 &copy; ACORN</p>
-                        </div>
-                        <div class="float-end">
-                            <p><span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="#main">거니네조</a></p>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-        <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-        <script src="assets/js/bootstrap.bundle.min.js"></script>
-        <script src="assets/js/main.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<jsp:include page="/views/footer.jsp"></jsp:include>
         <script>
             function downloadExcel() {
                 var table = document.getElementById("table");
@@ -440,6 +251,42 @@ if (keyWord != null && !keyWord.isEmpty() && keyField != null && !keyField.isEmp
                 XLSX.writeFile(wb, '예약_관리.xlsx');
             }
         </script>
-    </div>
+        <script>
+			function validateDates() {
+				const startDate = document.getElementById('startDate').value;
+				const endDate = document.getElementById('endDate').value;
+
+					if (startDate && endDate) {
+						if (new Date(startDate) > new Date(endDate)) {
+							alert("경고: 시작 날짜가 종료 날짜보다 이후입니다.");
+							return false; // 폼 제출을 막음
+						}
+					}
+					return true; // 폼 제출 허용
+				}
+		</script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				// 로컬 스토리지에서 날짜 값을 가져와서 설정
+				const startDateInput = document.getElementById("startDate");
+				const endDateInput = document.getElementById("endDate");
+
+				if (localStorage.getItem("startDate")) {
+					startDateInput.value = localStorage.getItem("startDate");
+				}
+				if (localStorage.getItem("endDate")) {
+					endDateInput.value = localStorage.getItem("endDate");
+				}
+
+				// 날짜가 변경될 때마다 로컬 스토리지에 저장
+				startDateInput.addEventListener("change", function() {
+					localStorage.setItem("startDate", startDateInput.value);
+				});
+				endDateInput.addEventListener("change", function() {
+					localStorage.setItem("endDate", endDateInput.value);
+				});
+			});
+		</script>
+	</div>
 </body>
 </html>
