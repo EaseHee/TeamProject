@@ -86,7 +86,7 @@
                         	<div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
                                     <span class="input-group-text" id="basic-addon1">회원 ID</span>
-									<input type="text" class="form-control" name="customer_id" value="<%=customer_id%>"  />
+									<input type="text" class="form-control" name="customer_id" value="<%=customer_id%>" readonly />
                                 </div>
                             </div>
                             <br><br><br>

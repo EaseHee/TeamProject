@@ -17,7 +17,9 @@
 	<link rel="stylesheet" href="assets/css/app.css">
 	<link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 	<link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
+	<!-- 
 	<style>
+	
 		a {
 		    color: inherit;  /* 부모 요소의 텍스트 색상을 따르도록 설정 */
 		    text-decoration: none;  /* 밑줄 없애기 */
@@ -56,7 +58,7 @@
         	display: inline-block; 
         	width: 15%;
         } 
-	</style>
+	</style> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 	<script>
@@ -88,7 +90,7 @@
 		int totalPage = 0;    //총 페이지 수
 		int nowPage = 0;      //현재 선택된 페이지
 		int beginPerPage = 0; //페이지별 시작번호
-		int pagePerBlock = 2; //블럭당 페이지 수
+		int pagePerBlock = 5; //블럭당 페이지 수
 		int totalBlock = 0;   //총 블럭 수
 		int nowBlock = 0;     //현재 블럭
 	
@@ -244,12 +246,40 @@
 		</section>
 		<jsp:include page="/views/footer.jsp"></jsp:include>
 		<script>
-			function downloadExcel() {
-				var table = document.getElementById("customerTable");
-				var wb = XLSX.utils.table_to_book(table, { sheet: "회원 관리" });
-				XLSX.writeFile(wb, '회원_관리.xlsx');
-			}
-		</script>
+    		function downloadExcel() {
+	        // 자바 객체 데이터를 JSP 배열로 변환
+	        var customerData = [
+	            <% for (int i = 0; i < list.size(); i++) {
+	                CustomerDTO customer = list.get(i); %>
+	                { customer_id: '<%= customer.getCustomer_id() %>',
+	                  customer_name: '<%= customer.getCustomer_name() %>',
+	                  customer_gender: '<%= customer.getCustomer_gender() %>',
+	                  customer_tel: '<%= customer.getCustomer_tel() %>',
+	                  customer_mail: '<%= customer.getCustomer_mail() %>',
+	                  customer_reg: '<%= customer.getCustomer_reg() %>',
+	                  customer_note: '<%= customer.getCustomer_note() != null ? customer.getCustomer_note() : "" %>'
+	                },
+	            <% } %>
+	        ];
+	
+	        
+	        var wb = XLSX.utils.book_new(); //엑셀 파일 생성 함수
+	        var ws_data = [['회원 ID', '회원 이름', '회원 성별', '회원 전화번호', '이메일', '회원 등록일', '특이사항']];  // 첫 번째 행 (헤더)
+	        
+	        // 데이터를 행별로 추가
+	        customerData.forEach(function(customer) {
+	            ws_data.push([customer.customer_id, customer.customer_name, customer.customer_gender, customer.customer_tel, customer.customer_mail, customer.customer_reg, customer.customer_note]);
+	        });
+	
+	        // 시트 생성 및 엑셀 파일에 추가
+	        var ws = XLSX.utils.aoa_to_sheet(ws_data); 
+	        XLSX.utils.book_append_sheet(wb, ws, '회원_관리'); // 엑셀에 시트를 추가
+	
+	        // 엑셀 파일 저장
+	        XLSX.writeFile(wb, '회원_관리.xlsx');
+	    }
+	</script>
+
 	</div>
 </body>
 </html>
