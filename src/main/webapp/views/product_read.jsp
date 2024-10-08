@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
+    <title>상품 상세</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">    
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -62,22 +62,22 @@
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">가격</span>
+                                    <span class="input-group-text" id="basic-addon1">상품 가격</span>
                                     <input type="text" class="form-control" name="product_price" value="<fmt:formatNumber value='<%=board.getProduct_price() %>'/>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">수량</span>
+                                    <span class="input-group-text" id="basic-addon1">상품 수량</span>
                                     <input type="text" class="form-control" name="product_ea" value="<fmt:formatNumber value='<%=board.getProduct_ea() %>'/>" readonly="readonly">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="button-container">
+                            	<button type="button" onclick="location.href='product_detail.jsp?product_B_code=<%=board.getProduct_B_code()%>'">목록</button>
                                 <button type="button" onclick="location.href='product_update.jsp?product_B_code=<%=board.getProduct_B_code()%>&product_code=<%=board.getProduct_code()%>'">수정</button>
                                 <button type="button" onclick="confirmDelete('<%=board.getProduct_B_code() %>','<%=board.getProduct_code() %>')">삭제</button>
-                                <button type="button" onclick="location.href='product_detail.jsp?product_B_code=<%=board.getProduct_B_code()%>'">목록</button>
                             </div>
                         </div>
                     </form>

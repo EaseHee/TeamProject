@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
+    <title>상품 수정</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">    
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -32,7 +32,8 @@
 		        		String product_B_code = request.getParameter("product_B_code");
 		        		String product_code = request.getParameter("product_code");
 	
-		            	board = prodDAO.getProductOne(product_B_code, product_code);
+		        		if(product_B_code != null && !product_B_code.isEmpty() && product_code != null && !product_code.isEmpty()) {
+		            		board = prodDAO.getProductOne(product_B_code, product_code);
 	                %>
                     <form method="post" action="product_updateProc.jsp">
                     	<input type="hidden" name="product_B_code" value="<%=request.getParameter("product_B_code") %>"/>
@@ -53,24 +54,29 @@
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">가격</span>
+                                    <span class="input-group-text" id="basic-addon1">상품 가격</span>
                                     <input type="text" class="form-control" name="product_price" value="<%=board.getProduct_price() %>">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">수량</span>
+                                    <span class="input-group-text" id="basic-addon1">상품 수량</span>
                                     <input type="text" class="form-control" name="product_ea" value="<%=board.getProduct_ea() %>">
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="button-container">
+                            	<button type="button" onclick="location.href='product_detail.jsp?product_B_code=<%=board.getProduct_B_code()%>'">목록</button>
                                 <button type="submit" onclick="location.href='product_update.jsp?product_B_code=<%=board.getProduct_B_code()%>&product_code=<%=board.getProduct_code()%>'">수정</button>
-                                <button type="button" onclick="location.href='product_detail.jsp?product_B_code=<%=board.getProduct_B_code()%>'">목록</button>
                             </div>
                         </div>
                     </form>
+                    <%
+		        		} else {
+		        			response.sendRedirect("product.jsp");
+		        		}
+                    %>
                 </section>
 <jsp:include page="/views/footer.jsp"></jsp:include>
 </body>

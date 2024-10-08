@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product</title>
+    <title>상품 등록</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">    
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -63,8 +63,8 @@
                             </div>
                             <br><br><br>
                             <div class="button-container">
-                                <button type="submit" onclick="등록되었습니다.">등록</button>
                                 <button type="button" onclick="location.href='product_detail.jsp?product_B_code=<%=request.getParameter("product_B_code") %>'">목록</button>
+                                <button type="submit" onclick="등록되었습니다.">등록</button>
                             </div>
                         </div>
                     </form>
