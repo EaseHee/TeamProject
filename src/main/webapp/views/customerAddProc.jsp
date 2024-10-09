@@ -8,7 +8,7 @@
 <%
     // 폼에서 전달된 데이터 받기
     request.setCharacterEncoding("utf-8");
-    String customer_id = request.getParameter("customer_id"); // 회원 ID
+    String customer_id = request.getParameter("customer_id"); // 고객 ID
     String customer_name = request.getParameter("customer_name");
     String customer_gender = request.getParameter("customer_gender");
     String customer_tel = request.getParameter("customer_tel");
@@ -44,7 +44,7 @@
         // SQL 쿼리 실행
         statement.executeUpdate();
         
-        // 회원 목록 페이지로 리다이렉션
+        // 고객 목록 페이지로 리다이렉션
         response.sendRedirect("customer.jsp");
 
     } catch(Exception err) {

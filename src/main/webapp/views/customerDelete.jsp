@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>회원 삭제</title>
+    <title>고객 삭제</title>
 </head>
 <body>
 <%

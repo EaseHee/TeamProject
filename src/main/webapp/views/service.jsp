@@ -17,50 +17,6 @@
 	<link rel="stylesheet" href="assets/css/app.css">
 	<link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
-<!-- <style>
-a {
-	color: inherit; /* 부모 요소의 텍스트 색상을 따르도록 설정 */
-	text-decoration: none; /* 밑줄 없애기 */
-}
-
-a:visited {
-	color: inherit;
-}
-
-a:hover {
-	color: inherit;
-}
-
-a:active {
-	color: inherit;
-}
-
-.list-group-item.detail {
-	font-size: small;
-}
-
-.bi-plus-square {
-	display: inline-block;
-	transform: translateY(2px);
-}
-
-.bi-person-fill {
-	display: inline-block;
-	transform: translateY(6px);
-	margin-right: 5px;
-}
-
-.bi-bell-fill {
-	display: inline-block;
-	transform: translateY(3px);
-	margin-right: 5px;
-}
-
-.bi-box-arrow-right {
-	display: inline-block;
-	transform: translateY(3px);
-}
-</style> -->
 </head>
 <body>
 	<%

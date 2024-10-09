@@ -8,7 +8,7 @@
 <%
     request.setCharacterEncoding("utf-8");
 
-    // 수정할 회원 정보
+    // 수정할 고객 정보
     String customer_id = request.getParameter("customer_id");
     
     String customer_name = request.getParameter("customer_name");
@@ -30,7 +30,7 @@
         dataSource = (DataSource) context.lookup("java:comp/env/jdbc/acorn");
         connection = dataSource.getConnection();
 
-        // 회원 정보 수정
+        // 고객 정보 수정
         String sql = "UPDATE customer SET customer_name=?, customer_gender=?, customer_tel=?, customer_mail=?, customer_rank=?, customer_note=? WHERE customer_id=?";
         statement = connection.prepareStatement(sql);
         

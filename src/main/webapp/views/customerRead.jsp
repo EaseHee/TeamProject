@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원 정보</title>
+    <title>고객 정보</title>
         <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -59,7 +59,7 @@
                             <br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">회원 ID</span> 
+									<span class="input-group-text" id="basic-addon1">고객 ID</span> 
 									<input type="text" class="form-control" value="<%= request.getParameter("customer_id") %>"  readonly="readonly" />
 								</div>
 							</div>
@@ -94,14 +94,14 @@
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">회원등록일</span>
+                                    <span class="input-group-text" id="basic-addon1">고객등록일</span>
                                     <input type="text" class="form-control" value="<%= resultSet.getString("customer_reg") %>" readonly="readonly" />
                                 </div>
                             </div>
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">회원 등급</span>
+                                    <span class="input-group-text" id="basic-addon1">고객 등급</span>
                                     <input type="text" class="form-control" value="<%= resultSet.getString("customer_rank") %>" readonly="readonly" />
                                 </div>
                             </div>

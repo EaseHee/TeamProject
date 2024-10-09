@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>회원 등록</title>
+<title>고객 등록</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -48,7 +48,7 @@
 							<br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
-									<span class="input-group-text" id="basic-addon1">회원 연락처</span> 
+									<span class="input-group-text" id="basic-addon1">고객 연락처</span> 
 									<input type="text" class="form-control" name="customer_tel" placeholder="연락처를 입력해 주세요.">
 								</div>
 							</div>
@@ -62,7 +62,7 @@
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-    								<span class="input-group-text" id="basic-addon1">회원 등록일</span>
+    								<span class="input-group-text" id="basic-addon1">고객 등록일</span>
     								<input type="date" id="customer_reg" class="form-control" name="customer_reg" onclick="this.showPicker()">
 								</div>
 							<script>
