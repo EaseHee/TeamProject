@@ -26,16 +26,6 @@
 <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
 
 </head>
-<script>
-	function check() {
-		if (document.search.keyWord.value == "") {
-			document.search.keyWord.focus();
-			return;
-		}
-
-		document.search.submit();
-	}
-</script>
 <body>
 	<jsp:useBean id="noticeDAO" class="bean.NoticeDAO"></jsp:useBean>
 	<jsp:useBean id="noticeDTO" class="bean.NoticeDTO"></jsp:useBean>
