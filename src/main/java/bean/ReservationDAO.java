@@ -139,16 +139,6 @@ public class ReservationDAO {
             System.out.println("[getReservationDTOList] Class   : " + e.getClass().getSimpleName());
         } finally {
         	System.out.println("startDate : " + startDate + ", " +"endDate : " + endDate );
-        	//int st = Integer.parseInt(startDate);
-        	//int ed = Integer.parseInt(endDate);
-        	// 날짜 형식 정의
-//           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        	
-//        	LocalDate startDateStr = LocalDate.parse(startDate, formatter);
-//            LocalDate endDateStr = LocalDate.parse(endDate, formatter);
-//        	if(!startDateStr.isAfter(endDateStr)) {
-//        		System.out.println("시작 날짜를 종료 날짜보다 이후로 설정해주세요");
-//        	}
      
             freeConnection();
         }
@@ -227,7 +217,7 @@ public class ReservationDAO {
     }
     
     //reservationPost.jsp 
-    //예약자명 조회
+    //예약 고객명 조회
     public List<String> getAllCustomerNames() throws SQLException{
 		List<String> customerNames = new ArrayList<>();
 		String query = "SELECT customer_name FROM customer"; //'customer' 테이블에서 회원명 가져옴
@@ -276,7 +266,7 @@ public class ReservationDAO {
 	    return serviceNames;
 	}
     
-    //예약 서비스명 조회
+    //예약 직원명 조회
     public List<String> getAllMemberNames() throws SQLException {
 	    List<String> memberNames = new ArrayList<>();
 	    String query = "SELECT member_name FROM member"; // 'member' 테이블에서 서비스 명 가져옴
