@@ -22,15 +22,6 @@
 
 </head>
 <script>
-	function check() {
-		if(document.search.keyWord.value == "") {
-			document.search.keyWord.focus();
-			return;
-		}
-		
-		document.search.submit();
-	}
-	
 	function addProduct() {
 		var product_B_code = '<%=request.getParameter("product_B_code")%>';
 		window.location.href = 'product_add.jsp?product_B_code=' + product_B_code;
@@ -92,7 +83,7 @@
 					    <form method="get" action="product_detail.jsp?product_B_code=<%=product_B_code%>" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
 				        	<input type="hidden" name="product_B_code" value="<%=request.getParameter("product_B_code") %>"/>
 					        <input type="text" name="keyWord" placeholder="상품명으로 조회" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
-					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
+					        <input type="submit" class="btn btn-outline-success" value="조회">
 					    </form>
 					    <form class="col-4 d-flex"></form>
 					    <form class="col-4  d-flex justify-content-end align-items-end">
@@ -244,8 +235,7 @@
 	    		<% 
     			//productDAO에서 getProductList() 메서드를 호출 > 모든 상품을 가져옴
     			//prodDAO.getProductList(product_B_code, keyWord) > java.util.ArrayList
-    			ArrayList<ProductDTO> productList = (ArrayList<ProductDTO>) prodDAO.getProductList(product_B_code, keyWord);
-    			Set<ProductDTO> products = new HashSet<>(productList);
+    			ArrayList<ProductDTO> products = (ArrayList<ProductDTO>) prodDAO.getProductList(product_B_code, keyWord);
     			
     			for(ProductDTO product : products) {%>{
     				product_code : '<%=product.getProduct_code()%>',

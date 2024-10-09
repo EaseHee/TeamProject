@@ -79,6 +79,32 @@ public class ServiceDAO {
         return serviceSet;
     }
     
+    public List<ServiceDTO> getAllServicesForExcel() {
+        ArrayList<ServiceDTO> servicelist = new ArrayList<>();
+        String sql = "SELECT * FROM service";
+
+        try {
+            connection = dataSource.getConnection();
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                ServiceDTO serviceDTO = new ServiceDTO();
+                serviceDTO.setService_code(resultSet.getString("service_code"));
+                serviceDTO.setService_name(resultSet.getString("service_name"));
+                serviceDTO.setService_price(resultSet.getInt("service_price"));
+                servicelist.add(serviceDTO);
+            }
+        } catch (Exception e) {
+            System.out.println("[getAllServicesForExcel] Message : " + e.getMessage());
+            System.out.println("[getAllServicesForExcel] Class   : " + e.getClass().getSimpleName());
+        } finally {
+            freeConnection();
+        }
+
+        return servicelist;
+    }
+    
     public Set<ServiceDTO> getServicesByName(String service_name) {
         Set<ServiceDTO> serviceSet = new HashSet<>();
         String sql = "SELECT * FROM service WHERE service_name LIKE ?";
