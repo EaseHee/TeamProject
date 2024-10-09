@@ -20,16 +20,6 @@
     <link rel="stylesheet" href="assets/css/page.css">
 
 </head>
-<script>
-	function check() {
-		if(document.search.keyWord.value == "") {
-			document.search.keyWord.focus();
-			return;
-		}
-		
-		document.search.submit();
-	}
-</script>
 <body>
 	<jsp:useBean id="prodDAO" class="bean.ProductDAO"></jsp:useBean>
 	<jsp:useBean id="board" class="bean.ProductDTO"></jsp:useBean>
@@ -74,7 +64,7 @@
 	                <div class="row form-group">
 					    <form method="post" action="product.jsp" class="col-4 d-flex align-items-end" accept-charset="UTF-8">
 					        <input type="text" name="keyWord" placeholder="상품명으로 조회" class="form-control" value="<%= keyWord != null ? keyWord : "" %>">
-					        <input type="submit" class="btn btn-outline-success" onclick="check()" value="조회">
+					        <input type="submit" class="btn btn-outline-success" value="조회">
 					    </form >
 					    <form class="col-4 d-flex"></form>
 					    <form class="col-4 d-flex justify-content-end align-items-end">

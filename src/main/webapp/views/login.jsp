@@ -62,9 +62,11 @@
 						<p class="text-gray-600">
 							<a href="signup.jsp" class="font-bold">회원가입</a>
 						</p>
+						<!-- 비밀번호 찾기 개발 예정 주석 처리
 						<p>
-							<a class="font-bold" href="#">비밀번호를 잊으셨나요?</a>
+							<a class="font-bold" href="#">비밀번호를 잊으셨나요?</a> 
 						</p>
+						-->
 					</div>
 				</div>
 			</div>
