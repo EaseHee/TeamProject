@@ -21,18 +21,7 @@
     <link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
 
 </head>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script>
-	function check() {
-		if(document.search.keyWord.value == "") {
-			document.search.keyWord.focus();
-			return;
-		}
-		
-		document.search.submit();
-	}
-</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <body>
 	<jsp:useBean id="memberDAO" class="bean.MemberDAO"></jsp:useBean>
 	<jsp:useBean id="memberDTO" class="bean.MemberDTO"></jsp:useBean>
@@ -57,7 +46,6 @@
 		int nowBlock = 0;     //현재 블럭
 		
 		ArrayList<MemberDTO> list = (ArrayList<MemberDTO>)memberDAO.getMemberList(keyField, filterValue);
-		//ArrayList<CustomerDTO> list = (ArrayList<CustomerDTO>) dao.getCustomerDTOList(keyField, filterValue);
 		
 		totalcnt = list.size();
 				
@@ -200,7 +188,7 @@
 		<script>
 	function downloadExcel() {
 		var memberData = [//자바 객체 데이터를 jsp 배열로 변환
-		<%//memberDao에서 getMemberList 메서드를 호출>모든 멤버 데이터를 가져옴
+		<%//memberDAO에서 getMemberList 메서드를 호출하여 모든 멤버 데이터를 가져옴
 			List<MemberDTO> members = memberDAO.getMemberList(keyField, keyWord);
 			for (MemberDTO member : members) {%>{
                 member_id : '<%=member.getMember_id()%>',
@@ -215,7 +203,7 @@
 		var ws_data = [['직원 사번', '직원 명', '직원 직책', '직원 연락처']]; // 엑셀 행 
     
 		// 데이터를 행별로 추가
-		serviceData.forEach(function(service) {
+		memberData.forEach(function(member) {
 			ws_data.push([member.member_id, member.member_name, member.member_job, member.member_tel]);
 		});
 
@@ -223,7 +211,7 @@
 		XLSX.utils.book_append_sheet(wb, ws, '직원_관리');//엑셀에 변환한 시트를 추가하는 함수
     
 		// 엑셀 파일 저장
-		XLSX.writeFile(wb, '서비스_관리.xlsx');
+		XLSX.writeFile(wb, '직원_관리.xlsx');
 		}    
     </script>
 </body>

@@ -85,7 +85,7 @@
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
 									<span class="input-group-text" id="basic-addon1">입사일</span> 
-									<input type="date" onclick="this.showPicker()" class="form-control" name="member_date" value="<%=memberDto.getMember_date()%>" readonly="readonly"> 
+									<input type="date" class="form-control" name="member_date" value="<%=memberDto.getMember_date()%>" readonly="readonly"> 
 								</div>
 							</div>
 							<br><br><br>
