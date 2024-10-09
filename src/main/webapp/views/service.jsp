@@ -237,7 +237,7 @@ a:active {
 			function downloadExcel() {
 			var serviceData = [//자바 객체 데이터를 jsp 배열로 변환
 			<%//serDao에서 getAllServices() 메서드를 호출>모든 서비스를 가져옴
-				Set<ServiceDTO> services = serDao.getAllServices();
+				ArrayList<ServiceDTO> services = (ArrayList<ServiceDTO>) serDao.getAllServicesForExcel();
 				for (ServiceDTO service : services) {%>{
                     service_code: '<%=service.getService_code()%>',
                     service_name: '<%=service.getService_name()%>',
