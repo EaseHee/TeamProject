@@ -137,7 +137,7 @@
 					<option value="customer_name">이름</option>
 					<option value="customer_rank">등급</option>
 				</select> <input type="text" name="filterValue" id="filterValue"
-					placeholder="검색" class="form-control"
+					placeholder="검색어를 입력해주세요." class="form-control"
 					value="<%= filterValue != null ? filterValue : "" %>"> <input
 					type="submit" class="btn btn-outline-success" value="조회">
 			</form>
@@ -161,8 +161,8 @@
 											<th width="5%" class="text-center">성별</th>
 											<th width="15%" class="text-center">연락처</th>
 											<th width="15%" class="text-center">e-mail</th>
-											<th width="10%" class="text-center">회원 등록일</th>
-											<th width="10%" class="text-center">회원등급</th>
+											<th width="10%" class="text-center">고객 등록일</th>
+											<th width="10%" class="text-center">고객등급</th>
 											<th width="30%" class="text-center">특이사항</th>
 										</tr>
 									</thead>
@@ -264,19 +264,19 @@
 	
 	        
 	        var wb = XLSX.utils.book_new(); //엑셀 파일 생성 함수
-	        var ws_data = [['회원 ID', '회원 이름', '회원 성별', '회원 전화번호', '이메일', '회원 등록일', '특이사항']];  // 첫 번째 행 (헤더)
+	        var ws_data = [['고객 ID', '고객 이름', '고객 성별', '고객 연락처', 'e-mail', '고객 등록일', '고객 등급', '특이사항']];  // 첫 번째 행 (헤더)
 	        
 	        // 데이터를 행별로 추가
 	        customerData.forEach(function(customer) {
-	            ws_data.push([customer.customer_id, customer.customer_name, customer.customer_gender, customer.customer_tel, customer.customer_mail, customer.customer_reg, customer.customer_note]);
+	            ws_data.push([customer.customer_id, customer.customer_name, customer.customer_gender, customer.customer_tel, customer.customer_mail, customer.customer_reg, customer.customer_rank, customer.customer_note]);
 	        });
 	
 	        // 시트 생성 및 엑셀 파일에 추가
 	        var ws = XLSX.utils.aoa_to_sheet(ws_data); 
-	        XLSX.utils.book_append_sheet(wb, ws, '회원_관리'); // 엑셀에 시트를 추가
+	        XLSX.utils.book_append_sheet(wb, ws, '고객_관리'); // 엑셀에 시트를 추가
 	
 	        // 엑셀 파일 저장
-	        XLSX.writeFile(wb, '회원_관리.xlsx');
+	        XLSX.writeFile(wb, '고객_관리.xlsx');
 	    }
 	</script>
 
