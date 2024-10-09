@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="/TeamProject/views/assets/css/page.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
+
 <body>
 	<jsp:useBean id="customerDAO" class="bean.CustomerDAO"></jsp:useBean>
 	<jsp:useBean id="board" class="bean.CustomerDTO"></jsp:useBean>
