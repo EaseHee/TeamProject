@@ -24,14 +24,14 @@
                         <div class="row" id="table-hover-row">
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">회원 ID</span>
+                                    <span class="input-group-text" id="basic-addon1">고객 ID</span>
                                     <input type="text" class="form-control" name="customer_id" placeholder="아이디를 입력해 주세요." />
                                 </div>
                             </div>
                             <br><br><br>
 							<div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">회원 이름</span>
+                                    <span class="input-group-text" id="basic-addon1">고객 이름</span>
                                     <input type="text" class="form-control" name="customer_name" placeholder="이름을 입력해 주세요." />
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
 							<br><br><br>
 							<div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">회원 이메일</span>
+                                    <span class="input-group-text" id="basic-addon1">고객 이메일</span>
                                     <input type="text" class="form-control" name="customer_mail" placeholder="이메일을 입력해 주세요.">
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                             <br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">회원 등급</span>
+                                    <span class="input-group-text" id="basic-addon1">고객 등급</span>
 						            <select class="choices form-select search-filter" name="customer_rank" style="width: 80px; display: inline-block;">
 							            <option value="GOLD">GOLD</option>
 							            <option value="SILVER">SILVER</option>
@@ -88,7 +88,7 @@
 							<br><br><br>
                             <div class="col-lg-12 mb-12">
                                 <div class="input-group mb-12">
-                                    <span class="input-group-text" id="basic-addon1">회원 특이사항</span>
+                                    <span class="input-group-text" id="basic-addon1">고객 특이사항</span>
                                     <input type="text" class="form-control" name="customer_note" placeholder="특이사항을 입력해 주세요.">
                                 </div>
                             </div>
