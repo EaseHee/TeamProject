@@ -78,7 +78,7 @@
 					id="endDate" name="endDate"> <input type="submit"
 					class="btn btn-outline-success" value="조회">
 			</form>
-			<form class="col-4"></form>
+			<form class="col-4 d-flex"></form>
 			<form method="post" action="customer.jsp"
 				class="col-4 d-flex justify-content-end align-items-end search-filter">
 				<select name="keyField" class="choices form-select"

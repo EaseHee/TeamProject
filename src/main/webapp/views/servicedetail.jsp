@@ -59,7 +59,7 @@
                             <div class="button-container">
                             <button type="button" onclick="location.href='service.jsp'">목록</button>
                                 <button type="button" onclick="location.href='serviceupdate.jsp?code=<%= service.getService_code() %>'">수정</button>
-                                <button type="button" onclick="confirmDelete('<%=service.getService_code() %>')">삭제</button>
+                                <%-- <button type="button" onclick="confirmDelete('<%=service.getService_code() %>')">삭제</button> --%>
                                 
                             </div>
                         </div>

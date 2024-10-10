@@ -59,9 +59,9 @@
 						<button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">로그인</button>
 					</form>
 					<div class="text-center mt-5 text-lg fs-4">
-						<p class="text-gray-600">
+						<!-- <p class="text-gray-600">
 							<a href="signup.jsp" class="font-bold">회원가입</a>
-						</p>
+						</p> -->
 						<!-- 비밀번호 찾기 개발 예정 주석 처리
 						<p>
 							<a class="font-bold" href="#">비밀번호를 잊으셨나요?</a> 

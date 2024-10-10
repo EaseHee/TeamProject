@@ -43,7 +43,7 @@
                     <div class="col-lg-12 mb-12">
                         <div class="input-group mb-12">
                             <span class="input-group-text" id="basic-addon1">서비스 명</span>
-                            <input type="text" class="form-control" name="service_name" value="<%= service.getService_name() %>" required>
+                            <input type="text" class="form-control" name="service_name" value="<%= service.getService_name() %>" required readonly="readonly">
                         </div>
                     </div>
                     <br><br><br>
