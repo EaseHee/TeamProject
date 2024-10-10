@@ -81,7 +81,7 @@
                             <div class="button-container">
                             <button type="button" onclick="location.href='member.jsp'">목록</button>
                                 <button type="button" onclick="location.href='member_Update.jsp?member_id=<%= memberDto.getMember_id() %>'">수정</button>
-                                <button type="button" onclick="location.href='member_Delete.jsp?member_id=<%= memberDto.getMember_id() %>'">삭제</button>
+                                <button type="button" onclick="confirmDelete('<%= memberDto.getMember_id() %>')">삭제</button>
                                 
                             </div>
                         </div>
