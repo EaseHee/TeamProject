@@ -99,7 +99,7 @@
                             
                             <div class="button-container">
                             <button type="button" onclick="location.href='member.jsp'">목록</button>
-                                <button type="submit" onclick="수정되었습니다.">등록</button>
+                                <button type="submit" onclick="alert('수정되었습니다.')">수정</button>
                                 
                             </div>
                         </div>
