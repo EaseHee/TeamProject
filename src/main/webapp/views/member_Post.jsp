@@ -93,15 +93,8 @@
                             <br><br><br>
                             <div class="button-container">
                             	<button type="button" onclick="location.href='member.jsp'">목록</button>
-                                <button type="submit" onclick="checkId()" >등록</button>
-                                <script>
-                                	function checkId() {
-                                		const newId = document.getElementById("newId");
-                                		
-                                		if(newId == )
-                                		
-                                	}
-                                </script>
+                                <button type="submit" onclick="alert('등록되었습니다.')" >등록</button>
+\
                                 
                             </div>
                         </div>
