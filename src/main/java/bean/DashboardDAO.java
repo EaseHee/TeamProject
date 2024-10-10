@@ -178,6 +178,7 @@ public class DashboardDAO {
                     COUNT(MONTH(reservation_date)) service_count 
                 FROM service s 
                 INNER JOIN reservation r ON s.service_code = r.service_code 
+                WHERE YEAR(reservation_date) = YEAR(now())
                 GROUP BY service_name, month 
                 ORDER BY s.service_code ASC, reservation_date ASC
                 """;
