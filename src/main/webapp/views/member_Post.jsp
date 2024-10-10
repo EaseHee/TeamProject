@@ -43,11 +43,10 @@
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
 									<span class="input-group-text" id="basic-addon1">사번</span> 
-									<input type="text" class="form-control" name="member_id" placeholder="  사번을 입력해 주세요" value="new_id" required="required" />
-									
+									<input id="newId" type="text" class="form-control" name="member_id" placeholder="  사번을 입력해 주세요"  required="required" />			
 								</div>
-								<input type="text" class="form-control"  placeholder="실장은 B110번대, &nbsp;디자이너는 B120번대, &nbsp;인턴은 B130번대, &nbsp;파트타임은 B140번대로 입력해주세요" readonly="readonly"/> 
-							</div><br>
+								
+							</div>
 							<br><br><br>
 							<div class="col-lg-12 mb-12">
 								<div class="input-group mb-12">
@@ -94,7 +93,15 @@
                             <br><br><br>
                             <div class="button-container">
                             	<button type="button" onclick="location.href='member.jsp'">목록</button>
-                                <button type="submit" onclick="등록되었습니다.">등록</button>
+                                <button type="submit" onclick="checkId()" >등록</button>
+                                <script>
+                                	function checkId() {
+                                		const newId = document.getElementById("newId");
+                                		
+                                		if(newId == )
+                                		
+                                	}
+                                </script>
                                 
                             </div>
                         </div>

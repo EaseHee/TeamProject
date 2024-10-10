@@ -425,7 +425,30 @@ public class ReservationDAO {
                     statement.setInt(1, new_cus_id);
                     statement.setString(2, new_ser_code);
                     statement.executeUpdate();
+                } 
+                else if (old_cus_id == new_cus_id) {
+                	//customer_id에 customer_total 감소
+                	sql = "UPDATE customer c "
+          		    	     + "JOIN service s ON c.customer_id = ? AND s.service_code = ? "
+          		    	     + "SET c.customer_total = c.customer_total - s.service_price";
+                       statement = connection.prepareStatement(sql);
+                       statement.setInt(1, old_cus_id);
+                       statement.setString(2, old_ser_code);
+                       statement.executeUpdate();
+                       
+                    // 새로운 customer_id의 customer_total 증가
+                       sql = "UPDATE customer c "
+          		    	     + "JOIN service s ON c.customer_id = ? AND s.service_code = ? "
+          		    	     + "SET c.customer_total = c.customer_total + s.service_price";
+                       statement = connection.prepareStatement(sql);
+                       statement.setInt(1, new_cus_id);
+                       statement.setString(2, new_ser_code);
+                       statement.executeUpdate();
                 }
+                
+                
+                
+                
 
                 // res 테이블 수정
                 sql = "UPDATE reservation SET customer_id = ?, service_code = ?, reservation_date = ?, reservation_time = ?, member_id = ?, reservation_comm = ? WHERE reservation_no = ?";

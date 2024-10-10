@@ -45,7 +45,17 @@ public class MemberDAO {
 		String sql = null;
 
 		if (keyWord == null || keyWord.isEmpty()) {
-			sql = "SELECT member_id, member_name, member_job, member_tel FROM member";
+			sql = "SELECT member_id, member_name, member_job, member_tel FROM member ORDER BY "
+					+ "    CASE member_job"
+					+ "        WHEN '원장' THEN 1"
+					+ "        WHEN '부원장' THEN 2"
+					+ "        WHEN '실장' THEN 3"
+					+ "        WHEN '디자이너' THEN 4"
+					+ "        WHEN '인턴' THEN 5"
+					+ "        WHEN '파트타임' THEN 6"
+					+ "        ELSE 7 "
+					+ "    END;";
+			//기타 직책은 ELSE 7 에 정렬
 		} 
 		else {
 			sql = "SELECT member_id, member_name, member_job, member_tel FROM member WHERE " + keyField + " LIKE '%" + keyWord + "%'";
