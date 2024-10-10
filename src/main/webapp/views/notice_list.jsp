@@ -113,7 +113,7 @@
 														</tr>
 												<%			// 검색어를 입력하지 않으면 페이지당 공지 수에서 중요 공지 수를 뺀 만큼 페이지마다 일반 공지 출력
 														}	// 검색어를 입력하면 검색어와 일치하는 모든 공지 출력
-														for (int i = beginPerPage; i < beginPerPage + numPerPage - totalchecked && i < list.size(); i++) {
+														for (int i = beginPerPage; i < beginPerPage + normalPerPage && i < list.size(); i++) {
 															noticeDTO = list.get(i);
 												%>
 														<tr>
